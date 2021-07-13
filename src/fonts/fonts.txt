@@ -1,0 +1,9 @@
+English
+font-family: 'Otomanopee One', sans-serif;
+font-family: 'Inconsolata', monospace;
+font-family: 'Yomogi', cursive;
+font-family: 'Russo One', sans-serif;
+font-family: 'Tourney', cursive;
+font-family: 'Zilla Slab', serif;
+
+Korea
