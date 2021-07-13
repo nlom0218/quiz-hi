@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { faSearch, faMoon, faPencilAlt, faPlay, faUser, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 import { faClipboard, faListAlt } from "@fortawesome/free-regular-svg-icons"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import logo from "../logo.png"
+import headerNav from "../animation/headerNav"
 
 const SHeader = styled.div`
   box-shadow: 3px 1px 1px gray;
@@ -24,6 +24,9 @@ const Nav = styled.li`
   svg {
     font-size: 16px;
     cursor: pointer;
+    &:hover {
+      animation: ${headerNav} 1.5s linear infinite forwards;
+    }
   }
 `
 
