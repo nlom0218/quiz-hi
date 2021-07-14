@@ -30,7 +30,7 @@ const JoinMsg = styled.div`
 const LoginText = styled.div`
   grid-column: 1 / 2;
   grid-row: 2 / 3;
-  background-color: rgb(67, 216, 122, 0.3);
+  background-color: rgb(67, 216, 122, 0.2);
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -69,7 +69,7 @@ const LoginBtn = styled.div`
 const SignUpText = styled.div`
   grid-column: 2 / 3;
   grid-row: 2 / 3;
-  background-color: rgb(146, 248, 185, 0.3);
+  background-color: rgb(146, 248, 185, 0.2);
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -114,7 +114,7 @@ const Join = () => {
       </JoinText>
       <LoginText>
         <LoginTitle>계정 있으신가요?</LoginTitle>
-        <LoginMsg>로그인하여 당신의 퀴즈를 소개해주세요!</LoginMsg>
+        <LoginMsg>로그인하여 당신의 퀴즈를 공유해주세요!</LoginMsg>
         <Link to="/login">
           <LoginBtn>
             로그인하기

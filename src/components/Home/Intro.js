@@ -20,7 +20,7 @@ const IntroText = styled.div`
   top: 0;
   width: 1200px;
   height: 800px;
-  background-color: ${props => props.darkMode ? "rgba(0, 0, 0, 0.5)" : "rgba(255, 255, 255, 0.5)"};
+  background-color: ${props => props.darkMode ? "rgba(0, 0, 0, 0.6)" : "rgba(255, 255, 255, 0.6)"};
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -42,7 +42,7 @@ const IntroMsg = styled.div`
   display: inline-block;
   height: 17px;
   overflow: hidden;
-  animation: ${typingAni} 8s steps(65, end) 1;
+  animation: ${typingAni} 4s steps(30, end) 1;
   font-weight: 600;
 `
 
@@ -53,7 +53,7 @@ const Intro = () => {
     <IntroText darkMode={darkMode}>
       <IntroTitle>WelCome To Quiz Hi</IntroTitle>
       <IntroMsg>
-        QUIZ HI에 오신 여러분들을 환영합니다. 이 곳에서 퀴즈를 쉽고 간편하게 만들고 많은 사람들과 공유해보세요!
+        QUIZ HI에 오신 여러분들을 환영합니다!
       </IntroMsg>
     </IntroText>
   </SIntro>);
