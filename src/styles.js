@@ -12,4 +12,8 @@ export const GlobalStyle = createGlobalStyle`
     min-width: 1200px;
     height: 1000vh;
   }
+  a {
+    text-decoration: none;
+    color: black;
+  }
 `

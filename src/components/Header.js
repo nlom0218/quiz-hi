@@ -4,6 +4,7 @@ import { faSearch, faMoon, faPencilAlt, faPlay, faUser, faSignOutAlt } from '@fo
 import { faClipboard, faListAlt } from "@fortawesome/free-regular-svg-icons"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import headerNav from "../animation/headerNav"
+import { Link } from 'react-router-dom';
 
 const SHeader = styled.div`
   box-shadow: 3px 1px 1px gray;
@@ -35,15 +36,18 @@ const SiteName = styled.li`
   display: flex;
   justify-content: center;
   align-items: center;
-  span {
-    cursor: pointer;
-    font-size: 24px;
-    letter-spacing: 10px;
-    font-family: 'Zilla Slab', serif;
-    font-weight: 600;
-    text-transform: uppercase;
-  }
 `
+
+const SiteNameText = styled.span`
+  cursor: pointer;
+  font-size: 24px;
+  letter-spacing: 10px;
+  font-family: 'Zilla Slab', serif;
+  font-weight: 600;
+  text-transform: uppercase;
+`
+
+
 
 const Header = () => {
   return (<SHeader>
@@ -53,7 +57,7 @@ const Header = () => {
       <Nav><FontAwesomeIcon icon={faListAlt} /></Nav>
       <Nav><FontAwesomeIcon icon={faClipboard} /></Nav>
       <SiteName>
-        <span>quiz Hi</span>
+        <SiteNameText><Link to="/">quiz Hi</Link></SiteNameText>
       </SiteName>
       <Nav><FontAwesomeIcon icon={faPencilAlt} /></Nav>
       <Nav><FontAwesomeIcon icon={faPlay} /></Nav>

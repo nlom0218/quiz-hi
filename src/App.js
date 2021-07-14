@@ -8,8 +8,8 @@ function App() {
   return (
     <React.Fragment>
       <GlobalStyle />
-      <Header />
       <Router>
+        <Header />
         <Switch>
           <Route exact path="/"><Home /></Route>
         </Switch>
