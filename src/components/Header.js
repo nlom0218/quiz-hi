@@ -9,16 +9,16 @@ import { useReactiveVar } from '@apollo/client';
 import { darkModeVar, disableDarkMode, enableDarkMode } from '../apollo';
 
 const SHeader = styled.div`
-  background-color: ${props => props.theme.fontColor};
+  /* background-color: ${props => props.theme.fontColor}; */
 `
 
 const List = styled.ul`
-  width: 1000px;
+  width: 1100px;
   margin: 0 auto;
   height: 50px;
   display: grid;
   grid-template-columns: repeat(10, 1fr);
-  color: ${props => props.theme.bgColor};
+  /* color: ${props => props.theme.bgColor}; */
 `
 
 const Nav = styled.li`
@@ -49,7 +49,7 @@ const SiteNameText = styled.span`
   font-weight: 600;
   text-transform: uppercase;
   a {
-    color: ${props => props.theme.bgColor};
+    color: ${props => props.theme.fontColor};
   }
 `
 
