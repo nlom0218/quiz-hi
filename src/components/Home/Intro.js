@@ -1,6 +1,8 @@
+import { useReactiveVar } from '@apollo/client';
 import React from 'react';
 import styled from 'styled-components';
 import typingAni from '../../animation/typingAni';
+import { darkModeVar } from '../../apollo';
 import introImg from "../../images/Home/intro.jpg"
 
 const SIntro = styled.div`
@@ -18,7 +20,7 @@ const IntroText = styled.div`
   top: 0;
   width: 1000px;
   height: 600px;
-  background-color: rgba(255,255,255,0.5);
+  background-color: ${props => props.darkMode ? "rgba(0, 0, 0, 0.5)" : "rgba(255, 255, 255, 0.5)"};
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -38,16 +40,17 @@ const IntroMsg = styled.div`
   margin-top: 20px;
   position:relative;
   display: inline-block;
-  height: 18px;
+  height: 17px;
   overflow: hidden;
   animation: ${typingAni} 8s steps(65, end) 1;
   font-weight: 800;
 `
 
 const Intro = () => {
+  const darkMode = useReactiveVar(darkModeVar)
   return (<SIntro>
     <IntroImg src={introImg} />
-    <IntroText>
+    <IntroText darkMode={darkMode}>
       <IntroTitle>WelCome To Quiz Hi</IntroTitle>
       <IntroMsg>
         QUIZ HI에 오신 여러분들을 환영합니다. 이 곳에서 퀴즈를 쉽고 간편하게 만들고 많은 사람들과 공유해보세요!

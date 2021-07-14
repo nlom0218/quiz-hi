@@ -1,21 +1,24 @@
 import React from 'react';
 import styled from 'styled-components';
-import { faSearch, faMoon, faPencilAlt, faPlay, faUser, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
+import { faSearch, faMoon, faPencilAlt, faPlay, faUser, faSignOutAlt, faSun } from '@fortawesome/free-solid-svg-icons';
 import { faClipboard, faListAlt } from "@fortawesome/free-regular-svg-icons"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import headerNav from "../animation/headerNav"
 import { Link } from 'react-router-dom';
+import { useReactiveVar } from '@apollo/client';
+import { darkModeVar, disableDarkMode, enableDarkMode } from '../apollo';
 
 const SHeader = styled.div`
-  box-shadow: 3px 1px 1px gray;
+  background-color: ${props => props.theme.fontColor};
 `
 
 const List = styled.ul`
   width: 1000px;
   margin: 0 auto;
-  height: 60px;
+  height: 50px;
   display: grid;
   grid-template-columns: repeat(10, 1fr);
+  color: ${props => props.theme.bgColor};
 `
 
 const Nav = styled.li`
@@ -45,14 +48,25 @@ const SiteNameText = styled.span`
   font-family: 'Zilla Slab', serif;
   font-weight: 600;
   text-transform: uppercase;
+  a {
+    color: ${props => props.theme.bgColor};
+  }
 `
 
 
 
 const Header = () => {
+  const darkMode = useReactiveVar(darkModeVar)
+  const onCLickDarkMode = () => {
+    if (darkMode === true) {
+      disableDarkMode()
+    } else if (darkMode === false) {
+      enableDarkMode()
+    }
+  }
   return (<SHeader>
     <List>
-      <Nav><FontAwesomeIcon icon={faMoon} /></Nav>
+      <Nav><FontAwesomeIcon icon={darkMode ? faMoon : faSun} onClick={onCLickDarkMode} /></Nav>
       <Nav><FontAwesomeIcon icon={faSearch} /></Nav>
       <Nav><FontAwesomeIcon icon={faListAlt} /></Nav>
       <Nav><FontAwesomeIcon icon={faClipboard} /></Nav>
