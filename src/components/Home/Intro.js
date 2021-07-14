@@ -6,20 +6,20 @@ import { darkModeVar } from '../../apollo';
 import introImg from "../../images/Home/intro.jpg"
 
 const SIntro = styled.div`
- grid-column: 2 / 12;
+ grid-column: 1 / 13;
  position: relative;
 `
 
 const IntroImg = styled.img`
   width: 100%;
-  height: 600px;
+  height: 800px;
 `
 
 const IntroText = styled.div`
   position: absolute;
   top: 0;
-  width: 1000px;
-  height: 600px;
+  width: 1200px;
+  height: 800px;
   background-color: ${props => props.darkMode ? "rgba(0, 0, 0, 0.5)" : "rgba(255, 255, 255, 0.5)"};
   display: flex;
   flex-direction: column;
@@ -43,7 +43,7 @@ const IntroMsg = styled.div`
   height: 17px;
   overflow: hidden;
   animation: ${typingAni} 8s steps(65, end) 1;
-  font-weight: 800;
+  font-weight: 600;
 `
 
 const Intro = () => {
