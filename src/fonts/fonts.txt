@@ -7,3 +7,6 @@ font-family: 'Tourney', cursive;
 font-family: 'Zilla Slab', serif;
 
 Korea
+font-family: 'Do Hyeon', sans-serif;
+font-family: 'Nanum Myeongjo', serif;
+font-family: 'Sunflower', sans-serif;

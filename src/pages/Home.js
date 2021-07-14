@@ -1,10 +1,11 @@
 import React from 'react';
-import styled from 'styled-components';
 import BasicContainer from '../components/BasicContainer';
+import Intro from '../components/Home/Intro';
+
 
 const Home = () => {
   return (<BasicContainer>
-    Home
+    <Intro />
   </BasicContainer>);
 }
 

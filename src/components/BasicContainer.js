@@ -4,15 +4,15 @@ import styled from 'styled-components';
 const Container = styled.div`
   width: 1200px;
   margin: 0 auto;
-  margin-top: 50px;
+  margin-top:20px;
   display: grid;
   grid-template-columns: repeat(12, 1fr);
   grid-template-rows: auto;
 `
 
-const BasicContainer = ({ child }) => {
+const BasicContainer = ({ children }) => {
   return (<Container>
-    {child}
+    {children}
   </Container>);
 }
 

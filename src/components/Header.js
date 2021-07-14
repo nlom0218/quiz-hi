@@ -11,9 +11,9 @@ const SHeader = styled.div`
 `
 
 const List = styled.ul`
-  width: 1200px;
+  width: 1000px;
   margin: 0 auto;
-  height: 50px;
+  height: 60px;
   display: grid;
   grid-template-columns: repeat(10, 1fr);
 `

@@ -4,6 +4,7 @@ import reset from "styled-reset";
 export const GlobalStyle = createGlobalStyle`
   ${reset};
   body {
+    font-family: 'Nanum Myeongjo', serif;
   }
   * {
     box-sizing: border-box;
