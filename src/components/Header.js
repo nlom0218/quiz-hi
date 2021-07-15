@@ -15,7 +15,7 @@ const SHeader = styled.div`
 const List = styled.ul`
   width: 1100px;
   margin: 0 auto;
-  height: 50px;
+  margin-top: 40px;
   display: grid;
   grid-template-columns: repeat(10, 1fr);
   /* color: ${props => props.theme.bgColor}; */
@@ -66,7 +66,7 @@ const Header = () => {
   }
   return (<SHeader>
     <List>
-      <Nav><FontAwesomeIcon icon={darkMode ? faMoon : faSun} onClick={onCLickDarkMode} /></Nav>
+      <Nav><FontAwesomeIcon icon={darkMode ? faSun : faMoon} onClick={onCLickDarkMode} darkMode={darkMode} /></Nav>
       <Nav><FontAwesomeIcon icon={faSearch} /></Nav>
       <Nav><FontAwesomeIcon icon={faListAlt} /></Nav>
       <Nav><FontAwesomeIcon icon={faClipboard} /></Nav>

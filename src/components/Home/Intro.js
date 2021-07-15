@@ -28,9 +28,8 @@ const IntroText = styled.div`
 `
 
 const IntroTitle = styled.div`
-  font-family: 'Russo One', sans-serif;
   font-size: 36px;
-  font-weight: 600;
+  font-weight: 800;
   text-transform: uppercase;
   letter-spacing: 10px;
 `

@@ -44,6 +44,7 @@ const LoginText = styled.div`
     color: ${props => props.theme.bgColor};
   }
   }
+  box-shadow: 0px 17px 6px -14px rgba(0,0,0,0.2);
 `
 
 const LoginTitle = styled.div`
@@ -83,6 +84,7 @@ const SignUpText = styled.div`
     color: ${props => props.theme.bgColor};
   }
   }
+  box-shadow: 0px 17px 6px -14px rgba(0,0,0,0.2);
 `
 
 const SignUpTitle = styled.div`
@@ -123,7 +125,7 @@ const Join = () => {
       </LoginText>
       <SignUpText>
         <SignUpTitle>계정 없으신가요?</SignUpTitle>
-        <SignUpMsg>계정을 생성하여 함꼐 퀴즈를 만드시는건 어때요?</SignUpMsg>
+        <SignUpMsg>계정을 생성하여 함께 퀴즈를 만드시는건 어때요?</SignUpMsg>
         <Link to="/create-account">
           <SignUpBtn>
             계정 생성하기
