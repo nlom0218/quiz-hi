@@ -75,7 +75,13 @@ const Header = () => {
   }
   return (<SHeader>
     <List>
-      <Nav><FontAwesomeIcon icon={darkMode ? faSun : faMoon} onClick={onCLickDarkMode} /></Nav>
+      <Nav>
+        <FontAwesomeIcon
+          icon={darkMode ? faSun : faMoon}
+          onClick={onCLickDarkMode}
+          style={{ color: `${darkMode ? "#ff765e" : "#212121"}` }}
+        />
+      </Nav>
       <Nav><FontAwesomeIcon icon={faSearch} /></Nav>
       <Nav><FontAwesomeIcon icon={faListAlt} /></Nav>
       <Nav><FontAwesomeIcon icon={faClipboard} /></Nav>

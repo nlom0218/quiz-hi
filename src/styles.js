@@ -4,7 +4,7 @@ import { pageFadeIn } from "./animation/fade";
 
 const color = {
   black: "#212121",
-  white: "#FFFFFF"
+  white: "#f9f9f9"
 }
 
 export const lightTheme = {
@@ -20,6 +20,7 @@ export const GlobalStyle = createGlobalStyle`
   ${reset};
   body {
     font-family: 'Nanum Myeongjo', serif;
+    background-color: ${props => props.theme.bgColor};
   }
   * {
     box-sizing: border-box;
