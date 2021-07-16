@@ -23,16 +23,20 @@ export const GlobalStyle = createGlobalStyle`
   * {
     box-sizing: border-box;
     user-select: none;
+    letter-spacing: 2px;
   }
   #root {
     min-width: 1200px;
-    height: 1000vh;
     background-color: ${props => props.theme.bgColor};
     color: ${props => props.theme.fontColor};
     transition: all 0.6s ease 0s;
+    font-size: 16px;
   }
   a {
     text-decoration: none;
     color: black;
+  }
+  input {
+    all: unset;
   }
 `

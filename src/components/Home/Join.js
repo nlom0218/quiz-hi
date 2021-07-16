@@ -45,6 +45,7 @@ const Container = styled.div`
     color: ${props => props.theme.bgColor};
     }
   }
+  margin-bottom: 40px;
 `
 
 const Title = styled.div`
@@ -71,7 +72,7 @@ const Join = () => {
       <Container>
         <Title>계정 없으신가요?</Title>
         <Msg>계정을 생성하여 함께 퀴즈를 만드시는건 어때요?</Msg>
-        <NavBtn route="create-account" text="계정 생성하기" />
+        <NavBtn route="create-account" text="회원가입하기" />
       </Container>
     </SJoin>
   );

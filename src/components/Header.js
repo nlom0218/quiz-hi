@@ -15,7 +15,7 @@ const SHeader = styled.div`
 const List = styled.ul`
   width: 1100px;
   margin: 0 auto;
-  margin-top: 40px;
+  padding-top: 40px;
   display: grid;
   grid-template-columns: repeat(10, 1fr);
   /* color: ${props => props.theme.bgColor}; */
@@ -45,7 +45,6 @@ const SiteNameText = styled.span`
   cursor: pointer;
   font-size: 24px;
   letter-spacing: 10px;
-  font-family: 'Zilla Slab', serif;
   font-weight: 600;
   text-transform: uppercase;
   a {
@@ -66,7 +65,7 @@ const Header = () => {
   }
   return (<SHeader>
     <List>
-      <Nav><FontAwesomeIcon icon={darkMode ? faSun : faMoon} onClick={onCLickDarkMode} darkMode={darkMode} /></Nav>
+      <Nav><FontAwesomeIcon icon={darkMode ? faSun : faMoon} onClick={onCLickDarkMode} /></Nav>
       <Nav><FontAwesomeIcon icon={faSearch} /></Nav>
       <Nav><FontAwesomeIcon icon={faListAlt} /></Nav>
       <Nav><FontAwesomeIcon icon={faClipboard} /></Nav>

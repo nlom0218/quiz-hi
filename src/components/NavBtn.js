@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import { MoveTopScreen } from '../sharedFn';
 
 const SNavBtn = styled.div`
   border: 1px solid ${props => props.theme.fontColor};
@@ -15,7 +16,7 @@ const SNavBtn = styled.div`
 
 const NavBtn = ({ route, text }) => {
   return (
-    <Link to={`/${route}`}>
+    <Link to={`/${route}`} onClick={() => MoveTopScreen()}>
       <SNavBtn>
         {text}
       </SNavBtn>
