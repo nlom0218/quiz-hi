@@ -1,12 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
-import { faSearch, faMoon, faPencilAlt, faPlay, faUser, faSignOutAlt, faSun } from '@fortawesome/free-solid-svg-icons';
+import { faSearch, faMoon, faPencilAlt, faPlay, faUser, faSignOutAlt, faSun, faSignInAlt } from '@fortawesome/free-solid-svg-icons';
 import { faClipboard, faListAlt } from "@fortawesome/free-regular-svg-icons"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import headerNav from "../animation/headerNav"
 import { Link } from 'react-router-dom';
 import { useReactiveVar } from '@apollo/client';
-import { darkModeVar, disableDarkMode, enableDarkMode } from '../apollo';
+import { darkModeVar, disableDarkMode, enableDarkMode, isLoggedInVar, logOutUser } from '../apollo';
 
 const SHeader = styled.div`
   /* background-color: ${props => props.theme.fontColor}; */
@@ -18,7 +18,6 @@ const List = styled.ul`
   padding-top: 40px;
   display: grid;
   grid-template-columns: repeat(10, 1fr);
-  /* color: ${props => props.theme.bgColor}; */
 `
 
 const Nav = styled.li`
@@ -56,12 +55,16 @@ const SiteNameText = styled.span`
 
 const Header = () => {
   const darkMode = useReactiveVar(darkModeVar)
+  const isLoggedIn = useReactiveVar(isLoggedInVar)
   const onCLickDarkMode = () => {
     if (darkMode === true) {
       disableDarkMode()
     } else if (darkMode === false) {
       enableDarkMode()
     }
+  }
+  const onClickAccount = () => {
+    logOutUser()
   }
   return (<SHeader>
     <List>
@@ -75,7 +78,13 @@ const Header = () => {
       <Nav><FontAwesomeIcon icon={faPencilAlt} /></Nav>
       <Nav><FontAwesomeIcon icon={faPlay} /></Nav>
       <Nav><FontAwesomeIcon icon={faUser} /></Nav>
-      <Nav><FontAwesomeIcon icon={faSignOutAlt} /></Nav>
+      <Nav>
+        {isLoggedIn ?
+          <FontAwesomeIcon icon={faSignOutAlt} onClick={onClickAccount} />
+          :
+          <Link to="/login"><FontAwesomeIcon icon={faSignInAlt} /></Link>
+        }
+      </Nav>
     </List>
   </SHeader>);
 }
