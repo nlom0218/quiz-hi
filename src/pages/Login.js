@@ -6,7 +6,7 @@ import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useHistory } from 'react-router';
 import styled from 'styled-components';
-import { fadeIn, fadeOut } from '../animation/fade';
+import { fadeIn, fadeOut, pageFadeIn } from '../animation/fade';
 import { logInUser } from '../apollo';
 import Title from '../components/Account/Title';
 
@@ -18,6 +18,7 @@ const AccountContainer = styled.div`
   grid-template-columns: 100px 400px 100px;
   grid-template-rows: 1fr auto 1fr;
   align-content: flex-start;
+  animation: ${pageFadeIn} 0.6s linear forwards;
 `
 
 const SelectType = styled.div`

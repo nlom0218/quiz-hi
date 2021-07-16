@@ -1,10 +1,10 @@
 import { keyframes } from "styled-components";
 
-export const fadeIn = keyframes`
-  from {
-    opacity: 0;
+export const pageFadeIn = keyframes`
+  0% {
+    opacity: 0.2;
   }
-  to {
+  100% {
     opacity: 1;
   }
 `

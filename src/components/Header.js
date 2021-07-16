@@ -84,7 +84,7 @@ const Header = () => {
       </SiteName>
       {user && <React.Fragment>
         <Nav><FontAwesomeIcon icon={faPencilAlt} /></Nav>
-        <Nav><FontAwesomeIcon icon={faPlay} /></Nav>
+        <Nav><Link to="/play-quiz"><FontAwesomeIcon icon={faPlay} /></Link></Nav>
         <Nav>
           {user?.avatarURL === !null ?
             <></>

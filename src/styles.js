@@ -1,5 +1,6 @@
 import { createGlobalStyle } from "styled-components";
 import reset from "styled-reset";
+import { pageFadeIn } from "./animation/fade";
 
 const color = {
   black: "#212121",

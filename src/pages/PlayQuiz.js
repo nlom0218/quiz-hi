@@ -4,16 +4,16 @@ import Header from '../components/Header';
 import Intro from '../components/Home/Intro';
 import Join from '../components/Home/Join';
 
-const Home = () => {
+const PlayQuiz = () => {
   return (
     <React.Fragment>
       <Header />
       <BasicContainer>
-        <Intro />
         <Join />
+        <Intro />
       </BasicContainer>
     </React.Fragment>
   );
 }
 
-export default Home;
+export default PlayQuiz;
