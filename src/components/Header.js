@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { faSearch, faMoon, faPencilAlt, faPlay, faUser, faSignOutAlt, faSun, faSignInAlt } from '@fortawesome/free-solid-svg-icons';
 import { faClipboard, faListAlt } from "@fortawesome/free-regular-svg-icons"
@@ -7,6 +7,7 @@ import headerNav from "../animation/headerNav"
 import { Link } from 'react-router-dom';
 import { useReactiveVar } from '@apollo/client';
 import { darkModeVar, disableDarkMode, enableDarkMode, isLoggedInVar, logOutUser } from '../apollo';
+import useUser from '../hooks/useUser';
 
 const SHeader = styled.div`
   /* background-color: ${props => props.theme.fontColor}; */
@@ -31,6 +32,12 @@ const Nav = styled.li`
       animation: ${headerNav} 1.5s linear infinite forwards;
     }
   }
+  :last-child {
+    grid-column: -2 / -1;
+  }
+  a {
+    color: ${props => props.theme.fontColor};
+  }
 `
 
 const SiteName = styled.li`
@@ -51,11 +58,11 @@ const SiteNameText = styled.span`
   }
 `
 
-
-
 const Header = () => {
   const darkMode = useReactiveVar(darkModeVar)
   const isLoggedIn = useReactiveVar(isLoggedInVar)
+  const user = useUser()
+  console.log(user);
   const onCLickDarkMode = () => {
     if (darkMode === true) {
       disableDarkMode()
@@ -75,9 +82,17 @@ const Header = () => {
       <SiteName>
         <SiteNameText><Link to="/">quiz Hi</Link></SiteNameText>
       </SiteName>
-      <Nav><FontAwesomeIcon icon={faPencilAlt} /></Nav>
-      <Nav><FontAwesomeIcon icon={faPlay} /></Nav>
-      <Nav><FontAwesomeIcon icon={faUser} /></Nav>
+      {user && <React.Fragment>
+        <Nav><FontAwesomeIcon icon={faPencilAlt} /></Nav>
+        <Nav><FontAwesomeIcon icon={faPlay} /></Nav>
+        <Nav>
+          {user?.avatarURL === !null ?
+            <></>
+            : <FontAwesomeIcon icon={faUser} />
+          }
+        </Nav>
+      </React.Fragment>
+      }
       <Nav>
         {isLoggedIn ?
           <FontAwesomeIcon icon={faSignOutAlt} onClick={onClickAccount} />
