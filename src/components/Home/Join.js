@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import joinImg from "../../images/Home/join.jpg"
+import NavBtn from '../NavBtn';
 
 const SJoin = styled.div`
   grid-column: 1 / 13;
@@ -27,14 +27,15 @@ const JoinMsg = styled.div`
   font-weight: 400;
 `
 
-const LoginText = styled.div`
-  grid-column: 1 / 2;
+const Container = styled.div`
+  grid-column: ${props => props.position === "left" ? 1 / 2 : 2 / 3};
   grid-row: 2 / 3;
-  background-color: rgb(67, 216, 122, 0.2);
+  background-color: ${props => props.position === "left" ? "rgb(67, 216, 122, 0.2)" : "rgb(146, 248, 185, 0.2)"};;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  box-shadow: 0px 17px 6px -14px rgba(0,0,0,0.2);
   a {
     margin-top: 50px;
     transition: background-color 0.3s linear;
@@ -42,69 +43,17 @@ const LoginText = styled.div`
     :hover {
     background-color: ${props => props.theme.fontColor};   
     color: ${props => props.theme.bgColor};
+    }
   }
-  }
-  box-shadow: 0px 17px 6px -14px rgba(0,0,0,0.2);
 `
 
-const LoginTitle = styled.div`
+const Title = styled.div`
   font-size: 24px;
 `
 
-const LoginMsg = styled.div`
+const Msg = styled.div`
   margin-top: 20px;
   font-size: 18px;
-`
-
-const LoginBtn = styled.div`
-  border: 1px solid ${props => props.theme.fontColor};
-  width: 180px;
-  height: 50px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-  transition: color 0.3s linear;
-`
-
-const SignUpText = styled.div`
-  grid-column: 2 / 3;
-  grid-row: 2 / 3;
-  background-color: rgb(146, 248, 185, 0.2);
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  a {
-    margin-top: 50px;
-    transition: background-color 0.3s linear;
-    color: ${props => props.theme.fontColor};
-    :hover {
-    background-color: ${props => props.theme.fontColor};   
-    color: ${props => props.theme.bgColor};
-  }
-  }
-  box-shadow: 0px 17px 6px -14px rgba(0,0,0,0.2);
-`
-
-const SignUpTitle = styled.div`
-  font-size: 24px;
-`
-
-const SignUpMsg = styled.div`
-  margin-top: 20px;
-  font-size: 18px;
-`
-
-const SignUpBtn = styled.div`
-  border: 1px solid ${props => props.theme.fontColor};
-  width: 180px;
-  height: 50px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-  transition: color 0.3s linear;
 `
 
 const Join = () => {
@@ -114,24 +63,16 @@ const Join = () => {
         <JoinTitle>Account</JoinTitle>
         <JoinMsg>Create Quiz with QUIZ HI</JoinMsg>
       </JoinText>
-      <LoginText>
-        <LoginTitle>계정 있으신가요?</LoginTitle>
-        <LoginMsg>로그인하여 당신의 퀴즈를 공유해주세요!</LoginMsg>
-        <Link to="/login">
-          <LoginBtn>
-            로그인하기
-        </LoginBtn>
-        </Link>
-      </LoginText>
-      <SignUpText>
-        <SignUpTitle>계정 없으신가요?</SignUpTitle>
-        <SignUpMsg>계정을 생성하여 함께 퀴즈를 만드시는건 어때요?</SignUpMsg>
-        <Link to="/create-account">
-          <SignUpBtn>
-            계정 생성하기
-        </SignUpBtn>
-        </Link>
-      </SignUpText>
+      <Container position="left">
+        <Title>계정 있으신가요?</Title>
+        <Msg>로그인하여 당신의 퀴즈를 공유해주세요!</Msg>
+        <NavBtn route="login" text="로그인하기" />
+      </Container>
+      <Container>
+        <Title>계정 없으신가요?</Title>
+        <Msg>계정을 생성하여 함께 퀴즈를 만드시는건 어때요?</Msg>
+        <NavBtn route="create-account" text="계정 생성하기" />
+      </Container>
     </SJoin>
   );
 }
