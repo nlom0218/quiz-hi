@@ -102,10 +102,15 @@ const PageBar = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  border: 1px solid rgb(67, 216, 122, 0.2);
-  /* background-color: rgb(67, 216, 122, 0.2); */
-  /* border-radius: 10px; */
+  border: 2px solid rgb(67, 216, 122);
+  border-radius: 10px;
   padding: 0px 10px;
+  opacity: 0.6;
+  transition: all 0.3s linear;
+  :hover {
+    opacity: 1;
+    background-color: rgb(67, 216, 122, 0.2);
+  }
 `
 
 const BarItem = styled.div`
