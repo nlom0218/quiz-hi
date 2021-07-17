@@ -1,15 +1,17 @@
-import { useMutation } from '@apollo/client';
+import { useMutation, useReactiveVar } from '@apollo/client';
 import { faEye, faEyeSlash, faQuestionCircle } from '@fortawesome/free-regular-svg-icons';
-import { faHome, faMoon } from '@fortawesome/free-solid-svg-icons';
+import { faHome, faMoon, faSun } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import gql from 'graphql-tag';
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useHistory } from 'react-router';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { fadeOut, pageFadeIn } from '../animation/fade';
-import { logInUser } from '../apollo';
+import { darkModeVar, logInUser } from '../apollo';
 import Title from '../components/Account/Title';
+import { onCLickDarkMode } from '../sharedFn';
 
 const AccountContainer = styled.div`
   height: 100vh;
@@ -118,6 +120,7 @@ const BarItem = styled.div`
     margin-top: 20px;
   }
   margin-bottom: 20px;
+  cursor: pointer;
 `
 
 const LOGIN_MUTATION = gql`
@@ -131,6 +134,7 @@ const LOGIN_MUTATION = gql`
 `
 
 const Login = () => {
+  const darkMode = useReactiveVar(darkModeVar)
   const history = useHistory()
   const [type, setType] = useState("teacher")
   const [visible, setVisible] = useState(false)
@@ -223,9 +227,15 @@ const Login = () => {
         {error ? <ErrMsg>{error}</ErrMsg> : null}
       </FormContainer>
       <PageBar>
-        <BarItem><FontAwesomeIcon icon={faHome} /></BarItem>
-        <BarItem><FontAwesomeIcon icon={faMoon} /></BarItem>
-        <BarItem><span>New</span></BarItem>
+        <BarItem><Link to="/"><FontAwesomeIcon icon={faHome} /></Link></BarItem>
+        <BarItem>
+          <FontAwesomeIcon
+            icon={darkMode ? faSun : faMoon}
+            onClick={() => onCLickDarkMode(darkMode)}
+            style={{ color: `${darkMode ? "#ff765e" : "#212121"}` }}
+          />
+        </BarItem>
+        <BarItem><Link to="/create-account"><span>New</span></Link></BarItem>
         <BarItem><FontAwesomeIcon icon={faQuestionCircle} /></BarItem>
       </PageBar>
     </AccountContainer>);

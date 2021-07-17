@@ -31,12 +31,13 @@ export const GlobalStyle = createGlobalStyle`
     min-width: 1200px;
     background-color: ${props => props.theme.bgColor};
     color: ${props => props.theme.fontColor};
-    transition: all 0.6s ease 0s;
+    transition: all 0.6s ease;
     font-size: 16px;
   }
   a {
     text-decoration: none;
     color: ${props => props.theme.fontColor};
+    transition: all 0.6s ease;
   }
   input {
     all: unset;
