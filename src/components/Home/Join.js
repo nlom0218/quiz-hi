@@ -36,15 +36,6 @@ const Container = styled.div`
   justify-content: center;
   align-items: center;
   box-shadow: 0px 17px 6px -14px rgba(0,0,0,0.2);
-  a {
-    margin-top: 50px;
-    transition: background-color 0.3s linear;
-    color: ${props => props.theme.fontColor};
-    :hover {
-    background-color: ${props => props.theme.fontColor};   
-    color: ${props => props.theme.bgColor};
-    }
-  }
   margin-bottom: 40px;
 `
 

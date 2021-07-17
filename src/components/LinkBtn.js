@@ -11,7 +11,13 @@ const SNavBtn = styled.div`
   justify-content: center;
   align-items: center;
   cursor: pointer;
-  transition: color 0.3s linear;
+  margin-top: 50px;
+  color: ${props => props.theme.fontColor};
+  transition: all 0.5s linear;
+  :hover {
+  background-color: ${props => props.theme.fontColor};   
+  color: ${props => props.theme.bgColor};
+  }
 `
 
 const LinkBtn = ({ route, text }) => {
