@@ -36,7 +36,7 @@ export const GlobalStyle = createGlobalStyle`
   }
   a {
     text-decoration: none;
-    color: black;
+    color: ${props => props.theme.fontColor};
   }
   input {
     all: unset;

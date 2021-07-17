@@ -10,7 +10,6 @@ import { darkModeVar, disableDarkMode, enableDarkMode, isLoggedInVar, logOutUser
 import useUser from '../hooks/useUser';
 
 const SHeader = styled.div`
-  /* background-color: ${props => props.theme.fontColor}; */
 `
 
 const List = styled.ul`
@@ -35,9 +34,6 @@ const Nav = styled.li`
   :last-child {
     grid-column: -2 / -1;
   }
-  a {
-    color: ${props => props.theme.fontColor};
-  }
 `
 
 const SiteName = styled.li`
@@ -53,9 +49,6 @@ const SiteNameText = styled.span`
   letter-spacing: 10px;
   font-weight: 600;
   text-transform: uppercase;
-  a {
-    color: ${props => props.theme.fontColor};
-  }
 `
 
 const Header = () => {
