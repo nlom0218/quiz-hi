@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import NavBtn from '../NavBtn';
+import LinkBtn from '../LinkBtn';
 
 const SJoin = styled.div`
   grid-column: 1 / 13;
@@ -67,12 +67,12 @@ const Join = () => {
       <Container position="left">
         <Title>계정 있으신가요?</Title>
         <Msg>로그인하여 당신의 퀴즈를 공유해주세요!</Msg>
-        <NavBtn route="login" text="로그인하기" />
+        <LinkBtn route="login" text="로그인하기" />
       </Container>
       <Container>
         <Title>계정 없으신가요?</Title>
         <Msg>계정을 생성하여 함께 퀴즈를 만드시는건 어때요?</Msg>
-        <NavBtn route="create-account" text="회원가입하기" />
+        <LinkBtn route="create-account" text="회원가입하기" />
       </Container>
     </SJoin>
   );

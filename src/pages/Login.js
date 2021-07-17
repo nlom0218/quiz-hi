@@ -1,12 +1,13 @@
 import { useMutation } from '@apollo/client';
-import { faEye, faEyeSlash } from '@fortawesome/free-regular-svg-icons';
+import { faEye, faEyeSlash, faQuestionCircle } from '@fortawesome/free-regular-svg-icons';
+import { faHome, faMoon } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import gql from 'graphql-tag';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useHistory } from 'react-router';
 import styled from 'styled-components';
-import { fadeIn, fadeOut, pageFadeIn } from '../animation/fade';
+import { fadeOut, pageFadeIn } from '../animation/fade';
 import { logInUser } from '../apollo';
 import Title from '../components/Account/Title';
 
@@ -92,6 +93,26 @@ const ErrMsg = styled.span`
   bottom: -50px;
   color: tomato;
   animation: ${fadeOut} 4s forwards;
+`
+
+const PageBar = styled.div`
+  align-self: flex-start;
+  justify-self: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid rgb(67, 216, 122, 0.2);
+  /* background-color: rgb(67, 216, 122, 0.2); */
+  /* border-radius: 10px; */
+  padding: 0px 10px;
+`
+
+const BarItem = styled.div`
+  :nth-child(1) {
+    margin-top: 20px;
+  }
+  margin-bottom: 20px;
 `
 
 const LOGIN_MUTATION = gql`
@@ -196,6 +217,12 @@ const Login = () => {
         </FormLayout>
         {error ? <ErrMsg>{error}</ErrMsg> : null}
       </FormContainer>
+      <PageBar>
+        <BarItem><FontAwesomeIcon icon={faHome} /></BarItem>
+        <BarItem><FontAwesomeIcon icon={faMoon} /></BarItem>
+        <BarItem><span>New</span></BarItem>
+        <BarItem><FontAwesomeIcon icon={faQuestionCircle} /></BarItem>
+      </PageBar>
     </AccountContainer>);
 }
 

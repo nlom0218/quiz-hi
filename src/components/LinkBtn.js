@@ -14,7 +14,7 @@ const SNavBtn = styled.div`
   transition: color 0.3s linear;
 `
 
-const NavBtn = ({ route, text }) => {
+const LinkBtn = ({ route, text }) => {
   return (
     <Link to={`/${route}`} onClick={() => MoveTopScreen()}>
       <SNavBtn>
@@ -24,4 +24,4 @@ const NavBtn = ({ route, text }) => {
   );
 }
 
-export default NavBtn;
+export default LinkBtn;

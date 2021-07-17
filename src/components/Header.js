@@ -62,7 +62,6 @@ const Header = () => {
   const darkMode = useReactiveVar(darkModeVar)
   const isLoggedIn = useReactiveVar(isLoggedInVar)
   const user = useUser()
-  console.log(user);
   const onCLickDarkMode = () => {
     if (darkMode === true) {
       disableDarkMode()
