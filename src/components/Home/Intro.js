@@ -20,7 +20,8 @@ const IntroText = styled.div`
   top: 0;
   width: 1200px;
   height: 800px;
-  background-color: ${props => props.darkMode ? "rgba(0, 0, 0, 0.6)" : "rgba(255, 255, 255, 0.6)"};
+  background-color: ${props => props.theme.blurColor};
+  transition: background-color 1s linear;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -46,10 +47,9 @@ const IntroMsg = styled.div`
 `
 
 const Intro = () => {
-  const darkMode = useReactiveVar(darkModeVar)
   return (<SIntro>
     <IntroImg src={introImg} />
-    <IntroText darkMode={darkMode}>
+    <IntroText>
       <IntroTitle>WelCome To Quiz Hi</IntroTitle>
       <IntroMsg>
         QUIZ HI에 오신 여러분들을 환영합니다!

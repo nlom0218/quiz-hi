@@ -9,7 +9,7 @@ const SInputBtn = styled.input`
   padding: 10px;
   margin-top: 10px;
   border-radius: 5px;
-  transition: all 0.5s linear;
+  transition: opacity 0.6s linear;
   cursor: pointer;
 `
 

@@ -14,7 +14,7 @@ const SPageBar = styled.div`
   border-radius: 10px;
   padding: 0px 10px;
   opacity: 0.6;
-  transition: all 0.6s linear;
+  transition: opacity 0.6s linear, background-color 0.6s linear;
   :hover {
     opacity: 1;
     background-color: ${props => props.hoverBgColor};
