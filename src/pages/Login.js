@@ -15,13 +15,14 @@ import FormLayout from '../components/Account/FormLayout';
 import InputBtn from '../components/Account/InputBtn';
 import InputLayout from '../components/Account/InputLayout';
 import Title from '../components/Account/Title';
-import PageBar from '../components/PageBar';
-import PageBarItem from '../components/PageBarItem';
+import PageBar from '../components/Account/PageBar';
+import PageBarItem from '../components/Account/PageBarItem';
 import { onCLickDarkMode } from '../sharedFn';
 
 const SelectType = styled.div`
   justify-self: flex-end;
   grid-column: 1 / 2;
+  grid-row: 2 / 3;
   ul {
     li {
       padding: 10px 10px 10px 0px;
