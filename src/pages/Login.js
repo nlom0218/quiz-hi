@@ -8,21 +8,16 @@ import { useForm } from 'react-hook-form';
 import { useHistory } from 'react-router';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import { fadeOut, pageFadeIn } from '../animation/fade';
 import { darkModeVar, logInUser } from '../apollo';
+import AccountContainer from '../components/Account/AccountContainer';
+import ErrMsg from '../components/Account/ErrMsg';
+import FormLayout from '../components/Account/FormLayout';
+import InputBtn from '../components/Account/InputBtn';
+import InputLayout from '../components/Account/InputLayout';
 import Title from '../components/Account/Title';
+import PageBar from '../components/PageBar';
+import PageBarItem from '../components/PageBarItem';
 import { onCLickDarkMode } from '../sharedFn';
-
-const AccountContainer = styled.div`
-  height: 100vh;
-  width: 600px;
-  margin: 0 auto;
-  display: grid;
-  grid-template-columns: 100px 400px 100px;
-  grid-template-rows: 1fr auto 1fr;
-  align-content: flex-start;
-  animation: ${pageFadeIn} 0.6s linear forwards;
-`
 
 const SelectType = styled.div`
   justify-self: flex-end;
@@ -40,87 +35,6 @@ const SelectType = styled.div`
       transition: background-color linear 0.3s;
     }
   }
-`
-
-const FormContainer = styled.div`
-  background-color: rgb(67, 216, 122, 0.2);
-  padding: 20px 40px;
-  box-shadow: 0px 17px 6px -14px rgb(0 0 0 / 20%);
-  position: relative;
-`
-
-const FormLayout = styled.form`
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-`
-
-const InputContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  font-weight: 400;
-  span {
-    margin-bottom: 10px;
-  }
-  svg {
-    margin-left: 5px;
-    font-size: 16px;
-    cursor: pointer;
-  }
-  input {
-    background-color: rgb(67, 216, 122, 0.25);
-    padding: 10px 20px;
-    border-radius: 5px;
-  }
-  margin-bottom: 20px;
-`
-
-const InputBtn = styled.input`
-  background-color: rgb(67, 216, 122, 0.9);
-  opacity: ${props => props.disabled ? 0.3 : 0.9};
-  text-align: center;
-  font-weight: 600;
-  padding: 10px;
-  margin-top: 10px;
-  border-radius: 5px;
-  transition: all 0.5s linear;
-  cursor: pointer;
-`
-
-const ErrMsg = styled.span`
-  position: absolute;
-  width: 320px;
-  text-align: center;
-  bottom: -50px;
-  color: tomato;
-  animation: ${fadeOut} 4s forwards;
-`
-
-const PageBar = styled.div`
-  align-self: flex-start;
-  justify-self: center;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  border: 2px solid rgb(67, 216, 122);
-  border-radius: 10px;
-  padding: 0px 10px;
-  opacity: 0.6;
-  transition: all 0.3s linear;
-  :hover {
-    opacity: 1;
-    background-color: rgb(67, 216, 122, 0.2);
-  }
-`
-
-const BarItem = styled.div`
-  :nth-child(1) {
-    margin-top: 20px;
-  }
-  margin-bottom: 20px;
-  cursor: pointer;
 `
 
 const LOGIN_MUTATION = gql`
@@ -199,9 +113,9 @@ const Login = () => {
           >일반인</li>
         </ul>
       </SelectType>
-      <FormContainer>
-        <FormLayout onSubmit={handleSubmit(onSubmit)}>
-          <InputContainer>
+      <FormLayout bgColor="rgb(67, 216, 122, 0.2)">
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <InputLayout bgColor="rgb(67, 216, 122, 0.25)">
             <span>아이디</span>
             <input
               {...register("username", {
@@ -209,8 +123,8 @@ const Login = () => {
               })}
               type="text"
             />
-          </InputContainer>
-          <InputContainer>
+          </InputLayout>
+          <InputLayout bgColor="rgb(67, 216, 122, 0.25)">
             <span>
               비밀번호
                 <FontAwesomeIcon icon={visible ? faEye : faEyeSlash} onClick={onClickEye} />
@@ -221,22 +135,28 @@ const Login = () => {
               })}
               type={visible ? "text" : "password"}
             />
-          </InputContainer>
+          </InputLayout>
           <InputBtn type="submit" value="로그인" disabled={!isValid} />
-        </FormLayout>
-        {error ? <ErrMsg>{error}</ErrMsg> : null}
-      </FormContainer>
-      <PageBar>
-        <BarItem><Link to="/"><FontAwesomeIcon icon={faHome} /></Link></BarItem>
-        <BarItem>
+        </form>
+        {error ? <ErrMsg error={error} /> : null}
+      </FormLayout>
+      <PageBar borderColor="rgb(67, 216, 122)" hoverBgColor="rgb(67, 216, 122, 0.2)">
+        <PageBarItem>
+          <Link to="/"><FontAwesomeIcon icon={faHome} /></Link>
+        </PageBarItem>
+        <PageBarItem>
           <FontAwesomeIcon
             icon={darkMode ? faSun : faMoon}
             onClick={() => onCLickDarkMode(darkMode)}
             style={{ color: `${darkMode ? "#ff765e" : "#212121"}` }}
           />
-        </BarItem>
-        <BarItem><Link to="/create-account"><span>New</span></Link></BarItem>
-        <BarItem><FontAwesomeIcon icon={faQuestionCircle} /></BarItem>
+        </PageBarItem>
+        <PageBarItem>
+          <Link to="/create-account"><span>New</span></Link>
+        </PageBarItem>
+        <PageBarItem>
+          <FontAwesomeIcon icon={faQuestionCircle} />
+        </PageBarItem>
       </PageBar>
     </AccountContainer>);
 }
