@@ -31,7 +31,6 @@ export const GlobalStyle = createGlobalStyle`
     box-sizing: border-box;
     user-select: none;
     letter-spacing: 2px;
-    color: ${props => props.theme.fontColor};
   }
   #root {
     /* min-width: 1200px; */

@@ -18,6 +18,7 @@ import PageBar from '../components/Account/PageBar';
 import PageBarItem from '../components/Account/PageBarItem';
 import Title from '../components/Account/Title';
 import { onCLickDarkMode } from '../sharedFn';
+import QusetionContainer from '../components/Question/QuestionContainer';
 
 const SelectType = styled.div`
   margin-bottom: 20px;
@@ -48,6 +49,7 @@ const CreateAccount = () => {
   const [error, setError] = useState(undefined)
   const [email, setEmail] = useState(undefined)
   const [visible, setVisible] = useState(false)
+  const [questionMode, setQuestionMode] = useState(false)
   const { register, handleSubmit, formState: { isValid } } = useForm({
     mode: "onChange"
   })
@@ -98,6 +100,9 @@ const CreateAccount = () => {
         ...(email && { email })
       }
     })
+  }
+  const onClickQuestionMode = () => {
+    setQuestionMode(true)
   }
   return (
     <AccountContainer>
@@ -154,9 +159,12 @@ const CreateAccount = () => {
           <Link to="/login"><FontAwesomeIcon icon={faSignInAlt} /></Link>
         </PageBarItem>
         <PageBarItem>
-          <FontAwesomeIcon icon={faQuestionCircle} />
+          <FontAwesomeIcon icon={faQuestionCircle} onClick={onClickQuestionMode} />
         </PageBarItem>
       </PageBar>
+      {questionMode && <QusetionContainer pageTitle="회원가입" setQuestionMode={setQuestionMode} >
+
+      </QusetionContainer>}
     </AccountContainer >);
 }
 

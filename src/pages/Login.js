@@ -18,6 +18,8 @@ import Title from '../components/Account/Title';
 import PageBar from '../components/Account/PageBar';
 import PageBarItem from '../components/Account/PageBarItem';
 import { onCLickDarkMode } from '../sharedFn';
+import QusetionContainer from '../components/Question/QuestionContainer';
+import LoginQuestion from '../components/Question/LoginQuestion';
 
 const SelectType = styled.div`
   justify-self: flex-end;
@@ -54,6 +56,7 @@ const Login = () => {
   const [type, setType] = useState("teacher")
   const [visible, setVisible] = useState(false)
   const [error, setError] = useState(undefined)
+  const [questionMode, setQuestionMode] = useState(false)
   const { register, handleSubmit, formState: { isValid } } = useForm({
     mode: "onChange"
   })
@@ -91,6 +94,9 @@ const Login = () => {
     login({
       variables: { username, password, type }
     })
+  }
+  const onClickQuestionMode = () => {
+    setQuestionMode(true)
   }
   return (
     <AccountContainer>
@@ -158,9 +164,12 @@ const Login = () => {
           <Link to="/create-account"><span>N</span></Link>
         </PageBarItem>
         <PageBarItem>
-          <FontAwesomeIcon icon={faQuestionCircle} />
+          <FontAwesomeIcon icon={faQuestionCircle} onClick={onClickQuestionMode} />
         </PageBarItem>
       </PageBar>
+      {questionMode && <QusetionContainer pageTitle="로그인" setQuestionMode={setQuestionMode} >
+        <LoginQuestion />
+      </QusetionContainer>}
     </AccountContainer>);
 }
 
