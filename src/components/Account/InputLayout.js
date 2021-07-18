@@ -14,7 +14,7 @@ const SInputLayout = styled.div`
     cursor: pointer;
   }
   input {
-    background-color: ${props => props.bgColor};
+    background-color: rgb(67, 216, 122, 0.2);
     padding: 10px 20px;
     border-radius: 5px;
   }

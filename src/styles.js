@@ -31,6 +31,7 @@ export const GlobalStyle = createGlobalStyle`
     box-sizing: border-box;
     user-select: none;
     letter-spacing: 2px;
+    color: ${props => props.theme.fontColor};
   }
   #root {
     /* min-width: 1200px; */
@@ -42,5 +43,10 @@ export const GlobalStyle = createGlobalStyle`
   }
   input {
     all: unset;
+  }
+  button {
+    border: none;
+    font-family: 'Nanum Myeongjo', serif;
+    font-size: 16px;
   }
 `

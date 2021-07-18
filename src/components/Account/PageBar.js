@@ -10,14 +10,14 @@ const SPageBar = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  border: 2px solid ${props => props.borderColor};
+  border: 2px solid rgb(146, 248, 185);
   border-radius: 10px;
   padding: 0px 10px;
   opacity: 0.6;
   transition: opacity 0.6s linear, background-color 0.6s linear;
   :hover {
     opacity: 1;
-    background-color: ${props => props.hoverBgColor};
+    background-color: rgb(146, 248, 185, 0.2);
   }
 `
 

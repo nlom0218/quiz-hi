@@ -114,9 +114,9 @@ const Login = () => {
           >일반인</li>
         </ul>
       </SelectType>
-      <FormLayout bgColor="rgb(67, 216, 122, 0.2)">
+      <FormLayout>
         <form onSubmit={handleSubmit(onSubmit)}>
-          <InputLayout bgColor="rgb(67, 216, 122, 0.25)">
+          <InputLayout>
             <span>아이디</span>
             <input
               {...register("username", {
@@ -125,7 +125,7 @@ const Login = () => {
               type="text"
             />
           </InputLayout>
-          <InputLayout bgColor="rgb(67, 216, 122, 0.25)">
+          <InputLayout>
             <span>
               비밀번호
                 <FontAwesomeIcon icon={visible ? faEye : faEyeSlash} onClick={onClickEye} />
@@ -137,11 +137,11 @@ const Login = () => {
               type={visible ? "text" : "password"}
             />
           </InputLayout>
-          <InputBtn type="submit" value="로그인" disabled={!isValid} />
+          <InputBtn value="로그인" disabled={!isValid} />
         </form>
         {error ? <ErrMsg error={error} /> : null}
       </FormLayout>
-      <PageBar borderColor="rgb(67, 216, 122)" hoverBgColor="rgb(67, 216, 122, 0.2)">
+      <PageBar>
         <PageBarItem>
           <Link to="/"><FontAwesomeIcon icon={faHome} /></Link>
         </PageBarItem>

@@ -16,6 +16,7 @@ const STitle = styled.div`
       font-weight: 600;
       text-transform: uppercase;
       align-self: center;
+      margin-top: 20px;
       margin-bottom: 40px;
     }
     :nth-child(2){

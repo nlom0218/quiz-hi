@@ -7,6 +7,7 @@ import { ApolloProvider, useReactiveVar } from '@apollo/client';
 import { client, darkModeVar } from './apollo';
 import Login from './pages/Login';
 import PlayQuiz from "./pages/PlayQuiz"
+import CreateAccount from './pages/CreateAccount';
 
 function App() {
   const darkMode = useReactiveVar(darkModeVar)
@@ -19,6 +20,7 @@ function App() {
             <Route exact path="/"><Home /></Route>
             <Route path="/login"><Login /></Route>
             <Route path="/play-quiz"><PlayQuiz /></Route>
+            <Route path="/create-account"><CreateAccount /></Route>
           </Switch>
         </Router>
       </ThemeProvider >
