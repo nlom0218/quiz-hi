@@ -1,7 +1,7 @@
 import { useMutation, useReactiveVar } from '@apollo/client';
 import gql from 'graphql-tag';
-import { faCircle, faEye, faEyeSlash, faMoon, faQuestionCircle, faSun } from '@fortawesome/free-regular-svg-icons';
-import { faCheckCircle, faHome, faSignInAlt } from '@fortawesome/free-solid-svg-icons';
+import { faCircle, faEye, faEyeSlash, faQuestionCircle, faSun } from '@fortawesome/free-regular-svg-icons';
+import { faCheckCircle, faHome, faMoon, faSignInAlt } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';

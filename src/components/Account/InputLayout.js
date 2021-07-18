@@ -17,6 +17,10 @@ const SInputLayout = styled.div`
     background-color: rgb(67, 216, 122, 0.2);
     padding: 10px 20px;
     border-radius: 5px;
+    transition: background-color 0.2s linear;
+    :focus {
+      background-color: rgb(67, 216, 122, 0.6);
+    }
   }
   margin-bottom: 20px;
 `
