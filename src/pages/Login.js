@@ -123,6 +123,7 @@ const Login = () => {
                 required: true
               })}
               type="text"
+              autoComplete="off"
             />
           </InputLayout>
           <InputLayout>
@@ -135,6 +136,7 @@ const Login = () => {
                 required: true
               })}
               type={visible ? "text" : "password"}
+              autoComplete="off"
             />
           </InputLayout>
           <InputBtn value="로그인" disabled={!isValid} />

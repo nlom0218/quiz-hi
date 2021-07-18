@@ -3,8 +3,10 @@ import { useForm } from 'react-hook-form';
 import styled from 'styled-components';
 import emailjs from 'emailjs-com';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPaperPlane } from '@fortawesome/free-solid-svg-icons';
+import { faArrowRight, faPaperPlane } from '@fortawesome/free-solid-svg-icons';
 import EmailConfirm from './EmailConfirm';
+import { Link } from 'react-router-dom';
+import { faArrowAltCircleRight } from '@fortawesome/free-regular-svg-icons';
 
 const Wrapper = styled.div``
 
@@ -35,30 +37,42 @@ const EmailBtn = styled.button`
   cursor: pointer;
 `
 
+const PlatForm = styled.div`
+  text-align: center;
+  margin-bottom: 20px;
+  a {
+    color: tomato;
+    opacity: 1;
+  }
+`
+
 const EmailForm = ({ setDoneConfirm, setError, setEmail }) => {
   const [confirmNum, setConfirmNum] = useState("")
   const [sendEmail, setSendEmail] = useState(false)
+  const [platform, setPlatForm] = useState("")
   const { register, handleSubmit, formState: { isValid } } = useForm({
     mode: "onChange"
   })
   const onSubmit = (data) => {
     const { email } = data
+    console.log(email);
     const randomNum = Math.floor(Math.random() * 1000000)
     setConfirmNum(randomNum)
-    // emailjs.send(
-    //   "service_y3st5zf",
-    //   "template_9ibugnm",
-    //   {
-    //     email,
-    //     confirmNum: randomNum
-    //   },
-    //   "user_sJAAszXnKTFqusb3xguHm")
-    //   .then((result) => {
-    //   }, (error) => {
-    //     console.log(error.text);
-    //   })
-    setSendEmail(true)
-    setEmail(email)
+    emailjs.send(
+      "service_y3st5zf",
+      "template_9ibugnm",
+      {
+        email,
+        confirmNum: randomNum
+      },
+      "user_sJAAszXnKTFqusb3xguHm")
+      .then((result) => {
+        setSendEmail(true)
+        setEmail(email)
+        setPlatForm(email.split("@").reverse()[0])
+      }, (error) => {
+        console.log(error.text);
+      })
   }
   return (
     <Wrapper>
@@ -66,15 +80,26 @@ const EmailForm = ({ setDoneConfirm, setError, setEmail }) => {
         <span>이메일</span>
         <Input
           {...register("email", {
-            required: true
+            required: true,
+            pattern: /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/
           })}
           type="text"
+          autoComplete="off"
         />
         <EmailBtn type="submit" disabled={!isValid} >
           <FontAwesomeIcon icon={faPaperPlane} />
         </EmailBtn>
       </Form>
-      {sendEmail && <EmailConfirm confirmNum={confirmNum} setDoneConfirm={setDoneConfirm} setError={setError} />}
+      {sendEmail &&
+        <React.Fragment>
+          <EmailConfirm confirmNum={confirmNum} setDoneConfirm={setDoneConfirm} setError={setError} />
+          <PlatForm>
+            <a href={`https://${platform}`} target="_blank">
+              {platform}로 이동하기
+            </a>
+          </PlatForm>
+        </React.Fragment>
+      }
     </Wrapper>
   );
 }

@@ -64,6 +64,7 @@ const EmailConfirm = ({ confirmNum, setDoneConfirm, setError }) => {
       {...register("inputNum", {
         required: true
       })}
+      autoComplete="off"
     />
     <InputBtn type="submit" disabled={!isValid} >
       {confirmIcon()}

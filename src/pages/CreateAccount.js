@@ -120,20 +120,20 @@ const CreateAccount = () => {
         <form onSubmit={handleSubmit(onSubmit)}>
           <InputLayout>
             <span>아이디</span>
-            <input type="text" {...register("username", { required: true })} />
+            <input type="text" {...register("username", { required: true })} autoComplete="off" />
           </InputLayout>
           <InputLayout>
             <span>
               비밀번호
                 <FontAwesomeIcon icon={visible ? faEye : faEyeSlash} onClick={onClickEye} />
             </span>
-            <input type={visible ? "text" : "password"} {...register("password", { required: true })} />
+            <input type={visible ? "text" : "password"} {...register("password", { required: true })} autoComplete="off" />
           </InputLayout>
           <InputLayout>
             <span>
               비밀번호 확인
             </span>
-            <input type={visible ? "text" : "password"} {...register("passwordConfirm", { required: true })} />
+            <input type={visible ? "text" : "password"} {...register("passwordConfirm", { required: true })} autoComplete="off" />
           </InputLayout>
           <InputBtn value="회원가입" disabled={!isValid || !doneConfirm} />
         </form>
