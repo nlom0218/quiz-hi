@@ -155,7 +155,7 @@ const Login = () => {
           />
         </PageBarItem>
         <PageBarItem>
-          <Link to="/create-account"><span>New</span></Link>
+          <Link to="/create-account"><span>N</span></Link>
         </PageBarItem>
         <PageBarItem>
           <FontAwesomeIcon icon={faQuestionCircle} />

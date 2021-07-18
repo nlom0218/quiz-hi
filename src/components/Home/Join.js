@@ -62,7 +62,7 @@ const Join = () => {
       </Container>
       <Container>
         <Title>계정 없으신가요?</Title>
-        <Msg>계정을 생성하여 함께 퀴즈를 만드시는건 어때요?</Msg>
+        <Msg>회원가입하여 함께 퀴즈를 만드시는건 어때요?</Msg>
         <LinkBtn route="create-account" text="회원가입하기" />
       </Container>
     </SJoin>

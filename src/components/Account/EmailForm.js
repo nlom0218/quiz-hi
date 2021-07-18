@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form';
 import styled from 'styled-components';
 import emailjs from 'emailjs-com';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faArrowRight, faPaperPlane } from '@fortawesome/free-solid-svg-icons';
+import { faArrowRight, faPaperPlane, faRedoAlt } from '@fortawesome/free-solid-svg-icons';
 import EmailConfirm from './EmailConfirm';
 import { Link } from 'react-router-dom';
 import { faArrowAltCircleRight } from '@fortawesome/free-regular-svg-icons';
@@ -43,6 +43,15 @@ const PlatForm = styled.div`
   a {
     color: tomato;
     opacity: 1;
+    margin-right: 20px;
+  }
+  svg  {
+    cursor: pointer;
+    opacity: 0.6;
+    transition: opacity 0.3s linear;
+    :hover {
+      opacity: 1;
+    }
   }
 `
 
@@ -50,7 +59,7 @@ const EmailForm = ({ setDoneConfirm, setError, setEmail }) => {
   const [confirmNum, setConfirmNum] = useState("")
   const [sendEmail, setSendEmail] = useState(false)
   const [platform, setPlatForm] = useState("")
-  const { register, handleSubmit, formState: { isValid } } = useForm({
+  const { register, handleSubmit, formState: { isValid }, setValue } = useForm({
     mode: "onChange"
   })
   const onSubmit = (data) => {
@@ -58,21 +67,24 @@ const EmailForm = ({ setDoneConfirm, setError, setEmail }) => {
     console.log(email);
     const randomNum = Math.floor(Math.random() * 1000000)
     setConfirmNum(randomNum)
-    emailjs.send(
-      "service_y3st5zf",
-      "template_9ibugnm",
-      {
-        email,
-        confirmNum: randomNum
-      },
-      "user_sJAAszXnKTFqusb3xguHm")
-      .then((result) => {
-        setSendEmail(true)
-        setEmail(email)
-        setPlatForm(email.split("@").reverse()[0])
-      }, (error) => {
-        console.log(error.text);
-      })
+    // emailjs.send(
+    //   "service_y3st5zf",
+    //   "template_9ibugnm",
+    //   {
+    //     email,
+    //     confirmNum: randomNum
+    //   },
+    //   "user_sJAAszXnKTFqusb3xguHm")
+    //   .then((result) => {
+    //   }, (error) => {
+    //     console.log(error.text);
+    //   })
+    setSendEmail(true)
+    setEmail(email)
+    setPlatForm(email.split("@").reverse()[0])
+  }
+  const onClinkAgainBtn = () => {
+    setSendEmail(false)
   }
   return (
     <Wrapper>
@@ -86,7 +98,7 @@ const EmailForm = ({ setDoneConfirm, setError, setEmail }) => {
           type="text"
           autoComplete="off"
         />
-        <EmailBtn type="submit" disabled={!isValid} >
+        <EmailBtn type="submit" disabled={!isValid || sendEmail} >
           <FontAwesomeIcon icon={faPaperPlane} />
         </EmailBtn>
       </Form>
@@ -97,6 +109,7 @@ const EmailForm = ({ setDoneConfirm, setError, setEmail }) => {
             <a href={`https://${platform}`} target="_blank">
               {platform}로 이동하기
             </a>
+            <FontAwesomeIcon icon={faRedoAlt} onClick={onClinkAgainBtn} />
           </PlatForm>
         </React.Fragment>
       }
