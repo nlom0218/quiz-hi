@@ -89,6 +89,7 @@ const EmailForm = ({ setDoneConfirm, setError, setEmail }) => {
   }
   const onClinkAgainBtn = () => {
     setSendEmail(false)
+    setValue("email", "")
   }
   return (
     <Wrapper>

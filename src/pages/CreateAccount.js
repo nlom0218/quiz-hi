@@ -19,6 +19,7 @@ import PageBarItem from '../components/Account/PageBarItem';
 import Title from '../components/Account/Title';
 import { onCLickDarkMode } from '../sharedFn';
 import QusetionContainer from '../components/Question/QuestionContainer';
+import CreateAccountQuestion from '../components/Question/CreateAccountQuestion';
 
 const SelectType = styled.div`
   margin-bottom: 20px;
@@ -163,7 +164,7 @@ const CreateAccount = () => {
         </PageBarItem>
       </PageBar>
       {questionMode && <QusetionContainer pageTitle="회원가입" setQuestionMode={setQuestionMode} >
-
+        <CreateAccountQuestion />
       </QusetionContainer>}
     </AccountContainer >);
 }

@@ -34,10 +34,10 @@ const LoginQuestion = () => {
   return (<Container>
     <div>
       <Title>1. 사용자 유형을 선택하세요.</Title>
-      <Description>왼쪽의 선생님, 학생, 일반인 중 하나를 선택하세요. 선택한 유형은 다른 유형들보다 색이 짙습니다.</Description>
+      <Description>왼쪽의 선생님, 학생, 일반인 중 하나를 선택하세요. 선택된 유형은 다른 유형들보다 색이 짙습니다.</Description>
     </div>
     <div>
-      2. 아이디와 비밀번호를 입력하세요.
+      <Title>2. 아이디와 비밀번호를 입력하세요.</Title>
       <Description>아이디와 비밀번호를 입력하면 로그인 버튼이 활성화 됩니다.
       아이디와 비밀번호가 생각이 안 나는 경우 로그인 아래 "아이디, 비밀번호 찾기"를 클릭하여 다음 과정을 진행해주세요.
       </Description>
@@ -50,7 +50,7 @@ const LoginQuestion = () => {
       </Description>
     </div>
     <div>
-      • 네비게이션 아이콘
+      <Title>• 네비게이션 아이콘</Title>
       <Description>
         <FontAwesomeIcon icon={faHome} /> 시작화면으로 돌아갑니다.(홈화면)
       </Description>
