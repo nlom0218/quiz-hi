@@ -2,18 +2,21 @@ import React from 'react';
 import BasicContainer from '../components/BasicContainer';
 import Header from '../components/Header';
 import Intro from '../components/Home/Intro';
-import IntroIcon from '../components/Home/IntroIcon';
+import NavIcon from '../components/Home/NavIcon';
 import Join from '../components/Home/Join';
+import ToTopBtn from '../components/ToTopBtn';
 
 const Home = () => {
+
   return (
     <React.Fragment>
       <Header />
       <BasicContainer>
         <Intro />
-        <IntroIcon />
+        <NavIcon />
         <Join />
       </BasicContainer>
+      <ToTopBtn />
     </React.Fragment>
   );
 }

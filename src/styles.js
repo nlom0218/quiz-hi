@@ -19,6 +19,9 @@ export const darkTheme = {
 
 export const GlobalStyle = createGlobalStyle`
   ${reset};
+  html {
+    overflow: auto;
+  }
   body {
     min-width: 1200px;
     font-family: 'Nanum Myeongjo', serif;

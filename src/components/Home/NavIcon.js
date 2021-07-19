@@ -48,7 +48,7 @@ const Description = styled.div`
   align-self: center;
 `
 
-const IntroIcon = () => {
+const NavIcon = () => {
   useEffect(() => {
     gsap.from(".iconContainer", {
       duration: 1.5,
@@ -120,4 +120,4 @@ const IntroIcon = () => {
   </Layout>);
 }
 
-export default IntroIcon;
+export default NavIcon;
