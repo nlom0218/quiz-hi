@@ -1,9 +1,11 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import LinkBtn from '../LinkBtn';
+import { ScrollTrigger } from "gsap/ScrollTrigger"
+import { gsap } from "gsap"
+gsap.registerPlugin(ScrollTrigger)
 
-const SJoin = styled.div`
+const Layout = styled.div`
   grid-column: 1 / 13;
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -27,7 +29,7 @@ const JoinMsg = styled.div`
   font-weight: 400;
 `
 
-const Container = styled.div`
+const Box = styled.div`
   grid-column: ${props => props.position === "left" ? 1 / 2 : 2 / 3};
   grid-row: 2 / 3;
   background-color: ${props => props.position === "left" ? "rgb(67, 216, 122, 0.2)" : "rgb(146, 248, 185, 0.2)"};;
@@ -49,23 +51,37 @@ const Msg = styled.div`
 `
 
 const Join = () => {
+  useEffect(() => {
+    gsap.from(".joinContainer", {
+      duration: 1.5,
+      y: "80",
+      opacity: 0,
+      ease: "power3.out",
+      scrollTrigger: {
+        trigger: ".joinContainer",
+        start: "top 95%",
+        // markers: true,
+        // toggleActions: "restart complete reverse reset"
+      }
+    })
+  }, [])
   return (
-    <SJoin>
+    <Layout className="joinContainer">
       <JoinText>
         <JoinTitle>Account</JoinTitle>
         <JoinMsg>Create Quiz with QUIZ HI</JoinMsg>
       </JoinText>
-      <Container position="left">
+      <Box position="left">
         <Title>계정 있으신가요?</Title>
         <Msg>로그인하여 당신의 퀴즈를 공유해주세요!</Msg>
         <LinkBtn route="login" text="로그인하기" />
-      </Container>
-      <Container>
+      </Box>
+      <Box>
         <Title>계정 없으신가요?</Title>
         <Msg>회원가입하여 함께 퀴즈를 만드시는건 어때요?</Msg>
         <LinkBtn route="create-account" text="회원가입하기" />
-      </Container>
-    </SJoin>
+      </Box>
+    </Layout>
   );
 }
 

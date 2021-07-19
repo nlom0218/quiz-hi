@@ -1,8 +1,6 @@
-import { useReactiveVar } from '@apollo/client';
 import React from 'react';
 import styled from 'styled-components';
 import typingAni from '../../animation/typingAni';
-import { darkModeVar } from '../../apollo';
 import introImg from "../../images/Home/intro.jpg"
 
 const SIntro = styled.div`
@@ -47,7 +45,7 @@ const IntroMsg = styled.div`
 `
 
 const Intro = () => {
-  return (<SIntro>
+  return (<SIntro className="introContainer">
     <IntroImg src={introImg} />
     <IntroText>
       <IntroTitle>WelCome To Quiz Hi</IntroTitle>
