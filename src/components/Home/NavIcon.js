@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMoon, faPencilAlt, faPlay, faSearch, faSignInAlt, faSignOutAlt, faSun, faUser } from '@fortawesome/free-solid-svg-icons';
 import { faClipboard, faListAlt } from '@fortawesome/free-regular-svg-icons';
 import { HomeContentsLayoutGsap } from '../../hooks/Gsap';
+import { useHistory } from 'react-router';
 
 
 const Layout = styled.div`
@@ -28,6 +29,7 @@ const Wapper = styled.div`
   grid-template-rows: 1fr 2fr;
   justify-items: center;
   transition: background-color 0.3s linear;
+  cursor: pointer;
   :hover {
     background-color: rgb(140, 255, 237, 0.6);
   }
@@ -48,6 +50,10 @@ const Description = styled.div`
 `
 
 const NavIcon = () => {
+  const history = useHistory()
+  const onClinkNav = (routes) => {
+    history.push(`/${routes}`)
+  }
   return (<Layout className="iconLayout">
     <HomeContentsLayoutGsap layout="iconLayout" />
     <Title title="Icons" msg="Navigation icons of QUIZ HI" left={false} />
@@ -83,7 +89,7 @@ const NavIcon = () => {
         </Icon>
         <Description>퀴즈 만들기</Description>
       </Wapper>
-      <Wapper>
+      <Wapper onClick={() => onClinkNav("play-quiz")}>
         <Icon>
           <FontAwesomeIcon icon={faPlay} />
         </Icon>
