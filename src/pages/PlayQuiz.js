@@ -9,8 +9,7 @@ const PlayQuiz = () => {
     <React.Fragment>
       <Header />
       <BasicContainer>
-        <Join />
-        <Intro />
+        {/* <Intro /> */}
       </BasicContainer>
     </React.Fragment>
   );
