@@ -1,8 +1,6 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import styled from 'styled-components';
-import { ScrollTrigger } from "gsap/ScrollTrigger"
-import { gsap } from "gsap"
-gsap.registerPlugin(ScrollTrigger)
+import { AccountContainerGsap } from '../../hooks/Gsap';
 
 const SAccountContainer = styled.div`
   height: 100vh;
@@ -15,15 +13,8 @@ const SAccountContainer = styled.div`
 `
 
 const AccountContainer = ({ children }) => {
-  useEffect(() => {
-    gsap.from(".accountContainer", {
-      duration: 1,
-      y: "60",
-      opacity: 0,
-      ease: "power3.out",
-    })
-  }, [])
   return (<SAccountContainer className="accountContainer">
+    <AccountContainerGsap container="accountContainer" />
     {children}
   </SAccountContainer>);
 }

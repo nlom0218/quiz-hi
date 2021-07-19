@@ -1,10 +1,8 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import styled from 'styled-components';
+import { HomeContentsLayoutGsap } from '../../hooks/Gsap';
 import LinkBtn from '../LinkBtn';
-import { ScrollTrigger } from "gsap/ScrollTrigger"
-import { gsap } from "gsap"
 import Title from './Title';
-gsap.registerPlugin(ScrollTrigger)
 
 const Layout = styled.div`
   grid-column: 1 / 13;
@@ -35,22 +33,9 @@ const Msg = styled.div`
 `
 
 const Join = () => {
-  useEffect(() => {
-    gsap.from(".joinContainer", {
-      duration: 1.5,
-      y: "80",
-      opacity: 0,
-      ease: "power3.out",
-      scrollTrigger: {
-        trigger: ".joinContainer",
-        start: "top 95%",
-        // markers: true,
-        // toggleActions: "restart complete reverse reset"
-      }
-    })
-  }, [])
   return (
     <Layout className="joinContainer">
+      <HomeContentsLayoutGsap layout="joinContainer" />
       <Title title="Account" msg="Create Quiz with QUIZ HI" left={true} />
       <Box position="left">
         <BoxTitle>계정 있으신가요?</BoxTitle>

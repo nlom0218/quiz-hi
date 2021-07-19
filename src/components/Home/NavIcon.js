@@ -1,12 +1,11 @@
 import React, { useEffect } from 'react';
 import styled from 'styled-components';
-import { ScrollTrigger } from "gsap/ScrollTrigger"
-import { gsap } from "gsap"
 import Title from './Title';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMoon, faPencilAlt, faPlay, faSearch, faSignInAlt, faSignOutAlt, faSun, faUser } from '@fortawesome/free-solid-svg-icons';
 import { faClipboard, faListAlt } from '@fortawesome/free-regular-svg-icons';
-gsap.registerPlugin(ScrollTrigger)
+import { HomeContentsLayoutGsap } from '../../hooks/Gsap';
+
 
 const Layout = styled.div`
   grid-column: 1 / 13;
@@ -49,21 +48,8 @@ const Description = styled.div`
 `
 
 const NavIcon = () => {
-  useEffect(() => {
-    gsap.from(".iconContainer", {
-      duration: 1.5,
-      y: "80",
-      opacity: 0,
-      ease: "power3.out",
-      scrollTrigger: {
-        trigger: ".iconContainer",
-        start: "top 95%",
-        // markers: true,
-        // toggleActions: "restart complete reverse reset"
-      }
-    })
-  }, [])
-  return (<Layout className="iconContainer">
+  return (<Layout className="iconLayout">
+    <HomeContentsLayoutGsap layout="iconLayout" />
     <Title title="Icons" msg="Navigation icons of QUIZ HI" left={false} />
     <Box>
       <Wapper>

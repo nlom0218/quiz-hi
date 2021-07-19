@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { faSearch, faMoon, faPencilAlt, faPlay, faUser, faSignOutAlt, faSun, faSignInAlt } from '@fortawesome/free-solid-svg-icons';
 import { faClipboard, faListAlt } from "@fortawesome/free-regular-svg-icons"
@@ -8,9 +8,8 @@ import { Link } from 'react-router-dom';
 import { useReactiveVar } from '@apollo/client';
 import { darkModeVar, disableDarkMode, enableDarkMode, isLoggedInVar, logOutUser } from '../apollo';
 import useUser from '../hooks/useUser';
-import { ScrollTrigger } from "gsap/ScrollTrigger"
-import { gsap } from "gsap"
-gsap.registerPlugin(ScrollTrigger)
+import { HeaderContainerGsap } from '../hooks/Gsap';
+
 
 const SHeader = styled.div`
 `
@@ -55,14 +54,6 @@ const SiteNameText = styled.span`
 `
 
 const Header = () => {
-  useEffect(() => {
-    gsap.from(".headerContainer", {
-      duration: 2,
-      y: "-100",
-      opacity: 0,
-      ease: "power3.out",
-    })
-  }, [])
   const darkMode = useReactiveVar(darkModeVar)
   const isLoggedIn = useReactiveVar(isLoggedInVar)
   const user = useUser()
@@ -77,6 +68,7 @@ const Header = () => {
     logOutUser()
   }
   return (<SHeader className="headerContainer">
+    <HeaderContainerGsap />
     <List>
       <Nav>
         <FontAwesomeIcon

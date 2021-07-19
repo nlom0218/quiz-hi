@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { ScrollTrigger } from "gsap/ScrollTrigger"
 import { gsap } from "gsap"
+import { BasicContainerGsap } from '../hooks/Gsap';
 gsap.registerPlugin(ScrollTrigger)
 
 const Container = styled.div`
@@ -16,16 +17,8 @@ const Container = styled.div`
 `
 
 const BasicContainer = ({ children }) => {
-  useEffect(() => {
-    gsap.from(".basicContainer", {
-      duration: 2,
-      delay: 0.5,
-      y: "100",
-      opacity: 0,
-      ease: "power3.out",
-    })
-  }, [])
   return (<Container className="basicContainer">
+    <BasicContainerGsap />
     {children}
   </Container>);
 }

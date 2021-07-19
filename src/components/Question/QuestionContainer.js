@@ -2,7 +2,7 @@ import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
 import styled from 'styled-components';
-import { pageFadeIn } from '../../animation/fade';
+import { AccountContainerGsap } from '../../hooks/Gsap';
 
 const Container = styled.div`
   position: absolute;
@@ -13,7 +13,6 @@ const Container = styled.div`
   background-color: rgb(63, 63, 63, 0.9);
   background-color: ${props => props.theme.blurBgColor};
   color: ${props => props.theme.fontColor};
-  animation: ${pageFadeIn} 0.6s linear forwards;
 `
 
 const Wapper = styled.div`
@@ -49,7 +48,8 @@ const QusetionContainer = ({ children, pageTitle, setQuestionMode }) => {
   const onClickQuestionMode = () => {
     setQuestionMode(false)
   }
-  return (<Container>
+  return (<Container className="questionContainer">
+    <AccountContainerGsap container="questionContainer" />
     <Wapper>
       <TopContents>
         <PageTitle>{pageTitle}</PageTitle>
