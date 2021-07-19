@@ -35,7 +35,7 @@ const CreateAccountQuestion = () => {
     <div>
       <Title>1. 가입 유형을 선택하세요.</Title>
       <Description>선생님, 일반인 중 하나를 선택하세요.</Description>
-      <Emphasis>학생 계정은 선생님의 계정을 통해 일괄 생성할 수 있습니다.</Emphasis>
+      <Emphasis>학생 계정은 선생님의 계정을 통해 생성할 수 있습니다.</Emphasis>
     </div>
     <div>
       <Title>2. 이메일을 인증하세요.</Title>
