@@ -57,7 +57,7 @@ const SiteNameText = styled.span`
 const Header = () => {
   useEffect(() => {
     gsap.from(".headerContainer", {
-      duration: 1,
+      duration: 2,
       y: "-100",
       opacity: 0,
       ease: "power3.out",

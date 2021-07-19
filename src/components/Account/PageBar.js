@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 const SPageBar = styled.div`  
-  grid-column: 3 / 4;
+  grid-column: 3 / span 1;
   grid-row: 2 / 3;
   align-self: flex-start;
   justify-self: center;

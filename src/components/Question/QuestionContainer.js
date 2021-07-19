@@ -11,7 +11,8 @@ const Container = styled.div`
   left: 0;
   top: 0;
   background-color: rgb(63, 63, 63, 0.9);
-  color: #F3F3F3;
+  background-color: ${props => props.theme.blurBgColor};
+  color: ${props => props.theme.fontColor};
   animation: ${pageFadeIn} 0.6s linear forwards;
 `
 

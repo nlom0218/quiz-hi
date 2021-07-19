@@ -1,6 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
-import { pageFadeIn } from '../animation/fade';
+import { ScrollTrigger } from "gsap/ScrollTrigger"
+import { gsap } from "gsap"
+gsap.registerPlugin(ScrollTrigger)
 
 const Container = styled.div`
   width: 1200px;
@@ -11,11 +13,19 @@ const Container = styled.div`
   grid-template-rows: auto;
   row-gap: 60px;
   position: relative;
-  animation: ${pageFadeIn} 0.6s linear forwards;
 `
 
 const BasicContainer = ({ children }) => {
-  return (<Container>
+  useEffect(() => {
+    gsap.from(".basicContainer", {
+      duration: 2,
+      delay: 0.5,
+      y: "100",
+      opacity: 0,
+      ease: "power3.out",
+    })
+  }, [])
+  return (<Container className="basicContainer">
     {children}
   </Container>);
 }
