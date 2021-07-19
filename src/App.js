@@ -8,6 +8,7 @@ import { client, darkModeVar } from './apollo';
 import Login from './pages/Login';
 import PlayQuiz from "./pages/PlayQuiz"
 import CreateAccount from './pages/CreateAccount';
+import ScrollToTop from './hooks/ScrollToTop';
 
 function App() {
   const darkMode = useReactiveVar(darkModeVar)
@@ -16,6 +17,7 @@ function App() {
       <ThemeProvider theme={darkMode ? darkTheme : lightTheme} >
         <GlobalStyle />
         <Router>
+          <ScrollToTop />
           <Switch>
             <Route exact path="/"><Home /></Route>
             <Route path="/login"><Login /></Route>
