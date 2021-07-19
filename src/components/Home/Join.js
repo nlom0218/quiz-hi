@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import LinkBtn from '../LinkBtn';
 import { ScrollTrigger } from "gsap/ScrollTrigger"
 import { gsap } from "gsap"
+import Title from './Title';
 gsap.registerPlugin(ScrollTrigger)
 
 const Layout = styled.div`
@@ -10,23 +11,6 @@ const Layout = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-template-rows: auto 400px;
-`
-
-const JoinText = styled.div`
-  grid-column: 1 / 3;
-  margin-bottom: 10px;
-`
-
-const JoinTitle = styled.div`
-  font-size: 24px;
-  font-weight: 600;
-  margin-bottom: 5px;
-  letter-spacing: 5px;
-`
-
-const JoinMsg = styled.div`
-  font-size: 16px;
-  font-weight: 400;
 `
 
 const Box = styled.div`
@@ -41,7 +25,7 @@ const Box = styled.div`
   margin-bottom: 40px;
 `
 
-const Title = styled.div`
+const BoxTitle = styled.div`
   font-size: 24px;
 `
 
@@ -67,17 +51,14 @@ const Join = () => {
   }, [])
   return (
     <Layout className="joinContainer">
-      <JoinText>
-        <JoinTitle>Account</JoinTitle>
-        <JoinMsg>Create Quiz with QUIZ HI</JoinMsg>
-      </JoinText>
+      <Title title="Account" msg="Create Quiz with QUIZ HI" left={true} />
       <Box position="left">
-        <Title>계정 있으신가요?</Title>
+        <BoxTitle>계정 있으신가요?</BoxTitle>
         <Msg>로그인하여 당신의 퀴즈를 공유해주세요!</Msg>
         <LinkBtn route="login" text="로그인하기" />
       </Box>
       <Box>
-        <Title>계정 없으신가요?</Title>
+        <BoxTitle>계정 없으신가요?</BoxTitle>
         <Msg>회원가입하여 함께 퀴즈를 만드시는건 어때요?</Msg>
         <LinkBtn route="create-account" text="회원가입하기" />
       </Box>

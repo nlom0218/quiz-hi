@@ -75,8 +75,8 @@ const Header = () => {
         />
       </Nav>
       <Nav><FontAwesomeIcon icon={faSearch} /></Nav>
-      <Nav><FontAwesomeIcon icon={faListAlt} /></Nav>
       <Nav><FontAwesomeIcon icon={faClipboard} /></Nav>
+      <Nav><FontAwesomeIcon icon={faListAlt} /></Nav>
       <SiteName>
         <SiteNameText><Link to="/">quiz Hi</Link></SiteNameText>
       </SiteName>
