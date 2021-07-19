@@ -1,11 +1,13 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import Title from './Title';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMoon, faPencilAlt, faPlay, faSearch, faSignInAlt, faSignOutAlt, faSun, faUser } from '@fortawesome/free-solid-svg-icons';
-import { faClipboard, faListAlt } from '@fortawesome/free-regular-svg-icons';
+import { faClipboard, faListAlt, faQuestionCircle } from '@fortawesome/free-regular-svg-icons';
 import { HomeContentsLayoutGsap } from '../../hooks/Gsap';
 import { useHistory } from 'react-router';
+import { darkModeVar, disableDarkMode, enableDarkMode } from '../../apollo';
+import { useReactiveVar } from '@apollo/client';
 
 
 const Layout = styled.div`
@@ -19,7 +21,7 @@ const Box = styled.div`
   grid-row: 2 / 3;
   background-color: rgb(140, 255, 237, 0.2);
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(5, 1fr);
   grid-template-rows: 1fr 1fr;
   box-shadow: 0px 17px 6px -14px rgba(0,0,0,0.2);
 `
@@ -48,22 +50,36 @@ const Icon = styled.div`
 const Description = styled.div`
   align-self: center;
 `
-
 const NavIcon = () => {
+  const darkMode = useReactiveVar(darkModeVar)
   const history = useHistory()
-  const onClinkNav = (routes) => {
+  const onClinkNavBtn = (routes) => {
+    if (routes === "") {
+      window.scrollTo({
+        behavior: "smooth",
+        top: 1,
+        left: 1
+      })
+    }
     history.push(`/${routes}`)
+  }
+  const onCLickDarkMode = () => {
+    if (darkMode === true) {
+      disableDarkMode()
+    } else if (darkMode === false) {
+      enableDarkMode()
+    }
   }
   return (<Layout className="iconLayout">
     <HomeContentsLayoutGsap layout="iconLayout" />
     <Title title="Icons" msg="Navigation icons of QUIZ HI" left={false} />
     <Box>
-      <Wapper>
+      <Wapper onClick={onCLickDarkMode}>
         <Icon>
           <FontAwesomeIcon icon={faMoon} />
           <FontAwesomeIcon icon={faSun} />
         </Icon>
-        <Description>다크모드, 라이트모드</Description>
+        <Description>다크모드 & 라이트모드</Description>
       </Wapper>
       <Wapper>
         <Icon>
@@ -89,7 +105,7 @@ const NavIcon = () => {
         </Icon>
         <Description>퀴즈 만들기</Description>
       </Wapper>
-      <Wapper onClick={() => onClinkNav("play-quiz")}>
+      <Wapper onClick={() => onClinkNavBtn("play-quiz")}>
         <Icon>
           <FontAwesomeIcon icon={faPlay} />
         </Icon>
@@ -107,6 +123,18 @@ const NavIcon = () => {
           <FontAwesomeIcon icon={faSignOutAlt} />
         </Icon>
         <Description>로그인 & 로그아웃</Description>
+      </Wapper>
+      <Wapper onClick={() => onClinkNavBtn("")}>
+        <Icon>
+          QUIZ HI
+        </Icon>
+        <Description>홈</Description>
+      </Wapper>
+      <Wapper>
+        <Icon>
+          <FontAwesomeIcon icon={faQuestionCircle} />
+        </Icon>
+        <Description>도움말</Description>
       </Wapper>
     </Box>
   </Layout>);
