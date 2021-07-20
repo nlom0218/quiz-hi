@@ -45,12 +45,12 @@ const Join = () => {
       <Box position="left">
         <BoxTitle>{user ? "퀴즈를 만들어 볼까요?" : "계정 있으신가요?"}</BoxTitle>
         <Msg>{user ? "멋진 퀴즈를 만들고 다른 사람들에게 공유해주세요!" : "로그인하여 당신의 퀴즈를 공유해주세요!"}</Msg>
-        <LinkBtn route="login" text={user ? "퀴즈만들기" : "로그인하기"} />
+        <LinkBtn route={user ? "make-quiz" : "login"} text={user ? "퀴즈만들기" : "로그인하기"} />
       </Box>
       <Box>
         <BoxTitle>{user ? "퀴즈를 진행하시겠어요?" : "계정 없으신가요?"}</BoxTitle>
         <Msg>{user ? "퀴즈를 선택해 다른 사람들과 함께 풀어보세요!" : "회원가입하여 함께 퀴즈를 만드시는건 어때요?"}</Msg>
-        <LinkBtn route="create-account" text={user ? "퀴즈진행하기" : "회원가입하기"} />
+        <LinkBtn route={user ? "play-quiz" : "create-account"} text={user ? "퀴즈진행하기" : "회원가입하기"} />
       </Box>
     </Layout>
   );

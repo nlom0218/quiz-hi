@@ -8,7 +8,7 @@ const PlayQuiz = () => {
     <React.Fragment>
       <Header />
       <BasicContainer>
-        <Intro />
+        Play Quiz
       </BasicContainer>
     </React.Fragment>
   );

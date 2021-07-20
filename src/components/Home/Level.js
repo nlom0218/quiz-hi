@@ -71,7 +71,7 @@ const Level = () => {
         <SubMsg>
           선생님들은 퀴즈를 만들고 공유를 할수록 학생들은 퀴즈를 풀고 점수를 많이 받을수록 레벨은 올라갑니다!
         </SubMsg>
-        <LinkBtn route={"/me"} text="나의 레벨 확인하기" />
+        <LinkBtn route="me" text="나의 레벨 확인하기" />
       </Wrapper>
     </Box>
   </HomeLayout>);

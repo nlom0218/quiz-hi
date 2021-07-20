@@ -84,19 +84,19 @@ const NavIcon = () => {
         </Icon>
         <Description>퀴즈 검색하기</Description>
       </Wapper>
-      <Wapper>
+      <Wapper onClick={() => onClinkNavBtn("quiz-feed")}>
         <Icon>
           <FontAwesomeIcon icon={faClipboard} />
         </Icon>
         <Description>퀴즈 대시보드</Description>
       </Wapper>
-      <Wapper>
+      <Wapper onClick={() => onClinkNavBtn("notice-board")}>
         <Icon>
           <FontAwesomeIcon icon={faListAlt} />
         </Icon>
         <Description>게시판</Description>
       </Wapper>
-      <Wapper>
+      <Wapper onClick={() => onClinkNavBtn("make-quiz")}>
         <Icon>
           <FontAwesomeIcon icon={faPencilAlt} />
         </Icon>
@@ -108,7 +108,7 @@ const NavIcon = () => {
         </Icon>
         <Description>퀴즈 진행하기</Description>
       </Wapper>
-      <Wapper>
+      <Wapper onClick={() => onClinkNavBtn("me")}>
         <Icon>
           <FontAwesomeIcon icon={faUser} />
         </Icon>
