@@ -6,6 +6,7 @@ import NavIcon from '../components/Home/NavIcon';
 import Join from '../components/Home/Join';
 import ToTopBtn from '../components/ToTopBtn';
 import AccountType from '../components/Home/AccountType';
+import Level from '../components/Home/Level';
 
 const Home = () => {
   return (
@@ -15,9 +16,9 @@ const Home = () => {
         <Intro />
         <NavIcon />
         <AccountType />
+        <Level />
         <Join />
       </BasicContainer>
-
       <ToTopBtn />
     </React.Fragment>
   );
