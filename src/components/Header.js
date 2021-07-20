@@ -78,22 +78,21 @@ const Header = () => {
         />
       </Nav>
       <Nav><FontAwesomeIcon icon={faSearch} /></Nav>
-      <Nav><FontAwesomeIcon icon={faClipboard} /></Nav>
-      <Nav><FontAwesomeIcon icon={faListAlt} /></Nav>
+      <Nav><Link to="/quiz-feed"><FontAwesomeIcon icon={faClipboard} /></Link></Nav>
+      <Nav><Link to="/notice-board"><FontAwesomeIcon icon={faListAlt} /></Link></Nav>
       <SiteName>
         <SiteNameText><Link to="/">quiz Hi</Link></SiteNameText>
       </SiteName>
-      {user && <React.Fragment>
-        <Nav><FontAwesomeIcon icon={faPencilAlt} /></Nav>
-        <Nav><Link to="/play-quiz"><FontAwesomeIcon icon={faPlay} /></Link></Nav>
-        <Nav>
+      <Nav><Link to="/make-quiz"><FontAwesomeIcon icon={faPencilAlt} /></Link></Nav>
+      <Nav><Link to="/play-quiz"><FontAwesomeIcon icon={faPlay} /></Link></Nav>
+      <Nav>
+        <Link to="/me">
           {user?.avatarURL === !null ?
             <></>
             : <FontAwesomeIcon icon={faUser} />
           }
-        </Nav>
-      </React.Fragment>
-      }
+        </Link>
+      </Nav>
       <Nav>
         {isLoggedIn ?
           <FontAwesomeIcon icon={faSignOutAlt} onClick={onClickAccount} />

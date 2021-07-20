@@ -50,7 +50,7 @@ const Join = () => {
       <Box>
         <BoxTitle>{user ? "퀴즈를 진행하시겠어요?" : "계정 없으신가요?"}</BoxTitle>
         <Msg>{user ? "퀴즈를 선택해 다른 사람들과 함께 풀어보세요!" : "회원가입하여 함께 퀴즈를 만드시는건 어때요?"}</Msg>
-        <LinkBtn route="create-account" text="퀴즈진행하기" />
+        <LinkBtn route="create-account" text={user ? "퀴즈진행하기" : "회원가입하기"} />
       </Box>
     </Layout>
   );
