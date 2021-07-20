@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { HomeContentsLayoutGsap } from '../../hooks/Gsap';
+import useUser from '../../hooks/useUser';
 import LinkBtn from '../LinkBtn';
 import Title from './Title';
 
@@ -33,19 +34,23 @@ const Msg = styled.div`
 `
 
 const Join = () => {
+  const user = useUser()
+  console.log(user);
   return (
     <Layout className="joinContainer">
       <HomeContentsLayoutGsap layout="joinContainer" />
-      <Title title="Account" msg="Create Quiz with QUIZ HI" left={true} />
+      <Title
+        title={user ? `Welcome ${user?.username}` : "Account"}
+        msg={user ? "Ready to enjoy QUIZ HI?" : "Create Quiz with QUIZ HI"} left={true} />
       <Box position="left">
-        <BoxTitle>계정 있으신가요?</BoxTitle>
-        <Msg>로그인하여 당신의 퀴즈를 공유해주세요!</Msg>
-        <LinkBtn route="login" text="로그인하기" />
+        <BoxTitle>{user ? "퀴즈를 만들어 볼까요?" : "계정 있으신가요?"}</BoxTitle>
+        <Msg>{user ? "멋진 퀴즈를 만들고 다른 사람들에게 공유해주세요!" : "로그인하여 당신의 퀴즈를 공유해주세요!"}</Msg>
+        <LinkBtn route="login" text={user ? "퀴즈만들기" : "로그인하기"} />
       </Box>
       <Box>
-        <BoxTitle>계정 없으신가요?</BoxTitle>
-        <Msg>회원가입하여 함께 퀴즈를 만드시는건 어때요?</Msg>
-        <LinkBtn route="create-account" text="회원가입하기" />
+        <BoxTitle>{user ? "퀴즈를 진행하시겠어요?" : "계정 없으신가요?"}</BoxTitle>
+        <Msg>{user ? "퀴즈를 선택해 다른 사람들과 함께 풀어보세요!" : "회원가입하여 함께 퀴즈를 만드시는건 어때요?"}</Msg>
+        <LinkBtn route="create-account" text="퀴즈진행하기" />
       </Box>
     </Layout>
   );
