@@ -8,14 +8,7 @@ import { HomeContentsLayoutGsap } from '../../hooks/Gsap';
 import { useHistory } from 'react-router';
 import { darkModeVar, disableDarkMode, enableDarkMode } from '../../apollo';
 import { useReactiveVar } from '@apollo/client';
-
-
-const Layout = styled.div`
-  grid-column: 1 / 13;
-  display: grid;
-  grid-template-columns: 1fr;
-  grid-template-rows: auto 400px;
-`
+import HomeLayout from './HomeLayout';
 
 const Box = styled.div`
   grid-row: 2 / 3;
@@ -70,9 +63,13 @@ const NavIcon = () => {
       enableDarkMode()
     }
   }
-  return (<Layout className="iconLayout">
-    <HomeContentsLayoutGsap layout="iconLayout" />
-    <Title title="Icons" msg="Navigation icons of QUIZ HI" left={false} />
+  return (<HomeLayout
+    className="iconLayout"
+    layout="iconLayout"
+    title="Icons"
+    msg="Navigation icons of QUIZ HI"
+    left={false}
+  >
     <Box>
       <Wapper onClick={onCLickDarkMode}>
         <Icon>
@@ -137,7 +134,7 @@ const NavIcon = () => {
         <Description>도움말</Description>
       </Wapper>
     </Box>
-  </Layout>);
+  </HomeLayout>);
 }
 
 export default NavIcon;
