@@ -41,6 +41,7 @@ const MainMsg = styled.div`
 
 const SubMsg = styled.div`
   font-size: 18px;
+  margin-bottom: 50px;
 `
 
 const Level = () => {

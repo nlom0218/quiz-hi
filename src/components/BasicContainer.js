@@ -7,7 +7,7 @@ gsap.registerPlugin(ScrollTrigger)
 
 const Container = styled.div`
   width: 1200px;
-  height: 100vh;
+  /* height: 100vh; */
   margin: 0 auto;
   margin-top: 40px;
   display: grid;

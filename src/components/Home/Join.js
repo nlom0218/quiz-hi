@@ -31,6 +31,7 @@ const BoxTitle = styled.div`
 const Msg = styled.div`
   margin-top: 20px;
   font-size: 18px;
+  margin-bottom: 50px;
 `
 
 const Join = () => {

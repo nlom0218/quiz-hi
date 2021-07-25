@@ -11,7 +11,6 @@ const SNavBtn = styled.div`
   justify-content: center;
   align-items: center;
   cursor: pointer;
-  margin-top: 50px;
   color: ${props => props.theme.fontColor};
   transition: all 0.5s linear;
   :hover {

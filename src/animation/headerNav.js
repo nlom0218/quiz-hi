@@ -11,6 +11,6 @@ const headerNav = keyframes`
   }
   100% {
     transform: translateY(0px);
-  `
+`
 
 export default headerNav
