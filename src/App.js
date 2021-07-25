@@ -14,7 +14,7 @@ import MakeQuiz from './pages/MakeQuiz';
 import NoticeBoard from './pages/NoticeBoard';
 import Me from './pages/Me';
 import useUser from './hooks/useUser';
-import Certification from './pages/Certification';
+import NotFound from './pages/NotFound';
 
 function App() {
   const darkMode = useReactiveVar(darkModeVar)
@@ -28,11 +28,12 @@ function App() {
           <Route exact path="/"><Home /></Route>
           <Route path="/quiz-feed"><QuizFeed /></Route>
           <Route path="/notice-board"><NoticeBoard /></Route>
-          <Route path="/make-quiz">{user ? <MakeQuiz /> : <Certification />}</Route>
-          <Route path="/play-quiz">{user ? <PlayQuiz /> : <Certification />}</Route>
-          <Route path="/me">{user ? <Me /> : <Certification />}</Route>
+          <Route path="/make-quiz">{user ? <MakeQuiz /> : <NotFound />}</Route>
+          <Route path="/play-quiz">{user ? <PlayQuiz /> : <NotFound />}</Route>
+          <Route path="/me">{user ? <Me /> : <NotFound />}</Route>
           <Route path="/login"><Login /></Route>
           <Route path="/create-account"><CreateAccount /></Route>
+          <Route><NotFound /></Route>
         </Switch>
       </Router>
     </ThemeProvider >
