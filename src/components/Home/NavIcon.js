@@ -1,10 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
-import Title from './Title';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMoon, faPencilAlt, faPlay, faSearch, faSignInAlt, faSignOutAlt, faSun, faUser } from '@fortawesome/free-solid-svg-icons';
 import { faClipboard, faListAlt, faQuestionCircle } from '@fortawesome/free-regular-svg-icons';
-import { HomeContentsLayoutGsap } from '../../hooks/Gsap';
 import { useHistory } from 'react-router';
 import { darkModeVar, disableDarkMode, enableDarkMode } from '../../apollo';
 import { useReactiveVar } from '@apollo/client';

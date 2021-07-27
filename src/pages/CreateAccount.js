@@ -12,7 +12,7 @@ import AccountContainer from '../components/Account/AccountContainer';
 import EmailForm from '../components/Account/EmailForm';
 import ErrMsg from '../components/Account/ErrMsg';
 import FormLayout from '../components/Account/FormLayout';
-import InputBtn from '../components/Account/InputBtn';
+import InputBtn from '../components/InputBtn';
 import InputLayout from '../components/Account/InputLayout';
 import PageBar from '../components/Account/PageBar';
 import PageBarItem from '../components/Account/PageBarItem';

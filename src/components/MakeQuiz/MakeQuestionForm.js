@@ -6,8 +6,8 @@ const SMakeQuestionForm = styled.form`
   animation: ${fadeIn} 0.6s linear forwards;
 `
 
-const MakeQuestionForm = ({ children }) => {
-  return (<SMakeQuestionForm>
+const MakeQuestionForm = ({ children, onSubmit }) => {
+  return (<SMakeQuestionForm onSubmit={onSubmit}>
     {children}
   </SMakeQuestionForm>);
 }

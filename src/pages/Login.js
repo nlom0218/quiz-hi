@@ -12,7 +12,7 @@ import { darkModeVar, logInUser } from '../apollo';
 import AccountContainer from '../components/Account/AccountContainer';
 import ErrMsg from '../components/Account/ErrMsg';
 import FormLayout from '../components/Account/FormLayout';
-import InputBtn from '../components/Account/InputBtn';
+import InputBtn from '../components/InputBtn';
 import InputLayout from '../components/Account/InputLayout';
 import Title from '../components/Account/Title';
 import PageBar from '../components/Account/PageBar';

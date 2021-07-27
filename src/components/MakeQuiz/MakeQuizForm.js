@@ -1,10 +1,8 @@
-import { faMinusCircle, faPlusCircle } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { useForm } from 'react-hook-form';
 import styled from 'styled-components';
 import { fadeIn } from '../../animation/fade';
-import InputBtn from '../Account/InputBtn';
+import InputBtn from '../InputBtn';
 import TagContainer from './TagContainer';
 
 const SMakeQuizForm = styled.form`

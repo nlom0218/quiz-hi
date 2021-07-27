@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import styled from 'styled-components';
 import BasicContainer from '../components/BasicContainer';
 import Header from '../components/Header';
 import MakeQuestionContainer from '../components/MakeQuiz/MakeQuestionContainer';
@@ -12,7 +11,6 @@ const MakeQuiz = () => {
   const [quizTitle, setQuizTitle] = useState("")
   const [quizTags, setQuizTags] = useState([])
   const [makeQuestion, setMakeQuestion] = useState(false)
-  console.log(quizTitle);
   return (<React.Fragment>
     <Header />
     <BasicContainer>

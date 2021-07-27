@@ -70,9 +70,9 @@ const MakeQuestionContainer = ({ quizTags }) => {
           </div>
       </Types>
     </QuestionType>
-    {quizType === "sub" && <SubQuestion quizTags={quizTags} />}
-    {quizType === "obj" && <ObjQuestion />}
-    {quizType === "tf" && <TFQuestion />}
+    {quizType === "sub" && <SubQuestion quizTags={quizTags} quizType={quizType} />}
+    {quizType === "obj" && <ObjQuestion quizTags={quizTags} quizType={quizType} />}
+    {quizType === "tf" && <TFQuestion quizTags={quizTags} quizType={quizType} />}
   </SMakeQuestionContainer>);
 }
 

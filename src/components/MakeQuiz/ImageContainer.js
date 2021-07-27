@@ -37,10 +37,11 @@ const PreviewImage = styled.img`
   animation: ${fadeIn} 1s linear forwards;
 `
 
-const ImageContainer = ({ previewImg, setPreviewImg, register, setValue }) => {
+const ImageContainer = ({ previewImg, setPreviewImg, register, setValue, setImage }) => {
   const onChangeImage = ({ target: { files } }) => {
     if (files.length) {
       const file = files[0]
+      setImage(file)
       let reader = new FileReader();
       reader.onload = function (e) { setPreviewImg(e.target.result); }
       reader.readAsDataURL(file);

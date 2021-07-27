@@ -1,12 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import styled from 'styled-components';
 import emailjs from 'emailjs-com';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faArrowRight, faPaperPlane, faRedoAlt } from '@fortawesome/free-solid-svg-icons';
+import { faPaperPlane, faRedoAlt } from '@fortawesome/free-solid-svg-icons';
 import EmailConfirm from './EmailConfirm';
-import { Link } from 'react-router-dom';
-import { faArrowAltCircleRight } from '@fortawesome/free-regular-svg-icons';
 
 const Wrapper = styled.div``
 
