@@ -26,7 +26,7 @@ const SInputLayout = styled.div`
 `
 
 const InputLayout = ({ children, bgColor }) => {
-  return (<SInputLayout bgColor={bgColor}>
+  return (<SInputLayout>
     {children}
   </SInputLayout>);
 }

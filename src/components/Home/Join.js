@@ -36,7 +36,6 @@ const Msg = styled.div`
 
 const Join = () => {
   const user = useUser()
-  console.log(user);
   return (
     <Layout className="joinContainer">
       <HomeContentsLayoutGsap layout="joinContainer" />

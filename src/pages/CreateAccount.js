@@ -141,7 +141,7 @@ const CreateAccount = () => {
             </span>
             <input type={visible ? "text" : "password"} {...register("passwordConfirm", { required: true })} autoComplete="off" />
           </InputLayout>
-          <InputBtn value="회원가입" disabled={!isValid || !doneConfirm} />
+          <InputBtn value="회원가입" disabled={!isValid || !doneConfirm} bgColor="rgb(67, 216, 122)" />
         </form>
         {error ? <ErrMsg error={error} /> : null}
       </FormLayout>

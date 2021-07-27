@@ -145,7 +145,7 @@ const Login = () => {
               autoComplete="off"
             />
           </InputLayout>
-          <InputBtn value="로그인" disabled={!isValid} />
+          <InputBtn value="로그인" disabled={!isValid} bgColor="rgb(67, 216, 122)" />
         </form>
         {error ? <ErrMsg error={error} /> : null}
       </FormLayout>
