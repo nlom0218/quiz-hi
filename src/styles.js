@@ -26,16 +26,17 @@ export const GlobalStyle = createGlobalStyle`
   }
   body {
     min-width: 1200px;
-    font-family: 'Nanum Myeongjo', serif;
     font-size: 16px;
     color: ${props => props.theme.fontColor};
     background-color: ${props => props.theme.bgColor};
     transition: color 1s ease, background-color 1s ease;
+    font-family: 'Nanum Myeongjo', serif;
   }
   * {
     box-sizing: border-box;
     user-select: none;
     letter-spacing: 2px;
+    font-family: 'Nanum Myeongjo', serif;
   }
   #root {
   }
