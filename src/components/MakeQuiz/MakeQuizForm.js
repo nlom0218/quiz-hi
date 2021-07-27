@@ -12,16 +12,13 @@ const SMakeQuizForm = styled.form`
   grid-template-rows: auto;
 `
 
-const Warpper = styled.div`
+const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   margin-bottom: 30px;
   .inputTitle {
     margin-bottom: 10px;
     font-size: 18px;
-  }
-  .subMsg {
-
   }
   input {
     background-color: rgb(255, 185, 94, 0.2);
@@ -116,7 +113,7 @@ const MakeQuizForm = ({ setQuizTags, quizTags, setQuizTitle, quizTitle, makeQues
     setQuizTitle(getValues("quizTitle"))
   }
   return (<SMakeQuizForm onSubmit={handleSubmit(onSubmit)}>
-    <Warpper>
+    <Wrapper>
       <span className="inputTitle">・ 퀴즈 제목</span>
       <input
         {...register("quizTitle", {
@@ -131,8 +128,8 @@ const MakeQuizForm = ({ setQuizTags, quizTags, setQuizTitle, quizTitle, makeQues
           <ChangeBtn onClick={onClickChangeBtn}>수정하기</ChangeBtn>
         </ChangeMsg>}
       </React.Fragment>}
-    </Warpper>
-    <Warpper>
+    </Wrapper>
+    <Wrapper>
       <span className="inputTitle">・ 퀴즈 태그</span>
       <span className="subMsg">태그를 입력하고 + 버튼을 눌러주세요.</span>
       <TagInput>
@@ -156,7 +153,7 @@ const MakeQuizForm = ({ setQuizTags, quizTags, setQuizTitle, quizTitle, makeQues
           })}
         </SeeTag>}
       </TagInput>
-    </Warpper>
+    </Wrapper>
     <InputBtn value="2단계 진행하기" bgColor="rgb(255, 185, 94)" disabled={!isValid || makeQuestion} />
   </SMakeQuizForm>);
 }

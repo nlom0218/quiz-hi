@@ -1,11 +1,14 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
+import { fadeIn } from '../../animation/fade';
 
 const Layout = styled.div`
   grid-column: 1 / 13;
   display: grid;
   grid-template-columns: 1fr;
   grid-template-rows: auto;
+  margin-bottom: 50px;
+  animation: ${fadeIn} 0.6s linear forwards;
 `
 
 const SStep = styled.div`
@@ -25,6 +28,13 @@ const Msg = styled.div`
 `
 
 const Step = ({ step, msg, children }) => {
+  useEffect(() => {
+    window.scrollTo({
+      top: 550,
+      left: 0,
+      behavior: "smooth"
+    })
+  }, [])
   return (<SStep>
     <Layout>
       <Title>{step}단계</Title>
