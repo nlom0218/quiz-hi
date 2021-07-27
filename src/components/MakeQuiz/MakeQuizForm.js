@@ -86,6 +86,7 @@ const MakeQuizForm = ({ setQuizTags, quizTags, setQuizTitle, quizTitle, makeQues
         register={register}
         tags={quizTags}
         setTags={setQuizTags}
+        subMsg1="모든 문제와 퀴즈에 동일한 태그를 부여합니다. 태그를 입력하고 + 버튼을 눌러주세요."
       />
     </Wrapper>
     <InputBtn value="2단계 진행하기" bgColor="rgb(255, 185, 94)" disabled={!isValid || makeQuestion} />

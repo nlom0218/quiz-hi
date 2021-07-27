@@ -47,7 +47,7 @@ const RemoveBtn = styled.div`
   cursor: pointer;
 `
 
-const TagContainer = ({ getValues, tags, setTags, setValue, register }) => {
+const TagContainer = ({ getValues, tags, setTags, setValue, register, subMsg1, subMsg2 }) => {
   const onClickPlusQuizTag = () => {
     if (getValues("tag") === "") {
       return
@@ -62,8 +62,8 @@ const TagContainer = ({ getValues, tags, setTags, setValue, register }) => {
   }
   return (<React.Fragment>
     <span className="inputTitle">・ 태그</span>
-    <span className="subMsg">해당 문제에만 해당되는 태그가 있나요?</span>
-    <span className="subMsg">태그를 입력하고 + 버튼을 눌러주세요.</span>
+    <span className="subMsg">{subMsg1}</span>
+    <span className="subMsg">{subMsg2}</span>
     <TagInput>
       <input
         {...register("tag")}
