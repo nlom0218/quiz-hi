@@ -28,6 +28,7 @@ const PreviewImageBox = styled.div`
     left: 10px;
     font-size: 20px;
     color: tomato;
+    cursor: pointer;
   }
 `
 

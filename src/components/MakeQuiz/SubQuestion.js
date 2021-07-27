@@ -1,6 +1,9 @@
+import { faCaretDown, faCaretUp } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import styled from 'styled-components';
+import { fadeIn } from '../../animation/fade';
 import ImageContainer from './ImageContainer';
 import MakeQuestionForm from './MakeQuestionForm';
 import QuestionTextarea from './QuestionTextarea';
@@ -32,13 +35,31 @@ const Option = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr;
   column-gap: 30px;
+  animation: ${fadeIn} 1s linear forwards;
+  .hint {
+    grid-column: 1 / -1;
+  }
+`
+
+const OptionTitle = styled.div`
+  grid-column: 1 / -1;
+  font-size: 18px;
+  margin-bottom: 20px;
+  svg {
+    margin-left: 10px;
+    font-size: 24px;
+    cursor: pointer;
+  }
 `
 
 const SubQuestion = ({ quizTags }) => {
   const [questionTags, setQuestionTags] = useState([])
-  console.log(questionTags);
+  const [option, setOption] = useState(false)
   const { register, setValue, getValues } = useForm()
   const [previewImg, setPreviewImg] = useState(undefined)
+  const onClickOption = () => {
+    setOption(!option)
+  }
   return (<MakeQuestionForm>
     <Wrapper>
       <span className="inputTitle">・ 문제</span>
@@ -54,7 +75,20 @@ const SubQuestion = ({ quizTags }) => {
         autoComplete="off"
       />
     </Wrapper>
-    <Option>
+    <OptionTitle>
+      <span>옵션</span>
+      <FontAwesomeIcon icon={option ? faCaretUp : faCaretDown} onClick={onClickOption} />
+    </OptionTitle>
+    {option && <Option>
+      <Wrapper className="hint">
+        <span className="inputTitle">・ 힌트</span>
+        <span className="subMsg">힌트가 있나요?</span>
+        <span className="subMsg">아래에 힌트를 작성하세요.</span>
+        <input
+          {...register("hint")}
+          type="text"
+        />
+      </Wrapper>
       <Wrapper>
         <ImageContainer
           previewImg={previewImg}
@@ -74,7 +108,7 @@ const SubQuestion = ({ quizTags }) => {
           subMsg2="태그를 입력하고 + 버튼을 눌러주세요."
         />
       </Wrapper>
-    </Option>
+    </Option>}
   </MakeQuestionForm >);
 }
 
