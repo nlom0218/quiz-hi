@@ -5,6 +5,7 @@ import { useForm } from 'react-hook-form';
 import styled from 'styled-components';
 import { fadeIn } from '../../animation/fade';
 import InputBtn from '../Account/InputBtn';
+import TagContainer from './TagContainer';
 
 const SMakeQuizForm = styled.form`
   display: grid;
@@ -34,49 +35,6 @@ const Wrapper = styled.div`
   }
 `
 
-const TagInput = styled.div`
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-`
-
-const PlusBtn = styled.div`
-  font-size: 30px;
-  border-radius: 50%;
-  grid-column: 2 / 4;
-  align-self: center;
-  justify-self: left;
-  margin-left: 20px;
-  cursor: pointer;
-  color: rgb(255, 148, 10, 0.6);
-  transition: color 0.2s linear;
-  :hover {
-    color: rgb(255, 148, 10);
-  }
-`
-
-const SeeTag = styled.div`
-  margin-top: 10px;
-  grid-column: 1 / -1;
-  display: flex;
-  flex-wrap: wrap;
-`
-
-const TagBox = styled.div`
-  background-color: rgb(255, 148, 10, 0.6);
-  margin-bottom: 10px;
-  padding: 10px 20px;
-  margin-right: 10px;
-  border-radius: 5px;
-  display: flex;
-  align-items: center;
-  animation: ${fadeIn} 0.6s linear forwards;
-`
-
-const RemoveBtn = styled.div`
-  margin-left: 5px;
-  cursor: pointer;
-`
-
 const ChangeMsg = styled.div`
   width: 100%;
   display: flex;
@@ -97,18 +55,6 @@ const MakeQuizForm = ({ setQuizTags, quizTags, setQuizTitle, quizTitle, makeQues
   const { register, getValues, setValue, formState: { isValid }, handleSubmit, watch } = useForm({
     mode: "onChange"
   })
-  const onClickPlusQuizTag = () => {
-    if (getValues("tag") === "") {
-      return
-    }
-    const newQuizTags = [...quizTags, getValues("tag")]
-    setQuizTags(newQuizTags)
-    setValue("tag", "")
-  }
-  const onClickRemoveQuizTag = (tag) => {
-    const newQuizTags = quizTags.filter((item) => item !== tag)
-    setQuizTags(newQuizTags)
-  }
   const onSubmit = (data) => {
     setQuizTitle(data.quizTitle)
     setMakeQuestion(true)
@@ -134,29 +80,13 @@ const MakeQuizForm = ({ setQuizTags, quizTags, setQuizTitle, quizTitle, makeQues
       </React.Fragment>}
     </Wrapper>
     <Wrapper>
-      <span className="inputTitle">・ 퀴즈 태그</span>
-      <span className="subMsg">모든 문제에 공통이 되는 태그를 입력하고 + 버튼을 눌러주세요.</span>
-      <TagInput>
-        <input
-          {...register("tag")}
-          type="text"
-          autoComplete="off"
-        />
-        <PlusBtn><FontAwesomeIcon icon={faPlusCircle} onClick={onClickPlusQuizTag} /></PlusBtn>
-        {quizTags.length !== 0 && <SeeTag>
-          {quizTags.map((item, index) => {
-            return <TagBox key={index}>
-              {item}
-              <RemoveBtn>
-                <FontAwesomeIcon
-                  icon={faMinusCircle}
-                  onClick={() => onClickRemoveQuizTag(item)}
-                />
-              </RemoveBtn>
-            </TagBox>
-          })}
-        </SeeTag>}
-      </TagInput>
+      <TagContainer
+        getValues={getValues}
+        setValue={setValue}
+        register={register}
+        tags={quizTags}
+        setTags={setQuizTags}
+      />
     </Wrapper>
     <InputBtn value="2단계 진행하기" bgColor="rgb(255, 185, 94)" disabled={!isValid || makeQuestion} />
   </SMakeQuizForm>);
