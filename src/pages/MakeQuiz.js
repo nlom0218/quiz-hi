@@ -31,7 +31,9 @@ const MakeQuiz = () => {
       </Step>
       {makeQuestion && <Step step={2} msg="문제의 유형을 선택한 후 문제와 정답을 입력하세요.">
         <QuizFormLayout bgColor="rgb(249, 192, 134, 0.2)">
-          <MakeQuestionContainer />
+          <MakeQuestionContainer
+            quizTags={quizTags}
+          />
         </QuizFormLayout>
       </Step>}
     </BasicContainer>

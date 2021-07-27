@@ -20,6 +20,9 @@ const Wrapper = styled.div`
     margin-bottom: 10px;
     font-size: 18px;
   }
+  .subMsg {
+    margin-bottom: 5px;
+  }
   input {
     background-color: rgb(255, 185, 94, 0.2);
     padding: 10px 20px;
@@ -32,7 +35,6 @@ const Wrapper = styled.div`
 `
 
 const TagInput = styled.div`
-  margin-top: 10px;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
 `
@@ -56,10 +58,12 @@ const SeeTag = styled.div`
   margin-top: 10px;
   grid-column: 1 / -1;
   display: flex;
+  flex-wrap: wrap;
 `
 
 const TagBox = styled.div`
   background-color: rgb(255, 148, 10, 0.6);
+  margin-bottom: 10px;
   padding: 10px 20px;
   margin-right: 10px;
   border-radius: 5px;
@@ -131,7 +135,7 @@ const MakeQuizForm = ({ setQuizTags, quizTags, setQuizTitle, quizTitle, makeQues
     </Wrapper>
     <Wrapper>
       <span className="inputTitle">・ 퀴즈 태그</span>
-      <span className="subMsg">태그를 입력하고 + 버튼을 눌러주세요.</span>
+      <span className="subMsg">모든 문제에 공통이 되는 태그를 입력하고 + 버튼을 눌러주세요.</span>
       <TagInput>
         <input
           {...register("tag")}

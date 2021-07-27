@@ -8,7 +8,7 @@ const Layout = styled.div`
   grid-template-columns: 1fr;
   grid-template-rows: auto;
   margin-bottom: 50px;
-  animation: ${fadeIn} 0.6s linear forwards;
+  animation: ${fadeIn} 1s linear forwards;
 `
 
 const SStep = styled.div`
@@ -30,7 +30,7 @@ const Msg = styled.div`
 const Step = ({ step, msg, children }) => {
   useEffect(() => {
     window.scrollTo({
-      top: 550,
+      top: 1000,
       left: 0,
       behavior: "smooth"
     })

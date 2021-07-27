@@ -37,7 +37,7 @@ const Types = styled.div`
    }
 `
 
-const MakeQuestionContainer = () => {
+const MakeQuestionContainer = ({ quizTags }) => {
   // sub, obj, tf
   const [quizType, setQuizType] = useState("sub")
   const onClickType = (type) => {
@@ -70,7 +70,7 @@ const MakeQuestionContainer = () => {
           </div>
       </Types>
     </QuestionType>
-    {quizType === "sub" && <SubQuestion />}
+    {quizType === "sub" && <SubQuestion quizTags={quizTags} />}
     {quizType === "obj" && <ObjQuestion />}
     {quizType === "tf" && <TFQuestion />}
   </SMakeQuestionContainer>);
