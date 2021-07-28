@@ -6,26 +6,27 @@ const Textarea = styled.textarea`
   resize: none;
   border: none;
   font-size: 16px;
-  background-color: rgb(247, 171, 96, 0.2);
+  background-color: ${props => props.bgColor};
   padding: 10px 20px;
   border-radius: 5px;
   color: ${props => props.theme.fontColor};
   transition: background-color 0.2s linear;
   :focus {
-    background-color: rgb(247, 171, 96, 0.4);
+    background-color: ${props => props.fcBgColor};
     outline: none;
   }
 `
 
-const QuestionTextarea = ({ register, nextMode }) => {
+const QuestionTextarea = ({ register, nextMode, bgColor, fcBgColor }) => {
   return (<Textarea
     cols={20}
     rows={5}
     {...register("question", {
       required: true
     })}
-    readOnly={nextMode !== "" && "readOnly"
-    }
+    readOnly={nextMode !== "" && "readOnly"}
+    bgColor={bgColor}
+    fcBgColor={fcBgColor}
   ></Textarea >);
 }
 

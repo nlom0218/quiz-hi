@@ -12,13 +12,13 @@ const Warpper = styled.div`
 
 const NextBtn = styled.div`
   text-align: center;
-  background-color: rgb(249, 192, 134, 0.2);
+  background-color: ${props => props.bgColor};
   padding: 10px 0px;
   border-radius: 5px;
   cursor: pointer;
   transition: background-color 0.2s linear;
     :hover {
-      background-color: rgb(247, 171, 96, 0.4);
+      background-color: ${props => props.hvBgColor};
     }
 `
 
@@ -29,7 +29,7 @@ const Msg = styled.div`
   padding: 10px 0px;
 `
 
-const NextStep = ({ setNextMode }) => {
+const NextStep = ({ setNextMode, bgColor, hvBgColor }) => {
   const [msg, setMsg] = useState(false)
   const onClickNextBtn = (mode) => {
     setNextMode(mode)
@@ -38,8 +38,12 @@ const NextStep = ({ setNextMode }) => {
   return (<Warpper>
     {!msg ?
       <React.Fragment>
-        <NextBtn onClick={() => onClickNextBtn("newQuestion")}>새로운 문제 만들기</NextBtn>
-        <NextBtn onClick={() => onClickNextBtn("nextStep")}>3단계 진행하기</NextBtn>
+        <NextBtn bgColor={bgColor} hvBgColor={hvBgColor} onClick={() => onClickNextBtn("newQuestion")}>
+          새로운 문제 만들기
+        </NextBtn>
+        <NextBtn bgColor={bgColor} hvBgColor={hvBgColor} onClick={() => onClickNextBtn("nextStep")}>
+          3단계 진행하기
+        </NextBtn>
       </React.Fragment>
       :
       <Msg>문제 수정은 퀴즈 완성 후 프로필의 "나의 문제"에서 확인 가능 합니다.</Msg>

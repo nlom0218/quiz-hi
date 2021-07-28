@@ -18,7 +18,7 @@ const MakeQuiz = () => {
     <Header />
     <BasicContainer>
       <PageTitle title="퀴즈 만들기" />
-      <Step step={1} msg="퀴즈의 제목과 태그를 입력하세요." >
+      <Step step={1} msg="퀴즈의 제목과 태그를 입력하세요.">
         <QuizFormLayout bgColor="rgb(180, 255, 158, 0.2)">
           <MakeQuizForm
             quizTags={quizTags}
@@ -32,8 +32,12 @@ const MakeQuiz = () => {
       </Step>
       {makeQuestion &&
         questionNum.map((item, index) => {
-          return <Step step={2} msg="문제의 유형을 선택한 후 문제와 정답을 입력하세요." key={index}>
-            <QuizFormLayout bgColor="rgb(81, 179, 255, 0.2)">
+          return <Step
+            step={2}
+            msg="문제의 유형을 선택한 후 문제와 정답을 입력하세요."
+            key={index}
+          >
+            <QuizFormLayout bgColor="rgb(231, 255, 188, 0.2)">
               <MakeQuestionContainer
                 num={index + 1}
                 questionNum={questionNum}
@@ -41,6 +45,7 @@ const MakeQuiz = () => {
                 quizTags={quizTags}
                 setQuestionIdArr={setQuestionIdArr}
                 questionIdArr={questionIdArr}
+                imageId={`${index}image`}
               />
             </QuizFormLayout>
           </Step>

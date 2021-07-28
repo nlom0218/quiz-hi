@@ -36,14 +36,13 @@ const CREATE_QUESTION_MUTATION = gql`
   }
 `
 
-const SubQuestion = ({ quizTags, quizType, setQuestionIdArr, questionIdArr, setNextMode, nextMode }) => {
+const SubQuestion = ({ quizTags, quizType, setQuestionIdArr, questionIdArr, setNextMode, nextMode, imageId }) => {
   const [questionTags, setQuestionTags] = useState([])
   const [image, setImage] = useState(undefined)
   const [option, setOption] = useState(false)
   const { register, setValue, getValues, formState: { isValid }, handleSubmit } = useForm({
     mode: "onChange"
   })
-  const [previewImg, setPreviewImg] = useState(undefined)
   const onCompleted = (result) => {
     const { createQuestion: { questionId, ok } } = result
     if (ok) {
@@ -76,9 +75,13 @@ const SubQuestion = ({ quizTags, quizType, setQuestionIdArr, questionIdArr, setN
   return (<MakeQuestionForm onSubmit={handleSubmit(onSubmit)}>
     <InputLayout>
       <span className="inputTitle">・ 문제</span>
-      <QuestionTextarea register={register} nextMode={nextMode} />
+      <QuestionTextarea
+        register={register}
+        nextMode={nextMode}
+        bgColor="rgb(172, 255, 20, 0.2)"
+        fcBgColor="rgb(172, 255, 20, 0.4)" />
     </InputLayout>
-    <InputLayout>
+    <InputLayout bgColor="rgb(172, 255, 20, 0.2)" fcBgColor="rgb(172, 255, 20, 0.4)">
       <span className="inputTitle">・ 정답</span>
       <input
         {...register("answer", {
@@ -96,15 +99,19 @@ const SubQuestion = ({ quizTags, quizType, setQuestionIdArr, questionIdArr, setN
       setValue={setValue}
       questionTags={questionTags}
       setQuestionTags={setQuestionTags}
-      previewImg={previewImg}
-      setPreviewImg={setPreviewImg}
       setImage={setImage}
       nextMode={nextMode}
+      imageId={imageId}
     />}
     {nextMode === "" ?
-      <InputBtn value="문제 생성하기" disabled={!isValid} bgColor="rgb(249, 192, 134)" />
+      <InputBtn value="문제 생성하기" disabled={!isValid} bgColor="rgb(172, 255, 20)" />
       :
-      <NextStep setNextMode={setNextMode} nextMode={nextMode} />
+      <NextStep
+        setNextMode={setNextMode}
+        nextMode={nextMode}
+        bgColor="rgb(172, 255, 20, 0.2)"
+        hvBgColor="rgb(172, 255, 20, 0.6)"
+      />
     }
   </MakeQuestionForm >);
 }

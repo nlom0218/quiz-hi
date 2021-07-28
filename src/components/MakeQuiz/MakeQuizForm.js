@@ -40,7 +40,7 @@ const MakeQuizForm = ({ setQuizTags, quizTags, setQuizTitle, quizTitle, makeQues
     setQuizTitle(getValues("quizTitle"))
   }
   return (<SMakeQuizForm onSubmit={handleSubmit(onSubmit)}>
-    <InputLayout bgColor="rgb(108, 255, 63, 0.2)" FcBgColor="rgb(108, 255, 63, 0.4)">
+    <InputLayout bgColor="rgb(108, 255, 63, 0.2)" fcBgColor="rgb(108, 255, 63, 0.4)">
       <span className="inputTitle">・ 퀴즈 제목</span>
       <input
         {...register("quizTitle", {
@@ -56,7 +56,7 @@ const MakeQuizForm = ({ setQuizTags, quizTags, setQuizTitle, quizTitle, makeQues
         </ChangeMsg>}
       </React.Fragment>}
     </InputLayout>
-    <InputLayout bgColor="rgb(108, 255, 63, 0.2)" FcBgColor="rgb(108, 255, 63, 0.4)">
+    <InputLayout bgColor="rgb(108, 255, 63, 0.2)" fcBgColor="rgb(108, 255, 63, 0.4)">
       <TagContainer
         getValues={getValues}
         setValue={setValue}
@@ -64,7 +64,7 @@ const MakeQuizForm = ({ setQuizTags, quizTags, setQuizTitle, quizTitle, makeQues
         tags={quizTags}
         setTags={setQuizTags}
         color="rgb(108, 255, 63)"
-        bgColor="rgb(108, 255, 63, 0.6)"
+        bgColor="rgb(108, 255, 63, 0.5)"
         subMsg1="모든 문제와 퀴즈에 동일한 태그를 부여합니다. 태그를 입력하고 + 버튼을 눌러주세요."
       />
     </InputLayout>

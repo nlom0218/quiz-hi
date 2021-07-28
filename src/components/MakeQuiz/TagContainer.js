@@ -48,7 +48,7 @@ const RemoveBtn = styled.div`
   cursor: pointer;
 `
 
-const TagContainer = ({ getValues, tags, setTags, setValue, register, subMsg1, subMsg2, madeQuestion, color, bgColor }) => {
+const TagContainer = ({ getValues, tags, setTags, setValue, register, subMsg1, subMsg2, nextMode, question, color, bgColor }) => {
   const onClickPlusQuizTag = () => {
     if (getValues("tag") === "") {
       return
@@ -61,6 +61,21 @@ const TagContainer = ({ getValues, tags, setTags, setValue, register, subMsg1, s
     const newQuizTags = tags.filter((item) => item !== tag)
     setTags(newQuizTags)
   }
+  const limitEvent = (type) => {
+    if (type === "read") {
+      if (question && nextMode !== "") {
+        return "readOnly"
+      } else {
+        return ""
+      }
+    } else if (type === "btn") {
+      if (question && nextMode !== "") {
+        return false
+      } else {
+        return true
+      }
+    }
+  }
   return (<React.Fragment>
     <span className="inputTitle">・ 태그</span>
     <span className="subMsg">{subMsg1}</span>
@@ -70,14 +85,14 @@ const TagContainer = ({ getValues, tags, setTags, setValue, register, subMsg1, s
         {...register("tag")}
         type="text"
         autoComplete="off"
-        readOnly={madeQuestion && "readOnly"}
+        readOnly={limitEvent("read")}
       />
       <PlusBtn color={color}><FontAwesomeIcon icon={faPlusCircle} onClick={onClickPlusQuizTag} /></PlusBtn>
       {tags.length !== 0 && <SeeTag>
         {tags.map((item, index) => {
           return <TagBox key={index} bgColor={bgColor}>
             {item}
-            {!madeQuestion && <RemoveBtn>
+            {limitEvent("btn") && <RemoveBtn>
               <FontAwesomeIcon
                 icon={faMinusCircle}
                 onClick={() => onClickRemoveQuizTag(item)}

@@ -1,6 +1,6 @@
 import { faImage, faTimesCircle } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { fadeIn } from '../../animation/fade';
 
@@ -8,14 +8,14 @@ const ImageLabel = styled.label`
   text-align: center;
   padding: 10px 0px;
   border-radius: 5px;
-  background-color: rgb(247, 171, 96, 0.2);
+  background-color: ${props => props.bgColor};
   cursor: pointer;
   transition: background-color 0.2s linear;
   svg {
     margin-left: 10px;
   }
   :hover {
-    background-color: rgb(247, 171, 96, 0.4);
+    background-color: ${props => props.hvBgColor};
   }
 `
 
@@ -37,7 +37,8 @@ const PreviewImage = styled.img`
   animation: ${fadeIn} 1s linear forwards;
 `
 
-const ImageContainer = ({ previewImg, setPreviewImg, register, setValue, setImage, nextMode }) => {
+const ImageContainer = ({ register, setValue, setImage, nextMode, bgColor, hvBgColor, imageId }) => {
+  const [previewImg, setPreviewImg] = useState(undefined)
   const onChangeImage = ({ target: { files } }) => {
     if (files.length) {
       const file = files[0]
@@ -55,14 +56,14 @@ const ImageContainer = ({ previewImg, setPreviewImg, register, setValue, setImag
     <span className="inputTitle">・ 이미지</span>
     <span className="subMsg">이미지가 필요하나요?</span>
     <span className="subMsg">아래의 박스를 눌러 이미지를 불러오세요.</span>
-    {nextMode === "" && <ImageLabel htmlFor="image">
+    {nextMode === "" && <ImageLabel htmlFor={imageId} bgColor={bgColor} hvBgColor={hvBgColor}>
       사진선택하기
         <FontAwesomeIcon icon={faImage} />
     </ImageLabel>}
     <input
       {...register("image")}
       type="file"
-      id="image"
+      id={imageId}
       style={{ display: "none" }}
       accept="image/jpeg, image/jpg, image/png"
       onChange={onChangeImage}

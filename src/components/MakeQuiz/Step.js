@@ -29,9 +29,8 @@ const Msg = styled.div`
 
 const Step = ({ step, msg, children }) => {
   useEffect(() => {
-    window.scrollTo({
-      top: -1000,
-      left: 0,
+    window.scrollBy({
+      top: 1200,
       behavior: "smooth"
     })
   }, [])

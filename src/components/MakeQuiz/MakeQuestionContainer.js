@@ -43,7 +43,7 @@ const Types = styled.div`
    }
 `
 
-const MakeQuestionContainer = ({ quizTags, setQuestionIdArr, questionIdArr, questionNum, setQuestionNum, num }) => {
+const MakeQuestionContainer = ({ quizTags, setQuestionIdArr, questionIdArr, questionNum, setQuestionNum, num, imageId }) => {
   const [nextMode, setNextMode] = useState("")
   // sub, obj, tf
   const [quizType, setQuizType] = useState("sub")
@@ -92,6 +92,7 @@ const MakeQuestionContainer = ({ quizTags, setQuestionIdArr, questionIdArr, ques
         questionIdArr={questionIdArr}
         nextMode={nextMode}
         setNextMode={setNextMode}
+        imageId={imageId}
       />}
     {quizType === "obj"
       && <ObjQuestion
@@ -101,6 +102,7 @@ const MakeQuestionContainer = ({ quizTags, setQuestionIdArr, questionIdArr, ques
         questionIdArr={questionIdArr}
         nextMode={nextMode}
         setNextMode={setNextMode}
+        imageId={imageId}
       />}
     {quizType === "tf"
       && <TFQuestion
@@ -110,6 +112,7 @@ const MakeQuestionContainer = ({ quizTags, setQuestionIdArr, questionIdArr, ques
         questionIdArr={questionIdArr}
         nextMode={nextMode}
         setNextMode={setNextMode}
+        imageId={imageId}
       />}
   </SMakeQuestionContainer>);
 }
