@@ -7,6 +7,7 @@ import MakeQuizForm from '../components/MakeQuiz/MakeQuizForm';
 import QuizFormLayout from '../components/MakeQuiz/QuizFormLayout';
 import Step from '../components/MakeQuiz/Step';
 import PageTitle from '../components/PageTitle';
+import NavBtn from '../components/NavBtn';
 
 const MakeQuiz = () => {
   const [quizTitle, setQuizTitle] = useState("")
@@ -52,6 +53,7 @@ const MakeQuiz = () => {
         })
       }
     </BasicContainer>
+    <NavBtn />
   </React.Fragment>);
 }
 

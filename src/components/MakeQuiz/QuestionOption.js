@@ -18,7 +18,7 @@ const Wrapper = styled.div`
 `
 
 const QuestionOption = (
-  { register, getValues, setValue, questionTags, setQuestionTags, setImage, nextMode, imageId }
+  { register, getValues, setValue, questionTags, setQuestionTags, setImage, nextMode, imageId, previewImg, setPreviewImg }
 ) => {
   return (<Option>
     <InputLayout bgColor="rgb(172, 255, 20, 0.2)" fcBgColor="rgb(172, 255, 20, 0.4)">
@@ -40,6 +40,8 @@ const QuestionOption = (
           setImage={setImage}
           nextMode={nextMode}
           imageId={imageId}
+          previewImg={previewImg}
+          setPreviewImg={setPreviewImg}
           bgColor="rgb(172, 255, 20, 0.2)"
           hvBgColor="rgb(172, 255, 20, 0.4)"
         />

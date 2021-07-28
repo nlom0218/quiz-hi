@@ -3,11 +3,11 @@ import styled from 'styled-components';
 import { fadeIn } from '../../animation/fade';
 
 const SStep = styled.div`
-  grid-column: 1 / -3;
+  grid-column: 2 / -3;
 `
 
 const Layout = styled.div`
-  grid-column: 1 / 13;
+  /* grid-column: 1 / 13; */
   display: grid;
   grid-template-columns: 1fr;
   grid-template-rows: auto;

@@ -4,7 +4,7 @@ import Header from '../components/Header';
 import Intro from '../components/Home/Intro';
 import NavIcon from '../components/Home/NavIcon';
 import Join from '../components/Home/Join';
-import ToTopBtn from '../components/ToTopBtn';
+import NavBtn from '../components/NavBtn';
 import AccountType from '../components/Home/AccountType';
 import Level from '../components/Home/Level';
 
@@ -19,7 +19,7 @@ const Home = () => {
         <Level />
         <Join />
       </BasicContainer>
-      <ToTopBtn />
+      <NavBtn />
     </React.Fragment>
   );
 }

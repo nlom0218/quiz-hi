@@ -40,6 +40,7 @@ const SubQuestion = ({ quizTags, quizType, setQuestionIdArr, questionIdArr, setN
   const [questionTags, setQuestionTags] = useState([])
   const [image, setImage] = useState(undefined)
   const [option, setOption] = useState(false)
+  const [previewImg, setPreviewImg] = useState(undefined)
   const { register, setValue, getValues, formState: { isValid }, handleSubmit } = useForm({
     mode: "onChange"
   })
@@ -102,6 +103,8 @@ const SubQuestion = ({ quizTags, quizType, setQuestionIdArr, questionIdArr, setN
       setImage={setImage}
       nextMode={nextMode}
       imageId={imageId}
+      previewImg={previewImg}
+      setPreviewImg={setPreviewImg}
     />}
     {nextMode === "" ?
       <InputBtn value={loading ? "문제 만드는 중..." : "문제 만들기"} disabled={!isValid} bgColor="rgb(172, 255, 20)" />

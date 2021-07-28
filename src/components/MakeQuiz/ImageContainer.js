@@ -47,8 +47,8 @@ const PreviewImage = styled.img`
   animation: ${fadeIn} 1s linear forwards;
 `
 
-const ImageContainer = ({ register, setValue, setImage, nextMode, bgColor, hvBgColor, imageId }) => {
-  const [previewImg, setPreviewImg] = useState(undefined)
+const ImageContainer = ({ register, setValue, setImage, nextMode, bgColor, hvBgColor, imageId, previewImg, setPreviewImg }) => {
+
   const onChangeImage = ({ target: { files } }) => {
     if (files.length) {
       const file = files[0]

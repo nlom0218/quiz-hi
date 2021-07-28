@@ -15,7 +15,7 @@ const SHeader = styled.div`
 `
 
 const List = styled.ul`
-  width: 1100px;
+  width: 1000px;
   margin: 0 auto;
   padding-top: 40px;
   display: grid;
