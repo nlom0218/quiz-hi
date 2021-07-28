@@ -17,10 +17,11 @@ const PlusBtn = styled.div`
   justify-self: left;
   margin-left: 20px;
   cursor: pointer;
-  color: rgb(255, 148, 10, 0.6);
-  transition: color 0.2s linear;
+  color: ${props => props.color};
+  opacity: 0.6;
+  transition: opacity 0.2s linear;
   :hover {
-    color: rgb(255, 148, 10);
+    opacity: 1;
   }
 `
 
@@ -32,7 +33,7 @@ const SeeTag = styled.div`
 `
 
 const TagBox = styled.div`
-  background-color: rgb(255, 148, 10, 0.6);
+  background-color:  ${props => props.bgColor};
   margin-bottom: 10px;
   padding: 10px 20px;
   margin-right: 10px;
@@ -47,7 +48,7 @@ const RemoveBtn = styled.div`
   cursor: pointer;
 `
 
-const TagContainer = ({ getValues, tags, setTags, setValue, register, subMsg1, subMsg2, madeQuestion }) => {
+const TagContainer = ({ getValues, tags, setTags, setValue, register, subMsg1, subMsg2, madeQuestion, color, bgColor }) => {
   const onClickPlusQuizTag = () => {
     if (getValues("tag") === "") {
       return
@@ -71,10 +72,10 @@ const TagContainer = ({ getValues, tags, setTags, setValue, register, subMsg1, s
         autoComplete="off"
         readOnly={madeQuestion && "readOnly"}
       />
-      <PlusBtn><FontAwesomeIcon icon={faPlusCircle} onClick={onClickPlusQuizTag} /></PlusBtn>
+      <PlusBtn color={color}><FontAwesomeIcon icon={faPlusCircle} onClick={onClickPlusQuizTag} /></PlusBtn>
       {tags.length !== 0 && <SeeTag>
         {tags.map((item, index) => {
-          return <TagBox key={index}>
+          return <TagBox key={index} bgColor={bgColor}>
             {item}
             {!madeQuestion && <RemoveBtn>
               <FontAwesomeIcon

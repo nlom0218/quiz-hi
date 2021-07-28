@@ -36,7 +36,7 @@ const CREATE_QUESTION_MUTATION = gql`
   }
 `
 
-const SubQuestion = ({ quizTags, quizType, setQuestionIdArr, questionIdArr, setMadeQuestion, madeQuestion, setNextMode }) => {
+const SubQuestion = ({ quizTags, quizType, setQuestionIdArr, questionIdArr, setNextMode, nextMode }) => {
   const [questionTags, setQuestionTags] = useState([])
   const [image, setImage] = useState(undefined)
   const [option, setOption] = useState(false)
@@ -49,7 +49,7 @@ const SubQuestion = ({ quizTags, quizType, setQuestionIdArr, questionIdArr, setM
     if (ok) {
       const newQuestionIdArr = [...questionIdArr, questionId]
       setQuestionIdArr(newQuestionIdArr)
-      setMadeQuestion(true)
+      setNextMode("next")
     }
   }
   const [createQuestion, { loading }] = useMutation(CREATE_QUESTION_MUTATION, {
@@ -76,7 +76,7 @@ const SubQuestion = ({ quizTags, quizType, setQuestionIdArr, questionIdArr, setM
   return (<MakeQuestionForm onSubmit={handleSubmit(onSubmit)}>
     <InputLayout>
       <span className="inputTitle">・ 문제</span>
-      <QuestionTextarea register={register} madeQuestion={madeQuestion} />
+      <QuestionTextarea register={register} nextMode={nextMode} />
     </InputLayout>
     <InputLayout>
       <span className="inputTitle">・ 정답</span>
@@ -86,7 +86,7 @@ const SubQuestion = ({ quizTags, quizType, setQuestionIdArr, questionIdArr, setM
         })}
         type="text"
         autoComplete="off"
-        readOnly={madeQuestion && "readOnly"}
+        readOnly={nextMode !== "" && "readOnly"}
       />
     </InputLayout>
     <QuestionOptionTitle option={option} setOption={setOption} />
@@ -99,12 +99,12 @@ const SubQuestion = ({ quizTags, quizType, setQuestionIdArr, questionIdArr, setM
       previewImg={previewImg}
       setPreviewImg={setPreviewImg}
       setImage={setImage}
-      madeQuestion={madeQuestion}
+      nextMode={nextMode}
     />}
-    {!madeQuestion ?
+    {nextMode === "" ?
       <InputBtn value="문제 생성하기" disabled={!isValid} bgColor="rgb(249, 192, 134)" />
       :
-      <NextStep setNextMode={setNextMode} />
+      <NextStep setNextMode={setNextMode} nextMode={nextMode} />
     }
   </MakeQuestionForm >);
 }

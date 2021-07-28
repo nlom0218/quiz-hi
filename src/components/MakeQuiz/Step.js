@@ -2,6 +2,10 @@ import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { fadeIn } from '../../animation/fade';
 
+const SStep = styled.div`
+  grid-column: 1 / -3;
+`
+
 const Layout = styled.div`
   grid-column: 1 / 13;
   display: grid;
@@ -9,10 +13,6 @@ const Layout = styled.div`
   grid-template-rows: auto;
   margin-bottom: 50px;
   animation: ${fadeIn} 1s linear forwards;
-`
-
-const SStep = styled.div`
-  grid-column: 1 / -3;
 `
 
 const Title = styled.div`
@@ -30,7 +30,7 @@ const Msg = styled.div`
 const Step = ({ step, msg, children }) => {
   useEffect(() => {
     window.scrollTo({
-      top: 1000,
+      top: -1000,
       left: 0,
       behavior: "smooth"
     })

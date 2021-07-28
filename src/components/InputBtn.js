@@ -4,7 +4,8 @@ import styled from 'styled-components';
 const SInputBtn = styled.input`
   width: 100%;
   background-color: ${props => props.bgColor};
-  opacity: ${props => props.disabled ? 0.2 : 0.9};
+  opacity: ${props => props.disabled ? 0.4 : 0.9};
+  color: ${props => props.theme.bgColor};
   text-align: center;
   font-weight: 600;
   padding: 10px 0px;

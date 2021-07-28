@@ -18,7 +18,7 @@ const Wrapper = styled.div`
 `
 
 const QuestionOption = (
-  { register, getValues, setValue, questionTags, setQuestionTags, previewImg, setPreviewImg, setImage, madeQuestion }
+  { register, getValues, setValue, questionTags, setQuestionTags, previewImg, setPreviewImg, setImage, nextMode }
 ) => {
   return (<Option>
     <InputLayout>
@@ -28,7 +28,7 @@ const QuestionOption = (
       <input
         {...register("hint")}
         type="text"
-        readOnly={madeQuestion && "readOnly"}
+        readOnly={nextMode !== "" && "readOnly"}
         autoComplete="off"
       />
     </InputLayout>
@@ -40,7 +40,7 @@ const QuestionOption = (
           setValue={setValue}
           register={register}
           setImage={setImage}
-          madeQuestion={madeQuestion}
+          nextMode={nextMode}
         />
       </InputLayout>
       <InputLayout>
@@ -50,7 +50,7 @@ const QuestionOption = (
           register={register}
           tags={questionTags}
           setTags={setQuestionTags}
-          madeQuestion={madeQuestion}
+          nextMode={nextMode}
           subMsg1="해당 문제에만 해당되는 태그가 있나요?"
           subMsg2="태그를 입력하고 + 버튼을 눌러주세요."
         />

@@ -17,15 +17,16 @@ const Textarea = styled.textarea`
   }
 `
 
-const QuestionTextarea = ({ register, madeQuestion }) => {
+const QuestionTextarea = ({ register, nextMode }) => {
   return (<Textarea
     cols={20}
     rows={5}
     {...register("question", {
       required: true
     })}
-    readOnly={madeQuestion && "readOnly"}
-  ></Textarea>);
+    readOnly={nextMode !== "" && "readOnly"
+    }
+  ></Textarea >);
 }
 
 export default QuestionTextarea;

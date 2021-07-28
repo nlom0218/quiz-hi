@@ -43,8 +43,7 @@ const Types = styled.div`
    }
 `
 
-const MakeQuestionContainer = ({ quizTags, setQuestionIdArr, questionIdArr, questionNum, setQuestionNum }) => {
-  const [madeQuestion, setMadeQuestion] = useState(false)
+const MakeQuestionContainer = ({ quizTags, setQuestionIdArr, questionIdArr, questionNum, setQuestionNum, num }) => {
   const [nextMode, setNextMode] = useState("")
   // sub, obj, tf
   const [quizType, setQuizType] = useState("sub")
@@ -53,12 +52,13 @@ const MakeQuestionContainer = ({ quizTags, setQuestionIdArr, questionIdArr, ques
   }
   useEffect(() => {
     if (nextMode === "newQuestion") {
-      setQuestionNum(questionNum + 1)
+      setQuestionNum([...questionNum, "p"])
     }
+
   }, [nextMode])
   return (<SMakeQuestionContainer>
-    <QuestionNum>{questionNum}번 문제</QuestionNum>
-    {!madeQuestion && <QuestionType>
+    <QuestionNum>{num}번 문제</QuestionNum>
+    {nextMode === "" && <QuestionType>
       <span>・ 문제 유형을 선택하세요.</span>
       <Types>
         <div>
@@ -90,8 +90,7 @@ const MakeQuestionContainer = ({ quizTags, setQuestionIdArr, questionIdArr, ques
         quizType={quizType}
         setQuestionIdArr={setQuestionIdArr}
         questionIdArr={questionIdArr}
-        setMadeQuestion={setMadeQuestion}
-        madeQuestion={madeQuestion}
+        nextMode={nextMode}
         setNextMode={setNextMode}
       />}
     {quizType === "obj"
@@ -100,8 +99,7 @@ const MakeQuestionContainer = ({ quizTags, setQuestionIdArr, questionIdArr, ques
         quizType={quizType}
         setQuestionIdArr={setQuestionIdArr}
         questionIdArr={questionIdArr}
-        setMadeQuestion={setMadeQuestion}
-        madeQuestion={madeQuestion}
+        nextMode={nextMode}
         setNextMode={setNextMode}
       />}
     {quizType === "tf"
@@ -110,8 +108,7 @@ const MakeQuestionContainer = ({ quizTags, setQuestionIdArr, questionIdArr, ques
         quizType={quizType}
         setQuestionIdArr={setQuestionIdArr}
         questionIdArr={questionIdArr}
-        setMadeQuestion={setMadeQuestion}
-        madeQuestion={madeQuestion}
+        nextMode={nextMode}
         setNextMode={setNextMode}
       />}
   </SMakeQuestionContainer>);

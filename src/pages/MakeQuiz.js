@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import styled from 'styled-components';
 import BasicContainer from '../components/BasicContainer';
 import Header from '../components/Header';
 import MakeQuestionContainer from '../components/MakeQuiz/MakeQuestionContainer';
@@ -12,14 +13,13 @@ const MakeQuiz = () => {
   const [quizTags, setQuizTags] = useState([])
   const [questionIdArr, setQuestionIdArr] = useState([])
   const [makeQuestion, setMakeQuestion] = useState(false)
-  const [questionNum, setQuestionNum] = useState(1)
-  console.log(questionNum);
+  const [questionNum, setQuestionNum] = useState(["q"])
   return (<React.Fragment>
     <Header />
     <BasicContainer>
       <PageTitle title="퀴즈 만들기" />
       <Step step={1} msg="퀴즈의 제목과 태그를 입력하세요." >
-        <QuizFormLayout bgColor="rgb(255, 180, 68, 0.2)">
+        <QuizFormLayout bgColor="rgb(180, 255, 158, 0.2)">
           <MakeQuizForm
             quizTags={quizTags}
             setQuizTags={setQuizTags}
@@ -30,17 +30,22 @@ const MakeQuiz = () => {
           />
         </QuizFormLayout>
       </Step>
-      {makeQuestion && <Step step={2} msg="문제의 유형을 선택한 후 문제와 정답을 입력하세요.">
-        <QuizFormLayout bgColor="rgb(249, 192, 134, 0.2)">
-          <MakeQuestionContainer
-            questionNum={questionNum}
-            setQuestionNum={setQuestionNum}
-            quizTags={quizTags}
-            setQuestionIdArr={setQuestionIdArr}
-            questionIdArr={questionIdArr}
-          />
-        </QuizFormLayout>
-      </Step>}
+      {makeQuestion &&
+        questionNum.map((item, index) => {
+          return <Step step={2} msg="문제의 유형을 선택한 후 문제와 정답을 입력하세요." key={index}>
+            <QuizFormLayout bgColor="rgb(81, 179, 255, 0.2)">
+              <MakeQuestionContainer
+                num={index + 1}
+                questionNum={questionNum}
+                setQuestionNum={setQuestionNum}
+                quizTags={quizTags}
+                setQuestionIdArr={setQuestionIdArr}
+                questionIdArr={questionIdArr}
+              />
+            </QuizFormLayout>
+          </Step>
+        })
+      }
     </BasicContainer>
   </React.Fragment>);
 }

@@ -13,18 +13,18 @@ const SInputLayout = styled.div`
     margin-bottom: 5px;
   }
   input {
-    background-color: rgb(247, 171, 96, 0.2);
+    background-color: ${props => props.bgColor};
     padding: 10px 20px;
     border-radius: 5px;
     transition: background-color 0.2s linear;
     :focus {
-      background-color: rgb(247, 171, 96, 0.4);
+      background-color: ${props => props.FcBgColor}
     }
   }
 `
 
-const InputLayout = ({ children }) => {
-  return (<SInputLayout>
+const InputLayout = ({ children, bgColor, FcBgColor }) => {
+  return (<SInputLayout bgColor={bgColor} FcBgColor={FcBgColor}>
     {children}
   </SInputLayout>);
 }
