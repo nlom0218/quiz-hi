@@ -5,6 +5,7 @@ import { useForm } from 'react-hook-form';
 import InputBtn from '../InputBtn';
 import InputLayout from './InputLayout';
 import MakeQuestionForm from './MakeQuestionForm';
+import NextStep from './NextStep';
 import QuestionOption from './QuestionOption';
 import QuestionOptionTitle from './QuestionOptionTitle';
 import QuestionTextarea from './QuestionTextarea';
@@ -35,7 +36,7 @@ const CREATE_QUESTION_MUTATION = gql`
   }
 `
 
-const SubQuestion = ({ quizTags, quizType, setQuestionIdArr, questionIdArr }) => {
+const SubQuestion = ({ quizTags, quizType, setQuestionIdArr, questionIdArr, setMadeQuestion, madeQuestion, setNextMode }) => {
   const [questionTags, setQuestionTags] = useState([])
   const [image, setImage] = useState(undefined)
   const [option, setOption] = useState(false)
@@ -44,11 +45,11 @@ const SubQuestion = ({ quizTags, quizType, setQuestionIdArr, questionIdArr }) =>
   })
   const [previewImg, setPreviewImg] = useState(undefined)
   const onCompleted = (result) => {
-    console.log(result);
     const { createQuestion: { questionId, ok } } = result
     if (ok) {
       const newQuestionIdArr = [...questionIdArr, questionId]
       setQuestionIdArr(newQuestionIdArr)
+      setMadeQuestion(true)
     }
   }
   const [createQuestion, { loading }] = useMutation(CREATE_QUESTION_MUTATION, {
@@ -69,14 +70,13 @@ const SubQuestion = ({ quizTags, quizType, setQuestionIdArr, questionIdArr }) =>
         ...(hint && { hint }),
         ...(image && { image }),
         ...(tags && { tags }),
-        // ...(distractor && { distractor })
       }
     })
   }
   return (<MakeQuestionForm onSubmit={handleSubmit(onSubmit)}>
     <InputLayout>
       <span className="inputTitle">・ 문제</span>
-      <QuestionTextarea register={register} />
+      <QuestionTextarea register={register} madeQuestion={madeQuestion} />
     </InputLayout>
     <InputLayout>
       <span className="inputTitle">・ 정답</span>
@@ -86,6 +86,7 @@ const SubQuestion = ({ quizTags, quizType, setQuestionIdArr, questionIdArr }) =>
         })}
         type="text"
         autoComplete="off"
+        readOnly={madeQuestion && "readOnly"}
       />
     </InputLayout>
     <QuestionOptionTitle option={option} setOption={setOption} />
@@ -98,8 +99,13 @@ const SubQuestion = ({ quizTags, quizType, setQuestionIdArr, questionIdArr }) =>
       previewImg={previewImg}
       setPreviewImg={setPreviewImg}
       setImage={setImage}
+      madeQuestion={madeQuestion}
     />}
-    <InputBtn value="문제 생성하기" disabled={!isValid} bgColor="rgb(249, 192, 134)" />
+    {!madeQuestion ?
+      <InputBtn value="문제 생성하기" disabled={!isValid} bgColor="rgb(249, 192, 134)" />
+      :
+      <NextStep setNextMode={setNextMode} />
+    }
   </MakeQuestionForm >);
 }
 

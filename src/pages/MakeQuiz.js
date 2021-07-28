@@ -12,7 +12,8 @@ const MakeQuiz = () => {
   const [quizTags, setQuizTags] = useState([])
   const [questionIdArr, setQuestionIdArr] = useState([])
   const [makeQuestion, setMakeQuestion] = useState(false)
-  console.log(questionIdArr);
+  const [questionNum, setQuestionNum] = useState(1)
+  console.log(questionNum);
   return (<React.Fragment>
     <Header />
     <BasicContainer>
@@ -32,6 +33,8 @@ const MakeQuiz = () => {
       {makeQuestion && <Step step={2} msg="문제의 유형을 선택한 후 문제와 정답을 입력하세요.">
         <QuizFormLayout bgColor="rgb(249, 192, 134, 0.2)">
           <MakeQuestionContainer
+            questionNum={questionNum}
+            setQuestionNum={setQuestionNum}
             quizTags={quizTags}
             setQuestionIdArr={setQuestionIdArr}
             questionIdArr={questionIdArr}

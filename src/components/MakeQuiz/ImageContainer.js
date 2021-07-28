@@ -37,7 +37,7 @@ const PreviewImage = styled.img`
   animation: ${fadeIn} 1s linear forwards;
 `
 
-const ImageContainer = ({ previewImg, setPreviewImg, register, setValue, setImage }) => {
+const ImageContainer = ({ previewImg, setPreviewImg, register, setValue, setImage, madeQuestion }) => {
   const onChangeImage = ({ target: { files } }) => {
     if (files.length) {
       const file = files[0]
@@ -55,10 +55,10 @@ const ImageContainer = ({ previewImg, setPreviewImg, register, setValue, setImag
     <span className="inputTitle">・ 이미지</span>
     <span className="subMsg">이미지가 필요하나요?</span>
     <span className="subMsg">아래의 박스를 눌러 이미지를 불러오세요.</span>
-    <ImageLabel htmlFor="image">
+    {!madeQuestion && <ImageLabel htmlFor="image">
       사진선택하기
         <FontAwesomeIcon icon={faImage} />
-    </ImageLabel>
+    </ImageLabel>}
     <input
       {...register("image")}
       type="file"

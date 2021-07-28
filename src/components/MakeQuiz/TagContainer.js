@@ -47,7 +47,7 @@ const RemoveBtn = styled.div`
   cursor: pointer;
 `
 
-const TagContainer = ({ getValues, tags, setTags, setValue, register, subMsg1, subMsg2 }) => {
+const TagContainer = ({ getValues, tags, setTags, setValue, register, subMsg1, subMsg2, madeQuestion }) => {
   const onClickPlusQuizTag = () => {
     if (getValues("tag") === "") {
       return
@@ -69,18 +69,19 @@ const TagContainer = ({ getValues, tags, setTags, setValue, register, subMsg1, s
         {...register("tag")}
         type="text"
         autoComplete="off"
+        readOnly={madeQuestion && "readOnly"}
       />
       <PlusBtn><FontAwesomeIcon icon={faPlusCircle} onClick={onClickPlusQuizTag} /></PlusBtn>
       {tags.length !== 0 && <SeeTag>
         {tags.map((item, index) => {
           return <TagBox key={index}>
             {item}
-            <RemoveBtn>
+            {!madeQuestion && <RemoveBtn>
               <FontAwesomeIcon
                 icon={faMinusCircle}
                 onClick={() => onClickRemoveQuizTag(item)}
               />
-            </RemoveBtn>
+            </RemoveBtn>}
           </TagBox>
         })}
       </SeeTag>}
