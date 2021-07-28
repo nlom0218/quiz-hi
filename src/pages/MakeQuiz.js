@@ -8,6 +8,7 @@ import QuizFormLayout from '../components/MakeQuiz/QuizFormLayout';
 import Step from '../components/MakeQuiz/Step';
 import PageTitle from '../components/PageTitle';
 import NavBtn from '../components/NavBtn';
+import CompletionQuiz from '../components/MakeQuiz/CompletionQuiz';
 
 const MakeQuiz = () => {
   const [quizTitle, setQuizTitle] = useState("")
@@ -59,7 +60,15 @@ const MakeQuiz = () => {
           </Step>
         })
       }
-      {makeQuiz && <Step step={3} msg="아래의 버튼을 눌러 퀴즈를 완성하세요.">
+      {makeQuiz && <Step step={3} msg="아래 내용을 확인 후 퀴즈 만들기 버튼을 눌러 퀴즈를 완성하세요.">
+        <QuizFormLayout>
+          <CompletionQuiz
+            quizTags={quizTags}
+            quizTitle={quizTitle}
+            state={state}
+            questionIdArr={questionIdArr}
+          />
+        </QuizFormLayout>
       </Step>}
     </BasicContainer>
     <NavBtn />
