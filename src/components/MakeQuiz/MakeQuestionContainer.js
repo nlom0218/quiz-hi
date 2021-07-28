@@ -57,9 +57,8 @@ const QuizSaveMsg = styled.div`
     margin-bottom: 30px;
 `
 
-const MakeQuestionContainer = ({ quizTags, setQuestionIdArr, questionIdArr, questionNum, setQuestionNum, num, imageId }) => {
+const MakeQuestionContainer = ({ quizTags, setQuestionIdArr, questionIdArr, questionNum, setQuestionNum, num, imageId, setMakeQuiz, state }) => {
   const [nextMode, setNextMode] = useState("")
-  // sub, obj, tf
   const [quizType, setQuizType] = useState("sub")
   const onClickType = (type) => {
     setQuizType(type)
@@ -67,8 +66,9 @@ const MakeQuestionContainer = ({ quizTags, setQuestionIdArr, questionIdArr, ques
   useEffect(() => {
     if (nextMode === "newQuestion") {
       setQuestionNum([...questionNum, "p"])
+    } else if (nextMode === "nextStep") {
+      setMakeQuiz(true)
     }
-
   }, [nextMode])
   return (<SMakeQuestionContainer>
     <QuestionNum>{num}번 문제</QuestionNum>
@@ -113,6 +113,7 @@ const MakeQuestionContainer = ({ quizTags, setQuestionIdArr, questionIdArr, ques
         nextMode={nextMode}
         setNextMode={setNextMode}
         imageId={imageId}
+        state={state}
       />}
     {quizType === "obj"
       && <ObjQuestion
@@ -123,6 +124,7 @@ const MakeQuestionContainer = ({ quizTags, setQuestionIdArr, questionIdArr, ques
         nextMode={nextMode}
         setNextMode={setNextMode}
         imageId={imageId}
+        state={state}
       />}
     {quizType === "tf"
       && <TFQuestion
@@ -133,6 +135,7 @@ const MakeQuestionContainer = ({ quizTags, setQuestionIdArr, questionIdArr, ques
         nextMode={nextMode}
         setNextMode={setNextMode}
         imageId={imageId}
+        state={state}
       />}
   </SMakeQuestionContainer>);
 }

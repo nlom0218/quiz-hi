@@ -28,7 +28,26 @@ const ChangeBtn = styled.div`
   cursor: pointer;
 `
 
-const MakeQuizForm = ({ setQuizTags, quizTags, setQuizTitle, quizTitle, makeQuestion, setMakeQuestion }) => {
+const SeletBox = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 30px;
+`
+
+const StateBtn = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: ${props => props.bgColor};
+    font-size: 16px;
+    padding: 10px 0px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.2s linear;
+`
+
+const MakeQuizForm = (
+  { setQuizTags, quizTags, setQuizTitle, quizTitle, makeQuestion, setMakeQuestion, state, setState }) => {
   const { register, getValues, setValue, formState: { isValid }, handleSubmit, watch } = useForm({
     mode: "onChange"
   })
@@ -38,6 +57,12 @@ const MakeQuizForm = ({ setQuizTags, quizTags, setQuizTitle, quizTitle, makeQues
   }
   const onClickChangeBtn = () => {
     setQuizTitle(getValues("quizTitle"))
+  }
+  const onClickStateBtn = (state) => {
+    if (makeQuestion) {
+      return
+    }
+    setState(state)
   }
   return (<SMakeQuizForm onSubmit={handleSubmit(onSubmit)}>
     <InputLayout bgColor="rgb(108, 255, 63, 0.2)" fcBgColor="rgb(108, 255, 63, 0.4)">
@@ -68,7 +93,20 @@ const MakeQuizForm = ({ setQuizTags, quizTags, setQuizTitle, quizTitle, makeQues
         subMsg1="모든 문제와 퀴즈에 동일한 태그를 부여합니다. 태그를 입력하고 + 버튼을 눌러주세요."
       />
     </InputLayout>
-    <InputBtn value="2단계 진행하기" bgColor="rgb(108, 255, 63)" disabled={!isValid || makeQuestion} />
+    <InputLayout>
+      <span className="inputTitle">・ 공유하시겠습니까?</span>
+      <SeletBox>
+        <StateBtn
+          onClick={() => onClickStateBtn("public")}
+          bgColor={state === "public" ? "rgb(108, 255, 63, 0.6)" : "rgb(108, 255, 63, 0.2)"}
+        >공유하기</StateBtn>
+        <StateBtn
+          onClick={() => onClickStateBtn("private")}
+          bgColor={state === "private" ? "rgb(108, 255, 63, 0.6)" : "rgb(108, 255, 63, 0.2)"}
+        >공유하지 않기</StateBtn>
+      </SeletBox>
+    </InputLayout>
+    <InputBtn value="2단계 진행하기" bgColor="rgb(108, 255, 63)" disabled={!isValid || makeQuestion || state === ""} />
   </SMakeQuizForm>);
 }
 

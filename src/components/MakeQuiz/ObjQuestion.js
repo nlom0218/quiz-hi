@@ -40,6 +40,7 @@ const CREATE_QUESTION_MUTATION = gql`
       $question: String!,
       $answer: String!,
       $type: String!,
+      $state: String!
       $hint: String,
       $image: Upload,
       $tags: String,
@@ -49,6 +50,7 @@ const CREATE_QUESTION_MUTATION = gql`
         question: $question,
         answer: $answer,
         type: $type,
+        state: $state,
         hint: $hint,
         image: $image,
         tags: $tags,
@@ -61,7 +63,7 @@ const CREATE_QUESTION_MUTATION = gql`
   }
 `
 
-const SubQuestion = ({ quizTags, quizType, setQuestionIdArr, questionIdArr, setNextMode, nextMode, imageId }) => {
+const SubQuestion = ({ quizTags, quizType, setQuestionIdArr, questionIdArr, setNextMode, nextMode, imageId, state }) => {
   const [questionTags, setQuestionTags] = useState([])
   const [answer, setAnswer] = useState([])
   console.log(answer);
@@ -115,6 +117,7 @@ const SubQuestion = ({ quizTags, quizType, setQuestionIdArr, questionIdArr, setN
         answer: answerString,
         distractor,
         type,
+        state,
         ...(hint && { hint }),
         ...(image && { image }),
         ...(tags && { tags }),

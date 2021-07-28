@@ -12,8 +12,10 @@ import NavBtn from '../components/NavBtn';
 const MakeQuiz = () => {
   const [quizTitle, setQuizTitle] = useState("")
   const [quizTags, setQuizTags] = useState([])
+  const [state, setState] = useState("")
   const [questionIdArr, setQuestionIdArr] = useState([])
   const [makeQuestion, setMakeQuestion] = useState(false)
+  const [makeQuiz, setMakeQuiz] = useState(false)
   const [questionNum, setQuestionNum] = useState(["q"])
   console.log(questionIdArr);
   return (<React.Fragment>
@@ -29,6 +31,8 @@ const MakeQuiz = () => {
             setMakeQuestion={setMakeQuestion}
             makeQuestion={makeQuestion}
             quizTitle={quizTitle}
+            state={state}
+            setState={setState}
           />
         </QuizFormLayout>
       </Step>
@@ -47,12 +51,16 @@ const MakeQuiz = () => {
                 quizTags={quizTags}
                 setQuestionIdArr={setQuestionIdArr}
                 questionIdArr={questionIdArr}
+                setMakeQuiz={setMakeQuiz}
+                state={state}
                 imageId={`${index}image`}
               />
             </QuizFormLayout>
           </Step>
         })
       }
+      {makeQuiz && <Step step={3} msg="아래의 버튼을 눌러 퀴즈를 완성하세요.">
+      </Step>}
     </BasicContainer>
     <NavBtn />
   </React.Fragment>);

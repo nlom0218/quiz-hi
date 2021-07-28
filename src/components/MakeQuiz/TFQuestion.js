@@ -34,6 +34,7 @@ const CREATE_QUESTION_MUTATION = gql`
       $question: String!,
       $answer: String!,
       $type: String!,
+      $state: String!
       $hint: String,
       $image: Upload,
       $tags: String,
@@ -43,6 +44,7 @@ const CREATE_QUESTION_MUTATION = gql`
         question: $question,
         answer: $answer,
         type: $type,
+        state: $state,
         hint: $hint,
         image: $image,
         tags: $tags,
@@ -55,7 +57,7 @@ const CREATE_QUESTION_MUTATION = gql`
   }
 `
 
-const TFQuestion = ({ quizTags, quizType, setQuestionIdArr, questionIdArr, setNextMode, nextMode, imageId }) => {
+const TFQuestion = ({ quizTags, quizType, setQuestionIdArr, questionIdArr, setNextMode, nextMode, imageId, state }) => {
   const [questionTags, setQuestionTags] = useState([])
   const [image, setImage] = useState(undefined)
   const [option, setOption] = useState(false)
@@ -93,6 +95,7 @@ const TFQuestion = ({ quizTags, quizType, setQuestionIdArr, questionIdArr, setNe
         question,
         answer,
         type,
+        state,
         ...(hint && { hint }),
         ...(image && { image }),
         ...(tags && { tags }),
@@ -108,7 +111,7 @@ const TFQuestion = ({ quizTags, quizType, setQuestionIdArr, questionIdArr, setNe
         bgColor="rgb(172, 255, 20, 0.2)"
         fcBgColor="rgb(172, 255, 20, 0.4)" />
     </InputLayout>
-    <InputLayout bgColor="rgb(172, 255, 20, 0.2)" fcBgColor="rgb(172, 255, 20, 0.4)">
+    <InputLayout>
       <span className="inputTitle">・ 정답</span>
       <SeletBox>
         <TFBtn
