@@ -76,9 +76,30 @@ const TFQuestion = ({ quizTags, quizType, setQuestionIdArr, questionIdArr, setNe
     onCompleted
   })
   const onClickTFBtn = (answer) => {
+    if (nextMode !== "") {
+      return
+    }
     setAnswer(answer)
   }
-  return (<MakeQuestionForm>
+  const onSubmit = (data) => {
+    const { question, hint } = data
+    const type = quizType
+    const tags = [...quizTags, ...questionTags].join(",")
+    if (loading) {
+      return
+    }
+    createQuestion({
+      variables: {
+        question,
+        answer,
+        type,
+        ...(hint && { hint }),
+        ...(image && { image }),
+        ...(tags && { tags }),
+      }
+    })
+  }
+  return (<MakeQuestionForm onSubmit={handleSubmit(onSubmit)}>
     <InputLayout>
       <span className="inputTitle">・ 문제</span>
       <QuestionTextarea
@@ -92,11 +113,11 @@ const TFQuestion = ({ quizTags, quizType, setQuestionIdArr, questionIdArr, setNe
       <SeletBox>
         <TFBtn
           onClick={() => onClickTFBtn("true")}
-          bgColor={answer === "true" ? "rgb(172, 255, 20, 0.4)" : "rgb(172, 255, 20, 0.2)"}
+          bgColor={answer === "true" ? "rgb(172, 255, 20, 0.6)" : "rgb(172, 255, 20, 0.2)"}
         >○</TFBtn>
         <TFBtn
           onClick={() => onClickTFBtn("false")}
-          bgColor={answer === "false" ? "rgb(172, 255, 20, 0.4)" : "rgb(172, 255, 20, 0.2)"}
+          bgColor={answer === "false" ? "rgb(172, 255, 20, 0.6)" : "rgb(172, 255, 20, 0.2)"}
         >✕</TFBtn>
       </SeletBox>
     </InputLayout>
@@ -114,7 +135,7 @@ const TFQuestion = ({ quizTags, quizType, setQuestionIdArr, questionIdArr, setNe
       setPreviewImg={setPreviewImg}
     />}
     {nextMode === "" ?
-      <InputBtn value={loading ? "문제 만드는 중..." : "문제 만들기"} disabled={!isValid} bgColor="rgb(172, 255, 20)" />
+      <InputBtn value={loading ? "문제 만드는 중..." : "문제 만들기"} disabled={!isValid || answer === ""} bgColor="rgb(172, 255, 20)" />
       :
       <NextStep
         setNextMode={setNextMode}

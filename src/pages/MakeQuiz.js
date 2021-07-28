@@ -15,6 +15,7 @@ const MakeQuiz = () => {
   const [questionIdArr, setQuestionIdArr] = useState([])
   const [makeQuestion, setMakeQuestion] = useState(false)
   const [questionNum, setQuestionNum] = useState(["q"])
+  console.log(questionIdArr);
   return (<React.Fragment>
     <Header />
     <BasicContainer>
