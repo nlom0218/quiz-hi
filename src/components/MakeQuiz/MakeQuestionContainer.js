@@ -37,7 +37,7 @@ const Types = styled.div`
    }
 `
 
-const MakeQuestionContainer = ({ quizTags }) => {
+const MakeQuestionContainer = ({ quizTags, setQuestionIdArr, questionIdArr }) => {
   // sub, obj, tf
   const [quizType, setQuizType] = useState("sub")
   const onClickType = (type) => {
@@ -70,9 +70,27 @@ const MakeQuestionContainer = ({ quizTags }) => {
           </div>
       </Types>
     </QuestionType>
-    {quizType === "sub" && <SubQuestion quizTags={quizTags} quizType={quizType} />}
-    {quizType === "obj" && <ObjQuestion quizTags={quizTags} quizType={quizType} />}
-    {quizType === "tf" && <TFQuestion quizTags={quizTags} quizType={quizType} />}
+    {quizType === "sub"
+      && <SubQuestion
+        quizTags={quizTags}
+        quizType={quizType}
+        setQuestionIdArr={setQuestionIdArr}
+        questionIdArr={questionIdArr}
+      />}
+    {quizType === "obj"
+      && <ObjQuestion
+        quizTags={quizTags}
+        quizType={quizType}
+        setQuestionIdArr={setQuestionIdArr}
+        questionIdArr={questionIdArr}
+      />}
+    {quizType === "tf"
+      && <TFQuestion
+        quizTags={quizTags}
+        quizType={quizType}
+        setQuestionIdArr={setQuestionIdArr}
+        questionIdArr={questionIdArr}
+      />}
   </SMakeQuestionContainer>);
 }
 

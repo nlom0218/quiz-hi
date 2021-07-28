@@ -10,7 +10,9 @@ import PageTitle from '../components/PageTitle';
 const MakeQuiz = () => {
   const [quizTitle, setQuizTitle] = useState("")
   const [quizTags, setQuizTags] = useState([])
+  const [questionIdArr, setQuestionIdArr] = useState([])
   const [makeQuestion, setMakeQuestion] = useState(false)
+  console.log(questionIdArr);
   return (<React.Fragment>
     <Header />
     <BasicContainer>
@@ -31,6 +33,8 @@ const MakeQuiz = () => {
         <QuizFormLayout bgColor="rgb(249, 192, 134, 0.2)">
           <MakeQuestionContainer
             quizTags={quizTags}
+            setQuestionIdArr={setQuestionIdArr}
+            questionIdArr={questionIdArr}
           />
         </QuizFormLayout>
       </Step>}

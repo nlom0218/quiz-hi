@@ -1,60 +1,13 @@
 import { useMutation } from '@apollo/client';
-import { faCaretDown, faCaretUp } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import gql from 'graphql-tag';
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import styled from 'styled-components';
-import { fadeIn } from '../../animation/fade';
-import useUser from '../../hooks/useUser';
 import InputBtn from '../InputBtn';
-import ImageContainer from './ImageContainer';
+import InputLayout from './InputLayout';
 import MakeQuestionForm from './MakeQuestionForm';
+import QuestionOption from './QuestionOption';
+import QuestionOptionTitle from './QuestionOptionTitle';
 import QuestionTextarea from './QuestionTextarea';
-import TagContainer from './TagContainer';
-
-const Wrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 30px;
-  .inputTitle {
-    margin-bottom: 10px;
-    font-size: 18px;
-  }
-  .subMsg {
-    margin-bottom: 5px;
-  }
-  input {
-    background-color: rgb(247, 171, 96, 0.2);
-    padding: 10px 20px;
-    border-radius: 5px;
-    transition: background-color 0.2s linear;
-    :focus {
-      background-color: rgb(247, 171, 96, 0.4);
-    }
-  }
-`
-
-const Option = styled.div`
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  column-gap: 30px;
-  animation: ${fadeIn} 1s linear forwards;
-  .hint {
-    grid-column: 1 / -1;
-  }
-`
-
-const OptionTitle = styled.div`
-  grid-column: 1 / -1;
-  font-size: 18px;
-  margin-bottom: 20px;
-  svg {
-    margin-left: 10px;
-    font-size: 24px;
-    cursor: pointer;
-  }
-`
 
 const CREATE_QUESTION_MUTATION = gql`
   mutation createQuestion(      
@@ -76,14 +29,13 @@ const CREATE_QUESTION_MUTATION = gql`
         distractor: $distractor
       ) {
       ok
+      questionId
       error
-      token
     }
   }
 `
 
-const SubQuestion = ({ quizTags, quizType }) => {
-  const user = useUser()
+const SubQuestion = ({ quizTags, quizType, setQuestionIdArr, questionIdArr }) => {
   const [questionTags, setQuestionTags] = useState([])
   const [image, setImage] = useState(undefined)
   const [option, setOption] = useState(false)
@@ -91,12 +43,17 @@ const SubQuestion = ({ quizTags, quizType }) => {
     mode: "onChange"
   })
   const [previewImg, setPreviewImg] = useState(undefined)
-  const [createQuestion, { loading }] = useMutation(CREATE_QUESTION_MUTATION, {
-
-  })
-  const onClickOption = () => {
-    setOption(!option)
+  const onCompleted = (result) => {
+    console.log(result);
+    const { createQuestion: { questionId, ok } } = result
+    if (ok) {
+      const newQuestionIdArr = [...questionIdArr, questionId]
+      setQuestionIdArr(newQuestionIdArr)
+    }
   }
+  const [createQuestion, { loading }] = useMutation(CREATE_QUESTION_MUTATION, {
+    onCompleted
+  })
   const onSubmit = (data) => {
     const { answer, question, hint } = data
     const type = quizType
@@ -111,16 +68,17 @@ const SubQuestion = ({ quizTags, quizType }) => {
         type,
         ...(hint && { hint }),
         ...(image && { image }),
-        ...(tags && { tags })
+        ...(tags && { tags }),
+        // ...(distractor && { distractor })
       }
     })
   }
   return (<MakeQuestionForm onSubmit={handleSubmit(onSubmit)}>
-    <Wrapper>
+    <InputLayout>
       <span className="inputTitle">・ 문제</span>
       <QuestionTextarea register={register} />
-    </Wrapper>
-    <Wrapper>
+    </InputLayout>
+    <InputLayout>
       <span className="inputTitle">・ 정답</span>
       <input
         {...register("answer", {
@@ -129,42 +87,18 @@ const SubQuestion = ({ quizTags, quizType }) => {
         type="text"
         autoComplete="off"
       />
-    </Wrapper>
-    <OptionTitle>
-      <span>옵션</span>
-      <FontAwesomeIcon icon={option ? faCaretUp : faCaretDown} onClick={onClickOption} />
-    </OptionTitle>
-    {option && <Option>
-      <Wrapper className="hint">
-        <span className="inputTitle">・ 힌트</span>
-        <span className="subMsg">힌트가 있나요?</span>
-        <span className="subMsg">아래에 힌트를 작성하세요.</span>
-        <input
-          {...register("hint")}
-          type="text"
-        />
-      </Wrapper>
-      <Wrapper>
-        <ImageContainer
-          previewImg={previewImg}
-          setPreviewImg={setPreviewImg}
-          setValue={setValue}
-          register={register}
-          setImage={setImage}
-        />
-      </Wrapper>
-      <Wrapper>
-        <TagContainer
-          getValues={getValues}
-          setValue={setValue}
-          register={register}
-          tags={questionTags}
-          setTags={setQuestionTags}
-          subMsg1="해당 문제에만 해당되는 태그가 있나요?"
-          subMsg2="태그를 입력하고 + 버튼을 눌러주세요."
-        />
-      </Wrapper>
-    </Option>}
+    </InputLayout>
+    <QuestionOptionTitle option={option} setOption={setOption} />
+    {option && <QuestionOption
+      register={register}
+      getValues={getValues}
+      setValue={setValue}
+      questionTags={questionTags}
+      setQuestionTags={setQuestionTags}
+      previewImg={previewImg}
+      setPreviewImg={setPreviewImg}
+      setImage={setImage}
+    />}
     <InputBtn value="문제 생성하기" disabled={!isValid} bgColor="rgb(249, 192, 134)" />
   </MakeQuestionForm >);
 }
