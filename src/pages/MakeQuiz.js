@@ -18,12 +18,11 @@ const MakeQuiz = () => {
   const [makeQuestion, setMakeQuestion] = useState(false)
   const [makeQuiz, setMakeQuiz] = useState(false)
   const [questionNum, setQuestionNum] = useState(["q"])
-  console.log(questionIdArr);
   return (<React.Fragment>
     <Header />
     <BasicContainer>
       <PageTitle title="퀴즈 만들기" />
-      <Step step={1} msg="퀴즈의 제목과 태그를 입력하세요.">
+      <Step step={1} msg="퀴즈의 제목과 태그를 입력하세요." frist={true}>
         <QuizFormLayout bgColor="rgb(180, 255, 158, 0.2)">
           <MakeQuizForm
             quizTags={quizTags}

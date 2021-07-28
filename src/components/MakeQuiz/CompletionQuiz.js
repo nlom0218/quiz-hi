@@ -104,6 +104,7 @@ const CompletionQuiz = ({ quizTags, quizTitle, state, questionIdArr }) => {
   return (<SCompletionQuizForm onSubmit={handleSubmit(onSubmit)}>
     <InputLayout bgColor="rgb(108, 255, 63, 0.5)">
       <span className="inputTitle">・ 퀴즈 제목</span>
+      <span className="subMsg">퀴즈 제목은 1단계에서 수정 가능합니다.</span>
       <input
         value={quizTitle}
         type="text"

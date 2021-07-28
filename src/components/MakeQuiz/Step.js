@@ -4,6 +4,7 @@ import { fadeIn } from '../../animation/fade';
 
 const SStep = styled.div`
   grid-column: 2 / -3;
+  animation: ${fadeIn} 1s linear forwards;
 `
 
 const Layout = styled.div`
@@ -12,7 +13,6 @@ const Layout = styled.div`
   grid-template-columns: 1fr;
   grid-template-rows: auto;
   margin-bottom: 50px;
-  animation: ${fadeIn} 1s linear forwards;
 `
 
 const Title = styled.div`
@@ -27,8 +27,11 @@ const Msg = styled.div`
   margin-bottom: 10px;
 `
 
-const Step = ({ step, msg, children }) => {
+const Step = ({ step, msg, children, frist }) => {
   useEffect(() => {
+    if (frist) {
+      return
+    }
     window.scrollBy({
       top: 1200,
       behavior: "smooth"
