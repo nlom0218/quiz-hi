@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import SubQuestion from './SubQuestion';
 import ObjQuestion from "./ObjQuestion"
 import TFQuestion from "./TFQuestion"
+import { fadeIn } from '../../animation/fade';
 
 const SMakeQuestionContainer = styled.div`
   display: grid;
@@ -43,6 +44,19 @@ const Types = styled.div`
    }
 `
 
+const QuizSaveMsg = styled.div`
+    animation: ${fadeIn} 0.6s linear forwards;
+    .mainMsg{
+      margin-bottom: 15px;
+      font-size: 18px;
+      font-weight: 600;
+    }
+    .subMsg {
+      color: tomato;
+    }
+    margin-bottom: 30px;
+`
+
 const MakeQuestionContainer = ({ quizTags, setQuestionIdArr, questionIdArr, questionNum, setQuestionNum, num, imageId }) => {
   const [nextMode, setNextMode] = useState("")
   // sub, obj, tf
@@ -58,32 +72,38 @@ const MakeQuestionContainer = ({ quizTags, setQuestionIdArr, questionIdArr, ques
   }, [nextMode])
   return (<SMakeQuestionContainer>
     <QuestionNum>{num}번 문제</QuestionNum>
-    {nextMode === "" && <QuestionType>
-      <span>・ 문제 유형을 선택하세요.</span>
-      <Types>
-        <div>
-          <FontAwesomeIcon
-            onClick={() => onClickType("sub")}
-            icon={quizType === "sub" ? faCheckCircle : faCircle}
-          />
+    { nextMode === "" ?
+      <QuestionType>
+        <span>・ 문제 유형을 선택하세요.</span>
+        <Types> <React.Fragment>
+          <div>
+            <FontAwesomeIcon
+              onClick={() => onClickType("sub")}
+              icon={quizType === "sub" ? faCheckCircle : faCircle}
+            />
           주관식
           </div>
-        <div>
-          <FontAwesomeIcon
-            onClick={() => onClickType("obj")}
-            icon={quizType === "obj" ? faCheckCircle : faCircle}
-          />
+          <div>
+            <FontAwesomeIcon
+              onClick={() => onClickType("obj")}
+              icon={quizType === "obj" ? faCheckCircle : faCircle}
+            />
           객관식
           </div>
-        <div>
-          <FontAwesomeIcon
-            onClick={() => onClickType("tf")}
-            icon={quizType === "tf" ? faCheckCircle : faCircle}
-          />
+          <div>
+            <FontAwesomeIcon
+              onClick={() => onClickType("tf")}
+              icon={quizType === "tf" ? faCheckCircle : faCircle}
+            />
           ○ / ✕
-          </div>
-      </Types>
-    </QuestionType>}
+          </div></React.Fragment>
+        </Types>
+      </QuestionType> :
+      <QuizSaveMsg>
+        <div className="mainMsg">{num}번 문제가 생성되었습니다.</div>
+        <div className="subMsg">문제는 자동으로 프로필 ‣ 업로드 ‣ 문제에 저장이 됩니다.</div>
+      </QuizSaveMsg>
+    }
     {quizType === "sub"
       && <SubQuestion
         quizTags={quizTags}

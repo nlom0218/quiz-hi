@@ -104,7 +104,7 @@ const SubQuestion = ({ quizTags, quizType, setQuestionIdArr, questionIdArr, setN
       imageId={imageId}
     />}
     {nextMode === "" ?
-      <InputBtn value="문제 생성하기" disabled={!isValid} bgColor="rgb(172, 255, 20)" />
+      <InputBtn value={loading ? "문제 만드는 중..." : "문제 만들기"} disabled={!isValid} bgColor="rgb(172, 255, 20)" />
       :
       <NextStep
         setNextMode={setNextMode}

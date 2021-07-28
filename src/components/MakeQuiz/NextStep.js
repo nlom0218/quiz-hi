@@ -46,7 +46,7 @@ const NextStep = ({ setNextMode, bgColor, hvBgColor }) => {
         </NextBtn>
       </React.Fragment>
       :
-      <Msg>문제 수정은 퀴즈 완성 후 프로필의 "나의 문제"에서 확인 가능 합니다.</Msg>
+      <Msg>문제 수정은 퀴즈 완성 후 프로필 ‣ 업로드 ‣ 문제에서 가능합니다.</Msg>
     }
   </Warpper>);
 }
