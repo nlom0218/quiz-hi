@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { fadeIn } from '../../animation/fade';
 
 const SMakeQuestionForm = styled.form`
-  animation: ${fadeIn} 0.6s linear forwards;
+  animation: ${fadeIn} 0.8s linear forwards;
 `
 
 const MakeQuestionForm = ({ children, onSubmit }) => {
