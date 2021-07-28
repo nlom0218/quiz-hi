@@ -48,9 +48,9 @@ const RemoveBtn = styled.div`
   cursor: pointer;
 `
 
-const TagContainer = ({ getValues, tags, setTags, setValue, register, subMsg1, subMsg2, nextMode, question, color, bgColor }) => {
+const TagContainer = ({ getValues, tags, setTags, setValue, register, subMsg1, subMsg2, nextMode, question, color, bgColor, makeQuestion }) => {
   const onClickPlusQuizTag = () => {
-    if (getValues("tag") === "") {
+    if (getValues("tag") === "" || makeQuestion) {
       return
     }
     const newQuizTags = [...tags, getValues("tag")]
@@ -63,13 +63,13 @@ const TagContainer = ({ getValues, tags, setTags, setValue, register, subMsg1, s
   }
   const limitEvent = (type) => {
     if (type === "read") {
-      if (question && nextMode !== "") {
+      if (question && nextMode !== "" || makeQuestion) {
         return "readOnly"
       } else {
         return ""
       }
     } else if (type === "btn") {
-      if (question && nextMode !== "") {
+      if (question && nextMode !== "" || makeQuestion) {
         return false
       } else {
         return true

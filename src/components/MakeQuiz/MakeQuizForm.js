@@ -88,6 +88,7 @@ const MakeQuizForm = (
         register={register}
         tags={quizTags}
         setTags={setQuizTags}
+        makeQuestion={makeQuestion}
         color="rgb(108, 255, 63)"
         bgColor="rgb(108, 255, 63, 0.5)"
         subMsg1="모든 문제와 퀴즈에 동일한 태그를 부여합니다. 태그를 입력하고 + 버튼을 눌러주세요."
