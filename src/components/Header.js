@@ -86,7 +86,7 @@ const Header = () => {
       <Nav><Link to="/make-quiz"><FontAwesomeIcon icon={faPencilAlt} /></Link></Nav>
       <Nav><Link to="/play-quiz"><FontAwesomeIcon icon={faPlay} /></Link></Nav>
       <Nav>
-        <Link to="/me">
+        <Link to={`/profile/${user?.username}`}>
           {user?.avatarURL === !null ?
             <></>
             : <FontAwesomeIcon icon={faUser} />

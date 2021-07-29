@@ -12,7 +12,7 @@ import ScrollToTop from './hooks/ScrollToTop';
 import QuizFeed from './pages/QuizFeed';
 import MakeQuiz from './pages/MakeQuiz';
 import NoticeBoard from './pages/NoticeBoard';
-import Me from './pages/Me';
+import Profile from './pages/Profile';
 import useUser from './hooks/useUser';
 import NotFound from './pages/NotFound';
 
@@ -30,7 +30,7 @@ function App() {
           <Route path="/notice-board"><NoticeBoard /></Route>
           <Route path="/make-quiz">{user ? <MakeQuiz /> : <NotFound />}</Route>
           <Route path="/play-quiz">{user ? <PlayQuiz /> : <NotFound />}</Route>
-          <Route path="/me">{user ? <Me /> : <NotFound />}</Route>
+          <Route path="/profile/:username">{user ? <Profile /> : <NotFound />}</Route>
           <Route path="/login"><Login /></Route>
           <Route path="/create-account"><CreateAccount /></Route>
           <Route><NotFound /></Route>
