@@ -101,7 +101,7 @@ const MakeQuestionContainer = ({ quizTags, setQuestionIdArr, questionIdArr, ques
       </QuestionType> :
       <QuizSaveMsg>
         <div className="mainMsg">{num}번 문제가 생성되었습니다.</div>
-        <div className="subMsg">문제는 자동으로 프로필 ‣ 업로드 ‣ 문제에 저장이 됩니다.</div>
+        <div className="subMsg">문제는 자동으로 프로필 ‣ 퀴즈 & 문제에 저장이 됩니다.</div>
       </QuizSaveMsg>
     }
     {quizType === "sub"

@@ -5,6 +5,7 @@ import { useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { fadeIn } from '../../animation/fade';
+import useUser from '../../hooks/useUser';
 import { MoveTopScreen } from '../../sharedFn';
 import InputBtn from '../InputBtn';
 import LinkBtn from '../LinkBtn';
@@ -92,6 +93,7 @@ const CREATE_QUIZ_MUTATION = gql`
 `
 
 const CompletionQuiz = ({ quizTags, quizTitle, state, questionIdArr }) => {
+  const user = useUser()
   const num = questionIdArr.length
   const [complete, setComplete] = useState(false)
   const onCompleted = (result) => {
@@ -100,8 +102,24 @@ const CompletionQuiz = ({ quizTags, quizTitle, state, questionIdArr }) => {
       setComplete(true)
     }
   }
+  const update = (cache, result) => {
+    const { data: { createQuiz: { ok } } } = result
+    if (!ok) {
+      return
+    }
+    if (state === "public") {
+      cache.modify({
+        id: `User:${user.id}`,
+        fields: {
+          totalPublicQuiz(prev) { return prev + 1 },
+          totalPublicQuestion(prev) { return prev + num },
+        }
+      })
+    }
+  }
   const [createQuiz, { loading }] = useMutation(CREATE_QUIZ_MUTATION, {
-    onCompleted
+    onCompleted,
+    update
   })
   const { handleSubmit } = useForm()
   const onSubmit = (data) => {
@@ -174,7 +192,7 @@ const CompletionQuiz = ({ quizTags, quizTitle, state, questionIdArr }) => {
               퀴즈 진행하기
             </SNavBtn>
           </Link>
-          <Link to="/me" onClick={() => MoveTopScreen()}>
+          <Link to={`/profile/${user.username}`} onClick={() => MoveTopScreen()}>
             <SNavBtn>
               퀴즈 확인하기
             </SNavBtn>
