@@ -24,6 +24,8 @@ const SEE_PROFILE_QUERY = gql`
       isFollow
       totalFollow
       totalFollowing
+      totalPublicQuiz
+      totalPublicQuestion
   }
 }
 `
@@ -37,7 +39,7 @@ const Profile = () => {
     {loading ? <div>loading...</div> :
       <BasicContainer>
         <TopProfile data={{ ...data }} setProfileMode={setProfileMode} profileMode={profileMode} />
-        {profileMode === "basic" && <BottomProfile><BasicProfile /></BottomProfile>}
+        {profileMode === "basic" && <BottomProfile><BasicProfile data={{ ...data }} /></BottomProfile>}
       </BasicContainer>
     }
     <NavBtn />

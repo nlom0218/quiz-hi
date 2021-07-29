@@ -53,6 +53,13 @@ const SiteNameText = styled.span`
   text-transform: uppercase;
 `
 
+const AvatarImage = styled.img`
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  object-fit: fill;
+`
+
 const Header = () => {
   const darkMode = useReactiveVar(darkModeVar)
   const isLoggedIn = useReactiveVar(isLoggedInVar)
@@ -66,6 +73,15 @@ const Header = () => {
   }
   const onClickAccount = () => {
     logOutUser()
+  }
+  const profileIcon = () => {
+    if (!isLoggedIn) {
+      return true
+    }
+    if (user?.avatarURL === null) {
+      return true
+    }
+    return false
   }
   return (<SHeader className="headerContainer">
     <HeaderContainerGsap />
@@ -87,9 +103,10 @@ const Header = () => {
       <Nav><Link to="/play-quiz"><FontAwesomeIcon icon={faPlay} /></Link></Nav>
       <Nav>
         <Link to={`/profile/${user?.username}`}>
-          {user?.avatarURL === !null ?
-            <></>
-            : <FontAwesomeIcon icon={faUser} />
+          {profileIcon() ?
+            <FontAwesomeIcon icon={faUser} />
+            :
+            <AvatarImage src={user?.avatarURL} />
           }
         </Link>
       </Nav>

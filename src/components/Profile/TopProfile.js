@@ -77,16 +77,17 @@ const UserCaption = styled.div`
 const ProfileNav = styled.div`
   grid-column: 1 / -1;
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(6, 1fr);
+  background-color: rgb(200, 200, 200, 0.2);
 `
 
 const NavBtn = styled.div`
-    height: 60px;
+    height: 40px;
     display: flex;
     justify-content: center;
     align-items: center;
     cursor: pointer;
-    background-color: ${props => props.seleted ? "rgb(200, 200, 200, 0.6)" : "rgb(200, 200, 200, 0.2)"};
+    background-color: ${props => props.seleted ? "rgb(200, 200, 200, 0.4)" : ""};
     transition: background-color linear 0.5s;
     :hover {
       background-color: rgb(200, 200, 200, 0.6);
@@ -108,6 +109,16 @@ const TopProfile = ({ data, setProfileMode, profileMode }) => {
   const onClickNavBtn = (mode) => {
     setProfileMode(mode)
   }
+  const studentMode = () => {
+    if (!isMe) {
+      return false
+    }
+    if (type === "teacher") {
+      return true
+    } else {
+      return false
+    }
+  }
   return (<Container>
     <UserAvatar>
       {avatarURL ?
@@ -127,7 +138,7 @@ const TopProfile = ({ data, setProfileMode, profileMode }) => {
     <UserLevel>
       <LevelStep level={level} />
     </UserLevel>
-    <FollowBtn isMe={isMe} isFollow={isFollow} username={username} id={id} />
+    <FollowBtn isMe={isMe} isFollow={isFollow} username={username} id={id} setProfileMode={setProfileMode} />
     {caption && <UserCaption>
       {caption}
     </UserCaption>}
@@ -141,12 +152,17 @@ const TopProfile = ({ data, setProfileMode, profileMode }) => {
       <NavBtn
         onClick={() => onClickNavBtn("board")}
         seleted={profileMode === "board" ? true : false}>게시물</NavBtn>
-      <NavBtn onClick={() => onClickNavBtn("edit")}
-        seleted={profileMode === "edit" ? true : false}>프로필 수정</NavBtn>
-      <NavBtn
+      {isMe &&
+        <NavBtn onClick={() => onClickNavBtn("edit")}
+          seleted={profileMode === "edit" ? true : false}>프로필 수정</NavBtn>}
+      {isMe && <NavBtn
         onClick={() => onClickNavBtn("setting")}
-        seleted={profileMode === "setting" ? true : false}>QUIZ HI 설정</NavBtn>
+        seleted={profileMode === "setting" ? true : false}>QUIZ HI 설정</NavBtn>}
+      {studentMode() && <NavBtn
+        onClick={() => onClickNavBtn("student")}
+        seleted={profileMode === "student" ? true : false}>학생 관리</NavBtn>}
     </ProfileNav>
+
   </Container>);
 }
 

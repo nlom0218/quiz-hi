@@ -40,7 +40,7 @@ const UNFOLLOW_USER_MUTATION = gql`
   }
 `
 
-const FollowBtn = ({ isMe, isFollow, username, id }) => {
+const FollowBtn = ({ isMe, isFollow, username, id, setProfileMode }) => {
   const user = useUser()
   const updataFollowUser = (cache, result) => {
     const { data: { followUser: { ok } } } = result
@@ -95,8 +95,11 @@ const FollowBtn = ({ isMe, isFollow, username, id }) => {
       return <div onClick={followUser}>팔로우</div>
     }
   }
+  const onClickEdit = () => {
+    setProfileMode("edit")
+  }
   return (<SFollowBtn>
-    {isMe ? <div>프로필 수정하기</div> : sortFollow()}
+    {isMe ? <div onClick={onClickEdit}>프로필 수정하기</div> : sortFollow()}
   </SFollowBtn>);
 }
 
