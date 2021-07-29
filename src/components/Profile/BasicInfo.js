@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import FollowBtn from './FollowBtn';
 
 const Container = styled.div`
   grid-column: 5 / -2;
@@ -35,25 +36,6 @@ const UserType = styled.div`
 
 const UserEmail = styled.div``
 
-const FollowBtn = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  justify-self: center;
-  align-self: center;
-  width: 150px;
-  height: 30px;
-  background-color: rgb(255, 165, 0, 0.4);
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color linear 0.4s;
-  :hover {
-    background-color: rgb(255, 165, 0, 0.8);
-  }
-`
-
-const Btn = styled.div``
-
 const BasicInfo = ({ data }) => {
   const { seeProfile: { id, username, nickname, email, avatarURL, type, score, isMe, isFollow } } = data
   const userType = () => {
@@ -65,13 +47,6 @@ const BasicInfo = ({ data }) => {
       return "일반인"
     }
   }
-  const sortFollow = () => {
-    if (isFollow) {
-      return true
-    } else {
-      return false
-    }
-  }
   return (<Container>
     <Info>
       <Wrapper>
@@ -80,12 +55,7 @@ const BasicInfo = ({ data }) => {
       </Wrapper>
       {email && <UserEmail>{email}</UserEmail>}
     </Info>
-    {isMe
-      ?
-      <FollowBtn>프로필 수정</FollowBtn>
-      :
-      sortFollow() ? <FollowBtn>팔로잉</FollowBtn> : <FollowBtn>팔로워</FollowBtn>
-    }
+    <FollowBtn isMe={isMe} isFollow={isFollow} username={username} id={id} />
   </Container>);
 }
 

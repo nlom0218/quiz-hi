@@ -32,7 +32,7 @@ const AvatroImage = styled.img`
 `
 
 const ProfileContainer = ({ data }) => {
-  const { seeProfile: { id, username, email, avatarURL, type, score, isMe } } = data
+  const { seeProfile: { id, username, email, avatarURL, type, score, isMe, totalFollow, totalFollowing } } = data
   return (<Container>
     <AvatarLayout>
       {avatarURL ?
@@ -40,6 +40,8 @@ const ProfileContainer = ({ data }) => {
         <FontAwesomeIcon icon={faUser} />
       }
     </AvatarLayout>
+    팔로워: {totalFollow}명
+    필로잉: {totalFollowing}명
   </Container>);
 }
 

@@ -21,6 +21,8 @@ const SEE_PROFILE_QUERY = gql`
       score
       isMe
       isFollow
+      totalFollow
+      totalFollowing
   }
 }
 `
