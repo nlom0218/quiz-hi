@@ -1,12 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const ProfileBasicContainer = styled.div`
-    grid-column: 2 / -2;
-`
+const Container = styled.div``
 
 const BasicProfile = () => {
-  return (<ProfileBasicContainer>BasicProfile</ProfileBasicContainer>);
+  return (<Container>BasicProfile</Container>);
 }
 
 export default BasicProfile;

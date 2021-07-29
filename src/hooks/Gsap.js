@@ -56,3 +56,16 @@ export const HomeContentsLayoutGsap = ({ layout }) => {
   }, [])
   return null
 }
+
+export const BottomContainerGsap = () => {
+  useEffect(() => {
+    gsap.from(".bottomContainer", {
+      duration: 1,
+      delay: 0,
+      y: "100",
+      opacity: 0,
+      ease: "power3.out",
+    })
+  }, [])
+  return null
+}

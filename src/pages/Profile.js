@@ -6,7 +6,8 @@ import BasicContainer from '../components/BasicContainer';
 import Header from '../components/Header';
 import NavBtn from '../components/NavBtn';
 import BasicProfile from '../components/Profile/BasicProfile';
-import ProfileContainer from '../components/Profile/ProfileContainer';
+import BottomProfile from '../components/Profile/BottomProfile';
+import TopProfile from '../components/Profile/TopProfile';
 
 const SEE_PROFILE_QUERY = gql`
   query seeProfile($username: String!) {
@@ -35,8 +36,8 @@ const Profile = () => {
     <Header />
     {loading ? <div>loading...</div> :
       <BasicContainer>
-        <ProfileContainer data={{ ...data }} setProfileMode={setProfileMode} profileMode={profileMode} />
-        {profileMode === "basic" && <BasicProfile />}
+        <TopProfile data={{ ...data }} setProfileMode={setProfileMode} profileMode={profileMode} />
+        {profileMode === "basic" && <BottomProfile><BasicProfile /></BottomProfile>}
       </BasicContainer>
     }
     <NavBtn />

@@ -93,7 +93,7 @@ const NavBtn = styled.div`
     }
 `
 
-const ProfileContainer = ({ data, setProfileMode, profileMode }) => {
+const TopProfile = ({ data, setProfileMode, profileMode }) => {
   const { seeProfile: { id, username, nickname, email, avatarURL, type, score, isMe, isFollow, caption } } = data
   const userType = () => {
     if (type == "teacher") {
@@ -150,4 +150,4 @@ const ProfileContainer = ({ data, setProfileMode, profileMode }) => {
   </Container>);
 }
 
-export default ProfileContainer;
+export default TopProfile;
