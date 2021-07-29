@@ -31,11 +31,14 @@ const BasicInfo = styled.div`
 
 const Wrapper = styled.div`
   width: 100%;
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: auto 1fr;
   .input {
     font-weight: 600;
+  }
+  .value {
+    justify-self: flex-end;
+    text-align: end;
   }
 `
 
@@ -94,8 +97,17 @@ const UserSite = styled.div`
 `
 
 const BasicProfile = ({ data }) => {
-  const { seeProfile: { nickname, email, totalFollow, totalFollowing, type, totalPublicQuiz, totalPublicQuestion, score } } = data
+  const { seeProfile: { nickname, email, totalFollow, totalFollowing, type, totalPublicQuiz, totalPublicQuestion, score, createdAt } } = data
   const level = processUserLevel(score)
+  const getCreatedDay = () => {
+    const createDay = new Date(parseInt(createdAt))
+    var year = createDay.getFullYear();
+    var month = ('0' + (createDay.getMonth() + 1)).slice(-2);
+    var day = ('0' + createDay.getDate()).slice(-2);
+    return year + '-' + month + '-' + day;
+
+  }
+  console.log(getCreatedDay());
   return (<Container>
     <BasicInfo>
       <Title>기본정보</Title>
@@ -107,6 +119,10 @@ const BasicProfile = ({ data }) => {
         <div className="input">이메일</div>
         <div className="value">{email}</div>
       </Wrapper>}
+      <Wrapper>
+        <div className="input">가입일</div>
+        <div className="value">{getCreatedDay()}</div>
+      </Wrapper>
       <Wrapper>
         <div className="input">팔로워</div>
         <div className="value">{totalFollow}</div>

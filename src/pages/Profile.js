@@ -26,6 +26,7 @@ const SEE_PROFILE_QUERY = gql`
       totalFollowing
       totalPublicQuiz
       totalPublicQuestion
+      createdAt
   }
 }
 `
