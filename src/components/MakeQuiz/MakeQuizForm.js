@@ -2,6 +2,7 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import styled from 'styled-components';
 import { fadeIn } from '../../animation/fade';
+import useUser from '../../hooks/useUser';
 import InputBtn from '../InputBtn';
 import InputLayout from './InputLayout';
 import TagContainer from './TagContainer';
@@ -48,6 +49,7 @@ const StateBtn = styled.div`
 
 const MakeQuizForm = (
   { setQuizTags, quizTags, setQuizTitle, quizTitle, makeQuestion, setMakeQuestion, state, setState }) => {
+  const user = useUser()
   const { register, getValues, setValue, formState: { isValid }, handleSubmit, watch } = useForm({
     mode: "onChange"
   })
@@ -59,7 +61,7 @@ const MakeQuizForm = (
     setQuizTitle(getValues("quizTitle"))
   }
   const onClickStateBtn = (state) => {
-    if (makeQuestion) {
+    if (makeQuestion || user.type === "nomal") {
       return
     }
     setState(state)

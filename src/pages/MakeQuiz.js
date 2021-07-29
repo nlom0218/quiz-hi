@@ -9,8 +9,10 @@ import Step from '../components/MakeQuiz/Step';
 import PageTitle from '../components/PageTitle';
 import NavBtn from '../components/NavBtn';
 import CompletionQuiz from '../components/MakeQuiz/CompletionQuiz';
+import useUser from '../hooks/useUser';
 
 const MakeQuiz = () => {
+  const user = useUser()
   const [quizTitle, setQuizTitle] = useState("")
   const [quizTags, setQuizTags] = useState([])
   const [state, setState] = useState("")
@@ -18,6 +20,11 @@ const MakeQuiz = () => {
   const [makeQuestion, setMakeQuestion] = useState(false)
   const [makeQuiz, setMakeQuiz] = useState(false)
   const [questionNum, setQuestionNum] = useState(["q"])
+  useEffect(() => {
+    if (user.type === "nomal") {
+      setState("private")
+    }
+  }, [])
   return (<React.Fragment>
     <Header />
     <BasicContainer>
