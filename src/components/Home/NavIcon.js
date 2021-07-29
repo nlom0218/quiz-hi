@@ -7,6 +7,7 @@ import { useHistory } from 'react-router';
 import { darkModeVar, disableDarkMode, enableDarkMode } from '../../apollo';
 import { useReactiveVar } from '@apollo/client';
 import HomeLayout from './HomeLayout';
+import useUser from '../../hooks/useUser';
 
 const Box = styled.div`
   grid-row: 2 / 3;
@@ -44,6 +45,7 @@ const Description = styled.div`
 const NavIcon = () => {
   const darkMode = useReactiveVar(darkModeVar)
   const history = useHistory()
+  const user = useUser()
   const onClinkNavBtn = (routes) => {
     if (routes === "") {
       window.scrollTo({
@@ -86,7 +88,7 @@ const NavIcon = () => {
         <Icon>
           <FontAwesomeIcon icon={faClipboard} />
         </Icon>
-        <Description>퀴즈 대시보드</Description>
+        <Description>게시판</Description>
       </Wapper>
       <Wapper onClick={() => onClinkNavBtn("notice-board")}>
         <Icon>
@@ -106,7 +108,7 @@ const NavIcon = () => {
         </Icon>
         <Description>퀴즈 진행하기</Description>
       </Wapper>
-      <Wapper onClick={() => onClinkNavBtn("me")}>
+      <Wapper onClick={() => onClinkNavBtn(`profile/${user.username}`)}>
         <Icon>
           <FontAwesomeIcon icon={faUser} />
         </Icon>

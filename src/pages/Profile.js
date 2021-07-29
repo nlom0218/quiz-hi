@@ -1,12 +1,11 @@
 import { useQuery } from '@apollo/client';
 import gql from 'graphql-tag';
-import React from 'react';
-import { useParams } from 'react-router';
-import styled from 'styled-components';
+import React, { useState } from 'react';
+import { Route, Router, Switch, useParams } from 'react-router';
 import BasicContainer from '../components/BasicContainer';
 import Header from '../components/Header';
 import NavBtn from '../components/NavBtn';
-import BasicInfo from '../components/Profile/BasicInfo';
+import BasicProfile from '../components/Profile/BasicProfile';
 import ProfileContainer from '../components/Profile/ProfileContainer';
 
 const SEE_PROFILE_QUERY = gql`
@@ -18,6 +17,7 @@ const SEE_PROFILE_QUERY = gql`
       email
       avatarURL
       type
+      caption
       score
       isMe
       isFollow
@@ -29,13 +29,14 @@ const SEE_PROFILE_QUERY = gql`
 
 const Profile = () => {
   const { username } = useParams()
+  const [profileMode, setProfileMode] = useState("basic")
   const { data, loading } = useQuery(SEE_PROFILE_QUERY, { variables: { username } })
   return (<React.Fragment>
     <Header />
     {loading ? <div>loading...</div> :
       <BasicContainer>
-        <ProfileContainer data={{ ...data }} />
-        <BasicInfo data={{ ...data }} />
+        <ProfileContainer data={{ ...data }} setProfileMode={setProfileMode} profileMode={profileMode} />
+        {profileMode === "basic" && <BasicProfile />}
       </BasicContainer>
     }
     <NavBtn />
