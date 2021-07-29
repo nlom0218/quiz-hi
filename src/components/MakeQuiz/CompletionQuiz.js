@@ -2,8 +2,10 @@ import { useMutation } from '@apollo/client';
 import gql from 'graphql-tag';
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { fadeIn } from '../../animation/fade';
+import { MoveTopScreen } from '../../sharedFn';
 import InputBtn from '../InputBtn';
 import LinkBtn from '../LinkBtn';
 import NavBtn from '../NavBtn';
@@ -40,6 +42,11 @@ const Wrapper = styled.div`
   column-gap: 30px;
 `
 
+const CompleteMsg = styled.div`
+  font-size: 18px;
+  margin-bottom: 10px;
+`
+
 const MovePageBtn = styled.div`
   animation: ${fadeIn} 0.6s linear forwards;
   margin-top: 10px;
@@ -47,11 +54,22 @@ const MovePageBtn = styled.div`
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   column-gap: 30px;
+  justify-items: center;
 `
 
-const CompleteMsg = styled.div`
-  font-size: 18px;
-  margin-bottom: 10px;
+const SNavBtn = styled.div`
+  border: 1px solid ${props => props.theme.fontColor};
+  width: 160px;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  color: ${props => props.theme.fontColor};
+  transition: background-color 0.5s linear;
+  :hover {
+  background-color: rgb(108, 255, 63, 0.5);
+  }
 `
 
 const CREATE_QUIZ_MUTATION = gql`
@@ -145,10 +163,22 @@ const CompletionQuiz = ({ quizTags, quizTitle, state, questionIdArr }) => {
       <React.Fragment>
         <CompleteMsg className="inputTitle">퀴즈가 생성 되었습니다.</CompleteMsg>
         <MovePageBtn>
-          <LinkBtn route="make-quiz" text="새로 만들기" onClick={() => window.reload()} />
-          <LinkBtn route="quiz-feed" text="퀴즈 피드" />
-          <LinkBtn route="paly-quiz" text="퀴즈 진행하기" />
-          <LinkBtn route="me" text="퀴즈 확인하기" />
+          <SNavBtn onClick={() => window.location.reload()}>새로 만들기</SNavBtn>
+          <Link to="/quiz-feed" onClick={() => MoveTopScreen()}>
+            <SNavBtn>
+              퀴즈 피드
+            </SNavBtn>
+          </Link>
+          <Link to="/paly-quiz" onClick={() => MoveTopScreen()}>
+            <SNavBtn>
+              퀴즈 진행하기
+            </SNavBtn>
+          </Link>
+          <Link to="/me" onClick={() => MoveTopScreen()}>
+            <SNavBtn>
+              퀴즈 확인하기
+            </SNavBtn>
+          </Link>
         </MovePageBtn>
       </React.Fragment>
       :
