@@ -69,21 +69,21 @@ const EmailForm = ({ setDoneConfirm, setError, setEmail }) => {
     console.log(email);
     const randomNum = Math.floor(Math.random() * 1000000)
     setConfirmNum(randomNum)
-    // emailjs.send(
-    //   "service_y3st5zf",
-    //   "template_9ibugnm",
-    //   {
-    //     email,
-    //     confirmNum: randomNum
-    //   },
-    //   "user_sJAAszXnKTFqusb3xguHm")
-    //   .then((result) => {
-    //   }, (error) => {
-    //     console.log(error.text);
-    //   })
-    setSendEmail(true)
-    setEmail(email)
-    setPlatForm(email.split("@").reverse()[0])
+    emailjs.send(
+      "service_y3st5zf",
+      "template_9ibugnm",
+      {
+        email,
+        confirmNum: randomNum
+      },
+      "user_sJAAszXnKTFqusb3xguHm")
+      .then((result) => {
+        setSendEmail(true)
+        setEmail(email)
+        setPlatForm(email.split("@").reverse()[0])
+      }, (error) => {
+        console.log(error.text);
+      })
   }
   const onClinkAgainBtn = () => {
     setSendEmail(false)

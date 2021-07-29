@@ -42,7 +42,6 @@ const EmailConfirm = ({ confirmNum, setDoneConfirm, setError }) => {
   })
   const onSubmit = (data) => {
     const { inputNum } = data
-    console.log(inputNum);
     if (confirmNum === parseInt(inputNum)) {
       setDoneConfirm(true)
       setConfirm("true")

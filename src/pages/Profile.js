@@ -14,11 +14,13 @@ const SEE_PROFILE_QUERY = gql`
     seeProfile(username: $username) {
       id
       username
+      nickname
       email
       avatarURL
       type
       score
       isMe
+      isFollow
   }
 }
 `
