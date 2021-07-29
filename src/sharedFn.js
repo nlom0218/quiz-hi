@@ -35,3 +35,25 @@ export const processUserLevel = (score) => {
     return 10
   }
 }
+
+export const processNextLevelScore = (level, score) => {
+  if (level === 1) {
+    return 20 - score
+  } else if (level === 2) {
+    return 60 - score
+  } else if (level === 3) {
+    return 140 - score
+  } else if (level === 4) {
+    return 300 - score
+  } else if (level === 5) {
+    return 620 - score
+  } else if (level === 6) {
+    return 1240 - score
+  } else if (level === 7) {
+    return 2520 - score
+  } else if (level === 8) {
+    return 5080 - score
+  } else if (level === 9) {
+    return 10200 - score
+  }
+}
