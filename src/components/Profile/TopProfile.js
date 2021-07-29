@@ -136,7 +136,7 @@ const TopProfile = ({ data, setProfileMode, profileMode }) => {
       {email && <UserEmail>{email}</UserEmail>}
     </UserBasicInfo>
     <UserLevel>
-      <LevelStep level={level} />
+      {/* <LevelStep level={level} /> */}
     </UserLevel>
     <FollowBtn isMe={isMe} isFollow={isFollow} username={username} id={id} setProfileMode={setProfileMode} />
     {caption && <UserCaption>
