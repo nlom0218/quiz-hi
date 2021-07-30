@@ -6,7 +6,6 @@ const FeedTypeWrapper = styled.div`
   justify-self: flex-end;
   align-self: center;
   display: flex;
-  font-size: 18px;
 `
 
 const SFeedType = styled.div`
