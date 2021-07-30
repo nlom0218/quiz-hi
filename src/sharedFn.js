@@ -57,3 +57,11 @@ export const processNextLevelScore = (level, score) => {
     return 10200 - score
   }
 }
+
+export const getCreatedDay = (createdAt) => {
+  const createDay = new Date(parseInt(createdAt))
+  var year = createDay.getFullYear();
+  var month = ('0' + (createDay.getMonth() + 1)).slice(-2);
+  var day = ('0' + createDay.getDate()).slice(-2);
+  return year + '-' + month + '-' + day;
+}

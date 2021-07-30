@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { processNextLevelScore, processUserLevel } from '../../sharedFn';
+import { processNextLevelScore, processUserLevel, getCreatedDay } from '../../sharedFn';
 import LevelStep from '../LevelStep';
 
 const Container = styled.div`
@@ -99,15 +99,6 @@ const UserSite = styled.div`
 const BasicProfile = ({ data }) => {
   const { seeProfile: { nickname, email, totalFollow, totalFollowing, type, totalPublicQuiz, totalPublicQuestion, score, createdAt } } = data
   const level = processUserLevel(score)
-  const getCreatedDay = () => {
-    const createDay = new Date(parseInt(createdAt))
-    var year = createDay.getFullYear();
-    var month = ('0' + (createDay.getMonth() + 1)).slice(-2);
-    var day = ('0' + createDay.getDate()).slice(-2);
-    return year + '-' + month + '-' + day;
-
-  }
-  console.log(getCreatedDay());
   return (<Container>
     <BasicInfo>
       <Title>기본정보</Title>
@@ -121,7 +112,7 @@ const BasicProfile = ({ data }) => {
       </Wrapper>}
       <Wrapper>
         <div className="input">가입일</div>
-        <div className="value">{getCreatedDay()}</div>
+        <div className="value">{getCreatedDay(createdAt)}</div>
       </Wrapper>
       <Wrapper>
         <div className="input">팔로워</div>

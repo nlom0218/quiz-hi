@@ -88,7 +88,7 @@ const NavIcon = () => {
         <Icon>
           <FontAwesomeIcon icon={faClipboard} />
         </Icon>
-        <Description>게시판</Description>
+        <Description>피드</Description>
       </Wapper>
       <Wapper onClick={() => onClinkNavBtn("notice-board")}>
         <Icon>
