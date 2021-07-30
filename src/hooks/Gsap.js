@@ -69,3 +69,16 @@ export const BottomContainerGsap = () => {
   }, [])
   return null
 }
+
+export const QuizFeedBottomContainer = () => {
+  useEffect(() => {
+    gsap.from(".quizFeedContainer", {
+      duration: 1,
+      delay: 0,
+      y: "100",
+      opacity: 0,
+      ease: "power3.out",
+    })
+  }, [])
+  return null
+}

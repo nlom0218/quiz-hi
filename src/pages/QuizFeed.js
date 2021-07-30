@@ -6,6 +6,7 @@ import BasicContainer from '../components/BasicContainer';
 import Header from '../components/Header';
 import PageTitle from '../components/PageTitle';
 import FeedType from '../components/QuizFeed/FeedType';
+import SeeQuiz from '../components/QuizFeed/SeeQuiz';
 import SeeType from '../components/QuizFeed/SeeType';
 
 const QuizFeed = () => {
@@ -17,6 +18,8 @@ const QuizFeed = () => {
       <PageTitle title="퀴즈 피드" />
       <FeedType feedType={feedType} setFeedType={setFeedType} />
       <SeeType seeType={seeType} setSeeType={setSeeType} />
+      {feedType === "quiz" && <SeeQuiz feedType={feedType} />}
+      {feedType === "question" && <SeeQuiz feedType={feedType} />}
     </BasicContainer>
   </React.Fragment>);
 }
