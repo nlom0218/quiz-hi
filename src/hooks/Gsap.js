@@ -73,7 +73,7 @@ export const BottomContainerGsap = () => {
 export const QuizFeedBottomContainer = () => {
   useEffect(() => {
     gsap.from(".quizFeedContainer", {
-      duration: 1,
+      duration: 1.5,
       delay: 0,
       y: "100",
       opacity: 0,

@@ -18,8 +18,8 @@ const QuizFeed = () => {
       <PageTitle title="퀴즈 피드" />
       <FeedType feedType={feedType} setFeedType={setFeedType} />
       <SeeType seeType={seeType} setSeeType={setSeeType} />
-      {feedType === "quiz" && <SeeQuiz feedType={feedType} />}
-      {feedType === "question" && <SeeQuiz feedType={feedType} />}
+      {feedType === "quiz" && <SeeQuiz feedType={feedType} seeType={seeType} />}
+      {feedType === "question" && <SeeQuiz feedType={feedType} seeType={seeType} />}
     </BasicContainer>
   </React.Fragment>);
 }

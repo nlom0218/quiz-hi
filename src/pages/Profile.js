@@ -1,7 +1,7 @@
 import { useQuery } from '@apollo/client';
 import gql from 'graphql-tag';
 import React, { useState } from 'react';
-import { Route, Router, Switch, useParams } from 'react-router';
+import { useParams } from 'react-router';
 import BasicContainer from '../components/BasicContainer';
 import Header from '../components/Header';
 import NavBtn from '../components/NavBtn';

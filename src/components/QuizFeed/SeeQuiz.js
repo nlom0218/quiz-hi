@@ -1,14 +1,12 @@
-import { faSearch } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useState } from 'react';
-import styled from 'styled-components';
 import QuizFeedContainer from './QuizFeedContainer';
+import QuizList from './QuizList';
 
-const SeeQuiz = ({ feedType }) => {
+const SeeQuiz = ({ feedType, seeType }) => {
   const [search, setSearch] = useState("")
   const [sort, setSort] = useState("recent") // recent, likes, hits
   return (<QuizFeedContainer feedType={feedType} setSearch={setSearch} sort={sort} setSort={setSort}>
-    <div>퀴즈목록</div>
+    <QuizList seeType={seeType} search={search} sort={sort} />
   </QuizFeedContainer>);
 }
 
