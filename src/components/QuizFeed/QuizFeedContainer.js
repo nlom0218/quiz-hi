@@ -1,4 +1,4 @@
-import { faCheck, faChevronDown, faChevronUp, faSearch } from '@fortawesome/free-solid-svg-icons';
+import { faCheck, faChevronDown, faChevronUp, faSearch, } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
@@ -7,6 +7,7 @@ import { fadeIn } from '../../animation/fade';
 import { ScrollTrigger } from "gsap/ScrollTrigger"
 import { gsap } from "gsap"
 import { QuizFeedBottomContainer } from '../../hooks/Gsap';
+import QuizQuestionBasket from './QuizQuestionBasket';
 gsap.registerPlugin(ScrollTrigger)
 
 const SQuizFeedContainer = styled.div`
@@ -86,11 +87,7 @@ const SortItem = styled.li`
   align-items: center;
 `
 
-const QuizBasket = styled.div`
-  grid-column: 2 / 3;
-`
-
-const QuizFeedContainer = ({ children, feedType, setSearch, sort, setSort }) => {
+const QuizFeedContainer = ({ children, feedType, setSearch, sort, setSort, setPutQuiz }) => {
   const [seeSortList, setSeeSortList] = useState(false)
   const { register, handleSubmit } = useForm()
   const onSubmit = (data) => {
@@ -145,15 +142,7 @@ const QuizFeedContainer = ({ children, feedType, setSearch, sort, setSort }) => 
       </SortBar>
     </TopBar>
     {children}
-    <QuizBasket>
-      {JSON.parse(localStorage.getItem("quizBasket")) && <div>
-        {JSON.parse(localStorage.getItem("quizBasket")).map((item, index) => {
-          return <div key={index}>
-            {item.title}
-          </div>
-        })}
-      </div>}
-    </QuizBasket>
+    <QuizQuestionBasket setPutQuiz={setPutQuiz} />
   </SQuizFeedContainer>);
 }
 

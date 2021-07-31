@@ -73,13 +73,13 @@ export const onClickQuizBasketBtn = (title, id) => {
     return
   }
   const exist = quizBasket.some(item => item.title === title)
+  let newQuizBasket = []
   if (exist) {
-    const newQuizBasket = quizBasket.filter((item) => item.title !== title)
-    localStorage.setItem("quizBasket", JSON.stringify(newQuizBasket))
+    newQuizBasket = quizBasket.filter((item) => item.title !== title)
   } else {
-    const newQuizBasket = [...quizBasket, { title, id }]
-    localStorage.setItem("quizBasket", JSON.stringify(newQuizBasket))
+    newQuizBasket = [...quizBasket, { title, id }]
   }
+  localStorage.setItem("quizBasket", JSON.stringify(newQuizBasket))
 }
 
 export const checkQuizBasket = (title, id) => {
@@ -92,5 +92,21 @@ export const checkQuizBasket = (title, id) => {
     return true
   } else {
     return false
+  }
+}
+
+export const onClickResetBasket = (type) => {
+  if (type === "quiz") {
+    localStorage.removeItem("quizBasket")
+  } else if (type === "question") {
+    localStorage.removeItem("questionBasket")
+  }
+}
+
+export const removeBasketItem = (type, title) => {
+  if (type === "quiz") {
+    const quizBasket = JSON.parse(localStorage.getItem("quizBasket"))
+    const newQuizBasket = quizBasket.filter((item) => item.title !== title)
+    localStorage.setItem("quizBasket", JSON.stringify(newQuizBasket))
   }
 }
