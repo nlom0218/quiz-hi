@@ -4,6 +4,7 @@ import { createUploadLink } from 'apollo-upload-client'
 
 const DARK = "dark"
 const TOKEN = "token"
+const QUIZBASKET = "quizBasket"
 
 export const darkModeVar = makeVar(Boolean(localStorage.getItem(DARK)))
 export const enableDarkMode = () => {
@@ -25,7 +26,6 @@ export const logOutUser = () => {
   window.location.reload()
   isLoggedInVar(false)
 }
-
 
 const httpLink = createUploadLink({
   uri: process.env.NODE_ENV === "production"

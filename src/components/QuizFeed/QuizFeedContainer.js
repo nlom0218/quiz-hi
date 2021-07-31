@@ -64,16 +64,16 @@ const SortList = styled.ul`
   position: absolute;
   top: 40px;
   right: 0px;
-  background-color: rgb(200, 200, 200, 0.2);
+  background-color: ${props => props.theme.grayColor};
   display: grid;
   grid-template-columns: 140px;
   grid-template-rows: 1fr 1fr 1fr;
   border-radius: 5px;
   animation: ${fadeIn} 0.4s linear;
+  transition: background-color 1s ease;
 `
 
 const SortItem = styled.li`
-  /* background-color: red; */
   margin: 5px 10px;
   padding: 5px 10px;
   border-radius: 5px;
@@ -84,6 +84,10 @@ const SortItem = styled.li`
   }
   display: flex;
   align-items: center;
+`
+
+const QuizBasket = styled.div`
+  grid-column: 2 / 3;
 `
 
 const QuizFeedContainer = ({ children, feedType, setSearch, sort, setSort }) => {
@@ -141,7 +145,15 @@ const QuizFeedContainer = ({ children, feedType, setSearch, sort, setSort }) => 
       </SortBar>
     </TopBar>
     {children}
-    <div>담기</div>
+    <QuizBasket>
+      {JSON.parse(localStorage.getItem("quizBasket")) && <div>
+        {JSON.parse(localStorage.getItem("quizBasket")).map((item, index) => {
+          return <div key={index}>
+            {item.title}
+          </div>
+        })}
+      </div>}
+    </QuizBasket>
   </SQuizFeedContainer>);
 }
 

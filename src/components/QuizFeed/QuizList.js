@@ -7,10 +7,12 @@ import QuizItem from './QuizItem';
 const SEE_QUIZ_QUERY = gql`
   query seeQuiz($seeType: String!, $page: Int!, $search: String, $sort: String!) {
     seeQuiz(seeType: $seeType, page: $page, search: $search, sort: $sort) {
+      id
       title
       user {
         nickname
         avatarURL
+        username
       }
       tags {
         name
@@ -36,8 +38,7 @@ const SQuizList = styled.div`
   border-left: 1px solid rgb(200, 200, 200, 0.8);
 `
 
-const QuizList = ({ seeType, search, sort }) => {
-  console.log(seeType, sort);
+const QuizList = ({ seeType, search, sort, setPutQuiz }) => {
   const [page, setPage] = useState(1)
   const { data, loading } = useQuery(SEE_QUIZ_QUERY, {
     variables: {
@@ -47,11 +48,10 @@ const QuizList = ({ seeType, search, sort }) => {
       ...(search !== "" && { search })
     }
   })
-  console.log(data);
   return (<Container>
     {loading ? <div>loading...</div> : <SQuizList>
       {data?.seeQuiz.map((item, index) => {
-        return <QuizItem key={index} {...item} />
+        return <QuizItem key={index} {...item} setPutQuiz={setPutQuiz} />
       })}
     </SQuizList>}
   </Container>);

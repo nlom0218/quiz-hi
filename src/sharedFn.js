@@ -65,3 +65,32 @@ export const getCreatedDay = (createdAt) => {
   var day = ('0' + createDay.getDate()).slice(-2);
   return year + '-' + month + '-' + day;
 }
+
+export const onClickQuizBasketBtn = (title, id) => {
+  const quizBasket = JSON.parse(localStorage.getItem("quizBasket"))
+  if (quizBasket === null) {
+    localStorage.setItem("quizBasket", JSON.stringify([{ title, id }]))
+    return
+  }
+  const exist = quizBasket.some(item => item.title === title)
+  if (exist) {
+    const newQuizBasket = quizBasket.filter((item) => item.title !== title)
+    localStorage.setItem("quizBasket", JSON.stringify(newQuizBasket))
+  } else {
+    const newQuizBasket = [...quizBasket, { title, id }]
+    localStorage.setItem("quizBasket", JSON.stringify(newQuizBasket))
+  }
+}
+
+export const checkQuizBasket = (title, id) => {
+  const quizBasket = JSON.parse(localStorage.getItem("quizBasket"))
+  if (quizBasket === null) {
+    return false
+  }
+  const exist = quizBasket.some(item => item.title === title)
+  if (exist) {
+    return true
+  } else {
+    return false
+  }
+}

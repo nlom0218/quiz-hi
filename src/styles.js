@@ -10,13 +10,15 @@ export const lightTheme = {
   fontColor: color.black,
   bgColor: color.white,
   blurColor: "rgb(255, 255, 255, 0.6)",
-  blurBgColor: "rgb(244, 244, 244, 0.9)"
+  blurBgColor: "rgb(244, 244, 244, 0.9)",
+  grayColor: "#EBEBEB"
 }
 export const darkTheme = {
   fontColor: color.white,
   bgColor: color.black,
   blurColor: "rgb(0, 0, 0, 0.6)",
-  blurBgColor: "rgb(63, 63, 63, 0.8)"
+  blurBgColor: "rgb(63, 63, 63, 0.8)",
+  grayColor: "#5A5A5A"
 }
 
 export const GlobalStyle = createGlobalStyle`

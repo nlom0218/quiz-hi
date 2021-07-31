@@ -1,16 +1,18 @@
 import { faHeart, faTags, faUser } from '@fortawesome/free-solid-svg-icons';
-import { faComment, faHeart as faHeartRegular } from '@fortawesome/free-regular-svg-icons';
+import { faCheckSquare, faComment, faHeart as faHeartRegular, faSquare } from '@fortawesome/free-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { getCreatedDay } from "../../sharedFn"
+import { useHistory } from 'react-router';
+import { onClickQuizBasketBtn, checkQuizBasket } from "../../sharedFn"
 
 const SQuizItem = styled.div`
   padding: 20px;
   padding-bottom: ${props => props.tags && "15px"};
   border-bottom: 1px solid rgb(200, 200, 200, 0.8);
   display: grid;
-  grid-template-columns: 8fr 1fr;
+  grid-template-columns: 1fr auto;
   grid-template-rows: repeat(2, auto);
   row-gap: 10px;
   transition: background-color 0.2s linear;
@@ -20,8 +22,13 @@ const SQuizItem = styled.div`
 `
 
 const QuizTitle = styled.div`
-  grid-column: 1 / -1;
+  grid-column: 1 / 2;
   font-weight: 600;
+`
+
+const QuizBasketBtn = styled.div`
+  grid-column: 2 / 3;
+  cursor: pointer;
 `
 
 const QuizInfo = styled.div`
@@ -40,6 +47,7 @@ const Username = styled.div`
   display: flex;
   align-items: flex-end;
   margin-right: 10px;
+  cursor: pointer;
 `
 
 const AvatarImage = styled.img`
@@ -85,10 +93,10 @@ const QuizTags = styled.div`
 const QuizTagList = styled.div`
   display: flex;
   flex-wrap: wrap;
+  font-size: 14px;
 `
 
 const QuizTag = styled.div`
-  font-size: 14px;
   margin-bottom: 5px;
   margin-right: 5px;
   padding: 3px 10px;
@@ -97,12 +105,22 @@ const QuizTag = styled.div`
 `
 
 const QuizItem = (
-  { title, user: { nickname, avatarURL }, tags, questionNum, isLiked, likes, createdAt, hits }) => {
+  { id, title, user: { nickname, avatarURL, username }, tags, questionNum, isLiked, likes, createdAt, hits, setPutQuiz }) => {
+  const history = useHistory()
+  const onClickUsername = () => {
+    history.push(`/profile/${username}`)
+  }
   return (<SQuizItem tags={tags.length !== 0 ? true : false}>
     <QuizTitle>{title}</QuizTitle>
+    <QuizBasketBtn onClick={() => {
+      onClickQuizBasketBtn(title, id)
+      setPutQuiz(prev => !prev)
+    }}>
+      <FontAwesomeIcon icon={checkQuizBasket(title) ? faCheckSquare : faSquare} />
+    </QuizBasketBtn>
     <QuizInfo>
       <Wrapper>
-        <Username>
+        <Username onClick={onClickUsername}>
           {avatarURL ?
             <AvatarImage src={avatarURL} /> :
             <div>
@@ -139,7 +157,8 @@ const QuizItem = (
           </React.Fragment>
         })}
       </QuizTagList>
-    </QuizTags>}
+    </QuizTags>
+    }
   </SQuizItem>);
 }
 
