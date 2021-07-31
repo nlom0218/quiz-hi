@@ -8,6 +8,18 @@ const SEE_QUIZ_QUERY = gql`
   query seeQuiz($seeType: String!, $page: Int!, $search: String, $sort: String!) {
     seeQuiz(seeType: $seeType, page: $page, search: $search, sort: $sort) {
       title
+      user {
+        nickname
+        avatarURL
+      }
+      tags {
+        name
+      }
+      questionNum
+      isLiked
+      likes
+      hits
+      createdAt
     }
   }
 `
@@ -19,6 +31,9 @@ const Container = styled.div`
 const SQuizList = styled.div`
   display: grid;
   grid-template-columns: 1fr;
+  border-top: 1px solid rgb(200, 200, 200, 0.8);
+  border-right: 1px solid rgb(200, 200, 200, 0.8);
+  border-left: 1px solid rgb(200, 200, 200, 0.8);
 `
 
 const QuizList = ({ seeType, search, sort }) => {
