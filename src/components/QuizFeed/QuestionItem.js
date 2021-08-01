@@ -57,7 +57,7 @@ const AvatarImage = styled.img`
   border-radius: 50%;
 `
 
-const QuestionNum = styled.div`
+const QuestionType = styled.div`
   margin-right: 10px;
 `
 
@@ -106,10 +106,19 @@ const QuizTag = styled.div`
 `
 
 const QuestionItem = (
-  { id, question, user: { nickname, avatarURL, username }, tags, isLiked, likes, createdAt, hits, setPutQuiz }) => {
+  { id, question, user: { nickname, avatarURL, username }, type, tags, isLiked, likes, createdAt, hits, setPutQuiz }) => {
   const history = useHistory()
   const onClickUsername = () => {
     history.push(`/profile/${username}`)
+  }
+  const processType = (type) => {
+    if (type === "sub") {
+      return "주관식"
+    } else if (type === "obj") {
+      return "객관식"
+    } else if (type === "tf") {
+      return "○ / ✕"
+    }
   }
   return (<SQuizItem tags={tags.length !== 0 ? true : false}>
     <QuizTitle>{question}</QuizTitle>
@@ -130,6 +139,7 @@ const QuestionItem = (
           }
           {nickname}
         </Username>
+        <QuestionType>{processType(type)}</QuestionType>
         <QuizLike isLiked={isLiked}>
           <FontAwesomeIcon icon={isLiked ? faHeart : faHeartRegular} />
           {likes}

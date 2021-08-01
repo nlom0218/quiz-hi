@@ -18,6 +18,7 @@ const SEE_QUESTION_QUERY = gql`
       tags {
         name
       }
+      type
       isLiked
       likes
       hits
