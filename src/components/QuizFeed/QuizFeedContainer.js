@@ -20,9 +20,9 @@ const SQuizFeedContainer = styled.div`
 
 const TopBar = styled.div`
   grid-column: 1 / -1;
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-end;
+  display: grid;
+  grid-template-columns: 3fr 1fr 1fr;
+  gap: 30px;
 `
 
 const SearchBar = styled.div`
@@ -45,7 +45,24 @@ const SearchBar = styled.div`
   }
 `
 
+const PageBar = styled.div`
+  justify-self: flex-end;
+  align-self: flex-end;
+  border: 1px solid rgb(200, 200, 200, 0.6);
+  border-radius: 5px;
+  display: flex;
+`
+
+const PageBarBtn = styled.div`
+  cursor: pointer;
+  padding: 8px 20px;
+  :first-child {
+    border-right: 1px solid rgb(200, 200, 200, 0.6);
+  }
+`
+
 const SortBar = styled.div`
+  justify-self: flex-end;
   padding: 8px 20px;
   border: 1px solid rgb(200, 200, 200, 0.6);
   border-radius: 5px;
@@ -87,7 +104,7 @@ const SortItem = styled.li`
   align-items: center;
 `
 
-const QuizFeedContainer = ({ children, feedType, setSearch, sort, setSort, setPutQuiz }) => {
+const QuizFeedContainer = ({ children, feedType, setSearch, sort, setSort, setPutQuiz, setPage }) => {
   const [seeSortList, setSeeSortList] = useState(false)
   const { register, handleSubmit } = useForm()
   const onSubmit = (data) => {
@@ -123,6 +140,10 @@ const QuizFeedContainer = ({ children, feedType, setSearch, sort, setSort, setPu
           />
         </form>
       </SearchBar>
+      <PageBar>
+        <PageBarBtn>이전</PageBarBtn>
+        <PageBarBtn>다음</PageBarBtn>
+      </PageBar>
       <SortBar>
         <Sort>{processSort(sort)}</Sort>
         <SortBtn onClick={onClickSortBtn}>

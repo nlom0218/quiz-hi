@@ -38,8 +38,7 @@ const SQuizList = styled.div`
   border-left: 1px solid rgb(200, 200, 200, 0.8);
 `
 
-const QuizList = ({ seeType, search, sort, setPutQuiz }) => {
-  const [page, setPage] = useState(1)
+const QuizList = ({ seeType, search, sort, setPutQuiz, page }) => {
   const { data, loading } = useQuery(SEE_QUIZ_QUERY, {
     variables: {
       seeType,

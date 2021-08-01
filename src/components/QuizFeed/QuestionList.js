@@ -39,8 +39,7 @@ const SQuestionList = styled.div`
   border-left: 1px solid rgb(200, 200, 200, 0.8);
 `
 
-const QuestionList = ({ seeType, search, sort, setPutQuiz }) => {
-  const [page, setPage] = useState(1)
+const QuestionList = ({ seeType, search, sort, setPutQuiz, page }) => {
   const { data, loading } = useQuery(SEE_QUESTION_QUERY, {
     variables: {
       seeType,
@@ -49,7 +48,6 @@ const QuestionList = ({ seeType, search, sort, setPutQuiz }) => {
       ...(search !== "" && { search })
     }
   })
-  console.log(data);
   return (<Container>
     {loading ? <div>loading...</div> : <SQuestionList>
       {data?.seeQuestion.map((item, index) => {
