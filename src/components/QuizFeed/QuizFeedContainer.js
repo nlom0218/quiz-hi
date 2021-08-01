@@ -45,6 +45,7 @@ const SearchBar = styled.div`
       color: ${props => props.theme.fontColor};
       opacity: 0.8;
     }
+    
   }
 `
 

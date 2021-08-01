@@ -13,12 +13,12 @@ const SInputLayout = styled.div`
     margin-bottom: 5px;
   }
   input {
-    background-color: ${props => props.bgColor};
     padding: 10px 20px;
     border-radius: 5px;
-    transition: background-color 0.2s linear;
+    background-color: rgb(200, 200, 200, 0.2);
+    transition: box-shadow 0.4s linear;
     :focus {
-      background-color: ${props => props.fcBgColor}
+      box-shadow: 0 0 1px 0.5px ${props => props.theme.fontColor};
     }
   }
 `

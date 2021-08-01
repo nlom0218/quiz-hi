@@ -129,11 +129,9 @@ const SubQuestion = ({ quizTags, quizType, setQuestionIdArr, questionIdArr, setN
       <span className="inputTitle">・ 문제</span>
       <QuestionTextarea
         register={register}
-        nextMode={nextMode}
-        bgColor="rgb(172, 255, 20, 0.2)"
-        fcBgColor="rgb(172, 255, 20, 0.4)" />
+        nextMode={nextMode} />
     </InputLayout>
-    <InputLayout bgColor="rgb(172, 255, 20, 0.2)" fcBgColor="rgb(172, 255, 20, 0.4)">
+    <InputLayout>
       <span className="inputTitle">・ 선택지</span>
       <span className="subMsg">문항을 입력하고 정답을 체크해주세요.(중복가능)</span>
       <DistractorBox>
@@ -172,14 +170,11 @@ const SubQuestion = ({ quizTags, quizType, setQuestionIdArr, questionIdArr, setN
     {nextMode === "" ?
       <InputBtn
         value={loading ? "문제 만드는 중..." : "문제 만들기"}
-        disabled={!isValid || answer.length === 0}
-        bgColor="rgb(172, 255, 20)" />
+        disabled={!isValid || answer.length === 0} />
       :
       <NextStep
         setNextMode={setNextMode}
         nextMode={nextMode}
-        bgColor="rgb(172, 255, 20, 0.2)"
-        hvBgColor="rgb(172, 255, 20, 0.6)"
       />
     }
   </MakeQuestionForm>);

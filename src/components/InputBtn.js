@@ -3,9 +3,8 @@ import styled from 'styled-components';
 
 const SInputBtn = styled.input`
   width: 100%;
-  background-color: ${props => props.bgColor};
-  opacity: ${props => props.disabled ? 0.4 : 0.8};
-  color: #3f3f3f;
+  background-color: rgb(200, 200, 200, 0.6);
+  opacity: ${props => props.disabled ? 0.4 : 1};
   text-align: center;
   font-weight: 600;
   padding: 10px 0px;

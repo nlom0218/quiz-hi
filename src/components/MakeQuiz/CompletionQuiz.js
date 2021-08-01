@@ -20,16 +20,16 @@ const SCompletionQuizForm = styled.form`
 `
 
 const SeeTag = styled.div`
-  margin-top: 10px;
   grid-column: 1 / -1;
   display: flex;
   flex-wrap: wrap;
 `
 
 const TagBox = styled.div`
-  background-color:  ${props => props.bgColor};
+  background-color: rgb(201, 102, 255, 0.4);
+  font-size: 14px;
   margin-bottom: 10px;
-  padding: 10px 20px;
+  padding: 5px 10px;
   margin-right: 10px;
   border-radius: 5px;
   display: flex;
@@ -67,9 +67,10 @@ const SNavBtn = styled.div`
   align-items: center;
   cursor: pointer;
   color: ${props => props.theme.fontColor};
-  transition: background-color 0.5s linear;
+  transition: background-color 0.5s linear, color  0.5s linear;
   :hover {
-  background-color: rgb(108, 255, 63, 0.5);
+  background-color: ${props => props.theme.fontColor};   
+  color: ${props => props.theme.bgColor};
   }
 `
 
@@ -138,7 +139,7 @@ const CompletionQuiz = ({ quizTags, quizTitle, state, questionIdArr }) => {
     })
   }
   return (<SCompletionQuizForm onSubmit={handleSubmit(onSubmit)}>
-    <InputLayout bgColor="rgb(108, 255, 63, 0.5)">
+    <InputLayout>
       <span className="inputTitle">・ 퀴즈 제목</span>
       <span className="subMsg">퀴즈 제목은 1단계에서 수정 가능합니다.</span>
       <input
@@ -148,7 +149,7 @@ const CompletionQuiz = ({ quizTags, quizTitle, state, questionIdArr }) => {
       />
     </InputLayout>
     <Wrapper>
-      <InputLayout bgColor="rgb(108, 255, 63, 0.5)">
+      <InputLayout>
         <span className="inputTitle">・ 공유</span>
         <input
           value={state === "private" ? "공유하지 않음" : "공유함"}
@@ -156,7 +157,7 @@ const CompletionQuiz = ({ quizTags, quizTitle, state, questionIdArr }) => {
           readOnly="readOnly"
         />
       </InputLayout>
-      <InputLayout bgColor="rgb(108, 255, 63, 0.5)">
+      <InputLayout>
         <span className="inputTitle">・ 문제 개수</span>
         <input
           value={`${num}개`}
@@ -170,7 +171,7 @@ const CompletionQuiz = ({ quizTags, quizTitle, state, questionIdArr }) => {
       <span className="subMsg">
         <SeeTag>
           {quizTags.map((item, index) => {
-            return <TagBox key={index} bgColor="rgb(108, 255, 63, 0.5)">
+            return <TagBox key={index}>
               {item}
             </TagBox>
           })}
@@ -203,7 +204,6 @@ const CompletionQuiz = ({ quizTags, quizTitle, state, questionIdArr }) => {
       <InputBtn
         disabled={false}
         value={loading ? "퀴즈 만드는 중..." : "퀴즈 만들기"}
-        bgColor="rgb(108, 255, 63)"
       />}
   </SCompletionQuizForm>);
 }

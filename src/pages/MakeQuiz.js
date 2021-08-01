@@ -30,7 +30,7 @@ const MakeQuiz = () => {
     <BasicContainer>
       <PageTitle title="퀴즈 만들기" />
       <Step step={1} msg="퀴즈의 제목과 태그를 입력하세요." frist={true}>
-        <QuizFormLayout bgColor="rgb(180, 255, 158, 0.2)">
+        <QuizFormLayout>
           <MakeQuizForm
             quizTags={quizTags}
             setQuizTags={setQuizTags}

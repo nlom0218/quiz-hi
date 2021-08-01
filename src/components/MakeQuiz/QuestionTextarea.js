@@ -6,13 +6,13 @@ const Textarea = styled.textarea`
   resize: none;
   border: none;
   font-size: 16px;
-  background-color: ${props => props.bgColor};
-  padding: 10px 20px;
   border-radius: 5px;
+  padding: 10px 20px;
   color: ${props => props.theme.fontColor};
-  transition: background-color 0.2s linear;
+  background-color: rgb(200, 200, 200, 0.2);
+  transition: box-shadow 0.4s linear;
   :focus {
-    background-color: ${props => props.fcBgColor};
+    box-shadow: 0 0 1px 0.5px ${props => props.theme.fontColor};
     outline: none;
   }
 `

@@ -39,12 +39,13 @@ const StateBtn = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: ${props => props.bgColor};
+    background-color: rgb(200, 200, 200, 0.6);
+    opacity: ${props => props.opacity};
     font-size: 16px;
     padding: 10px 0px;
     border-radius: 5px;
     cursor: pointer;
-    transition: background-color 0.2s linear;
+    transition: opacity 0.2s linear;
 `
 
 const MakeQuizForm = (
@@ -67,7 +68,7 @@ const MakeQuizForm = (
     setState(state)
   }
   return (<SMakeQuizForm onSubmit={handleSubmit(onSubmit)}>
-    <InputLayout bgColor="rgb(108, 255, 63, 0.2)" fcBgColor="rgb(108, 255, 63, 0.4)">
+    <InputLayout>
       <span className="inputTitle">・ 퀴즈 제목</span>
       <input
         {...register("quizTitle", {
@@ -83,7 +84,7 @@ const MakeQuizForm = (
         </ChangeMsg>}
       </React.Fragment>}
     </InputLayout>
-    <InputLayout bgColor="rgb(108, 255, 63, 0.2)" fcBgColor="rgb(108, 255, 63, 0.4)">
+    <InputLayout>
       <TagContainer
         getValues={getValues}
         setValue={setValue}
@@ -101,15 +102,15 @@ const MakeQuizForm = (
       <SeletBox>
         <StateBtn
           onClick={() => onClickStateBtn("public")}
-          bgColor={state === "public" ? "rgb(108, 255, 63, 0.6)" : "rgb(108, 255, 63, 0.2)"}
+          opacity={state === "public" ? "1" : "0.4"}
         >공유하기</StateBtn>
         <StateBtn
           onClick={() => onClickStateBtn("private")}
-          bgColor={state === "private" ? "rgb(108, 255, 63, 0.6)" : "rgb(108, 255, 63, 0.2)"}
+          opacity={state === "private" ? "1" : "0.4"}
         >공유하지 않기</StateBtn>
       </SeletBox>
     </InputLayout>
-    <InputBtn value="2단계 진행하기" bgColor="rgb(108, 255, 63)" disabled={!isValid || makeQuestion || state === ""} />
+    <InputBtn value="2단계 진행하기" disabled={!isValid || makeQuestion || state === ""} />
   </SMakeQuizForm>);
 }
 

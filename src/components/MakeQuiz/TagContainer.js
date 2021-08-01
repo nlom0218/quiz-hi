@@ -17,11 +17,10 @@ const PlusBtn = styled.div`
   justify-self: left;
   margin-left: 20px;
   cursor: pointer;
-  color: ${props => props.color};
-  opacity: 0.6;
-  transition: opacity 0.2s linear;
+  color: rgb(201, 102, 255, 0.2);
+  transition: color 0.4s linear;
   :hover {
-    opacity: 1;
+    color: rgb(201, 102, 255, 0.6);
   }
 `
 
@@ -33,9 +32,10 @@ const SeeTag = styled.div`
 `
 
 const TagBox = styled.div`
-  background-color:  ${props => props.bgColor};
+  background-color: rgb(201, 102, 255, 0.4);
+  font-size: 14px;
   margin-bottom: 10px;
-  padding: 10px 20px;
+  padding: 5px 10px;
   margin-right: 10px;
   border-radius: 5px;
   display: flex;
@@ -87,7 +87,7 @@ const TagContainer = ({ getValues, tags, setTags, setValue, register, subMsg1, s
         autoComplete="off"
         readOnly={limitEvent("read")}
       />
-      <PlusBtn color={color}><FontAwesomeIcon icon={faPlusCircle} onClick={onClickPlusQuizTag} /></PlusBtn>
+      <PlusBtn><FontAwesomeIcon icon={faPlusCircle} onClick={onClickPlusQuizTag} /></PlusBtn>
       {tags.length !== 0 && <SeeTag>
         {tags.map((item, index) => {
           return <TagBox key={index} bgColor={bgColor}>

@@ -8,14 +8,14 @@ const ImageLabel = styled.label`
   text-align: center;
   padding: 10px 0px;
   border-radius: 5px;
-  background-color: ${props => props.bgColor};
+  background-color: rgb(200, 200, 200, 0.2);
   cursor: pointer;
   transition: background-color 0.2s linear;
   svg {
     margin-left: 10px;
   }
   :hover {
-    background-color: ${props => props.hvBgColor};
+    background-color: rgb(200, 200, 200, 0.4);
   }
 `
 

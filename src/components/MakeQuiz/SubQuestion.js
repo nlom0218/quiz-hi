@@ -81,11 +81,9 @@ const SubQuestion = ({ quizTags, quizType, setQuestionIdArr, questionIdArr, setN
       <span className="inputTitle">・ 문제</span>
       <QuestionTextarea
         register={register}
-        nextMode={nextMode}
-        bgColor="rgb(172, 255, 20, 0.2)"
-        fcBgColor="rgb(172, 255, 20, 0.4)" />
+        nextMode={nextMode} />
     </InputLayout>
-    <InputLayout bgColor="rgb(172, 255, 20, 0.2)" fcBgColor="rgb(172, 255, 20, 0.4)">
+    <InputLayout>
       <span className="inputTitle">・ 정답</span>
       <input
         {...register("answer", {
@@ -115,8 +113,6 @@ const SubQuestion = ({ quizTags, quizType, setQuestionIdArr, questionIdArr, setN
       <NextStep
         setNextMode={setNextMode}
         nextMode={nextMode}
-        bgColor="rgb(172, 255, 20, 0.2)"
-        hvBgColor="rgb(172, 255, 20, 0.6)"
       />
     }
   </MakeQuestionForm >);

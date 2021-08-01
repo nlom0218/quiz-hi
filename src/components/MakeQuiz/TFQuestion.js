@@ -21,12 +21,13 @@ const TFBtn = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: ${props => props.bgColor};
+    background-color: rgb(200, 200, 200, 0.6);
+    opacity: ${props => props.opacity ? 1 : 0.4};
     font-size: 20px;
     padding: 10px 0px;
     border-radius: 5px;
     cursor: pointer;
-    transition: background-color 0.2s linear;
+    transition: opacity 0.2s linear;
 `
 
 const CREATE_QUESTION_MUTATION = gql`
@@ -107,20 +108,18 @@ const TFQuestion = ({ quizTags, quizType, setQuestionIdArr, questionIdArr, setNe
       <span className="inputTitle">・ 문제</span>
       <QuestionTextarea
         register={register}
-        nextMode={nextMode}
-        bgColor="rgb(172, 255, 20, 0.2)"
-        fcBgColor="rgb(172, 255, 20, 0.4)" />
+        nextMode={nextMode} />
     </InputLayout>
     <InputLayout>
       <span className="inputTitle">・ 정답</span>
       <SeletBox>
         <TFBtn
           onClick={() => onClickTFBtn("true")}
-          bgColor={answer === "true" ? "rgb(172, 255, 20, 0.6)" : "rgb(172, 255, 20, 0.2)"}
+          opacity={answer === "true"}
         >○</TFBtn>
         <TFBtn
           onClick={() => onClickTFBtn("false")}
-          bgColor={answer === "false" ? "rgb(172, 255, 20, 0.6)" : "rgb(172, 255, 20, 0.2)"}
+          opacity={answer === "false"}
         >✕</TFBtn>
       </SeletBox>
     </InputLayout>
@@ -138,13 +137,11 @@ const TFQuestion = ({ quizTags, quizType, setQuestionIdArr, questionIdArr, setNe
       setPreviewImg={setPreviewImg}
     />}
     {nextMode === "" ?
-      <InputBtn value={loading ? "문제 만드는 중..." : "문제 만들기"} disabled={!isValid || answer === ""} bgColor="rgb(172, 255, 20)" />
+      <InputBtn value={loading ? "문제 만드는 중..." : "문제 만들기"} disabled={!isValid || answer === ""} />
       :
       <NextStep
         setNextMode={setNextMode}
         nextMode={nextMode}
-        bgColor="rgb(172, 255, 20, 0.2)"
-        hvBgColor="rgb(172, 255, 20, 0.6)"
       />
     }
   </MakeQuestionForm>);
