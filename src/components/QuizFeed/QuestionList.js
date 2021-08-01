@@ -39,14 +39,22 @@ const SQuestionList = styled.div`
   border-left: 1px solid rgb(200, 200, 200, 0.8);
 `
 
-const QuestionList = ({ seeType, search, sort, setPutQuiz, page }) => {
+const QuestionList = ({ seeType, search, sort, setPutQuiz, page, setLastPage }) => {
+  const onCompleted = (data) => {
+    if (data.seeQuestion.length < 10) {
+      setLastPage(true)
+    } else {
+      setLastPage(false)
+    }
+  }
   const { data, loading } = useQuery(SEE_QUESTION_QUERY, {
     variables: {
       seeType,
       sort,
       page: parseInt(page),
       ...(search !== "" && { search })
-    }
+    },
+    onCompleted
   })
   return (<Container>
     {loading ? <div>loading...</div> : <SQuestionList>

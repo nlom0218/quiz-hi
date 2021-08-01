@@ -51,13 +51,23 @@ const PageBar = styled.div`
   border: 1px solid rgb(200, 200, 200, 0.6);
   border-radius: 5px;
   display: flex;
+  position: relative;
 `
 
 const PageBarBtn = styled.div`
-  cursor: pointer;
   padding: 8px 20px;
+  transition: background-color 0.2s linear;
+  :hover {
+    background-color: rgb(200, 200, 200, 0.2);
+  }
   :first-child {
     border-right: 1px solid rgb(200, 200, 200, 0.6);
+    opacity: ${props => props.firstPage && "0.4"};
+    cursor: ${props => props.firstPage ? "not-allowd" : "pointer"};
+  }
+  :nth-child(2) {
+    opacity: ${props => props.lastPage && "0.4"};
+    cursor: ${props => props.lastPage ? "not-allowd" : "pointer"};
   }
 `
 
@@ -104,7 +114,7 @@ const SortItem = styled.li`
   align-items: center;
 `
 
-const QuizFeedContainer = ({ children, feedType, setSearch, sort, setSort, setPutQuiz, setPage }) => {
+const QuizFeedContainer = ({ children, feedType, setSearch, sort, setSort, setPutQuiz, setPage, page, lastPage }) => {
   const [seeSortList, setSeeSortList] = useState(false)
   const { register, handleSubmit } = useForm()
   const onSubmit = (data) => {
@@ -126,6 +136,19 @@ const QuizFeedContainer = ({ children, feedType, setSearch, sort, setSort, setPu
     setSort(sort)
     setSeeSortList(prev => !prev)
   }
+  const onClickPageBtn = (type) => {
+    if (type === "pre") {
+      if (page === 1) {
+        return
+      }
+      setPage(pre => pre - 1)
+    } else if (type === "next") {
+      if (lastPage) {
+        return
+      }
+      setPage(pre => pre + 1)
+    }
+  }
   return (<SQuizFeedContainer className="quizFeedContainer">
     <QuizFeedBottomContainer />
     <TopBar>
@@ -141,8 +164,8 @@ const QuizFeedContainer = ({ children, feedType, setSearch, sort, setSort, setPu
         </form>
       </SearchBar>
       <PageBar>
-        <PageBarBtn>이전</PageBarBtn>
-        <PageBarBtn>다음</PageBarBtn>
+        <PageBarBtn firstPage={page === 1 ? true : false} onClick={() => onClickPageBtn("pre")}>이전</PageBarBtn>
+        <PageBarBtn lastPage={lastPage} onClick={() => onClickPageBtn("next")}>다음</PageBarBtn>
       </PageBar>
       <SortBar>
         <Sort>{processSort(sort)}</Sort>

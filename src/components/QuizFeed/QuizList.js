@@ -1,6 +1,6 @@
 import { useQuery } from '@apollo/client';
 import gql from 'graphql-tag';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import QuizItem from './QuizItem';
 
@@ -38,14 +38,20 @@ const SQuizList = styled.div`
   border-left: 1px solid rgb(200, 200, 200, 0.8);
 `
 
-const QuizList = ({ seeType, search, sort, setPutQuiz, page }) => {
+const QuizList = ({ seeType, search, sort, setPutQuiz, page, setLastPage }) => {
+  const onCompleted = (data) => {
+    if (data.seeQuiz.length < 10) {
+      setLastPage(true)
+    }
+  }
   const { data, loading } = useQuery(SEE_QUIZ_QUERY, {
     variables: {
       seeType,
       sort,
       page: parseInt(page),
       ...(search !== "" && { search })
-    }
+    },
+    onCompleted
   })
   return (<Container>
     {loading ? <div>loading...</div> : <SQuizList>
