@@ -66,6 +66,7 @@ const QuizLike = styled.div`
   svg {
     color: ${props => props.isLiked ? "tomato" : props.theme.fontColor};
     margin-right: 5px;
+    transition: color 1s ease;
   }
 `
 
