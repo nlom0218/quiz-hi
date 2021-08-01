@@ -1,5 +1,3 @@
-import { useQuery } from '@apollo/client';
-import gql from 'graphql-tag';
 import React from 'react';
 import styled from 'styled-components';
 import QuizItem from './QuizItem';

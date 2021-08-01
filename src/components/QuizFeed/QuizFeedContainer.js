@@ -4,13 +4,12 @@ import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import styled from 'styled-components';
 import { fadeIn } from '../../animation/fade';
+import QuizQuestionBasket from './QuizQuestionBasket';
+import SeeType from './SeeType';
+import PageBar from './PageBar';
 import { ScrollTrigger } from "gsap/ScrollTrigger"
 import { gsap } from "gsap"
 import { QuizFeedBottomContainer } from '../../hooks/Gsap';
-import QuizQuestionBasket from './QuizQuestionBasket';
-import SeeType from './SeeType';
-import { MoveTopScreen } from '../../sharedFn';
-import PageBar from './PageBar';
 gsap.registerPlugin(ScrollTrigger)
 
 const SQuizFeedContainer = styled.div`
@@ -125,7 +124,7 @@ const QuizFeedContainer = ({ children, feedType, setSearch, sort, setSort, setPa
       return true
     }
   }
-  return (<SQuizFeedContainer className="quizFeedContainer">
+  return (<SQuizFeedContainer className="feedContainer">
     <QuizFeedBottomContainer />
     <SeeType seeType={seeType} setSeeType={setSeeType} setPage={setPage} />
     <TopBar>

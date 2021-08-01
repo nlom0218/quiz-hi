@@ -7,7 +7,7 @@ import { getCreatedDay } from "../../sharedFn";
 import { onClickQuestionBasketBtn, checkQuestionBasket } from "./basketFn"
 import { useHistory } from 'react-router';
 
-const SQuizItem = styled.div`
+const SQuestionItem = styled.div`
   padding: 20px;
   padding-bottom: ${props => props.tags && "15px"};
   border-bottom: 1px solid rgb(200, 200, 200, 0.8);
@@ -120,7 +120,7 @@ const QuestionItem = (
       return "○ / ✕"
     }
   }
-  return (<SQuizItem tags={tags.length !== 0 ? true : false}>
+  return (<SQuestionItem tags={tags.length !== 0 ? true : false}>
     <QuizTitle>{question}</QuizTitle>
     <QuizBasketBtn onClick={() => {
       onClickQuestionBasketBtn(question, id)
@@ -169,7 +169,7 @@ const QuestionItem = (
       </QuizTagList>
     </QuizTags>
     }
-  </SQuizItem>);
+  </SQuestionItem>);
 }
 
 export default QuestionItem;
