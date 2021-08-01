@@ -26,7 +26,7 @@ function App() {
         <ScrollToTop />
         <Switch>
           <Route exact path="/"><Home /></Route>
-          <Route path="/quiz-feed"><QuizFeed /></Route>
+          <Route path="/feed"><QuizFeed /></Route>
           <Route path="/notice-board"><NoticeBoard /></Route>
           <Route path="/make-quiz">{user ? <MakeQuiz /> : <NotFound />}</Route>
           <Route path="/play-quiz">{user ? <PlayQuiz /> : <NotFound />}</Route>

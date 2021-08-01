@@ -40,6 +40,10 @@ const SeeQuestion = ({ feedType }) => {
   const [tagsArr, setTagsArr] = useState([])
   const [lastPage, setLastPage] = useState(1)
   const onCompleted = (data) => {
+    if (Number.isInteger(data.seeQuestion.totalNum)) {
+      setLastPage(data.seeQuestion.totalNum / 10)
+      return
+    }
     const lastPage = Math.floor(data.seeQuestion.totalNum / 10) + 1
     setLastPage(lastPage)
   }

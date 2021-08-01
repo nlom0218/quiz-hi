@@ -94,7 +94,7 @@ const Header = () => {
         />
       </Nav>
       <Nav><FontAwesomeIcon icon={faSearch} /></Nav>
-      <Nav><Link to="/quiz-feed"><FontAwesomeIcon icon={faClipboard} /></Link></Nav>
+      <Nav><Link to="/feed"><FontAwesomeIcon icon={faClipboard} /></Link></Nav>
       <Nav><Link to="/notice-board"><FontAwesomeIcon icon={faListAlt} /></Link></Nav>
       <SiteName>
         <SiteNameText><Link to="/">quiz Hi</Link></SiteNameText>
