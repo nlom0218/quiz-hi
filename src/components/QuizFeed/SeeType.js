@@ -2,14 +2,16 @@ import { faBook, faTags } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
 import styled from 'styled-components';
+import { fadeIn } from '../../animation/fade';
 
 
 const SSeeType = styled.div`
   width: 100%;
-  grid-column: 2 / -2;
-  grid-row: 2 / 3;
+  grid-column: 1 / -1;
+  grid-row: 1 / 2;
   display: grid;
   grid-template-columns: auto auto 1fr;
+  animation: ${fadeIn} 0.4s linear;
 `
 
 const Wrapper = styled.div`
@@ -25,9 +27,10 @@ const SeeText = styled.div`
   margin-left: 5px;
 `
 
-const SeeType = ({ seeType, setSeeType }) => {
+const SeeType = ({ seeType, setSeeType, setPage }) => {
   const onClickSeeType = (type) => {
     setSeeType(type)
+    setPage(1)
   }
   return (<SSeeType>
     <Wrapper selected={seeType === "all"} onClick={() => onClickSeeType("all")}>

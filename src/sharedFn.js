@@ -1,7 +1,10 @@
 import { disableDarkMode, enableDarkMode } from "./apollo"
 
 export const MoveTopScreen = () => {
-  return window.scrollTo(0, 0)
+  return window.scrollTo({
+    behavior: "smooth",
+    top: 0
+  })
 }
 
 export const onCLickDarkMode = (darkMode) => {

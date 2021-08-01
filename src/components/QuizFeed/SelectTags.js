@@ -131,7 +131,7 @@ const FollowTagItem = styled.div`
   }
 `
 
-const SelectTags = ({ setTagsArr, tagsArr }) => {
+const SelectTags = ({ setTagsArr, tagsArr, setPage, refetch }) => {
   const { register, handleSubmit, getValues, setValue } = useForm()
   const user = useUser()
   const onSubmit = () => {
@@ -142,11 +142,15 @@ const SelectTags = ({ setTagsArr, tagsArr }) => {
     }
     const newTagsArr = [...tagsArr, tag]
     setTagsArr(newTagsArr)
+    setPage(1)
+    refetch()
     setValue("tag", "")
   }
   const onClickDelTag = (tag) => {
     const newTagsArr = tagsArr.filter((item) => item !== tag)
     setTagsArr(newTagsArr)
+    setPage(1)
+    refetch()
   }
   const checkTag = (tag) => {
     if (tagsArr.includes(tag)) {
@@ -158,11 +162,13 @@ const SelectTags = ({ setTagsArr, tagsArr }) => {
   const onClickAddTag = (tag) => {
     const newTagsArr = [...tagsArr, tag]
     setTagsArr(newTagsArr)
+    setPage(1)
+    refetch()
   }
   return (<Container>
     <SelectedTags>
       <FontAwesomeIcon icon={faTags} />
-      <div>검색된 태그</div>
+      <div>등록된 태그</div>
       {tagsArr.length === 0 ? <div className="registerMsg">태그를 등록해 주세요.</div> :
         <SelectedTagsList>
           {tagsArr.map((item, index) => {
