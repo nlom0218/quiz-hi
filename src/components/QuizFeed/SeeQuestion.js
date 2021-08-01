@@ -8,7 +8,6 @@ const SeeQuestion = ({ feedType, seeType }) => {
   const [sort, setSort] = useState("recent") // recent, likes, hits
   const [page, setPage] = useState(1)
   const [lastPage, setLastPage] = useState(false)
-  console.log(lastPage);
   return (
     <QuizFeedContainer
       feedType={feedType}

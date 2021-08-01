@@ -10,6 +10,10 @@ const ME_QUERY = gql`
       email
       type
       avatarURL
+      tags {
+        id
+        name
+      }
     }
   }
 `

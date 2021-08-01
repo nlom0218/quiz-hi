@@ -5,8 +5,8 @@ import styled from 'styled-components';
 import QuizItem from './QuizItem';
 
 const SEE_QUIZ_QUERY = gql`
-  query seeQuiz($seeType: String!, $page: Int!, $search: String, $sort: String!) {
-    seeQuiz(seeType: $seeType, page: $page, search: $search, sort: $sort) {
+  query seeQuiz($seeType: String!, $page: Int!, $search: String, $sort: String!, $tags: String) {
+    seeQuiz(seeType: $seeType, page: $page, search: $search, sort: $sort, tags: $tags) {
       id
       title
       user {
@@ -38,7 +38,12 @@ const SQuizList = styled.div`
   border-left: 1px solid rgb(200, 200, 200, 0.8);
 `
 
-const QuizList = ({ seeType, search, sort, setPutQuiz, page, setLastPage }) => {
+const NotFoundData = styled.div`
+  margin-top: 20px;
+  color: tomato;
+`
+
+const QuizList = ({ seeType, search, sort, setPutQuiz, page, setLastPage, tagsArr }) => {
   const onCompleted = (data) => {
     if (data.seeQuiz.length < 10) {
       setLastPage(true)
@@ -49,7 +54,8 @@ const QuizList = ({ seeType, search, sort, setPutQuiz, page, setLastPage }) => {
       seeType,
       sort,
       page: parseInt(page),
-      ...(search !== "" && { search })
+      ...(search !== "" && { search }),
+      ...(tagsArr.length !== 0 && { tags: tagsArr.join(",") })
     },
     onCompleted
   })
@@ -59,6 +65,7 @@ const QuizList = ({ seeType, search, sort, setPutQuiz, page, setLastPage }) => {
         return <QuizItem key={index} {...item} setPutQuiz={setPutQuiz} />
       })}
     </SQuizList>}
+    {!data && <NotFoundData>퀴즈를 찾을 수 없습니다.</NotFoundData>}
   </Container>);
 }
 
