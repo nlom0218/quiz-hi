@@ -3,9 +3,9 @@ import { faCheckSquare, faComment, faHeart as faHeartRegular, faSquare } from '@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
 import styled from 'styled-components';
-import { getCreatedDay } from "../../sharedFn"
+import { getCreatedDay } from "../../sharedFn";
+import { onClickQuestionBasketBtn, checkQuestionBasket } from "./basketFn"
 import { useHistory } from 'react-router';
-import { onClickQuizBasketBtn, checkQuizBasket } from "./basketFn"
 
 const SQuizItem = styled.div`
   padding: 20px;
@@ -104,19 +104,19 @@ const QuizTag = styled.div`
   border-radius: 5px;
 `
 
-const QuizItem = (
-  { id, title, user: { nickname, avatarURL, username }, tags, questionNum, isLiked, likes, createdAt, hits, setPutQuiz }) => {
+const QuestionItem = (
+  { id, question, user: { nickname, avatarURL, username }, tags, isLiked, likes, createdAt, hits, setPutQuiz }) => {
   const history = useHistory()
   const onClickUsername = () => {
     history.push(`/profile/${username}`)
   }
   return (<SQuizItem tags={tags.length !== 0 ? true : false}>
-    <QuizTitle>{title}</QuizTitle>
+    <QuizTitle>{question}</QuizTitle>
     <QuizBasketBtn onClick={() => {
-      onClickQuizBasketBtn(title, id)
+      onClickQuestionBasketBtn(question, id)
       setPutQuiz(prev => !prev)
     }}>
-      <FontAwesomeIcon icon={checkQuizBasket(title) ? faCheckSquare : faSquare} />
+      <FontAwesomeIcon icon={checkQuestionBasket(question) ? faCheckSquare : faSquare} />
     </QuizBasketBtn>
     <QuizInfo>
       <Wrapper>
@@ -129,7 +129,6 @@ const QuizItem = (
           }
           {nickname}
         </Username>
-        <QuestionNum>{questionNum}문제</QuestionNum>
         <QuizLike isLiked={isLiked}>
           <FontAwesomeIcon icon={isLiked ? faHeart : faHeartRegular} />
           {likes}
@@ -162,4 +161,4 @@ const QuizItem = (
   </SQuizItem>);
 }
 
-export default QuizItem;
+export default QuestionItem;
