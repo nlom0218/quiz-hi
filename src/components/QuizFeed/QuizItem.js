@@ -122,7 +122,7 @@ const QuizItem = (
       onClickQuizBasketBtn(title, id)
       setPutQuiz(prev => !prev)
     }}>
-      <FontAwesomeIcon icon={checkQuizBasket(title) ? faCheckSquare : faSquare} />
+      <FontAwesomeIcon icon={checkQuizBasket(id) ? faCheckSquare : faSquare} />
     </QuizBasketBtn>
     <QuizInfo>
       <Wrapper>

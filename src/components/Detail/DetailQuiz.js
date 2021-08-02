@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import QuestionItem from '../QuizFeed/QuestionItem';
 
 const QuizCaption = styled.div`
   margin-top: 20px;
   grid-column: 1 / -1;
+  grid-row: 4 / 5;
   line-height: 20px;
 `
 
@@ -23,14 +24,13 @@ const QuestionList = styled.div`
 `
 
 
-const DetailQuiz = ({ caption, questions }) => {
-  console.log(questions.tags);
+const DetailQuiz = ({ caption, questions, setPutQuiz }) => {
   return (<React.Fragment>
     {caption && <QuizCaption>{caption}</QuizCaption>}
     <QuestionListTitle>문제 목록</QuestionListTitle>
     <QuestionList>
       {questions.map((item, index) => {
-        return <QuestionItem key={index} {...item} />
+        return <QuestionItem key={index} {...item} setPutQuiz={setPutQuiz} />
       })}
     </QuestionList>
   </React.Fragment>);

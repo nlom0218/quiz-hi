@@ -1,4 +1,5 @@
-import { faUser } from '@fortawesome/free-solid-svg-icons';
+import { faHeart, faUser } from '@fortawesome/free-solid-svg-icons';
+import { faHeart as faHeartRegular } from '@fortawesome/free-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
 import styled from 'styled-components';
@@ -7,6 +8,7 @@ import { getCreatedDay } from "../../sharedFn"
 const SDetailQuiz = styled.div`
   grid-column: 1 / 2;
   grid-row: 2 / 3;
+  align-self: flex-start;
   border: 1px solid rgb(200, 200, 200, 0.8);
   padding: 40px 30px;
   display: grid;
@@ -14,16 +16,33 @@ const SDetailQuiz = styled.div`
   row-gap: 20px;
 `
 
-const Title = styled.div`
+const Info = styled.div`
   grid-column: 1 / -1;
   grid-row: 1 / 2;
+  justify-self: flex-end;
+  align-self: flex-start;
+  display: flex;
+`
+
+const Likes = styled.div`
+  margin-right: 20px;
+  svg {
+    margin-right: 10px;
+  }
+`
+
+const Hits = styled.div``
+
+const Title = styled.div`
+  grid-column: 1 / -1;
+  grid-row: 2 / 3;
   font-size: 20px;
   line-height: 24px;
 `
 
 const UserProfile = styled.div`
   grid-column: 1 / 2;
-  grid-row: 2 / 3;
+  grid-row: 3 / 4;
   display: flex;
   align-items: flex-end;
 `
@@ -40,8 +59,18 @@ const CreatedAt = styled.div`
   justify-self: flex-end;
 `
 
-const DetailLayout = ({ children, title, user: { avatarURL, nickname, id }, createdAt, caption }) => {
+const DetailLayout = ({ children, title, user: { avatarURL, nickname }, createdAt, isLiked, likes, hits }) => {
+  console.log(likes);
   return (<SDetailQuiz>
+    <Info>
+      <Likes>
+        <FontAwesomeIcon icon={isLiked ? faHeart : faHeartRegular} />
+        {likes}
+      </Likes>
+      <Hits>
+        조회수 {hits}
+      </Hits>
+    </Info>
     <Title>{title}</Title>
     <UserProfile>
       {avatarURL ?

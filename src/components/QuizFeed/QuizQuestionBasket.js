@@ -81,7 +81,7 @@ const QuizQuestionBasket = ({ setPutQuiz }) => {
               <div>{item.title.length > 10 ? `${item.title.substring(0, 9)}...` : item.title}</div>
               <ItemRemoveBtn
                 onClick={() => {
-                  removeBasketItem("quiz", item.title)
+                  removeBasketItem("quiz", item.id)
                   setPutQuiz(prev => !prev)
                 }}
               ><FontAwesomeIcon icon={faTrashAlt} /></ItemRemoveBtn>
@@ -106,7 +106,7 @@ const QuizQuestionBasket = ({ setPutQuiz }) => {
               <div>{item.question.length > 10 ? `${item.question.substring(0, 9)}...` : item.question}</div>
               <ItemRemoveBtn
                 onClick={() => {
-                  removeBasketItem("question", item.question)
+                  removeBasketItem("question", item.id)
                   setPutQuiz(prev => !prev)
                 }}
               ><FontAwesomeIcon icon={faTrashAlt} /></ItemRemoveBtn>

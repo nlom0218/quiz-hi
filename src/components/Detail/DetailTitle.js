@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const Title = styled.div`
   font-size: 18px;
-  grid-column: 1 / 2;
+  grid-column: 1 / -1;
   grid-row: 1 / 2;
   letter-spacing: 3px;
   line-height: 20px;

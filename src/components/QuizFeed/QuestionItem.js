@@ -128,7 +128,7 @@ const QuestionItem = (
       onClickQuestionBasketBtn(question, id)
       setPutQuiz(prev => !prev)
     }}>
-      <FontAwesomeIcon icon={checkQuestionBasket(question) ? faCheckSquare : faSquare} />
+      <FontAwesomeIcon icon={checkQuestionBasket(id) ? faCheckSquare : faSquare} />
     </QuizBasketBtn>
     <QuizInfo>
       <Wrapper>
