@@ -23,7 +23,7 @@ const PreviewMsg = styled.div`
   text-align: center;
   padding: 10px 0px;
   border-radius: 5px;
-  background-color: ${props => props.bgColor};
+  background-color: rgb(200, 200, 200, 0.4);
   svg {
     margin-left: 10px;
   }
@@ -66,10 +66,10 @@ const ImageContainer = ({ register, setValue, setImage, nextMode, bgColor, hvBgC
     <span className="inputTitle">・ 이미지</span>
     <span className="subMsg">이미지가 필요하나요?</span>
     <span className="subMsg">아래의 박스를 눌러 이미지를 불러오세요.</span>
-    {nextMode === "" ? <ImageLabel htmlFor={imageId} bgColor={bgColor} hvBgColor={hvBgColor}>
+    {nextMode === "" ? <ImageLabel htmlFor={imageId}>
       사진선택하기<FontAwesomeIcon icon={faImage} />
     </ImageLabel> :
-      <PreviewMsg bgColor={bgColor}>사진미리보기<FontAwesomeIcon icon={faImage} /></PreviewMsg>
+      <PreviewMsg>사진미리보기<FontAwesomeIcon icon={faImage} /></PreviewMsg>
     }
     <input
       {...register("image")}

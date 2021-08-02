@@ -8,9 +8,8 @@ import { fadeIn } from '../../animation/fade';
 import useUser from '../../hooks/useUser';
 import { MoveTopScreen } from '../../sharedFn';
 import InputBtn from '../InputBtn';
-import LinkBtn from '../LinkBtn';
-import NavBtn from '../NavBtn';
 import InputLayout from './InputLayout';
+import QuestionTextarea from './QuestionTextarea';
 
 const SCompletionQuizForm = styled.form`
   display: grid;
@@ -94,6 +93,7 @@ const CREATE_QUIZ_MUTATION = gql`
 `
 
 const CompletionQuiz = ({ quizTags, quizTitle, state, questionIdArr }) => {
+  const { register } = useForm()
   const user = useUser()
   const num = questionIdArr.length
   const [complete, setComplete] = useState(false)
@@ -177,6 +177,12 @@ const CompletionQuiz = ({ quizTags, quizTitle, state, questionIdArr }) => {
           })}
         </SeeTag>
       </span>
+    </InputLayout>
+    <InputLayout>
+      <span className="inputTitle">・ 퀴즈 설명</span>
+      <span className="subMsg">퀴즈에 대한 설명을 적어주세요.</span>
+      <QuestionTextarea
+        register={register} nextMode="" />
     </InputLayout>
     {complete ?
       <React.Fragment>

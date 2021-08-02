@@ -9,12 +9,14 @@ import Login from './pages/Login';
 import PlayQuiz from "./pages/PlayQuiz"
 import CreateAccount from './pages/CreateAccount';
 import ScrollToTop from './hooks/ScrollToTop';
-import QuizFeed from './pages/QuizFeed';
+import Feed from './pages/Feed';
 import MakeQuiz from './pages/MakeQuiz';
 import NoticeBoard from './pages/NoticeBoard';
 import Profile from './pages/Profile';
 import useUser from './hooks/useUser';
 import NotFound from './pages/NotFound';
+import FeedQuiz from './pages/FeedQuiz';
+import FeedQuestion from './pages/FeedQuestion';
 
 function App() {
   const darkMode = useReactiveVar(darkModeVar)
@@ -26,7 +28,9 @@ function App() {
         <ScrollToTop />
         <Switch>
           <Route exact path="/"><Home /></Route>
-          <Route path="/feed"><QuizFeed /></Route>
+          <Route exact path="/feed"><Feed /></Route>
+          <Route path="/feed/quiz/:id"><FeedQuiz /></Route>
+          <Route path="/feed/question/:id"><FeedQuestion /></Route>
           <Route path="/notice-board"><NoticeBoard /></Route>
           <Route path="/make-quiz">{user ? <MakeQuiz /> : <NotFound />}</Route>
           <Route path="/play-quiz">{user ? <PlayQuiz /> : <NotFound />}</Route>

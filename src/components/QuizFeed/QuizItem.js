@@ -6,6 +6,7 @@ import styled from 'styled-components';
 import { getCreatedDay } from "../../sharedFn"
 import { useHistory } from 'react-router';
 import { onClickQuizBasketBtn, checkQuizBasket } from "./basketFn"
+import { Link } from 'react-router-dom';
 
 const SQuizItem = styled.div`
   padding: 20px;
@@ -24,6 +25,7 @@ const SQuizItem = styled.div`
 const QuizTitle = styled.div`
   grid-column: 1 / 2;
   font-weight: 600;
+  cursor: pointer;
 `
 
 const QuizBasketBtn = styled.div`
@@ -112,7 +114,7 @@ const QuizItem = (
     history.push(`/profile/${username}`)
   }
   return (<SQuizItem tags={tags.length !== 0 ? true : false}>
-    <QuizTitle>{title}</QuizTitle>
+    <QuizTitle><Link to={`/feed/quiz/${id}`}>{title}</Link></QuizTitle>
     <QuizBasketBtn onClick={() => {
       onClickQuizBasketBtn(title, id)
       setPutQuiz(prev => !prev)

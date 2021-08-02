@@ -11,7 +11,7 @@ import SeeQuiz from '../components/QuizFeed/SeeQuiz';
 import SeeType from '../components/QuizFeed/SeeType';
 import NavBtn from '../components/NavBtn';
 
-const QuizFeed = () => {
+const Feed = () => {
   const [feedType, setFeedType] = useState("quiz")
   return (<React.Fragment>
     <Header />
@@ -25,4 +25,4 @@ const QuizFeed = () => {
   </React.Fragment>);
 }
 
-export default QuizFeed;
+export default Feed;
