@@ -198,7 +198,7 @@ const QuizItem = (
       <QuizTagList>
         {tags.map((item, index) => {
           return <React.Fragment key={index}>
-            <QuizTag>{item.name}</QuizTag>
+            <Link to={`/feed/tag/${item.id}`}><QuizTag>{item.name}</QuizTag></Link>
           </React.Fragment>
         })}
       </QuizTagList>

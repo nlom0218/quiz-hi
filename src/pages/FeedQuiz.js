@@ -27,6 +27,7 @@ const DETAIL_QUIZ_QUERY = gql`
         username
       }
       tags {
+        id
         name
       }
       questions {
@@ -40,6 +41,7 @@ const DETAIL_QUIZ_QUERY = gql`
         id
         type
         tags {
+          id
           name
         }
         isLiked

@@ -30,6 +30,7 @@ const DETAIL_QUESTION_QUERY = gql`
         username
       }
       tags {
+        id
         name
       }
     } 

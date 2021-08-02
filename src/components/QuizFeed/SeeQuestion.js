@@ -18,6 +18,7 @@ const SEE_QUESTION_QUERY = gql`
           username
         }
         tags {
+          id
           name
         }
         type

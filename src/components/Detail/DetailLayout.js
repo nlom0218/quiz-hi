@@ -8,6 +8,7 @@ import gql from 'graphql-tag';
 import { useMutation } from '@apollo/client';
 import { checkQuestionBasket, checkQuizBasket, onClickQuestionBasketBtn, onClickQuizBasketBtn } from '../QuizFeed/basketFn';
 import { useHistory } from 'react-router';
+import { Link } from 'react-router-dom';
 
 const SDetailQuiz = styled.div`
   grid-column: 1 / 2;
@@ -221,7 +222,7 @@ const DetailLayout = ({ id, children, title, question, user: { avatarURL, nickna
       <TagsList>
         {tags.map((item, index) => {
           return <React.Fragment key={index}>
-            <TagItem>{item.name}</TagItem>
+            <Link to={`/feed/tag/${item.id}`}> <TagItem>{item.name}</TagItem></Link>
           </React.Fragment>
         })}
       </TagsList>

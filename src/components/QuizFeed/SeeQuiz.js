@@ -19,6 +19,7 @@ const SEE_QUIZ_QUERY = gql`
         username
       }
       tags {
+        id
         name
       }
       questionNum

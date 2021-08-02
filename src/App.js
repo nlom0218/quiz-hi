@@ -17,6 +17,7 @@ import useUser from './hooks/useUser';
 import NotFound from './pages/NotFound';
 import FeedQuiz from './pages/FeedQuiz';
 import FeedQuestion from './pages/FeedQuestion';
+import FeedTag from './pages/FeedTag';
 
 function App() {
   const darkMode = useReactiveVar(darkModeVar)
@@ -31,6 +32,7 @@ function App() {
           <Route exact path="/feed"><Feed /></Route>
           <Route path="/feed/quiz/:id"><FeedQuiz /></Route>
           <Route path="/feed/question/:id"><FeedQuestion /></Route>
+          <Route path="/feed/tag/:id"><FeedTag /></Route>
           <Route path="/notice-board"><NoticeBoard /></Route>
           <Route path="/make-quiz">{user ? <MakeQuiz /> : <NotFound />}</Route>
           <Route path="/play-quiz">{user ? <PlayQuiz /> : <NotFound />}</Route>
