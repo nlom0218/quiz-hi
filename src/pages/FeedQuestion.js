@@ -7,6 +7,7 @@ import DetailLayout from '../components/Detail/DetailLayout';
 import DetailQuestion from '../components/Detail/DetailQuestion';
 import DetailTitle from '../components/Detail/DetailTitle';
 import Header from '../components/Header';
+import NavBtn from '../components/NavBtn';
 import QuizQuestionBasket from '../components/QuizFeed/QuizQuestionBasket';
 
 const DETAIL_QUESTION_QUERY = gql`
@@ -48,13 +49,14 @@ const FeedQuestion = () => {
         {loading ? <div>loading...</div> :
           <DetailContainer>
             <DetailTitle title="문제" />
-            <DetailLayout {...data?.detailQuestion}>
+            <DetailLayout {...data?.detailQuestion} setPutQuiz={setPutQuiz}>
               <DetailQuestion {...data?.detailQuestion} setPutQuiz={setPutQuiz} />
             </DetailLayout>
             <QuizQuestionBasket setPutQuiz={setPutQuiz} />
           </DetailContainer>
         }
       </BasicContainer>
+      <NavBtn />
     </React.Fragment>
   );
 }

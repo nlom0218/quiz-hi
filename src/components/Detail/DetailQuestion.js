@@ -85,7 +85,6 @@ const QuestionList = styled.div`
 
 
 const DetailQuestion = ({ question, tags, answer, type, distractor, hint, image }) => {
-  console.log(hint);
   const checkAnswer = (num) => {
     const answerArr = answer.split(",").map((item) => parseInt(item))
     const checked = answerArr.includes(num)

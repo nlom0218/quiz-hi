@@ -8,6 +8,7 @@ import DetailLayout from '../components/Detail/DetailLayout';
 import DetailQuiz from '../components/Detail/DetailQuiz';
 import DetailTitle from '../components/Detail/DetailTitle';
 import Header from '../components/Header';
+import NavBtn from '../components/NavBtn';
 import QuizQuestionBasket from '../components/QuizFeed/QuizQuestionBasket';
 
 const DETAIL_QUIZ_QUERY = gql`
@@ -63,13 +64,14 @@ const FeedQuiz = () => {
         {loading ? <div>loading...</div> :
           <DetailContainer>
             <DetailTitle title="퀴즈" />
-            <DetailLayout {...data?.detailQuiz}>
+            <DetailLayout {...data?.detailQuiz} setPutQuiz={setPutQuiz}>
               <DetailQuiz {...data?.detailQuiz} setPutQuiz={setPutQuiz} />
             </DetailLayout>
             <QuizQuestionBasket setPutQuiz={setPutQuiz} />
           </DetailContainer>
         }
       </BasicContainer>
+      <NavBtn />
     </React.Fragment>
   );
 }

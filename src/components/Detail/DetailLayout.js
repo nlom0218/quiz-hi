@@ -1,11 +1,12 @@
 import { faHeart, faTags, faUser } from '@fortawesome/free-solid-svg-icons';
-import { faHeart as faHeartRegular } from '@fortawesome/free-regular-svg-icons';
+import { faHeart as faHeartRegular, faCheckSquare, faSquare } from '@fortawesome/free-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
 import styled from 'styled-components';
 import { getCreatedDay } from "../../sharedFn"
 import gql from 'graphql-tag';
 import { useMutation } from '@apollo/client';
+import { checkQuestionBasket, checkQuizBasket, onClickQuestionBasketBtn, onClickQuizBasketBtn } from '../QuizFeed/basketFn';
 
 const SDetailQuiz = styled.div`
   grid-column: 1 / 2;
@@ -18,8 +19,18 @@ const SDetailQuiz = styled.div`
   row-gap: 20px;
 `
 
+const Basket = styled.div`
+  grid-column: 1 / 2;
+  grid-row: 1 / 2;
+  align-self: flex-start;
+  svg {
+    margin-left: 10px;
+    cursor: pointer;
+  }
+`
+
 const Info = styled.div`
-  grid-column: 1 / -1;
+  grid-column: 2 / -1;
   grid-row: 1 / 2;
   justify-self: flex-end;
   align-self: flex-start;
@@ -101,7 +112,7 @@ const TOGGLE_LIKE_MUTATION = gql`
   }
 `
 
-const DetailLayout = ({ id, children, title, question, user: { avatarURL, nickname }, createdAt, isLiked, likes, hits, tags }) => {
+const DetailLayout = ({ id, children, title, question, user: { avatarURL, nickname }, createdAt, isLiked, likes, hits, tags, setPutQuiz }) => {
   const processType = () => {
     if (title) {
       return "quiz"
@@ -161,6 +172,23 @@ const DetailLayout = ({ id, children, title, question, user: { avatarURL, nickna
     }
   }
   return (<SDetailQuiz>
+    <Basket>
+      장바구니에 담기
+      {title && <FontAwesomeIcon
+        icon={checkQuizBasket(id) ? faCheckSquare : faSquare}
+        onClick={() => {
+          onClickQuizBasketBtn(title, id)
+          setPutQuiz(prev => !prev)
+        }}
+      />}
+      {question && <FontAwesomeIcon
+        icon={checkQuestionBasket(id) ? faCheckSquare : faSquare}
+        onClick={() => {
+          onClickQuestionBasketBtn(question, id)
+          setPutQuiz(prev => !prev)
+        }}
+      />}
+    </Basket>
     <Info>
       <Likes isLiked={isLiked}>
         <FontAwesomeIcon icon={isLiked ? faHeart : faHeartRegular} onClick={toggleLike} />

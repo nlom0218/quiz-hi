@@ -70,10 +70,58 @@ export const removeBasketItem = (type, id) => {
     const newQuizBasket = quizBasket.filter((item) => item.id !== id)
     localStorage.setItem("quizBasket", JSON.stringify(newQuizBasket))
   } else if (type === "question") {
-    if (type === "quiz") {
+    if (type === "question") {
       const questionBasket = JSON.parse(localStorage.getItem("questionBasket"))
       const newQuestionBasket = questionBasket.filter((item) => item.id !== id)
       localStorage.setItem("questionBasket", JSON.stringify(newQuestionBasket))
     }
+  }
+}
+
+export const onClickAllQuestionsBasketBtn = (arr) => {
+  let questionBasket = JSON.parse(localStorage.getItem("questionBasket"))
+  if (questionBasket === null || undefined) {
+    questionBasket = []
+  }
+  let basketArr = []
+  arr.forEach((item) => {
+    const exist = questionBasket.some((basketItem) => basketItem.id === item.id)
+    if (!exist) {
+      basketArr.push(item)
+    }
+  })
+  if (basketArr.length === 0) {
+    const newQuestionBasket = questionBasket.map((item) => {
+      const exist = arr.some((arrItem) => arrItem.id === item.id)
+      if (exist) {
+        return
+      } else {
+        return item
+      }
+    }).filter((item) => item !== undefined)
+    localStorage.setItem("questionBasket", JSON.stringify(newQuestionBasket))
+  } else {
+    const newQuestionBasket = [...questionBasket, ...basketArr]
+    localStorage.setItem("questionBasket", JSON.stringify(newQuestionBasket))
+  }
+}
+
+export const checkAllQuestionsBasketBtn = (arr) => {
+  let questionBasket = JSON.parse(localStorage.getItem("questionBasket"))
+  if (questionBasket === null || undefined) {
+    questionBasket = []
+  }
+  const checkArr = arr.map((item) => {
+    const exist = questionBasket.some((basketItem) => basketItem.id === item.id)
+    if (exist) {
+      return
+    } else {
+      return item
+    }
+  }).filter((item) => item !== undefined)
+  if (checkArr.length === 0) {
+    return true
+  } else {
+    return false
   }
 }
