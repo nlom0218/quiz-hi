@@ -13,6 +13,7 @@ import QuizQuestionBasket from '../components/QuizFeed/QuizQuestionBasket';
 const DETAIL_QUIZ_QUERY = gql`
   query detailQuiz($id: Int!) {
     detailQuiz(id: $id) {
+      id
       title
       createdAt
       caption

@@ -4,6 +4,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
 import styled from 'styled-components';
 import { getCreatedDay } from "../../sharedFn"
+import gql from 'graphql-tag';
+import { useMutation } from '@apollo/client';
 
 const SDetailQuiz = styled.div`
   grid-column: 1 / 2;
@@ -28,6 +30,8 @@ const Likes = styled.div`
   margin-right: 20px;
   svg {
     margin-right: 10px;
+    color: ${props => props.isLiked ? "tomato" : props.theme.fontColor};
+    cursor: pointer;
   }
 `
 
@@ -59,12 +63,45 @@ const CreatedAt = styled.div`
   justify-self: flex-end;
 `
 
-const DetailLayout = ({ children, title, user: { avatarURL, nickname }, createdAt, isLiked, likes, hits }) => {
-  console.log(likes);
+const TOGGLE_LIKE_MUTATION = gql`
+  mutation toggleLike($type: String!, $id: Int!) {
+    toggleLike(type: $type, id: $id) {
+      ok
+      error
+    }
+  }
+`
+
+const DetailLayout = ({ id, children, title, user: { avatarURL, nickname }, createdAt, isLiked, likes, hits }) => {
+  const update = (cache, result) => {
+    const { data: { toggleLike: { ok } } } = result
+    const quizId = `Quiz:${id}`
+    cache.modify({
+      id: quizId,
+      fields: {
+        isLiked(prev) {
+          return !prev
+        },
+        likes(prev) {
+          if (isLiked) {
+            return prev - 1
+          }
+          return prev + 1
+        }
+      }
+    })
+  }
+  const [toggleLike] = useMutation(TOGGLE_LIKE_MUTATION, {
+    variables: {
+      type: "quiz",
+      id
+    },
+    update
+  })
   return (<SDetailQuiz>
     <Info>
-      <Likes>
-        <FontAwesomeIcon icon={isLiked ? faHeart : faHeartRegular} />
+      <Likes isLiked={isLiked}>
+        <FontAwesomeIcon icon={isLiked ? faHeart : faHeartRegular} onClick={toggleLike} />
         {likes}
       </Likes>
       <Hits>

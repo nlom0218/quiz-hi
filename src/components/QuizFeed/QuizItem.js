@@ -142,26 +142,19 @@ const QuizItem = (
       })
     }
   }
-  const [updateHit, { loading }] = useMutation(UPDATE_HIT_MUTATION, {
+  const [updateHit] = useMutation(UPDATE_HIT_MUTATION, {
     onCompleted,
-    update
+    update,
+    variables: {
+      type: "quiz",
+      id
+    }
   })
   const onClickUsername = () => {
     history.push(`/profile/${username}`)
   }
-  const onClickTitle = () => {
-    if (loading) {
-      return
-    }
-    updateHit({
-      variables: {
-        type: "quiz",
-        id
-      }
-    })
-  }
   return (<SQuizItem tags={tags.length !== 0 ? true : false}>
-    <QuizTitle onClick={onClickTitle}>
+    <QuizTitle onClick={updateHit}>
       {title.length > 45 ? `${title.substring(0, 44)}...` : title}
     </QuizTitle>
     <QuizBasketBtn onClick={() => {
