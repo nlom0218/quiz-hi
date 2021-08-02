@@ -7,6 +7,8 @@ import { getCreatedDay } from "../../sharedFn"
 import { useHistory } from 'react-router';
 import { onClickQuizBasketBtn, checkQuizBasket } from "./basketFn"
 import { Link } from 'react-router-dom';
+import gql from 'graphql-tag';
+import { useMutation } from '@apollo/client';
 
 const SQuizItem = styled.div`
   padding: 20px;
@@ -108,16 +110,60 @@ const QuizTag = styled.div`
   border-radius: 5px;
 `
 
+const UPDATE_HIT_MUTATION = gql`
+  mutation updateHit($id: Int!, $type: String!) {
+    updateHit(id: $id, type: $type) {
+      ok
+      error
+    }
+  }
+`
+
 const QuizItem = (
   { id, title, user: { nickname, avatarURL, username }, tags, questionNum, isLiked, likes, createdAt, hits, setPutQuiz }) => {
   const history = useHistory()
+  const onCompleted = (result) => {
+    const { updateHit: { ok } } = result
+    if (ok) {
+      history.push(`/feed/quiz/${id}`)
+    }
+  }
+  const update = (cache, result) => {
+    const { data: { updateHit: { ok } } } = result
+    if (ok) {
+      const QuizId = `Quiz:${id}`
+      cache.modify({
+        id: QuizId,
+        fields: {
+          hits(prev) {
+            return prev + 1
+          }
+        }
+      })
+    }
+  }
+  const [updateHit, { loading }] = useMutation(UPDATE_HIT_MUTATION, {
+    onCompleted,
+    update
+  })
   const onClickUsername = () => {
     history.push(`/profile/${username}`)
   }
+  const onClickTitle = () => {
+    if (loading) {
+      return
+    }
+    updateHit({
+      variables: {
+        type: "quiz",
+        id
+      }
+    })
+  }
   return (<SQuizItem tags={tags.length !== 0 ? true : false}>
-    <QuizTitle><Link to={`/feed/quiz/${id}`} >
+    <QuizTitle onClick={onClickTitle}>
       {title.length > 45 ? `${title.substring(0, 44)}...` : title}
-    </Link></QuizTitle>
+    </QuizTitle>
     <QuizBasketBtn onClick={() => {
       onClickQuizBasketBtn(title, id)
       setPutQuiz(prev => !prev)
