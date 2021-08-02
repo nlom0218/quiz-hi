@@ -1,4 +1,4 @@
-import { faHeart, faUser } from '@fortawesome/free-solid-svg-icons';
+import { faHeart, faTags, faUser } from '@fortawesome/free-solid-svg-icons';
 import { faHeart as faHeartRegular } from '@fortawesome/free-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
@@ -59,8 +59,36 @@ const AvatarImage = styled.img`
 `
 
 const CreatedAt = styled.div`
+  grid-column: 2 / 3;
+  grid-row: 3 / 4;
   align-self: flex-end;
   justify-self: flex-end;
+`
+
+const Tags = styled.div`
+  grid-column: 1 / -1;
+  grid-row: 4 / 5;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: flex-start;
+  svg {
+    grid-row: 1 / -1;
+    margin-right: 5px;
+  }
+`
+
+const TagsList = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  font-size: 14px;
+`
+
+const TagItem = styled.div`
+  margin-bottom: 5px;
+  margin-right: 5px;
+  padding: 3px 10px;
+  background-color: rgb(201, 102, 255, 0.2);
+  border-radius: 5px;
 `
 
 const TOGGLE_LIKE_MUTATION = gql`
@@ -72,7 +100,7 @@ const TOGGLE_LIKE_MUTATION = gql`
   }
 `
 
-const DetailLayout = ({ id, children, title, user: { avatarURL, nickname }, createdAt, isLiked, likes, hits }) => {
+const DetailLayout = ({ id, children, title, user: { avatarURL, nickname }, createdAt, isLiked, likes, hits, tags }) => {
   const update = (cache, result) => {
     const { data: { toggleLike: { ok } } } = result
     const quizId = `Quiz:${id}`
@@ -119,6 +147,17 @@ const DetailLayout = ({ id, children, title, user: { avatarURL, nickname }, crea
       {nickname}
     </UserProfile>
     <CreatedAt>{getCreatedDay(createdAt)}</CreatedAt>
+    {tags.length !== 0 && <Tags>
+      <FontAwesomeIcon icon={faTags} />
+      <TagsList>
+        {tags.map((item, index) => {
+          return <React.Fragment key={index}>
+            <TagItem>{item.name}</TagItem>
+          </React.Fragment>
+        })}
+      </TagsList>
+    </Tags>
+    }
     {children}
   </SDetailQuiz>);
 }
