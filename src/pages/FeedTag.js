@@ -7,6 +7,7 @@ import BasicContainer from '../components/BasicContainer';
 import DetailContainer from '../components/Detail/DetailContainer';
 import DetailTitle from '../components/Detail/DetailTitle';
 import FollowTag from '../components/Detail/FollowTag';
+import TotalInfo from '../components/Detail/TotalInfo';
 import Header from '../components/Header';
 import NavBtn from '../components/NavBtn';
 
@@ -33,7 +34,7 @@ const FeedTag = () => {
         {loading ? <div>loading...</div> : <DetailContainer>
           <DetailTitle title={data?.seeTag?.name} />
           <FollowTag isFollow={data?.seeTag?.isFollow} id={id} />
-          <div>{data.seeTag.totalFollowUsers}</div>
+          <TotalInfo {...data?.seeTag} />
         </DetailContainer>}
       </BasicContainer>
       <NavBtn />
