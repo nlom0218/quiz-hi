@@ -17,7 +17,7 @@ const Textarea = styled.textarea`
   }
 `
 
-const QuestionTextarea = ({ register, nextMode, bgColor, fcBgColor }) => {
+const QuestionTextarea = ({ register, nextMode }) => {
   return (<Textarea
     cols={20}
     rows={3}
@@ -25,8 +25,6 @@ const QuestionTextarea = ({ register, nextMode, bgColor, fcBgColor }) => {
       required: true
     })}
     readOnly={nextMode !== "" && "readOnly"}
-    bgColor={bgColor}
-    fcBgColor={fcBgColor}
   ></Textarea >);
 }
 

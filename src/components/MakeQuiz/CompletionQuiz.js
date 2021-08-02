@@ -79,12 +79,14 @@ const CREATE_QUIZ_MUTATION = gql`
       $title: String!,
       $state: String!
       $tags: String,
+      $caption: String
       ) {
         createQuiz(
         questions: $questions,
         title: $title,
         state: $state
         tags: $tags,
+        caption: $caption
       ) {
       ok
       error
@@ -93,7 +95,6 @@ const CREATE_QUIZ_MUTATION = gql`
 `
 
 const CompletionQuiz = ({ quizTags, quizTitle, state, questionIdArr }) => {
-  const { register } = useForm()
   const user = useUser()
   const num = questionIdArr.length
   const [complete, setComplete] = useState(false)
@@ -122,11 +123,13 @@ const CompletionQuiz = ({ quizTags, quizTitle, state, questionIdArr }) => {
     onCompleted,
     update
   })
-  const { handleSubmit } = useForm()
+  const { handleSubmit, register } = useForm()
   const onSubmit = (data) => {
     if (loading) {
       return
     }
+    const { question: caption } = data
+    console.log(caption);
     const questionString = questionIdArr.join(",")
     const tags = [...quizTags].join(",")
     createQuiz({
@@ -134,7 +137,8 @@ const CompletionQuiz = ({ quizTags, quizTitle, state, questionIdArr }) => {
         title: quizTitle,
         state,
         tags,
-        questions: questionString
+        questions: questionString,
+        caption
       }
     })
   }
