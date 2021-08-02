@@ -18,9 +18,9 @@ const Title = styled.div`
   }
 `
 
-const DetailTitle = () => {
+const DetailTitle = ({ title }) => {
   return (<Title>
-    <FontAwesomeIcon icon={faBook} /> 퀴즈
+    <FontAwesomeIcon icon={faBook} /> {title}
   </Title>);
 }
 

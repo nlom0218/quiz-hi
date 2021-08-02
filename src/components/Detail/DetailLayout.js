@@ -100,32 +100,65 @@ const TOGGLE_LIKE_MUTATION = gql`
   }
 `
 
-const DetailLayout = ({ id, children, title, user: { avatarURL, nickname }, createdAt, isLiked, likes, hits, tags }) => {
+const DetailLayout = ({ id, children, title, question, user: { avatarURL, nickname }, createdAt, isLiked, likes, hits, tags }) => {
+  const processType = () => {
+    if (title) {
+      return "quiz"
+    } else if (question) {
+      return "question"
+    }
+  }
   const update = (cache, result) => {
-    const { data: { toggleLike: { ok } } } = result
-    const quizId = `Quiz:${id}`
-    cache.modify({
-      id: quizId,
-      fields: {
-        isLiked(prev) {
-          return !prev
-        },
-        likes(prev) {
-          if (isLiked) {
-            return prev - 1
+    if (processType() === "quiz") {
+      const { data: { toggleLike: { ok } } } = result
+      const quizId = `Quiz:${id}`
+      cache.modify({
+        id: quizId,
+        fields: {
+          isLiked(prev) {
+            return !prev
+          },
+          likes(prev) {
+            if (isLiked) {
+              return prev - 1
+            }
+            return prev + 1
           }
-          return prev + 1
         }
-      }
-    })
+      })
+    } else if (processType() === "question") {
+      const { data: { toggleLike: { ok } } } = result
+      const QuestionId = `Question:${id}`
+      cache.modify({
+        id: QuestionId,
+        fields: {
+          isLiked(prev) {
+            return !prev
+          },
+          likes(prev) {
+            if (isLiked) {
+              return prev - 1
+            }
+            return prev + 1
+          }
+        }
+      })
+    }
   }
   const [toggleLike] = useMutation(TOGGLE_LIKE_MUTATION, {
     variables: {
-      type: "quiz",
+      type: processType(),
       id
     },
     update
   })
+  const processTitle = () => {
+    if (title) {
+      return title
+    } else if (question) {
+      return question
+    }
+  }
   return (<SDetailQuiz>
     <Info>
       <Likes isLiked={isLiked}>
@@ -136,7 +169,7 @@ const DetailLayout = ({ id, children, title, user: { avatarURL, nickname }, crea
         조회수 {hits}
       </Hits>
     </Info>
-    <Title>{title}</Title>
+    <Title>{processTitle()}</Title>
     <UserProfile>
       {avatarURL ?
         <AvatarImage src={avatarURL} /> :

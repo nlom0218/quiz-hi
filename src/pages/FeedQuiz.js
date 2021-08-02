@@ -1,6 +1,6 @@
 import { useQuery } from '@apollo/client';
 import gql from 'graphql-tag';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router';
 import BasicContainer from '../components/BasicContainer';
 import DetailContainer from '../components/Detail/DetailContainer';
@@ -53,13 +53,16 @@ const FeedQuiz = () => {
   const { id } = useParams()
   const [putQuiz, setPutQuiz] = useState(false)
   const { data, loading } = useQuery(DETAIL_QUIZ_QUERY, { variables: { id: parseInt(id) } })
+  useEffect(() => {
+    return () => setPutQuiz(false)
+  }, [])
   return (
     <React.Fragment>
       <Header />
       <BasicContainer>
         {loading ? <div>loading...</div> :
           <DetailContainer>
-            <DetailTitle />
+            <DetailTitle title="퀴즈" />
             <DetailLayout {...data?.detailQuiz}>
               <DetailQuiz {...data?.detailQuiz} setPutQuiz={setPutQuiz} />
             </DetailLayout>
