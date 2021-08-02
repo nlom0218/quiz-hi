@@ -3,14 +3,14 @@ import styled from 'styled-components';
 import QuestionItem from '../QuizFeed/QuestionItem';
 
 const QuizCaption = styled.div`
-  margin-top: 20px;
+  margin-top: 40px;
   grid-column: 1 / -1;
   grid-row: 4 / 5;
   line-height: 20px;
 `
 
 const QuestionListTitle = styled.div`
-  margin-top: 30px;
+  margin-top: 40px;
   grid-column: 1 / -1;
 `
 

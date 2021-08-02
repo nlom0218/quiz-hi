@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import QuizFeedContainer from './QuizFeedContainer';
 import QuestionList from './QuestionList';
 import SelectTags from './SelectTags';
@@ -39,6 +39,9 @@ const SeeQuestion = ({ feedType }) => {
   const [page, setPage] = useState(1)
   const [tagsArr, setTagsArr] = useState([])
   const [lastPage, setLastPage] = useState(1)
+  useEffect(() => {
+    return () => setPutQuiz(false)
+  }, [])
   const onCompleted = (data) => {
     if (data.seeQuestion.totalNum === 0) {
       setLastPage(1)

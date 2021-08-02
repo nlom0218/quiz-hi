@@ -53,7 +53,6 @@ const FeedQuiz = () => {
   const { id } = useParams()
   const [putQuiz, setPutQuiz] = useState(false)
   const { data, loading } = useQuery(DETAIL_QUIZ_QUERY, { variables: { id: parseInt(id) } })
-  console.log(data);
   return (
     <React.Fragment>
       <Header />

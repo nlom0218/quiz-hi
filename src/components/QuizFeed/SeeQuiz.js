@@ -39,6 +39,9 @@ const SeeQuiz = ({ feedType }) => {
   const [page, setPage] = useState(1)
   const [tagsArr, setTagsArr] = useState([])
   const [lastPage, setLastPage] = useState(null)
+  useEffect(() => {
+    return () => setPutQuiz(false)
+  }, [])
   const onCompleted = (data) => {
     if (data.seeQuiz.totalNum === 0) {
       setLastPage(1)
