@@ -7,6 +7,8 @@ import { getCreatedDay } from "../../sharedFn";
 import { onClickQuestionBasketBtn, checkQuestionBasket } from "./basketFn"
 import { useHistory } from 'react-router';
 import { Link } from 'react-router-dom';
+import gql from 'graphql-tag';
+import { useMutation } from '@apollo/client';
 
 const SQuestionItem = styled.div`
   padding: 20px;
@@ -107,12 +109,45 @@ const QuizTag = styled.div`
   border-radius: 5px;
 `
 
+const UPDATE_HIT_MUTATION = gql`
+  mutation updateHit($id: Int!, $type: String!) {
+    updateHit(id: $id, type: $type) {
+      ok
+      error
+    }
+  }
+`
+
 const QuestionItem = (
   { id, question, user: { nickname, avatarURL, username }, type, tags, isLiked, likes, createdAt, hits, setPutQuiz }) => {
   const history = useHistory()
   const onClickUsername = () => {
     history.push(`/profile/${username}`)
   }
+  const onCompleted = (result) => {
+    const { updateHit: { ok } } = result
+    if (ok) {
+      history.push(`/feed/question/${id}`)
+    }
+  }
+  const update = (cache, result) => {
+    const { data: { updateHit: { ok } } } = result
+    if (ok) {
+      const QuestionId = `Question:${id}`
+      cache.modify({
+        id: QuestionId,
+        fields: {
+          hits(prev) {
+            return prev + 1
+          }
+        }
+      })
+    }
+  }
+  const [updateHit, { loading }] = useMutation(UPDATE_HIT_MUTATION, {
+    onCompleted,
+    update
+  })
   const processType = (type) => {
     if (type === "sub") {
       return "주관식"
@@ -122,8 +157,21 @@ const QuestionItem = (
       return "○ / ✕"
     }
   }
+  const onClickTitle = () => {
+    if (loading) {
+      return
+    }
+    updateHit({
+      variables: {
+        type: "question",
+        id
+      }
+    })
+  }
   return (<SQuestionItem tags={tags.length !== 0 ? true : false}>
-    <QuizTitle><Link to={`/feed/question/${id}`}>{question}</Link></QuizTitle>
+    <QuizTitle onClick={onClickTitle}>
+      {question.length > 45 ? `${question.substring(0, 44)}...` : question}
+    </QuizTitle>
     <QuizBasketBtn onClick={() => {
       onClickQuestionBasketBtn(question, id)
       setPutQuiz(prev => !prev)
