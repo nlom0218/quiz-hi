@@ -7,6 +7,7 @@ import { getCreatedDay } from "../../sharedFn"
 import gql from 'graphql-tag';
 import { useMutation } from '@apollo/client';
 import { checkQuestionBasket, checkQuizBasket, onClickQuestionBasketBtn, onClickQuizBasketBtn } from '../QuizFeed/basketFn';
+import { useHistory } from 'react-router';
 
 const SDetailQuiz = styled.div`
   grid-column: 1 / 2;
@@ -57,10 +58,12 @@ const Title = styled.div`
 `
 
 const UserProfile = styled.div`
+  justify-self: flex-start;
   grid-column: 1 / 2;
   grid-row: 3 / 4;
   display: flex;
   align-items: flex-end;
+  cursor: pointer;
 `
 
 const AvatarImage = styled.img`
@@ -112,7 +115,8 @@ const TOGGLE_LIKE_MUTATION = gql`
   }
 `
 
-const DetailLayout = ({ id, children, title, question, user: { avatarURL, nickname }, createdAt, isLiked, likes, hits, tags, setPutQuiz }) => {
+const DetailLayout = ({ id, children, title, question, user: { avatarURL, nickname, username }, createdAt, isLiked, likes, hits, tags, setPutQuiz }) => {
+  const history = useHistory()
   const processType = () => {
     if (title) {
       return "quiz"
@@ -171,6 +175,9 @@ const DetailLayout = ({ id, children, title, question, user: { avatarURL, nickna
       return question
     }
   }
+  const onClickUsername = () => {
+    history.push(`/profile/${username}`)
+  }
   return (<SDetailQuiz>
     <Basket>
       장바구니에 담기
@@ -199,7 +206,7 @@ const DetailLayout = ({ id, children, title, question, user: { avatarURL, nickna
       </Hits>
     </Info>
     <Title>{processTitle()}</Title>
-    <UserProfile>
+    <UserProfile onClick={onClickUsername}>
       {avatarURL ?
         <AvatarImage src={avatarURL} /> :
         <div>

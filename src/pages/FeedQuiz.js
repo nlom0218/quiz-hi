@@ -24,6 +24,7 @@ const DETAIL_QUIZ_QUERY = gql`
       user {
         nickname
         avatarURL
+        username
       }
       tags {
         name
