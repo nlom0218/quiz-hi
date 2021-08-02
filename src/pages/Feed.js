@@ -1,6 +1,6 @@
 import { faBook, faTags } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import BasicContainer from '../components/BasicContainer';
 import Header from '../components/Header';
@@ -8,7 +8,6 @@ import PageTitle from '../components/PageTitle';
 import FeedType from '../components/QuizFeed/FeedType';
 import SeeQuestion from '../components/QuizFeed/SeeQuestion';
 import SeeQuiz from '../components/QuizFeed/SeeQuiz';
-import SeeType from '../components/QuizFeed/SeeType';
 import NavBtn from '../components/NavBtn';
 
 const Feed = () => {

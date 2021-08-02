@@ -1,6 +1,6 @@
 import { useQuery } from '@apollo/client';
 import gql from 'graphql-tag';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import QuizFeedContainer from './QuizFeedContainer';
 import QuizList from './QuizList';
 import SeeType from './SeeType';

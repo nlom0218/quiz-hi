@@ -24,6 +24,7 @@ const SQuizItem = styled.div`
 
 const QuizTitle = styled.div`
   grid-column: 1 / 2;
+  justify-self: flex-start;
   font-weight: 600;
   cursor: pointer;
 `
@@ -114,7 +115,9 @@ const QuizItem = (
     history.push(`/profile/${username}`)
   }
   return (<SQuizItem tags={tags.length !== 0 ? true : false}>
-    <QuizTitle><Link to={`/feed/quiz/${id}`}>{title}</Link></QuizTitle>
+    <QuizTitle><Link to={`/feed/quiz/${id}`} >
+      {title.length > 45 ? `${title.substring(0, 44)}...` : title}
+    </Link></QuizTitle>
     <QuizBasketBtn onClick={() => {
       onClickQuizBasketBtn(title, id)
       setPutQuiz(prev => !prev)
