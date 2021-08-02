@@ -1,5 +1,5 @@
 import { faBell, faFile } from '@fortawesome/free-regular-svg-icons';
-import { faListOl, faPen, faPenSquare } from '@fortawesome/free-solid-svg-icons';
+import { faImage, faListOl, faMagic } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
 import styled from 'styled-components';
@@ -8,7 +8,6 @@ import QuestionItem from '../QuizFeed/QuestionItem';
 const Question = styled.div`
   margin-top: ${props => props.tags ? "10px" : "20px"};
   grid-column: 1 / -1;
-  grid-row: 5 / 6;
   line-height: 20px;
   display: grid;
   grid-template-columns: 90px 1fr;
@@ -35,7 +34,6 @@ const DisTractorList = styled.ol`
 `
 
 const DisTractorItem = styled.li`
-  /* margin-bottom: 10px; */
   display: grid;
   grid-template-columns: auto 1fr;
   .num {
@@ -46,7 +44,32 @@ const DisTractorItem = styled.li`
     line-height: 20px;
     align-self: flex-start;
     justify-self: flex-start;
-    background-color: ${props => props.answer && "rgb(255, 255, 28, 0.6)"};
+    background-color: ${props => props.answer && "rgb(255, 255, 28, 0.4)"};
+  }
+`
+
+const Hint = styled.div`
+  margin-top: 20px;
+  grid-column: 1 / -1;
+  line-height: 20px;
+  display: grid;
+  grid-template-columns: 90px 1fr;
+  .title, .content {
+    align-self: flex-start;
+  }
+`
+
+const Image = styled.div`
+  margin-top: 20px;
+  grid-column: 1 / -1;
+  line-height: 20px;
+  display: grid;
+  grid-template-columns: 90px 1fr;
+  .title, .content {
+    align-self: flex-start;
+  }
+  .content {
+    width: 100%;
   }
 `
 
@@ -61,7 +84,8 @@ const QuestionList = styled.div`
 `
 
 
-const DetailQuestion = ({ question, tags, answer, type, distractor }) => {
+const DetailQuestion = ({ question, tags, answer, type, distractor, hint, image }) => {
+  console.log(hint);
   const checkAnswer = (num) => {
     const answerArr = answer.split(",").map((item) => parseInt(item))
     const checked = answerArr.includes(num)
@@ -98,6 +122,14 @@ const DetailQuestion = ({ question, tags, answer, type, distractor }) => {
         :
         <div className="content">{answer}</div>}
     </Answer>
+    {hint && <Hint>
+      <div className="title"><FontAwesomeIcon icon={faMagic} /> 힌트</div>
+      <div className="content">{hint}</div>
+    </Hint>}
+    {image && <Image>
+      <div className="title"><FontAwesomeIcon icon={faImage} /> 이미지</div>
+      <img className="content" src={image} />
+    </Image>}
   </React.Fragment>);
 }
 

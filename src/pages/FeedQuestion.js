@@ -15,7 +15,9 @@ const DETAIL_QUESTION_QUERY = gql`
       id
       question
       distractor
+      hint
       answer
+      image
       createdAt
       likes
       isLiked

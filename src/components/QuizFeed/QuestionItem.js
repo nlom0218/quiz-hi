@@ -26,6 +26,7 @@ const SQuestionItem = styled.div`
 
 const QuizTitle = styled.div`
   grid-column: 1 / 2;
+  justify-self: flex-start;
   font-weight: 600;
   cursor: pointer;
 `
