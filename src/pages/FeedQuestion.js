@@ -4,6 +4,7 @@ import { useParams } from 'react-router';
 import BasicContainer from '../components/BasicContainer';
 import DetailContainer from '../components/Detail/DetailContainer';
 import DetailLayout from '../components/Detail/DetailLayout';
+import DetailQuestion from '../components/Detail/DetailQuestion';
 import DetailTitle from '../components/Detail/DetailTitle';
 import Header from '../components/Header';
 import QuizQuestionBasket from '../components/QuizFeed/QuizQuestionBasket';
@@ -13,10 +14,13 @@ const DETAIL_QUESTION_QUERY = gql`
     detailQuestion(id: $id) {
       id
       question
+      distractor
+      answer
       createdAt
       likes
       isLiked
       hits
+      type
       user {
         nickname
         avatarURL
@@ -43,7 +47,7 @@ const FeedQuestion = () => {
           <DetailContainer>
             <DetailTitle title="문제" />
             <DetailLayout {...data?.detailQuestion}>
-              {/* <DetailQuiz {...data?.detailQuiz} setPutQuiz={setPutQuiz} /> */}
+              <DetailQuestion {...data?.detailQuestion} setPutQuiz={setPutQuiz} />
             </DetailLayout>
             <QuizQuestionBasket setPutQuiz={setPutQuiz} />
           </DetailContainer>

@@ -30,6 +30,7 @@ const Likes = styled.div`
   margin-right: 20px;
   svg {
     margin-right: 10px;
+    transition: color 0.5s linear;
     color: ${props => props.isLiked ? "tomato" : props.theme.fontColor};
     cursor: pointer;
   }

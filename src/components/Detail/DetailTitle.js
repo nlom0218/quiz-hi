@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { faArrowLeft, faBook } from '@fortawesome/free-solid-svg-icons';
+import { faBook, faBookOpen } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const Title = styled.div`
@@ -20,7 +20,7 @@ const Title = styled.div`
 
 const DetailTitle = ({ title }) => {
   return (<Title>
-    <FontAwesomeIcon icon={faBook} /> {title}
+    <FontAwesomeIcon icon={title === "퀴즈" ? faBook : faBookOpen} /> {title}
   </Title>);
 }
 

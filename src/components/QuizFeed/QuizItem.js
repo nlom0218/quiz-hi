@@ -155,7 +155,7 @@ const QuizItem = (
   }
   return (<SQuizItem tags={tags.length !== 0 ? true : false}>
     <QuizTitle onClick={updateHit}>
-      {title.length > 45 ? `${title.substring(0, 44)}...` : title}
+      {title.length > 40 ? `${title.substring(0, 40)}...` : title}
     </QuizTitle>
     <QuizBasketBtn onClick={() => {
       onClickQuizBasketBtn(title, id)

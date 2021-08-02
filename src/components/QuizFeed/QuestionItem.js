@@ -170,7 +170,7 @@ const QuestionItem = (
   }
   return (<SQuestionItem tags={tags.length !== 0 ? true : false}>
     <QuizTitle onClick={onClickTitle}>
-      {question.length > 45 ? `${question.substring(0, 44)}...` : question}
+      {question.length > 40 ? `${question.substring(0, 40)}...` : question}
     </QuizTitle>
     <QuizBasketBtn onClick={() => {
       onClickQuestionBasketBtn(question, id)
