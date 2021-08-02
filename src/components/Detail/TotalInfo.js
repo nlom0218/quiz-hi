@@ -20,11 +20,11 @@ const Wrapper = styled.div`
 
 const Text = styled.div``
 
-const TotalInfo = ({ totalQuizs, totalQuestions, totalFollowUsers }) => {
+const TotalInfo = ({ totalQuizzes, totalQuestions, totalFollowUsers }) => {
   return (<STotalInfo>
     <Wrapper>
       <FontAwesomeIcon icon={faBook} />
-      <Text>{totalQuizs}개의 퀴즈</Text>
+      <Text>{totalQuizzes}개의 퀴즈</Text>
     </Wrapper>
     <Wrapper>
       <FontAwesomeIcon icon={faBookOpen} />

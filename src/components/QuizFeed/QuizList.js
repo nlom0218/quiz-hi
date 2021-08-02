@@ -26,13 +26,16 @@ const QuizList = ({ setPutQuiz, loading, seeQuiz }) => {
     }
   }
   return (<Container>
-    {loading ? <div>loading...</div> : <SQuizList>
-      {seeQuiz?.quiz.map((item, index) => {
-        return <QuizItem key={index} {...item} setPutQuiz={setPutQuiz} />
-      })}
-    </SQuizList>}
-    {noData() && <NotFoundData>검색된 퀴즈가 없습니다.</NotFoundData>}
-  </Container>);
+    {loading ? <div>loading...</div> :
+      <SQuizList>
+        {
+          seeQuiz?.quiz.map((item, index) => {
+            return <QuizItem key={index} {...item} setPutQuiz={setPutQuiz} />
+          })
+        }
+      </SQuizList>}
+    { noData() && <NotFoundData>검색된 퀴즈가 없습니다.</NotFoundData>}
+  </Container >);
 }
 
 export default QuizList;

@@ -2,7 +2,6 @@ import { useQuery } from '@apollo/client';
 import gql from 'graphql-tag';
 import React from 'react';
 import { useParams } from 'react-router';
-import styled from 'styled-components';
 import BasicContainer from '../components/BasicContainer';
 import DetailContainer from '../components/Detail/DetailContainer';
 import DetailTitle from '../components/Detail/DetailTitle';
@@ -10,6 +9,7 @@ import FollowTag from '../components/Detail/FollowTag';
 import TotalInfo from '../components/Detail/TotalInfo';
 import Header from '../components/Header';
 import NavBtn from '../components/NavBtn';
+import TagContents from './TagContents';
 
 const SEE_TAG_QUERY = gql`
   query seeTag($id: Int!) {
@@ -18,7 +18,7 @@ const SEE_TAG_QUERY = gql`
       name
       totalFollowUsers
       totalQuestions
-      totalQuizs
+      totalQuizzes
       isFollow
     }
   }
@@ -33,8 +33,9 @@ const FeedTag = () => {
       <BasicContainer>
         {loading ? <div>loading...</div> : <DetailContainer>
           <DetailTitle title={data?.seeTag?.name} />
-          <FollowTag isFollow={data?.seeTag?.isFollow} id={id} />
+          <FollowTag isFollow={data?.seeTag?.isFollow} id={parseInt(id)} />
           <TotalInfo {...data?.seeTag} />
+          <TagContents {...data?.seeTag} />
         </DetailContainer>}
       </BasicContainer>
       <NavBtn />

@@ -44,7 +44,7 @@ const FollowTag = ({ isFollow, id }) => {
     }
     if (ok) {
       const userId = `User:${user.id}`
-      const tagId = `Tag:${parseInt(id)}`
+      const tagId = `Tag:${id}`
       cache.modify({
         id: userId,
         fields: {
@@ -73,7 +73,7 @@ const FollowTag = ({ isFollow, id }) => {
     }
   }
   const [toggleFollowTag, { loading }] = useMutation(TOGGLE_FOLLOW_TAG_MUTATION, {
-    variables: { id: parseInt(id) },
+    variables: { id },
     update
   })
   return (
