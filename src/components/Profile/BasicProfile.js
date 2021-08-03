@@ -1,4 +1,7 @@
+import { faInfo, faTags } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { processNextLevelScore, processUserLevel, getCreatedDay } from '../../sharedFn';
 import LevelStep from '../LevelStep';
@@ -11,16 +14,17 @@ const Container = styled.div`
 `
 
 const Title = styled.div`
-  font-size: 18px;
   padding-bottom: 20px;
   border-bottom: 1px solid rgb(200, 200, 200, 0.6);
   font-weight: 600;
+  display:  flex;
+  justify-content: space-between;
 `
 
 const BasicInfo = styled.div`
   align-self: flex-start;
   grid-column: 1 / 2;
-  grid-row: 1 / -1;
+  grid-row: 1 / 2;
   padding: 20px;
   display: grid;
   grid-template-columns: 1fr;
@@ -45,13 +49,14 @@ const Wrapper = styled.div`
 const DetailInto = styled.div`
   align-self: flex-start;
   grid-column: 2 / 3;
-  grid-row: 1 / 2;
+  grid-row: 1 / -1;
   display: grid;
   grid-template-columns: 1fr;
   grid-gap: 20px;
+  align-items: flex-start;
 `
 
-const UserLevel = styled.div`
+const DetailInfoLayout = styled.div`
   padding: 20px;
   border: 1px solid rgb(200, 200, 200, 0.6);
 `
@@ -89,19 +94,45 @@ const LevelRule = styled.div`
   }
 `
 
+const TagContainer = styled.div`
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: auto;
+  margin-top: 20px;
+`
+
+const TagsNum = styled.div`
+  font-weight: 400;
+`
+
+const TagList = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  font-size: 14px;
+`
+
+const Tag = styled.div`
+  margin-bottom: 5px;
+  margin-right: 5px;
+  padding: 3px 10px;
+  background-color: rgb(201, 102, 255, 0.2);
+  border-radius: 5px;
+`
+
 const UserSite = styled.div`
   align-self: flex-start;
-  grid-column: 2 / 3;
+  grid-column: 1 / 2;
   grid-row: 2 / 3;
   background-color: green;
 `
 
 const BasicProfile = ({ data }) => {
-  const { seeProfile: { nickname, email, totalFollow, totalFollowing, type, totalPublicQuiz, totalPublicQuestion, score, createdAt } } = data
+  const { seeProfile: { nickname, email, totalFollow, totalFollowing, type, totalPublicQuiz, totalPublicQuestion, score, createdAt, tags } } = data
   const level = processUserLevel(score)
+  console.log(tags.length);
   return (<Container>
     <BasicInfo>
-      <Title>기본정보</Title>
+      <Title><div><FontAwesomeIcon icon={faInfo} /> 기본정보</div></Title>
       <Wrapper>
         <div className="input">닉네임</div>
         <div className="value">{nickname}</div>
@@ -132,8 +163,8 @@ const BasicProfile = ({ data }) => {
       </Wrapper>}
     </BasicInfo>
     <DetailInto>
-      <UserLevel>
-        <Title>레벨</Title>
+      <DetailInfoLayout>
+        <Title>Lv 레벨</Title>
         <LevelContainer>
           <Level>
             <LevelStep level={level} />
@@ -148,7 +179,22 @@ const BasicProfile = ({ data }) => {
             레벨에 대해 알아보기
           </LevelRule>
         </LevelContainer>
-      </UserLevel>
+      </DetailInfoLayout>
+      <DetailInfoLayout>
+        <Title>
+          <div><FontAwesomeIcon icon={faTags} /> 팔로우 태그</div>
+          <TagsNum>{tags.length}개의 팔로우 태그</TagsNum>
+        </Title>
+        <TagContainer>
+          <TagList>
+            {tags.map((item, index) => {
+              return <React.Fragment key={index}>
+                <Link to={`/feed/tag/${item.id}`}><Tag>{item.name}</Tag></Link>
+              </React.Fragment>
+            })}
+          </TagList>
+        </TagContainer>
+      </DetailInfoLayout>
     </DetailInto>
     <UserSite>
       ee

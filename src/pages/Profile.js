@@ -27,6 +27,10 @@ const SEE_PROFILE_QUERY = gql`
       totalPublicQuiz
       totalPublicQuestion
       createdAt
+      tags {
+        id
+        name
+      }
   }
 }
 `
