@@ -9,7 +9,7 @@ import FollowTag from '../components/Detail/FollowTag';
 import TotalInfo from '../components/Detail/TotalInfo';
 import Header from '../components/Header';
 import NavBtn from '../components/NavBtn';
-import TagContents from './TagContents';
+import TagContents from '../components/Detail/TagContents';
 
 const SEE_TAG_QUERY = gql`
   query seeTag($id: Int!) {

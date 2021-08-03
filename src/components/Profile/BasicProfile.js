@@ -129,7 +129,6 @@ const UserSite = styled.div`
 const BasicProfile = ({ data }) => {
   const { seeProfile: { nickname, email, totalFollow, totalFollowing, type, totalPublicQuiz, totalPublicQuestion, score, createdAt, tags } } = data
   const level = processUserLevel(score)
-  console.log(tags.length);
   return (<Container>
     <BasicInfo>
       <Title><div><FontAwesomeIcon icon={faInfo} /> 기본정보</div></Title>
@@ -180,7 +179,7 @@ const BasicProfile = ({ data }) => {
           </LevelRule>
         </LevelContainer>
       </DetailInfoLayout>
-      <DetailInfoLayout>
+      {tags.length !== 0 && <DetailInfoLayout>
         <Title>
           <div><FontAwesomeIcon icon={faTags} /> 팔로우 태그</div>
           <TagsNum>{tags.length}개의 팔로우 태그</TagsNum>
@@ -194,7 +193,7 @@ const BasicProfile = ({ data }) => {
             })}
           </TagList>
         </TagContainer>
-      </DetailInfoLayout>
+      </DetailInfoLayout>}
     </DetailInto>
     <UserSite>
       ee

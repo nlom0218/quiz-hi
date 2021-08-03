@@ -38,7 +38,6 @@ const FollowTag = ({ isFollow, id }) => {
   const user = useUser()
   const update = (cache, result) => {
     const { data: { toggleFollowTag: { ok, msg } } } = result
-    console.log(msg);
     if (!ok) {
       return
     }
