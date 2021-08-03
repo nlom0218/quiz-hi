@@ -1,5 +1,4 @@
 import React from 'react';
-import BasicContainer from '../components/BasicContainer';
 import Header from '../components/Header';
 import Intro from '../components/Home/Intro';
 import NavIcon from '../components/Home/NavIcon';
@@ -8,10 +7,13 @@ import NavBtn from '../components/NavBtn';
 import AccountType from '../components/Home/AccountType';
 import Level from '../components/Home/Level';
 import styled from 'styled-components';
+import { ScrollTrigger } from "gsap/ScrollTrigger"
+import { gsap } from "gsap"
+import { BasicContainerGsap, HomeContainerGsap } from '../hooks/Gsap';
+gsap.registerPlugin(ScrollTrigger)
 
 const HomeContainer = styled.div`
   width: 1200px;
-  /* height: 100vh; */
   margin: 0 auto;
   margin-top: 40px;
   display: grid;
@@ -25,7 +27,8 @@ const Home = () => {
   return (
     <React.Fragment>
       <Header />
-      <HomeContainer>
+      <HomeContainer className="homeContainer">
+        <HomeContainerGsap />
         <Intro />
         <NavIcon />
         <AccountType />

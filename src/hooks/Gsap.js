@@ -28,6 +28,19 @@ export const HeaderContainerGsap = () => {
   return null
 }
 
+export const HomeContainerGsap = () => {
+  useEffect(() => {
+    gsap.from(".homeContainer", {
+      duration: 2,
+      delay: 0.5,
+      y: "100",
+      opacity: 0,
+      ease: "power3.out",
+    })
+  }, [])
+  return null
+}
+
 export const BasicContainerGsap = () => {
   useEffect(() => {
     gsap.from(".basicContainer", {
