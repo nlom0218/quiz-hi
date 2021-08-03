@@ -71,11 +71,33 @@ const BasketBtn = styled.div`
 `
 
 const QuizQuestionBasket = ({ setPutQuiz }) => {
+  const processBasket = (type) => {
+    if (type === "quiz") {
+      const quizBasket = JSON.parse(localStorage.getItem("quizBasket"))
+      if (!quizBasket) {
+        return false
+      } else if (quizBasket.length === 0) {
+        return false
+      } else {
+        return true
+      }
+    }
+    if (type === "question") {
+      const questionBasket = JSON.parse(localStorage.getItem("questionBasket"))
+      if (!questionBasket) {
+        return false
+      } else if (questionBasket.length === 0) {
+        return false
+      } else {
+        return true
+      }
+    }
+  }
   return (<SQuizQuestionBasket>
     <QuizBasket>
       <BasketName>퀴즈 장바구니<FontAwesomeIcon icon={faShoppingCart} /></BasketName>
       <Wrapper>
-        {JSON.parse(localStorage.getItem("quizBasket")) && <BasketList>
+        {processBasket("quiz") && <BasketList>
           {JSON.parse(localStorage.getItem("quizBasket")).map((item, index) => {
             return <BasketItem key={index}>
               <div>{item.title.length > 10 ? `${item.title.substring(0, 9)}...` : item.title}</div>
@@ -100,7 +122,7 @@ const QuizQuestionBasket = ({ setPutQuiz }) => {
     <QuestionBasket>
       <BasketName>문제 장바구니<FontAwesomeIcon icon={faShoppingCart} /></BasketName>
       <Wrapper>
-        {JSON.parse(localStorage.getItem("questionBasket")) && <BasketList>
+        {processBasket("question") && <BasketList>
           {JSON.parse(localStorage.getItem("questionBasket")).map((item, index) => {
             return <BasketItem key={index}>
               <div>{item.question.length > 10 ? `${item.question.substring(0, 9)}...` : item.question}</div>
