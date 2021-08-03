@@ -47,7 +47,7 @@ const TagQuiz = ({ id, totalQuizzes }) => {
     const lastPage = Math.floor(totalQuizzes / 10) + 1
     setLastPage(lastPage)
   }
-  const { data, loading } = useQuery(SEE_TAG_QUIZ_QUERY, {
+  const { data, loading, refetch } = useQuery(SEE_TAG_QUIZ_QUERY, {
     variables: {
       type,
       page: parseInt(page),
@@ -56,7 +56,15 @@ const TagQuiz = ({ id, totalQuizzes }) => {
     onCompleted
   })
   return (
-    <TagQuizQuestionLayout>
+    <TagQuizQuestionLayout
+      setPutQuiz={setPutQuiz}
+      page={page}
+      lastPage={lastPage}
+      setPage={setPage}
+      setType={setType}
+      type={type}
+      refetch={refetch}
+    >
       {loading ? <div>loading...</div> : <QuizList
         setPutQuiz={setPutQuiz}
         loading={loading}

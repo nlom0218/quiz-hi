@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import { MoveTopScreen } from '../../sharedFn';
 
 const SPageBar = styled.div`
   justify-self: flex-end;
@@ -41,7 +40,6 @@ const PageBar = ({ page, lastPage, setPage }) => {
       }
       setPage(pre => pre + 1)
     }
-    MoveTopScreen()
   }
   return (<SPageBar>
     <PageBarBtn firstPage={page === 1 ? true : false} onClick={() => onClickPageBtn("pre")}>이전</PageBarBtn>
