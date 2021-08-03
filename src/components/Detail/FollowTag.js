@@ -54,7 +54,8 @@ const FollowTag = ({ isFollow, id }) => {
             } else if (msg === "follow") {
               return prev + 1
             }
-          }
+          },
+          tags(prev) { return [...prev, { tagId }] }
         }
       })
       cache.modify({
