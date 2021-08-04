@@ -8,6 +8,7 @@ import NavBtn from '../components/NavBtn';
 import BasicProfile from '../components/Profile/BasicProfile';
 import BottomProfile from '../components/Profile/BottomProfile';
 import TopProfile from '../components/Profile/TopProfile';
+import UserQuizQuestion from '../components/Profile/UserQuizQuestion/UserQuizQuestion';
 
 const SEE_PROFILE_QUERY = gql`
   query seeProfile($username: String!) {
@@ -26,6 +27,8 @@ const SEE_PROFILE_QUERY = gql`
       totalFollowing
       totalPublicQuiz
       totalPublicQuestion
+      totalPrivateQuiz
+      totalPrivateQuestion
       createdAt
       tags {
         id
@@ -45,6 +48,7 @@ const Profile = () => {
       <BasicContainer>
         <TopProfile data={{ ...data }} setProfileMode={setProfileMode} profileMode={profileMode} />
         {profileMode === "basic" && <BottomProfile><BasicProfile data={{ ...data }} /></BottomProfile>}
+        {profileMode === "quiz" && <BottomProfile><UserQuizQuestion data={{ ...data }} /></BottomProfile>}
       </BasicContainer>
     }
     <NavBtn />
