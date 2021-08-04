@@ -22,6 +22,7 @@ const DETAIL_QUIZ_QUERY = gql`
       isLiked
       hits
       user {
+        id
         nickname
         avatarURL
         username

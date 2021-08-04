@@ -60,7 +60,7 @@ const DetailQuiz = ({ caption, questions, setPutQuiz, tags }) => {
     </Basket>
     <QuestionList>
       {questions.map((item, index) => {
-        return <QuestionItem key={index} {...item} setPutQuiz={setPutQuiz} />
+        return <QuestionItem key={index} {...item} setPutQuiz={setPutQuiz} edit={true} />
       })}
     </QuestionList>
   </React.Fragment>);

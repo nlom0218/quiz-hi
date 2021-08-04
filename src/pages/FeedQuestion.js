@@ -25,6 +25,7 @@ const DETAIL_QUESTION_QUERY = gql`
       hits
       type
       user {
+        id
         nickname
         avatarURL
         username

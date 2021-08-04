@@ -1,5 +1,5 @@
 import { faHeart, faTags, faUser } from '@fortawesome/free-solid-svg-icons';
-import { faHeart as faHeartRegular, faCheckSquare, faSquare } from '@fortawesome/free-regular-svg-icons';
+import { faHeart as faHeartRegular, faCheckSquare, faSquare, faEdit } from '@fortawesome/free-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
 import styled from 'styled-components';
@@ -9,6 +9,7 @@ import { useMutation } from '@apollo/client';
 import { checkQuestionBasket, checkQuizBasket, onClickQuestionBasketBtn, onClickQuizBasketBtn } from '../QuizFeed/basketFn';
 import { useHistory } from 'react-router';
 import { Link } from 'react-router-dom';
+import useUser from '../../hooks/useUser';
 
 const SDetailQuiz = styled.div`
   grid-column: 1 / 2;
@@ -39,6 +40,11 @@ const Info = styled.div`
   display: flex;
 `
 
+const EditBtn = styled.div`
+  font-size: 14px;
+  cursor: pointer;
+`
+
 const Likes = styled.div`
   margin-right: 20px;
   svg {
@@ -49,7 +55,9 @@ const Likes = styled.div`
   }
 `
 
-const Hits = styled.div``
+const Hits = styled.div`
+    margin-right: 20px;
+`
 
 const Title = styled.div`
   grid-column: 1 / -1;
@@ -119,8 +127,9 @@ const TOGGLE_LIKE_MUTATION = gql`
   }
 `
 
-const DetailLayout = ({ id, children, title, question, user: { avatarURL, nickname, username }, createdAt, isLiked, likes, hits, tags, setPutQuiz }) => {
+const DetailLayout = ({ id, children, title, question, user: { avatarURL, nickname, username, id: userId }, createdAt, isLiked, likes, hits, tags, setPutQuiz }) => {
   const history = useHistory()
+  const user = useUser()
   const processType = () => {
     if (title) {
       return "quiz"
@@ -182,6 +191,15 @@ const DetailLayout = ({ id, children, title, question, user: { avatarURL, nickna
   const onClickUsername = () => {
     history.push(`/profile/${username}`)
   }
+  const onClickEditBtn = () => {
+    if (userId !== user.id) {
+      return
+    } else if (title) {
+      history.push(`/edit/quiz/${id}`)
+    } else if (question) {
+      history.push(`/edit/question/${id}`)
+    }
+  }
   return (<SDetailQuiz>
     <Basket>
       장바구니에 담기
@@ -208,6 +226,9 @@ const DetailLayout = ({ id, children, title, question, user: { avatarURL, nickna
       <Hits>
         조회수 {hits}
       </Hits>
+      {user.id === userId && <EditBtn onClick={onClickEditBtn}>
+        <FontAwesomeIcon icon={faEdit} />
+      </EditBtn>}
     </Info>
     <Title>{processTitle()}</Title>
     <UserProfile onClick={onClickUsername}>
