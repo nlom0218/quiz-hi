@@ -141,7 +141,7 @@ const QuizItem = (
   const onCompleted = (result) => {
     const { updateHit: { ok } } = result
     if (ok) {
-      history.push(`/feed/quiz/${id}`)
+      history.push(`/detail/quiz/${id}`)
     }
   }
   const update = (cache, result) => {
@@ -226,7 +226,7 @@ const QuizItem = (
       <QuizTagList>
         {tags.map((item, index) => {
           return <React.Fragment key={index}>
-            <Link to={`/feed/tag/${item.id}`}><QuizTag>{item.name}</QuizTag></Link>
+            <Link to={`/detail/tag/${item.id}`}><QuizTag>{item.name}</QuizTag></Link>
           </React.Fragment>
         })}
       </QuizTagList>

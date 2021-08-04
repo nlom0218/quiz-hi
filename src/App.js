@@ -30,10 +30,10 @@ function App() {
         <ScrollToTop />
         <Switch>
           <Route exact path="/"><Home /></Route>
-          <Route exact path="/feed"><Feed /></Route>
-          <Route path="/feed/quiz/:id"><FeedQuiz /></Route>
-          <Route path="/feed/question/:id"><FeedQuestion /></Route>
-          <Route path="/feed/tag/:id"><FeedTag /></Route>
+          <Route path="/feed/:type/:seeType/:sort"><Feed /></Route>
+          <Route path="/detail/quiz/:id"><FeedQuiz /></Route>
+          <Route path="/detail/question/:id"><FeedQuestion /></Route>
+          <Route path="/detail/tag/:id"><FeedTag /></Route>
           <Route path="/notice-board"><NoticeBoard /></Route>
           <Route path="/make-quiz">{user ? <MakeQuiz /> : <NotFound />}</Route>
           <Route path="/play-quiz">{user ? <PlayQuiz /> : <NotFound />}</Route>

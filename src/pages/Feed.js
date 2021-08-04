@@ -9,16 +9,17 @@ import FeedType from '../components/QuizFeed/FeedType';
 import SeeQuestion from '../components/QuizFeed/SeeQuestion';
 import SeeQuiz from '../components/QuizFeed/SeeQuiz';
 import NavBtn from '../components/NavBtn';
+import { useParams } from 'react-router';
 
 const Feed = () => {
-  const [feedType, setFeedType] = useState("quiz")
+  const { type } = useParams()
   return (<React.Fragment>
     <Header />
     <BasicContainer>
       <PageTitle title="퀴즈 피드" />
-      <FeedType feedType={feedType} setFeedType={setFeedType} />
-      {feedType === "quiz" && <SeeQuiz feedType={feedType} />}
-      {feedType === "question" && <SeeQuestion feedType={feedType} />}
+      <FeedType feedType={type} />
+      {type === "quiz" && <SeeQuiz feedType={type} />}
+      {type === "question" && <SeeQuestion feedType={type} />}
     </BasicContainer>
     <NavBtn />
   </React.Fragment>);

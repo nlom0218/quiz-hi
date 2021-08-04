@@ -1,6 +1,7 @@
 import { faBook, faTags } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
+import { useHistory, useLocation, useParams } from 'react-router';
 import styled from 'styled-components';
 import { fadeIn } from '../../animation/fade';
 
@@ -27,9 +28,12 @@ const SeeText = styled.div`
   margin-left: 5px;
 `
 
-const SeeType = ({ seeType, setSeeType, setPage }) => {
-  const onClickSeeType = (type) => {
-    setSeeType(type)
+const SeeType = ({ seeType, setPage }) => {
+  const location = useLocation()
+  const { type } = useParams()
+  const history = useHistory()
+  const onClickSeeType = (seeType) => {
+    history.push(`/feed/${type}/${seeType}/recent${location.search}`)
     setPage(1)
   }
   return (<SSeeType>

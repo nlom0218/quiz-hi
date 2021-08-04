@@ -208,7 +208,7 @@ const BasicProfile = ({ data }) => {
           <TagList>
             {tags.map((item, index) => {
               return <React.Fragment key={index}>
-                <Link to={`/feed/tag/${item.id}`}><Tag>{item.name}</Tag></Link>
+                <Link to={`/detail/tag/${item.id}`}><Tag>{item.name}</Tag></Link>
               </React.Fragment>
             })}
           </TagList>

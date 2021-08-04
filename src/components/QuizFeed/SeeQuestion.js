@@ -4,6 +4,8 @@ import QuestionList from './QuestionList';
 import SelectTags from './SelectTags';
 import gql from 'graphql-tag';
 import { useQuery } from '@apollo/client';
+import { useParams } from 'react-router';
+import useParameter from '../../hooks/useParameter';
 
 const SEE_QUESTION_QUERY = gql`
   query seeQuestion($seeType: String!, $page: Int!, $search: String, $sort: String!, $tags: String) {
@@ -33,10 +35,10 @@ const SEE_QUESTION_QUERY = gql`
 
 
 const SeeQuestion = ({ feedType }) => {
-  const [seeType, setSeeType] = useState("all")
+  const { seeType, sort } = useParams()
+  const query = useParameter()
+  const search = query.get("search")
   const [putQuiz, setPutQuiz] = useState(true)
-  const [search, setSearch] = useState("")
-  const [sort, setSort] = useState("recent")
   const [page, setPage] = useState(1)
   const [tagsArr, setTagsArr] = useState([])
   const [lastPage, setLastPage] = useState(1)
@@ -68,16 +70,13 @@ const SeeQuestion = ({ feedType }) => {
   return (
     <QuizFeedContainer
       feedType={feedType}
-      setSearch={setSearch}
       sort={sort}
-      setSort={setSort}
       setPutQuiz={setPutQuiz}
       setPage={setPage}
       page={page}
       lastPage={lastPage}
       tagsArr={tagsArr}
       seeType={seeType}
-      setSeeType={setSeeType}
     >
       {seeType === "tags" && <SelectTags setTagsArr={setTagsArr} tagsArr={tagsArr} setPage={setPage} refetch={refetch} />}
       <QuestionList

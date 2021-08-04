@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 const FeedTypeWrapper = styled.div`
@@ -17,13 +18,10 @@ const SFeedType = styled.div`
   transition: background-color 0.5s linear;
 `
 
-const FeedType = ({ feedType, setFeedType }) => {
-  const onClickFeedType = (type) => {
-    setFeedType(type)
-  }
+const FeedType = ({ feedType }) => {
   return (<FeedTypeWrapper>
-    <SFeedType onClick={() => onClickFeedType("quiz")} selected={feedType === "quiz"}>퀴즈</SFeedType>
-    <SFeedType onClick={() => onClickFeedType("question")} selected={feedType === "question"}>문제</SFeedType>
+    <Link to="/feed/quiz/all/recent"><SFeedType selected={feedType === "quiz"}>퀴즈</SFeedType></Link>
+    <Link to="/feed/question/all/recent"><SFeedType selected={feedType === "question"}>문제</SFeedType></Link>
   </FeedTypeWrapper>);
 }
 

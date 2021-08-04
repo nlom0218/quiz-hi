@@ -72,7 +72,6 @@ const SEE_POPULAR_QUESTION = gql`
 const PopularQuizQuiestion = ({ userId }) => {
   const { data: quizData, loading: quizLoading } = useQuery(SEE_POPULAR_QUIZ, { variables: { userId } })
   const { data: questionData, loading: questionLoading } = useQuery(SEE_POPULAR_QUESTION, { variables: { userId } })
-
   return (<DetailInfoLayout>
     <Title><div><FontAwesomeIcon icon={faFire} /> 인기 퀴즈 & 문제</div></Title>
     <PopularContainer>

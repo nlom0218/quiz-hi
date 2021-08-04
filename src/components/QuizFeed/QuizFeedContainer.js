@@ -10,6 +10,7 @@ import PageBar from './PageBar';
 import { ScrollTrigger } from "gsap/ScrollTrigger"
 import { gsap } from "gsap"
 import { QuizFeedBottomContainerGsap } from '../../hooks/Gsap';
+import { useHistory, useLocation, useParams } from 'react-router';
 gsap.registerPlugin(ScrollTrigger)
 
 const SQuizFeedContainer = styled.div`
@@ -92,11 +93,17 @@ const SortItem = styled.li`
   align-items: center;
 `
 
-const QuizFeedContainer = ({ children, feedType, setSearch, sort, setSort, setPage, page, lastPage, tagsArr, seeType, setSeeType, setPutQuiz }) => {
+const QuizFeedContainer = ({ children, feedType, sort, setPage, page, lastPage, tagsArr, seeType, setPutQuiz }) => {
+  const location = useLocation()
   const [seeSortList, setSeeSortList] = useState(false)
   const { register, handleSubmit } = useForm()
+  const history = useHistory()
   const onSubmit = (data) => {
-    setSearch(data.search)
+    if (data.search === "") {
+      history.push(`${location.pathname}`)
+    } else {
+      history.push(`${location.pathname}?search=${data.search}`)
+    }
   }
   const processSort = (sort) => {
     if (sort === "recent") {
@@ -111,7 +118,7 @@ const QuizFeedContainer = ({ children, feedType, setSearch, sort, setSort, setPa
     setSeeSortList(prev => !prev)
   }
   const onClickSortItem = (sort) => {
-    setSort(sort)
+    history.push(`/feed/${feedType}/${seeType}/${sort}${location.search}`)
     setSeeSortList(prev => !prev)
     setPage(1)
   }
@@ -126,7 +133,7 @@ const QuizFeedContainer = ({ children, feedType, setSearch, sort, setSort, setPa
   }
   return (<SQuizFeedContainer className="feedContainer">
     <QuizFeedBottomContainerGsap />
-    <SeeType seeType={seeType} setSeeType={setSeeType} setPage={setPage} />
+    <SeeType seeType={seeType} setPage={setPage} />
     <TopBar>
       <SearchBar>
         <form onSubmit={handleSubmit(onSubmit)}>

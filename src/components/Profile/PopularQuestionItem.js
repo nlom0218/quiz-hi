@@ -48,7 +48,7 @@ const PopularQuestionItem = ({ id, question, likes, index }) => {
     update
   })
   return (<ContentItem>
-    <Link to={`/feed/question/${id}`} onClick={updateHit}>
+    <Link to={`/detail/question/${id}`} onClick={updateHit}>
       <div className="contentTitle">
         {index + 1}. {question.length > 10 ? `${question.substring(0, 10)}...` : question}
       </div>

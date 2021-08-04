@@ -48,7 +48,7 @@ const PopularQuizItem = ({ id, title, likes, index }) => {
     update
   })
   return (<ContentItem>
-    <Link to={`/feed/quiz/${id}`} onClick={updateHit}>
+    <Link to={`/detail/quiz/${id}`} onClick={updateHit}>
       <div className="contentTitle">
         {index + 1}. {title.length > 10 ? `${title.substring(0, 10)}...` : title}
       </div>
