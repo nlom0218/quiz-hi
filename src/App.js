@@ -18,6 +18,7 @@ import NotFound from './pages/NotFound';
 import FeedQuiz from './pages/FeedQuiz';
 import FeedQuestion from './pages/FeedQuestion';
 import FeedTag from './pages/FeedTag';
+import Edit from './pages/Edit';
 
 function App() {
   const darkMode = useReactiveVar(darkModeVar)
@@ -39,6 +40,7 @@ function App() {
           <Route path="/profile/:username">{user ? <Profile /> : <NotFound />}</Route>
           <Route path="/login"><Login /></Route>
           <Route path="/create-account"><CreateAccount /></Route>
+          <Route path="/edit/:type/:id"><Edit /></Route>
           <Route><NotFound /></Route>
         </Switch>
       </Router>
