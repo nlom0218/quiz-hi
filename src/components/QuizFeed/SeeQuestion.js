@@ -3,7 +3,7 @@ import QuizFeedContainer from './QuizFeedContainer';
 import QuestionList from './QuestionList';
 import SelectTags from './SelectTags';
 import gql from 'graphql-tag';
-import { useLazyQuery, useQuery } from '@apollo/client';
+import { useQuery } from '@apollo/client';
 
 const SEE_QUESTION_QUERY = gql`
   query seeQuestion($seeType: String!, $page: Int!, $search: String, $sort: String!, $tags: String) {

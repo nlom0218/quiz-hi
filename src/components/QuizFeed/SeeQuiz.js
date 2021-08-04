@@ -3,7 +3,6 @@ import gql from 'graphql-tag';
 import React, { useEffect, useState } from 'react';
 import QuizFeedContainer from './QuizFeedContainer';
 import QuizList from './QuizList';
-import SeeType from './SeeType';
 import SelectTags from './SelectTags';
 
 const SEE_QUIZ_QUERY = gql`

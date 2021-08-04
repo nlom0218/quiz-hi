@@ -9,7 +9,7 @@ import SeeType from './SeeType';
 import PageBar from './PageBar';
 import { ScrollTrigger } from "gsap/ScrollTrigger"
 import { gsap } from "gsap"
-import { QuizFeedBottomContainer } from '../../hooks/Gsap';
+import { QuizFeedBottomContainerGsap } from '../../hooks/Gsap';
 gsap.registerPlugin(ScrollTrigger)
 
 const SQuizFeedContainer = styled.div`
@@ -125,7 +125,7 @@ const QuizFeedContainer = ({ children, feedType, setSearch, sort, setSort, setPa
     }
   }
   return (<SQuizFeedContainer className="feedContainer">
-    <QuizFeedBottomContainer />
+    <QuizFeedBottomContainerGsap />
     <SeeType seeType={seeType} setSeeType={setSeeType} setPage={setPage} />
     <TopBar>
       <SearchBar>

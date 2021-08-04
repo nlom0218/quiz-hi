@@ -3,7 +3,6 @@ import { faImage, faListOl, faMagic } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
 import styled from 'styled-components';
-import QuestionItem from '../QuizFeed/QuestionItem';
 
 const Question = styled.div`
   margin-top: ${props => props.tags ? "10px" : "20px"};

@@ -58,7 +58,12 @@ const UserQuizQuestion = ({ data }) => {
       />
     }
     {state === "private" &&
-      <PrivateQuizQuestion />
+      <PrivateQuizQuestion
+        totalPrivateQuiz={totalPrivateQuiz}
+        totalPrivateQuestion={totalPrivateQuestion}
+        state={state}
+        userId={id}
+      />
     }
   </Container>);
 }
