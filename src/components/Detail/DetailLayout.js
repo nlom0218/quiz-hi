@@ -65,6 +65,9 @@ const UserProfile = styled.div`
   display: flex;
   align-items: flex-end;
   cursor: pointer;
+  svg {
+    margin-right: 10px;
+  }
 `
 
 const AvatarImage = styled.img`

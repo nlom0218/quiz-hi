@@ -53,6 +53,9 @@ const Username = styled.div`
   align-items: flex-end;
   margin-right: 10px;
   cursor: pointer;
+  svg {
+    margin-right: 10px;
+  }
 `
 
 const AvatarImage = styled.img`

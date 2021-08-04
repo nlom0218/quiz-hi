@@ -31,8 +31,8 @@ const SEE_PROFILE_QUERY = gql`
         id
         name
       }
+    }
   }
-}
 `
 
 const Profile = () => {

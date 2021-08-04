@@ -143,14 +143,14 @@ const SelectTags = ({ setTagsArr, tagsArr, setPage, refetch }) => {
     const newTagsArr = [...tagsArr, tag]
     setTagsArr(newTagsArr)
     setPage(1)
-    refetch()
+    // refetch()
     setValue("tag", "")
   }
   const onClickDelTag = (tag) => {
     const newTagsArr = tagsArr.filter((item) => item !== tag)
     setTagsArr(newTagsArr)
     setPage(1)
-    refetch()
+    // refetch()
   }
   const checkTag = (tag) => {
     if (tagsArr.includes(tag)) {

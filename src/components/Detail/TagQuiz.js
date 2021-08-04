@@ -64,6 +64,7 @@ const TagQuiz = ({ id, totalQuizzes }) => {
       setType={setType}
       type={type}
       refetch={refetch}
+      contents="quiz"
     >
       {loading ? <div>loading...</div> : <QuizList
         setPutQuiz={setPutQuiz}

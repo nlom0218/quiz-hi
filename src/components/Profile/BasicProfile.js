@@ -1,15 +1,16 @@
-import { faInfo, faTags } from '@fortawesome/free-solid-svg-icons';
+import { faInfoCircle, faTags } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { processNextLevelScore, processUserLevel, getCreatedDay } from '../../sharedFn';
 import LevelStep from '../LevelStep';
+import PopularQuizQuiestion from './PopularQuizQuiestion';
 
 const Container = styled.div`
   display: grid;
   grid-template-columns: 1fr 2fr;
-  grid-template-rows: auto auto;
+  grid-template-rows: auto 1fr;
   grid-gap: 20px;
 `
 
@@ -17,7 +18,7 @@ const Title = styled.div`
   padding-bottom: 20px;
   border-bottom: 1px solid rgb(200, 200, 200, 0.6);
   font-weight: 600;
-  display:  flex;
+  display: flex;
   justify-content: space-between;
 `
 
@@ -127,11 +128,30 @@ const UserSite = styled.div`
 `
 
 const BasicProfile = ({ data }) => {
-  const { seeProfile: { nickname, email, totalFollow, totalFollowing, type, totalPublicQuiz, totalPublicQuestion, score, createdAt, tags } } = data
+  const { seeProfile: {
+    id,
+    nickname,
+    email,
+    totalFollow,
+    totalFollowing,
+    type,
+    totalPublicQuiz,
+    totalPublicQuestion,
+    score,
+    createdAt,
+    tags
+  } } = data
   const level = processUserLevel(score)
+  const processPopular = () => {
+    if (totalPublicQuiz === 0 && totalPublicQuestion === 0) {
+      return false
+    } else {
+      return true
+    }
+  }
   return (<Container>
     <BasicInfo>
-      <Title><div><FontAwesomeIcon icon={faInfo} /> 기본정보</div></Title>
+      <Title><div><FontAwesomeIcon icon={faInfoCircle} /> 기본정보</div></Title>
       <Wrapper>
         <div className="input">닉네임</div>
         <div className="value">{nickname}</div>
@@ -194,6 +214,7 @@ const BasicProfile = ({ data }) => {
           </TagList>
         </TagContainer>
       </DetailInfoLayout>}
+      {processPopular() && <PopularQuizQuiestion userId={id} />}
     </DetailInto>
     <UserSite>
       ee
