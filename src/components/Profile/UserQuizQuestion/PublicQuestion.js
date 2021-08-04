@@ -10,6 +10,7 @@ const SEE_USER_PUBLIC_QUESTION_QUERY = gql`
       id
       question
       user {
+        id
         nickname
         avatarURL
         username
@@ -65,6 +66,7 @@ const PublicQuestion = ({ state, contents, totalNum, userId }) => {
       setPutQuiz={setPutQuiz}
       loading={loading}
       seeQuestion={{ question: data.seeUserPublicQuestion }}
+      edit={true}
     />}
   </UseQuizQuestionLayout>);
 }

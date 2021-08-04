@@ -19,7 +19,7 @@ const NotFoundData = styled.div`
   color: tomato;
 `
 
-const QuestionList = ({ seeQuestion, loading, setPutQuiz }) => {
+const QuestionList = ({ seeQuestion, loading, setPutQuiz, edit }) => {
   const noData = () => {
     if (!seeQuestion || seeQuestion.question.length === 0) {
       return true
@@ -28,7 +28,7 @@ const QuestionList = ({ seeQuestion, loading, setPutQuiz }) => {
   return (<Container>
     {loading ? <div>loading...</div> : <SQuestionList>
       {seeQuestion?.question?.map((item, index) => {
-        return <QuestionItem key={index} {...item} setPutQuiz={setPutQuiz} />
+        return <QuestionItem key={index} {...item} setPutQuiz={setPutQuiz} edit={edit} />
       })}
     </SQuestionList>}
     {noData() && <NotFoundData>검색된 문제가 없습니다.</NotFoundData>}

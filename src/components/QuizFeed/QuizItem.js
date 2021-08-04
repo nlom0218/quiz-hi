@@ -1,5 +1,5 @@
 import { faHeart, faTags, faUser } from '@fortawesome/free-solid-svg-icons';
-import { faCheckSquare, faComment, faHeart as faHeartRegular, faSquare } from '@fortawesome/free-regular-svg-icons';
+import { faCheckSquare, faComment, faHeart as faHeartRegular, faSquare, faEdit } from '@fortawesome/free-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
 import styled from 'styled-components';
@@ -9,6 +9,7 @@ import { onClickQuizBasketBtn, checkQuizBasket } from "./basketFn"
 import { Link } from 'react-router-dom';
 import gql from 'graphql-tag';
 import { useMutation } from '@apollo/client';
+import useUser from '../../hooks/useUser';
 
 const SQuizItem = styled.div`
   padding: 20px;
@@ -31,8 +32,19 @@ const QuizTitle = styled.div`
   cursor: pointer;
 `
 
-const QuizBasketBtn = styled.div`
+const EditBasketBtn = styled.div`
   grid-column: 2 / 3;
+  display: flex;
+  align-items: flex-start;
+`
+
+const EditBtn = styled.div`
+  margin-right: 20px;
+  font-size: 14px;
+  cursor: pointer;
+`
+
+const QuizBasketBtn = styled.div`
   cursor: pointer;
 `
 
@@ -123,8 +135,9 @@ const UPDATE_HIT_MUTATION = gql`
 `
 
 const QuizItem = (
-  { id, title, user: { nickname, avatarURL, username }, tags, questionNum, isLiked, likes, createdAt, hits, setPutQuiz }) => {
+  { id, title, user: { nickname, avatarURL, username, id: userId }, tags, questionNum, isLiked, likes, createdAt, hits, setPutQuiz, edit }) => {
   const history = useHistory()
+  const user = useUser()
   const onCompleted = (result) => {
     const { updateHit: { ok } } = result
     if (ok) {
@@ -156,16 +169,28 @@ const QuizItem = (
   const onClickUsername = () => {
     history.push(`/profile/${username}`)
   }
+  const onClickEditBtn = () => {
+    if (userId !== user.id) {
+      return
+    } else {
+      history.push(`/edit/quiz/${id}`)
+    }
+  }
   return (<SQuizItem tags={tags.length !== 0 ? true : false}>
     <QuizTitle onClick={updateHit}>
       {title.length > 40 ? `${title.substring(0, 40)}...` : title}
     </QuizTitle>
-    <QuizBasketBtn onClick={() => {
-      onClickQuizBasketBtn(title, id)
-      setPutQuiz(prev => !prev)
-    }}>
-      <FontAwesomeIcon icon={checkQuizBasket(id) ? faCheckSquare : faSquare} />
-    </QuizBasketBtn>
+    <EditBasketBtn>
+      {edit && <EditBtn onClick={onClickEditBtn}>
+        <FontAwesomeIcon icon={faEdit} />
+      </EditBtn>}
+      <QuizBasketBtn onClick={() => {
+        onClickQuizBasketBtn(title, id)
+        setPutQuiz(prev => !prev)
+      }}>
+        <FontAwesomeIcon icon={checkQuizBasket(id) ? faCheckSquare : faSquare} />
+      </QuizBasketBtn>
+    </EditBasketBtn>
     <QuizInfo>
       <Wrapper>
         <Username onClick={onClickUsername}>

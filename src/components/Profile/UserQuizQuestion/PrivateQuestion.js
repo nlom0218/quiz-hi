@@ -10,6 +10,7 @@ const SEE_USER_PRIVATE_QUESTION_QUERY = gql`
       id
       question
       user {
+        id
         nickname
         avatarURL
         username
@@ -65,6 +66,7 @@ const PrivateQuestion = ({ state, contents, totalNum, userId }) => {
       setPutQuiz={setPutQuiz}
       loading={loading}
       seeQuestion={{ question: data.seeUserPrivateQuestion }}
+      edit={true}
     />}
   </UseQuizQuestionLayout>);
 }

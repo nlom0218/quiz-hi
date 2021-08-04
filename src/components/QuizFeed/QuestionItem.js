@@ -1,5 +1,5 @@
 import { faHeart, faTags, faUser } from '@fortawesome/free-solid-svg-icons';
-import { faCheckSquare, faComment, faHeart as faHeartRegular, faSquare } from '@fortawesome/free-regular-svg-icons';
+import { faCheckSquare, faComment, faEdit, faHeart as faHeartRegular, faSquare } from '@fortawesome/free-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
 import styled from 'styled-components';
@@ -9,6 +9,7 @@ import { useHistory } from 'react-router';
 import { Link } from 'react-router-dom';
 import gql from 'graphql-tag';
 import { useMutation } from '@apollo/client';
+import useUser from '../../hooks/useUser';
 
 const SQuestionItem = styled.div`
   padding: 20px;
@@ -31,8 +32,19 @@ const QuizTitle = styled.div`
   cursor: pointer;
 `
 
-const QuizBasketBtn = styled.div`
+const EditBasketBtn = styled.div`
   grid-column: 2 / 3;
+  display: flex;
+  align-items: flex-start;
+`
+
+const EditBtn = styled.div`
+  margin-right: 20px;
+  font-size: 14px;
+  cursor: pointer;
+`
+
+const QuizBasketBtn = styled.div`
   cursor: pointer;
 `
 
@@ -123,7 +135,8 @@ const UPDATE_HIT_MUTATION = gql`
 `
 
 const QuestionItem = (
-  { id, question, user: { nickname, avatarURL, username }, type, tags, isLiked, likes, createdAt, hits, setPutQuiz }) => {
+  { id, question, user: { nickname, avatarURL, username, id: userId }, type, tags, isLiked, likes, createdAt, hits, setPutQuiz, edit }) => {
+  const user = useUser()
   const history = useHistory()
   const onClickUsername = () => {
     history.push(`/profile/${username}`)
@@ -172,16 +185,28 @@ const QuestionItem = (
       }
     })
   }
+  const onClickEditBtn = () => {
+    if (userId !== user.id) {
+      return
+    } else {
+      history.push(`/edit/question/${id}`)
+    }
+  }
   return (<SQuestionItem tags={tags.length !== 0 ? true : false}>
     <QuizTitle onClick={onClickTitle}>
       {question.length > 40 ? `${question.substring(0, 40)}...` : question}
     </QuizTitle>
-    <QuizBasketBtn onClick={() => {
-      onClickQuestionBasketBtn(question, id)
-      setPutQuiz(prev => !prev)
-    }}>
-      <FontAwesomeIcon icon={checkQuestionBasket(id) ? faCheckSquare : faSquare} />
-    </QuizBasketBtn>
+    <EditBasketBtn>
+      {edit && <EditBtn onClick={onClickEditBtn}>
+        <FontAwesomeIcon icon={faEdit} />
+      </EditBtn>}
+      <QuizBasketBtn onClick={() => {
+        onClickQuestionBasketBtn(question, id)
+        setPutQuiz(prev => !prev)
+      }}>
+        <FontAwesomeIcon icon={checkQuestionBasket(id) ? faCheckSquare : faSquare} />
+      </QuizBasketBtn>
+    </EditBasketBtn>
     <QuizInfo>
       <Wrapper>
         <Username onClick={onClickUsername}>
