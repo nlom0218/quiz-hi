@@ -166,7 +166,7 @@ const QuizItem = (
     }
   })
   const onClickUsername = () => {
-    history.push(`/profile/${username}`)
+    history.push(`/profile/${username}/info`)
   }
   const onClickEditBtn = () => {
     if (userId !== user.id) {

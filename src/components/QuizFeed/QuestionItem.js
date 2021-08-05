@@ -138,7 +138,7 @@ const QuestionItem = (
   const user = useUser()
   const history = useHistory()
   const onClickUsername = () => {
-    history.push(`/profile/${username}`)
+    history.push(`/profile/${username}/info`)
   }
   const onCompleted = (result) => {
     const { updateHit: { ok } } = result

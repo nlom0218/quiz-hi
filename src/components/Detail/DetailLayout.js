@@ -189,7 +189,7 @@ const DetailLayout = ({ id, children, title, question, user: { avatarURL, nickna
     }
   }
   const onClickUsername = () => {
-    history.push(`/profile/${username}`)
+    history.push(`/profile/${username}/info`)
   }
   const onClickEditBtn = () => {
     if (userId !== user.id) {
