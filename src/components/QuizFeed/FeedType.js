@@ -20,8 +20,8 @@ const SFeedType = styled.div`
 
 const FeedType = ({ feedType }) => {
   return (<FeedTypeWrapper>
-    <Link to="/feed/quiz/all/recent"><SFeedType selected={feedType === "quiz"}>퀴즈</SFeedType></Link>
-    <Link to="/feed/question/all/recent"><SFeedType selected={feedType === "question"}>문제</SFeedType></Link>
+    <Link to="/feed/quiz/all/recent/1"><SFeedType selected={feedType === "quiz"}>퀴즈</SFeedType></Link>
+    <Link to="/feed/question/all/recent/1"><SFeedType selected={feedType === "question"}>문제</SFeedType></Link>
   </FeedTypeWrapper>);
 }
 

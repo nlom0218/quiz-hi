@@ -33,8 +33,7 @@ const SeeType = ({ seeType, setPage }) => {
   const { type } = useParams()
   const history = useHistory()
   const onClickSeeType = (seeType) => {
-    history.push(`/feed/${type}/${seeType}/recent${location.search}`)
-    setPage(1)
+    history.push(`/feed/${type}/${seeType}/recent/1${location.search}`)
   }
   return (<SSeeType>
     <Wrapper selected={seeType === "all"} onClick={() => onClickSeeType("all")}>

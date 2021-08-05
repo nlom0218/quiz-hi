@@ -193,7 +193,7 @@ const CompletionQuiz = ({ quizTags, quizTitle, state, questionIdArr }) => {
         <CompleteMsg className="inputTitle">퀴즈가 생성 되었습니다.</CompleteMsg>
         <MovePageBtn>
           <SNavBtn onClick={() => window.location.reload()}>새로 만들기</SNavBtn>
-          <Link to="/feed" onClick={() => MoveTopScreen()}>
+          <Link to="/feed/quiz/all/recent/1" onClick={() => MoveTopScreen()}>
             <SNavBtn>
               퀴즈 피드
             </SNavBtn>

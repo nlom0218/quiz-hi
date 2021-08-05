@@ -1,4 +1,5 @@
 import React from 'react';
+import { useHistory, useLocation, useParams } from 'react-router';
 import styled from 'styled-components';
 
 const SPageBar = styled.div`
@@ -27,18 +28,29 @@ const PageBarBtn = styled.div`
   }
 `
 
-const PageBar = ({ page, lastPage, setPage }) => {
-  const onClickPageBtn = (type) => {
-    if (type === "pre") {
+const PageBar = ({ page, lastPage }) => {
+  const { type, seeType, sort } = useParams()
+  const location = useLocation()
+  const history = useHistory()
+  const onClickPageBtn = (btn) => {
+    if (btn === "pre") {
       if (page === 1) {
         return
       }
-      setPage(pre => pre - 1)
-    } else if (type === "next") {
+      if (location.search === "") {
+        history.push(`/feed/${type}/${seeType}/${sort}/${page - 1}`)
+      } else {
+        history.push(`/feed/${type}/${seeType}/${sort}/${page - 1}${location.search}`)
+      }
+    } else if (btn === "next") {
       if (lastPage === page) {
         return
       }
-      setPage(pre => pre + 1)
+      if (location.search === "") {
+        history.push(`/feed/${type}/${seeType}/${sort}/${page + 1}`)
+      } else {
+        history.push(`/feed/${type}/${seeType}/${sort}/${page + 1}${location.search}`)
+      }
     }
   }
   return (<SPageBar>

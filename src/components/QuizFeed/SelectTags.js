@@ -3,6 +3,7 @@ import { faMinusCircle, faPlus, faPlusCircle, faTag, faTags } from '@fortawesome
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
 import { useForm } from 'react-hook-form';
+import { useHistory, useLocation, useParams } from 'react-router';
 import styled from 'styled-components';
 import { fadeIn } from '../../animation/fade';
 import useUser from '../../hooks/useUser';
@@ -131,7 +132,10 @@ const FollowTagItem = styled.div`
   }
 `
 
-const SelectTags = ({ setTagsArr, tagsArr, setPage, refetch }) => {
+const SelectTags = ({ setTagsArr, tagsArr, refetch }) => {
+  const { type, seeType, sort, page } = useParams()
+  const location = useLocation()
+  const history = useHistory()
   const { register, handleSubmit, getValues, setValue } = useForm()
   const user = useUser()
   const onSubmit = () => {
@@ -142,14 +146,22 @@ const SelectTags = ({ setTagsArr, tagsArr, setPage, refetch }) => {
     }
     const newTagsArr = [...tagsArr, tag]
     setTagsArr(newTagsArr)
-    setPage(1)
+    if (location.search === "") {
+      history.push(`/feed/${type}/${seeType}/${sort}/1`)
+    } else {
+      history.push(`/feed/${type}/${seeType}/${sort}/1${location.search}`)
+    }
     // refetch()
     setValue("tag", "")
   }
   const onClickDelTag = (tag) => {
     const newTagsArr = tagsArr.filter((item) => item !== tag)
     setTagsArr(newTagsArr)
-    setPage(1)
+    if (location.search === "") {
+      history.push(`/feed/${type}/${seeType}/${sort}/1`)
+    } else {
+      history.push(`/feed/${type}/${seeType}/${sort}/1${location.search}`)
+    }
     // refetch()
   }
   const checkTag = (tag) => {
@@ -162,8 +174,12 @@ const SelectTags = ({ setTagsArr, tagsArr, setPage, refetch }) => {
   const onClickAddTag = (tag) => {
     const newTagsArr = [...tagsArr, tag]
     setTagsArr(newTagsArr)
-    setPage(1)
-    refetch()
+    if (location.search === "") {
+      history.push(`/feed/${type}/${seeType}/${sort}/1`)
+    } else {
+      history.push(`/feed/${type}/${seeType}/${sort}/1${location.search}`)
+    }
+    // refetch()
   }
   return (<Container>
     <SelectedTags>

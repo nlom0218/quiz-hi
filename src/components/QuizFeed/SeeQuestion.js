@@ -35,11 +35,10 @@ const SEE_QUESTION_QUERY = gql`
 
 
 const SeeQuestion = ({ feedType }) => {
-  const { seeType, sort } = useParams()
+  const { seeType, sort, page } = useParams()
   const query = useParameter()
   const search = query.get("search")
   const [putQuiz, setPutQuiz] = useState(true)
-  const [page, setPage] = useState(1)
   const [tagsArr, setTagsArr] = useState([])
   const [lastPage, setLastPage] = useState(1)
   useEffect(() => {
@@ -72,13 +71,12 @@ const SeeQuestion = ({ feedType }) => {
       feedType={feedType}
       sort={sort}
       setPutQuiz={setPutQuiz}
-      setPage={setPage}
-      page={page}
+      page={parseInt(page)}
       lastPage={lastPage}
       tagsArr={tagsArr}
       seeType={seeType}
     >
-      {seeType === "tags" && <SelectTags setTagsArr={setTagsArr} tagsArr={tagsArr} setPage={setPage} refetch={refetch} />}
+      {seeType === "tags" && <SelectTags setTagsArr={setTagsArr} tagsArr={tagsArr} refetch={refetch} />}
       <QuestionList
         {...data}
         loading={loading}

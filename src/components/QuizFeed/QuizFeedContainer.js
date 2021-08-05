@@ -118,9 +118,8 @@ const QuizFeedContainer = ({ children, feedType, sort, setPage, page, lastPage, 
     setSeeSortList(prev => !prev)
   }
   const onClickSortItem = (sort) => {
-    history.push(`/feed/${feedType}/${seeType}/${sort}${location.search}`)
+    history.push(`/feed/${feedType}/${seeType}/${sort}/1${location.search}`)
     setSeeSortList(prev => !prev)
-    setPage(1)
   }
   const checkPageBar = () => {
     if (seeType === "all") {
@@ -146,7 +145,7 @@ const QuizFeedContainer = ({ children, feedType, sort, setPage, page, lastPage, 
           />
         </form>
       </SearchBar>
-      {checkPageBar() ? <PageBar page={page} lastPage={lastPage} setPage={setPage} /> : null}
+      {checkPageBar() ? <PageBar page={page} lastPage={lastPage} /> : null}
       <SortBar>
         <Sort>{processSort(sort)}</Sort>
         <SortBtn onClick={onClickSortBtn}>

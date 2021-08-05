@@ -246,7 +246,7 @@ const DetailLayout = ({ id, children, title, question, user: { avatarURL, nickna
       <TagsList>
         {tags.map((item, index) => {
           return <React.Fragment key={index}>
-            <Link to={`/feed/tag/${item.id}`}> <TagItem>{item.name}</TagItem></Link>
+            <Link to={`/detail/tag/${item.id}`}> <TagItem>{item.name}</TagItem></Link>
           </React.Fragment>
         })}
       </TagsList>
