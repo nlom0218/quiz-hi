@@ -1,6 +1,7 @@
 import { faUser } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
+import { useHistory, useParams } from 'react-router';
 import styled from 'styled-components';
 import { processUserLevel } from '../../sharedFn';
 import LevelStep from '../LevelStep';
@@ -94,8 +95,10 @@ const NavBtn = styled.div`
     }
 `
 
-const TopProfile = ({ data, setProfileMode, profileMode }) => {
+const TopProfile = ({ data }) => {
   const { seeProfile: { id, username, nickname, email, avatarURL, type, score, isMe, isFollow, caption } } = data
+  const { mode } = useParams()
+  const history = useHistory()
   const userType = () => {
     if (type == "teacher") {
       return "선생님"
@@ -107,7 +110,11 @@ const TopProfile = ({ data, setProfileMode, profileMode }) => {
   }
   const level = processUserLevel(score)
   const onClickNavBtn = (mode) => {
-    setProfileMode(mode)
+    if (mode === "quizQuestion") {
+      history.push(`/profile/${username}/${mode}/public/quiz/1`)
+    } else {
+      history.push(`/profile/${username}/${mode}`)
+    }
   }
   const studentMode = () => {
     if (!isMe) {
@@ -138,29 +145,29 @@ const TopProfile = ({ data, setProfileMode, profileMode }) => {
     <UserLevel>
       {/* <LevelStep level={level} /> */}
     </UserLevel>
-    <FollowBtn isMe={isMe} isFollow={isFollow} username={username} id={id} setProfileMode={setProfileMode} />
+    <FollowBtn isMe={isMe} isFollow={isFollow} username={username} id={id} />
     {caption && <UserCaption>
       {caption}
     </UserCaption>}
     <ProfileNav>
       <NavBtn
-        onClick={() => onClickNavBtn("basic")}
-        seleted={profileMode === "basic" ? true : false}>프로필</NavBtn>
+        onClick={() => onClickNavBtn("info")}
+        seleted={mode === "basic" ? true : false}>프로필</NavBtn>
       <NavBtn
-        onClick={() => onClickNavBtn("quiz")}
-        seleted={profileMode === "quiz" ? true : false}>퀴즈 & 문제</NavBtn>
+        onClick={() => onClickNavBtn("quizQuestion")}
+        seleted={mode === "quizQuestion" ? true : false}>퀴즈 & 문제</NavBtn>
       <NavBtn
         onClick={() => onClickNavBtn("board")}
-        seleted={profileMode === "board" ? true : false}>게시물</NavBtn>
+        seleted={mode === "board" ? true : false}>게시물</NavBtn>
       {isMe &&
         <NavBtn onClick={() => onClickNavBtn("edit")}
-          seleted={profileMode === "edit" ? true : false}>프로필 수정</NavBtn>}
+          seleted={mode === "edit" ? true : false}>프로필 수정</NavBtn>}
       {isMe && <NavBtn
         onClick={() => onClickNavBtn("setting")}
-        seleted={profileMode === "setting" ? true : false}>QUIZ HI 설정</NavBtn>}
+        seleted={mode === "setting" ? true : false}>QUIZ HI 설정</NavBtn>}
       {studentMode() && <NavBtn
         onClick={() => onClickNavBtn("student")}
-        seleted={profileMode === "student" ? true : false}>학생 관리</NavBtn>}
+        seleted={mode === "student" ? true : false}>학생 관리</NavBtn>}
     </ProfileNav>
 
   </Container>);

@@ -39,16 +39,15 @@ const SEE_PROFILE_QUERY = gql`
 `
 
 const Profile = () => {
-  const { username } = useParams()
-  const [profileMode, setProfileMode] = useState("basic")
+  const { username, mode } = useParams()
   const { data, loading } = useQuery(SEE_PROFILE_QUERY, { variables: { username } })
   return (<React.Fragment>
     <Header />
     {loading ? <div>loading...</div> :
       <BasicContainer>
-        <TopProfile data={{ ...data }} setProfileMode={setProfileMode} profileMode={profileMode} />
-        {profileMode === "basic" && <BottomProfile><BasicProfile data={{ ...data }} /></BottomProfile>}
-        {profileMode === "quiz" && <BottomProfile><UserQuizQuestion data={{ ...data }} /></BottomProfile>}
+        <TopProfile data={{ ...data }} />
+        {mode === "info" && <BottomProfile><BasicProfile data={{ ...data }} /></BottomProfile>}
+        {mode === "quizQuestion" && <BottomProfile><UserQuizQuestion data={{ ...data }} /></BottomProfile>}
       </BasicContainer>
     }
     <NavBtn />

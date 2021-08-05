@@ -37,7 +37,8 @@ function App() {
           <Route path="/notice-board"><NoticeBoard /></Route>
           <Route path="/make-quiz">{user ? <MakeQuiz /> : <NotFound />}</Route>
           <Route path="/play-quiz">{user ? <PlayQuiz /> : <NotFound />}</Route>
-          <Route path="/profile/:username">{user ? <Profile /> : <NotFound />}</Route>
+          <Route path="/profile/:username/:mode/:state/:type/:page">{user ? <Profile /> : <NotFound />}</Route>
+          <Route path="/profile/:username/:mode">{user ? <Profile /> : <NotFound />}</Route>
           <Route path="/login"><Login /></Route>
           <Route path="/create-account"><CreateAccount /></Route>
           <Route path="/edit/:type/:id"><Edit /></Route>

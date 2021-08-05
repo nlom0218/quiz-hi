@@ -29,7 +29,7 @@ const PageBarBtn = styled.div`
 `
 
 const PageBar = ({ lastPage }) => {
-  let { type, seeType, sort, page, id } = useParams()
+  let { type, seeType, sort, page, id, state, username } = useParams()
   page = parseInt(page)
   const location = useLocation()
   const history = useHistory()
@@ -53,6 +53,14 @@ const PageBar = ({ lastPage }) => {
         } else {
           history.push(`/feed/${type}/${seeType}/${sort}/${page + 1}${location.search}`)
         }
+      }
+    } else if (state) {
+      if (btn === "pre") {
+        if (page === 1) { return }
+        history.push(`/profile/${username}/quizQuestion/${state}/${type}/${page - 1}`)
+      } else if (btn === "next") {
+        if (lastPage === page) { return }
+        history.push(`/profile/${username}/quizQuestion/${state}/${type}/${page + 1}`)
       }
     } else {
       if (btn === "pre") {

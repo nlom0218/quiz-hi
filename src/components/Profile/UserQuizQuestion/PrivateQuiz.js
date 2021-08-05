@@ -1,8 +1,8 @@
 import { useQuery } from '@apollo/client';
 import gql from 'graphql-tag';
 import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router';
 import QuizList from '../../QuizFeed/QuizList';
-import UseQuizQuestionLayout from './UseQuizQuestionLayout';
 
 const SEE_USER_PRIVATE_QUIZ_QUERY = gql`
   query seeUserPrivateQuiz($userId: Int!, $page: Int!) {
@@ -28,10 +28,8 @@ const SEE_USER_PRIVATE_QUIZ_QUERY = gql`
   }
 `
 
-const PrivateQuiz = ({ state, contents, totalNum, userId }) => {
-  const [page, setPage] = useState(1)
-  const [lastPage, setLastPage] = useState(null)
-  const [putQuiz, setPutQuiz] = useState(true)
+const PrivateQuiz = ({ totalNum, userId, setLastPage, setPutQuiz }) => {
+  const { page } = useParams()
   useEffect(() => {
     return () => setPutQuiz(false)
   }, [])
@@ -54,14 +52,7 @@ const PrivateQuiz = ({ state, contents, totalNum, userId }) => {
     },
     onCompleted
   })
-  return (<UseQuizQuestionLayout
-    state={state}
-    totalNum={totalNum}
-    contents={contents}
-    page={page}
-    lastPage={lastPage}
-    setPage={setPage}
-    setPutQuiz={setPutQuiz}
+  return (<React.Fragment
   >
     {loading ? <div>loading...</div> : <QuizList
       setPutQuiz={setPutQuiz}
@@ -69,7 +60,7 @@ const PrivateQuiz = ({ state, contents, totalNum, userId }) => {
       seeQuiz={{ quiz: data.seeUserPrivateQuiz }}
       edit={true}
     />}
-  </UseQuizQuestionLayout>);
+  </React.Fragment>);
 }
 
 export default PrivateQuiz;

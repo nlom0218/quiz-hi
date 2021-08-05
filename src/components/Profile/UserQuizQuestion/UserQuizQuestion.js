@@ -1,6 +1,7 @@
 import { faLock, faLockOpen } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useState } from 'react';
+import { useHistory, useParams } from 'react-router';
 import styled from 'styled-components';
 import useUser from '../../../hooks/useUser';
 import PrivateQuizQuestion from './PrivateQuizQuestion';
@@ -27,7 +28,8 @@ const State = styled.div`
 `
 
 const UserQuizQuestion = ({ data }) => {
-  const [state, setState] = useState("public")
+  const { mode, state, type, page, username } = useParams()
+  const history = useHistory()
   const { seeProfile: {
     id,
     totalPublicQuiz,
@@ -37,7 +39,7 @@ const UserQuizQuestion = ({ data }) => {
   } } = data
   const user = useUser()
   const onClickState = (state) => {
-    setState(state)
+    history.push(`/profile/${username}/${mode}/${state}/quiz/1`)
   }
   return (<Container>
     <QuizQestionState>

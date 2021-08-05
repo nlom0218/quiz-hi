@@ -108,7 +108,7 @@ const NavIcon = () => {
         </Icon>
         <Description>퀴즈 진행하기</Description>
       </Wapper>
-      <Wapper onClick={() => onClinkNavBtn(`profile/${user.username}`)}>
+      <Wapper onClick={() => onClinkNavBtn(`profile/${user?.username}/info`)}>
         <Icon>
           <FontAwesomeIcon icon={faUser} />
         </Icon>

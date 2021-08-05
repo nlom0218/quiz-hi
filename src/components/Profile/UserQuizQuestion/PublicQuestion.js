@@ -1,8 +1,8 @@
 import { useQuery } from '@apollo/client';
 import gql from 'graphql-tag';
 import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router';
 import QuestionList from '../../QuizFeed/QuestionList';
-import UseQuizQuestionLayout from './UseQuizQuestionLayout';
 
 const SEE_USER_PUBLIC_QUESTION_QUERY = gql`
   query seeUserPublicQuestion($userId: Int!, $page: Int!) {
@@ -28,10 +28,8 @@ const SEE_USER_PUBLIC_QUESTION_QUERY = gql`
   }
 `
 
-const PublicQuestion = ({ state, contents, totalNum, userId }) => {
-  const [page, setPage] = useState(1)
-  const [lastPage, setLastPage] = useState(null)
-  const [putQuiz, setPutQuiz] = useState(true)
+const PublicQuestion = ({ totalNum, userId, setLastPage, setPutQuiz }) => {
+  const { page } = useParams()
   useEffect(() => {
     return () => setPutQuiz(false)
   }, [])
@@ -54,21 +52,14 @@ const PublicQuestion = ({ state, contents, totalNum, userId }) => {
     },
     onCompleted
   })
-  return (<UseQuizQuestionLayout
-    state={state}
-    totalNum={totalNum}
-    contents={contents}
-    page={page}
-    lastPage={lastPage}
-    setPage={setPage}
-    setPutQuiz={setPutQuiz}>
+  return (<React.Fragment>
     {loading ? <div>loading...</div> : <QuestionList
       setPutQuiz={setPutQuiz}
       loading={loading}
       seeQuestion={{ question: data.seeUserPublicQuestion }}
       edit={true}
     />}
-  </UseQuizQuestionLayout>);
+  </React.Fragment>);
 }
 
 export default PublicQuestion;

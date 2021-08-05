@@ -203,7 +203,7 @@ const CompletionQuiz = ({ quizTags, quizTitle, state, questionIdArr }) => {
               퀴즈 진행하기
             </SNavBtn>
           </Link>
-          <Link to={`/profile/${user.username}`} onClick={() => MoveTopScreen()}>
+          <Link to={`/profile/${user?.username}/info`} onClick={() => MoveTopScreen()}>
             <SNavBtn>
               퀴즈 확인하기
             </SNavBtn>
