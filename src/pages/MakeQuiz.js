@@ -50,7 +50,7 @@ const MakeQuiz = () => {
             msg="문제의 유형을 선택한 후 문제와 정답을 입력하세요."
             key={index}
           >
-            <QuizFormLayout bgColor="rgb(231, 255, 188, 0.2)">
+            <QuizFormLayout>
               <MakeQuestionContainer
                 num={index + 1}
                 questionNum={questionNum}

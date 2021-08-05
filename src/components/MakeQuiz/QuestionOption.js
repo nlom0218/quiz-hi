@@ -9,6 +9,7 @@ const Option = styled.div`
   display: grid;
   grid-template-columns: 1fr;
   animation: ${fadeIn} 1s linear forwards;
+  row-gap: 60px;
 `
 
 const Wrapper = styled.div`
@@ -23,8 +24,7 @@ const QuestionOption = (
   return (<Option>
     <InputLayout>
       <span className="inputTitle">・ 힌트</span>
-      <span className="subMsg">힌트가 있나요?</span>
-      <span className="subMsg">아래에 힌트를 작성하세요.</span>
+      <span className="subMsg">힌트가 있나요? 아래에 힌트를 작성하세요.</span>
       <input
         {...register("hint")}
         type="text"

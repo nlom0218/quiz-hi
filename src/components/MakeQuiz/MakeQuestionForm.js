@@ -4,6 +4,10 @@ import { fadeIn } from '../../animation/fade';
 
 const SMakeQuestionForm = styled.form`
   animation: ${fadeIn} 0.6s ease forwards;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: auto;
+  row-gap: 60px;
 `
 
 const MakeQuestionForm = ({ children, onSubmit }) => {

@@ -22,7 +22,7 @@ const TFBtn = styled.div`
     justify-content: center;
     align-items: center;
     background-color: rgb(200, 200, 200, 0.6);
-    opacity: ${props => props.opacity ? 1 : 0.4};
+    opacity: ${props => props.selected ? 1 : 0.4};
     font-size: 20px;
     padding: 10px 0px;
     border-radius: 5px;
@@ -115,11 +115,11 @@ const TFQuestion = ({ quizTags, quizType, setQuestionIdArr, questionIdArr, setNe
       <SeletBox>
         <TFBtn
           onClick={() => onClickTFBtn("true")}
-          opacity={answer === "true"}
+          selected={answer === "true"}
         >○</TFBtn>
         <TFBtn
           onClick={() => onClickTFBtn("false")}
-          opacity={answer === "false"}
+          selected={answer === "false"}
         >✕</TFBtn>
       </SeletBox>
     </InputLayout>

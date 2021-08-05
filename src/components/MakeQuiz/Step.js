@@ -16,9 +16,10 @@ const Layout = styled.div`
 `
 
 const Title = styled.div`
-  font-size: 20px;
+  font-size: 16px;
   margin-bottom: 5px;
   letter-spacing: 5px;
+  font-weight: 600;
 `
 
 const Msg = styled.div`

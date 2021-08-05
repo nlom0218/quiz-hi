@@ -11,12 +11,12 @@ const SMakeQuestionContainer = styled.div`
   display: grid;
   grid-template-columns: 1fr;
   grid-template-rows: auto;
+  row-gap: 30px;
 `
 
 const QuestionNum = styled.div`
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 600;
-  margin-bottom: 20px;
 `
 
 const QuestionType = styled.div`
@@ -26,9 +26,7 @@ const QuestionType = styled.div`
   span {
     grid-column: 1 / -1;
     margin-bottom: 15px;
-    font-size: 18px;
   }
-  margin-bottom: 30px;
 `
 
 const Types = styled.div`
@@ -39,7 +37,6 @@ const Types = styled.div`
    align-items: center;
    svg {
      margin-right: 10px;
-     font-size: 16px;
      cursor: pointer;
    }
 `
@@ -48,13 +45,12 @@ const QuizSaveMsg = styled.div`
     animation: ${fadeIn} 0.6s linear forwards;
     .mainMsg{
       margin-bottom: 15px;
-      font-size: 18px;
+      font-size: 16px;
       font-weight: 600;
     }
     .subMsg {
       color: tomato;
     }
-    margin-bottom: 30px;
 `
 
 const MakeQuestionContainer = ({ quizTags, setQuestionIdArr, questionIdArr, questionNum, setQuestionNum, num, imageId, setMakeQuiz, state }) => {

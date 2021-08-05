@@ -20,7 +20,7 @@ const Textarea = styled.textarea`
 const QuestionTextarea = ({ register, nextMode }) => {
   return (<Textarea
     cols={20}
-    rows={3}
+    rows={5}
     {...register("question", {
       required: true
     })}

@@ -2,7 +2,7 @@ import { useMutation } from '@apollo/client';
 import gql from 'graphql-tag';
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 import { fadeIn } from '../../animation/fade';
 import useUser from '../../hooks/useUser';
@@ -15,6 +15,7 @@ const SCompletionQuizForm = styled.form`
   display: grid;
   grid-template-columns: 1fr;
   grid-template-rows: auto;
+  row-gap: 60px;
   animation: ${fadeIn} 0.8s linear forwards;
 `
 
@@ -42,11 +43,6 @@ const Wrapper = styled.div`
   column-gap: 30px;
 `
 
-const CompleteMsg = styled.div`
-  font-size: 18px;
-  margin-bottom: 10px;
-`
-
 const MovePageBtn = styled.div`
   animation: ${fadeIn} 0.6s linear forwards;
   margin-top: 10px;
@@ -55,6 +51,12 @@ const MovePageBtn = styled.div`
   grid-template-columns: repeat(4, 1fr);
   column-gap: 30px;
   justify-items: center;
+  row-gap: 20px;
+`
+
+const CompleteMsg = styled.div`
+  grid-column: 1 / -1;
+  justify-self: flex-start;
 `
 
 const SNavBtn = styled.div`
@@ -96,6 +98,7 @@ const CREATE_QUIZ_MUTATION = gql`
 
 const CompletionQuiz = ({ quizTags, quizTitle, state, questionIdArr }) => {
   const user = useUser()
+  const history = useHistory()
   const num = questionIdArr.length
   const [complete, setComplete] = useState(false)
   const onCompleted = (result) => {
@@ -123,13 +126,14 @@ const CompletionQuiz = ({ quizTags, quizTitle, state, questionIdArr }) => {
     onCompleted,
     update
   })
-  const { handleSubmit, register } = useForm()
+  const { handleSubmit, register, formState: { isValid } } = useForm({
+    mode: "onChange"
+  })
   const onSubmit = (data) => {
     if (loading) {
       return
     }
     const { question: caption } = data
-    console.log(caption);
     const questionString = questionIdArr.join(",")
     const tags = [...quizTags].join(",")
     createQuiz({
@@ -141,6 +145,10 @@ const CompletionQuiz = ({ quizTags, quizTitle, state, questionIdArr }) => {
         caption
       }
     })
+  }
+  const onClickPageBtn = (page) => {
+    history.push(page)
+    window.location.reload()
   }
   return (<SCompletionQuizForm onSubmit={handleSubmit(onSubmit)}>
     <InputLayout>
@@ -190,29 +198,29 @@ const CompletionQuiz = ({ quizTags, quizTitle, state, questionIdArr }) => {
     </InputLayout>
     {complete ?
       <React.Fragment>
-        <CompleteMsg className="inputTitle">퀴즈가 생성 되었습니다.</CompleteMsg>
         <MovePageBtn>
+          <CompleteMsg className="inputTitle">・ 퀴즈가 생성 되었습니다.</CompleteMsg>
           <SNavBtn onClick={() => window.location.reload()}>새로 만들기</SNavBtn>
-          <Link to="/feed/quiz/all/recent/1" onClick={() => MoveTopScreen()}>
+          <div onClick={() => onClickPageBtn("/feed/quiz/all/recent/1")}>
             <SNavBtn>
               퀴즈 피드
             </SNavBtn>
-          </Link>
-          <Link to="/paly-quiz" onClick={() => MoveTopScreen()}>
+          </div>
+          <div onClick={() => onClickPageBtn("/paly-quiz")}>
             <SNavBtn>
               퀴즈 진행하기
             </SNavBtn>
-          </Link>
-          <Link to={`/profile/${user?.username}/quizQuestion/public/quiz/1`} onClick={() => MoveTopScreen()}>
+          </div>
+          <div onClick={() => onClickPageBtn(`/profile/${user?.username}/quizQuestion/${state}/quiz/1`)}>
             <SNavBtn>
               퀴즈 확인하기
             </SNavBtn>
-          </Link>
+          </div>
         </MovePageBtn>
       </React.Fragment>
       :
       <InputBtn
-        disabled={false}
+        disabled={!isValid}
         value={loading ? "퀴즈 만드는 중..." : "퀴즈 만들기"}
       />}
   </SCompletionQuizForm>);

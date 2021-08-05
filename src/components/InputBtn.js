@@ -14,9 +14,9 @@ const SInputBtn = styled.input`
   cursor: pointer;
 `
 
-const InputBtn = ({ disabled, value, bgColor }) => {
+const InputBtn = ({ disabled, value }) => {
   return (
-    <SInputBtn type="submit" value={value} disabled={disabled} bgColor={bgColor} />
+    <SInputBtn type="submit" value={value} disabled={disabled} />
   );
 }
 

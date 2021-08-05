@@ -6,7 +6,6 @@ import styled from 'styled-components';
 const SOptionTitle = styled.div`
   grid-column: 1 / -1;
   font-size: 18px;
-  margin-bottom: 20px;
   svg {
     margin-left: 10px;
     font-size: 24px;

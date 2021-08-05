@@ -4,10 +4,9 @@ import styled from 'styled-components';
 const SInputLayout = styled.div`
   display: flex;
   flex-direction: column;
-  margin-bottom: 30px;
   .inputTitle {
     margin-bottom: 10px;
-    font-size: 18px;
+    font-size: 16px;
   }
   .subMsg {
     margin-bottom: 5px;
