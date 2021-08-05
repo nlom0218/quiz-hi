@@ -241,7 +241,7 @@ const QuestionItem = (
       <QuizTagList>
         {tags.map((item, index) => {
           return <React.Fragment key={index}>
-            <Link to={`/detail/tag/${item.id}`}><QuizTag>{item.name}</QuizTag></Link>
+            <Link to={`/detail/tag/${item.id}/quiz/recent/1`}><QuizTag>{item.name}</QuizTag></Link>
           </React.Fragment>
         })}
       </QuizTagList>

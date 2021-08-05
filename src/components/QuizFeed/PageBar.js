@@ -28,28 +28,39 @@ const PageBarBtn = styled.div`
   }
 `
 
-const PageBar = ({ page, lastPage }) => {
-  const { type, seeType, sort } = useParams()
+const PageBar = ({ lastPage }) => {
+  let { type, seeType, sort, page, id } = useParams()
+  page = parseInt(page)
   const location = useLocation()
   const history = useHistory()
   const onClickPageBtn = (btn) => {
-    if (btn === "pre") {
-      if (page === 1) {
-        return
+    if (seeType) {
+      if (btn === "pre") {
+        if (page === 1) {
+          return
+        }
+        if (location.search === "") {
+          history.push(`/feed/${type}/${seeType}/${sort}/${page - 1}`)
+        } else {
+          history.push(`/feed/${type}/${seeType}/${sort}/${page - 1}${location.search}`)
+        }
+      } else if (btn === "next") {
+        if (lastPage === page) {
+          return
+        }
+        if (location.search === "") {
+          history.push(`/feed/${type}/${seeType}/${sort}/${page + 1}`)
+        } else {
+          history.push(`/feed/${type}/${seeType}/${sort}/${page + 1}${location.search}`)
+        }
       }
-      if (location.search === "") {
-        history.push(`/feed/${type}/${seeType}/${sort}/${page - 1}`)
-      } else {
-        history.push(`/feed/${type}/${seeType}/${sort}/${page - 1}${location.search}`)
-      }
-    } else if (btn === "next") {
-      if (lastPage === page) {
-        return
-      }
-      if (location.search === "") {
-        history.push(`/feed/${type}/${seeType}/${sort}/${page + 1}`)
-      } else {
-        history.push(`/feed/${type}/${seeType}/${sort}/${page + 1}${location.search}`)
+    } else {
+      if (btn === "pre") {
+        if (page === 1) { return }
+        history.push(`/detail/tag/${id}/${type}/${sort}/${page - 1}`)
+      } else if (btn === "next") {
+        if (lastPage === page) { return }
+        history.push(`/detail/tag/${id}/${type}/${sort}/${page + 1}`)
       }
     }
   }

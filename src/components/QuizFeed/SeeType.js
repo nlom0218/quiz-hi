@@ -28,7 +28,7 @@ const SeeText = styled.div`
   margin-left: 5px;
 `
 
-const SeeType = ({ seeType, setPage }) => {
+const SeeType = ({ seeType }) => {
   const location = useLocation()
   const { type } = useParams()
   const history = useHistory()

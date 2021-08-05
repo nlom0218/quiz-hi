@@ -33,7 +33,7 @@ function App() {
           <Route path="/feed/:type/:seeType/:sort/:page"><Feed /></Route>
           <Route path="/detail/quiz/:id"><FeedQuiz /></Route>
           <Route path="/detail/question/:id"><FeedQuestion /></Route>
-          <Route path="/detail/tag/:id/:quizPage/:questionPage"><FeedTag /></Route>
+          <Route path="/detail/tag/:id/:type/:sort/:page"><FeedTag /></Route>
           <Route path="/notice-board"><NoticeBoard /></Route>
           <Route path="/make-quiz">{user ? <MakeQuiz /> : <NotFound />}</Route>
           <Route path="/play-quiz">{user ? <PlayQuiz /> : <NotFound />}</Route>

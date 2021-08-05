@@ -1,6 +1,7 @@
 import { useQuery } from '@apollo/client';
 import gql from 'graphql-tag';
 import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router';
 import QuestionList from '../QuizFeed/QuestionList';
 import TagQuizQuestionLayout from './TagQuizQuestionLayout';
 
@@ -28,8 +29,7 @@ const SEE_TAG_QUESTION_QUERY = gql`
 `
 
 const TagQuestion = ({ id, totalQuestions }) => {
-  const [type, setType] = useState("recent")
-  const [page, setPage] = useState(1)
+  const { page, sort } = useParams()
   const [lastPage, setLastPage] = useState(null)
   const [putQuiz, setPutQuiz] = useState(true)
   useEffect(() => {
@@ -49,7 +49,7 @@ const TagQuestion = ({ id, totalQuestions }) => {
   }
   const { data, loading, refetch } = useQuery(SEE_TAG_QUESTION_QUERY, {
     variables: {
-      type,
+      type: sort,
       page: parseInt(page),
       id
     },
@@ -58,11 +58,8 @@ const TagQuestion = ({ id, totalQuestions }) => {
   return (
     <TagQuizQuestionLayout
       setPutQuiz={setPutQuiz}
-      page={page}
+      page={parseInt(page)}
       lastPage={lastPage}
-      setPage={setPage}
-      setType={setType}
-      type={type}
       refetch={refetch}
       contents="question"
     >

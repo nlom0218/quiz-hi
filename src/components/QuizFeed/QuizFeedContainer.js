@@ -93,7 +93,7 @@ const SortItem = styled.li`
   align-items: center;
 `
 
-const QuizFeedContainer = ({ children, feedType, sort, setPage, page, lastPage, tagsArr, seeType, setPutQuiz }) => {
+const QuizFeedContainer = ({ children, feedType, sort, page, lastPage, tagsArr, seeType, setPutQuiz }) => {
   const location = useLocation()
   const [seeSortList, setSeeSortList] = useState(false)
   const { register, handleSubmit } = useForm()
@@ -132,7 +132,7 @@ const QuizFeedContainer = ({ children, feedType, sort, setPage, page, lastPage, 
   }
   return (<SQuizFeedContainer className="feedContainer">
     <QuizFeedBottomContainerGsap />
-    <SeeType seeType={seeType} setPage={setPage} />
+    <SeeType seeType={seeType} />
     <TopBar>
       <SearchBar>
         <form onSubmit={handleSubmit(onSubmit)}>
@@ -145,7 +145,7 @@ const QuizFeedContainer = ({ children, feedType, sort, setPage, page, lastPage, 
           />
         </form>
       </SearchBar>
-      {checkPageBar() ? <PageBar page={page} lastPage={lastPage} /> : null}
+      {checkPageBar() ? <PageBar lastPage={lastPage} /> : null}
       <SortBar>
         <Sort>{processSort(sort)}</Sort>
         <SortBtn onClick={onClickSortBtn}>
