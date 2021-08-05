@@ -43,10 +43,10 @@ const Info = styled.div`
 const EditBtn = styled.div`
   font-size: 14px;
   cursor: pointer;
+  margin-left: 20px;
 `
 
 const Likes = styled.div`
-  margin-right: 20px;
   svg {
     margin-right: 10px;
     transition: color 0.5s linear;
@@ -56,7 +56,7 @@ const Likes = styled.div`
 `
 
 const Hits = styled.div`
-    margin-right: 20px;
+    margin-left: 20px;
 `
 
 const Title = styled.div`
