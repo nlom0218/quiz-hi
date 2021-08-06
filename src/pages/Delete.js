@@ -2,6 +2,7 @@ import React from 'react';
 import { useParams } from 'react-router';
 import styled from 'styled-components';
 import BasicContainer from '../components/BasicContainer';
+import DeleteContainer from '../components/Delete/DeleteContainer';
 import DeleteQuestion from '../components/Delete/DeleteQuestion';
 import DeleteQuiz from '../components/Delete/DeleteQuiz';
 import Header from '../components/Header';
@@ -17,8 +18,9 @@ const Delete = () => {
     <Header />
     <BasicContainer>
       <Contnaer>
-        {type === "quiz" && <DeleteQuiz />}
-        {type === "question" && <DeleteQuestion />}
+        <DeleteContainer />
+        {/* {type === "quiz" && <DeleteQuiz />}
+        {type === "question" && <DeleteQuestion />} */}
       </Contnaer>
     </BasicContainer>
     <NavBtn />

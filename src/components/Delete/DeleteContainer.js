@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import gql from 'graphql-tag';
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { useParams } from 'react-router';
 import styled from 'styled-components';
 import { fadeIn } from '../../animation/fade';
 import InputLayout from '../MakeQuiz/InputLayout';
@@ -68,7 +69,8 @@ const CONFIRM_PASSWORD_MUTATION = gql`
   }
 `
 
-const DeleteQuiz = () => {
+const DeleteContainer = () => {
+  const { type } = useParams()
   const { register, handleSubmit, formState: { isValid } } = useForm({
     mode: "onChange"
   })
@@ -106,7 +108,7 @@ const DeleteQuiz = () => {
   }
   return (<Container>
     <PageTitle>
-      <FontAwesomeIcon icon={faTrash} />퀴즈 삭제
+      <FontAwesomeIcon icon={faTrash} />{type === "quiz" ? "퀴즈" : "문제"} 삭제
     </PageTitle>
     <DeleteMsg>
       <div className="delMsg">∙ 삭제된 퀴즈 / 문제는 다시 복구되지 않습니다.</div>
@@ -134,4 +136,4 @@ const DeleteQuiz = () => {
   </Container>);
 }
 
-export default DeleteQuiz;
+export default DeleteContainer;

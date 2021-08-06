@@ -37,6 +37,9 @@ const EmailBtn = styled.button`
   border-radius: 5px;
   transition: opacity 0.6s linear;
   cursor: pointer;
+  div {
+    font-size: 12px;
+  }
 `
 
 const PlatForm = styled.div`
@@ -61,6 +64,7 @@ const EmailForm = ({ setDoneConfirm, setError, setEmail }) => {
   const [confirmNum, setConfirmNum] = useState("")
   const [sendEmail, setSendEmail] = useState(false)
   const [platform, setPlatForm] = useState("")
+  const [sending, setSending] = useState(false)
   const { register, handleSubmit, formState: { isValid }, setValue } = useForm({
     mode: "onChange"
   })
@@ -69,6 +73,7 @@ const EmailForm = ({ setDoneConfirm, setError, setEmail }) => {
     console.log(email);
     const randomNum = Math.floor(Math.random() * 1000000)
     setConfirmNum(randomNum)
+    setSending(true)
     emailjs.send(
       "service_y3st5zf",
       "template_9ibugnm",
@@ -79,6 +84,7 @@ const EmailForm = ({ setDoneConfirm, setError, setEmail }) => {
       "user_sJAAszXnKTFqusb3xguHm")
       .then((result) => {
         setSendEmail(true)
+        setSending(false)
         setEmail(email)
         setPlatForm(email.split("@").reverse()[0])
       }, (error) => {
@@ -102,7 +108,7 @@ const EmailForm = ({ setDoneConfirm, setError, setEmail }) => {
           autoComplete="off"
         />
         <EmailBtn type="submit" disabled={!isValid || sendEmail} >
-          <FontAwesomeIcon icon={faPaperPlane} />
+          {sending ? <div>전송중...</div> : <FontAwesomeIcon icon={faPaperPlane} />}
         </EmailBtn>
       </Form>
       {sendEmail &&
