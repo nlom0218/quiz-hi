@@ -36,6 +36,11 @@ const EditQuizForm = ({ title, caption, tags, user: { id: ownerId } }) => {
   const user = useUser()
   const history = useHistory()
   useEffect(() => {
+    if (!user) {
+      alert("잘못된 접근입니다.")
+      history.push("/")
+      return
+    }
     if (user.id !== ownerId) {
       alert("잘못된 접근입니다.")
       history.push("/")

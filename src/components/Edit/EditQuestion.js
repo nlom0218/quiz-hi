@@ -57,6 +57,7 @@ const DETAIL_QUESTION_QUERY = gql`
 
 const EditQuestion = () => {
   const { id } = useParams()
+  const user = useUser()
   const { data, loading } = useQuery(DETAIL_QUESTION_QUERY, { variables: { id: parseInt(id) } })
   return (<Container>
     <PageTitle>

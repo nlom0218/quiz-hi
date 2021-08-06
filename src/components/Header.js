@@ -4,7 +4,7 @@ import { faSearch, faMoon, faPencilAlt, faPlay, faUser, faSignOutAlt, faSun, faS
 import { faClipboard, faListAlt } from "@fortawesome/free-regular-svg-icons"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import headerNav from "../animation/headerNav"
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { useReactiveVar } from '@apollo/client';
 import { darkModeVar, disableDarkMode, enableDarkMode, isLoggedInVar, logOutUser } from '../apollo';
 import useUser from '../hooks/useUser';
@@ -61,6 +61,7 @@ const AvatarImage = styled.img`
 `
 
 const Header = () => {
+  const history = useHistory()
   const darkMode = useReactiveVar(darkModeVar)
   const isLoggedIn = useReactiveVar(isLoggedInVar)
   const user = useUser()
@@ -72,6 +73,7 @@ const Header = () => {
     }
   }
   const onClickAccount = () => {
+    history.push("/")
     logOutUser()
   }
   const profileIcon = () => {
