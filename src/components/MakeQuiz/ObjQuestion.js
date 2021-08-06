@@ -28,11 +28,27 @@ const DistractorBox = styled.div`
     cursor: pointer;
     }
   }
+  textarea {
+    width: 100%;
+    resize: none;
+    border: none;
+    font-size: 16px;
+    border-radius: 5px;
+    padding: 10px 20px;
+    color: ${props => props.theme.fontColor};
+    background-color: rgb(200, 200, 200, 0.2);
+    transition: box-shadow 0.4s linear, color 1s ease;
+    :focus {
+      box-shadow: 0 0 1px 0.5px ${props => props.theme.fontColor};
+      outline: none;
+    }
+  }
 `
 
 const DistractorNum = styled.div`
   justify-self: center;
-  align-self: center;
+  align-self: flex-start;
+  margin-top: 10px;
 `
 
 const CREATE_QUESTION_MUTATION = gql`
@@ -137,14 +153,14 @@ const SubQuestion = ({ quizTags, quizType, setQuestionIdArr, questionIdArr, setN
         {[1, 2, 3, 4].map((item) => {
           return <div className="distractorWrapper" key={item}>
             <DistractorNum>{item}번</DistractorNum>
-            <input
+            <textarea
               {...register(`distractor${item}`, {
                 required: true
               })}
-              type="text"
-              autoComplete="off"
+              cols={20}
+              rows={2}
               readOnly={nextMode !== "" && "readOnly"}
-            />
+            ></textarea>
             <FontAwesomeIcon
               onClick={() => onClickAnswer(item)}
               icon={checkAnswer(item) ? faCheckCircle : faCircle}

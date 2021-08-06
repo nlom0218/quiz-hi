@@ -1,9 +1,10 @@
 import { useMutation } from '@apollo/client';
 import gql from 'graphql-tag';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useHistory, useParams } from 'react-router';
 import styled from 'styled-components';
+import useUser from '../../hooks/useUser';
 import InputBtn from '../InputBtn';
 import EditInputLayout from './EditInputLayout';
 import EditTagInput from './EditTagInput';
@@ -30,9 +31,16 @@ const EDIT_QUIZ_MUTATION = gql`
   }
 `
 
-const EditQuizForm = ({ title, caption, tags }) => {
+const EditQuizForm = ({ title, caption, tags, user: { id: ownerId } }) => {
   const { id } = useParams()
+  const user = useUser()
   const history = useHistory()
+  useEffect(() => {
+    if (user.id !== ownerId) {
+      alert("잘못된 접근입니다.")
+      history.push("/")
+    }
+  }, [])
   const [quizTags, setQuizTags] = useState(tags.map((item) => item.name))
   const { register, formState: { isValid }, handleSubmit, getValues, setValue } = useForm({
     mode: "onChange",

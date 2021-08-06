@@ -61,7 +61,6 @@ const DETAIL_QUIZ_QUERY = gql`
 const EditQuiz = () => {
   const { id } = useParams()
   const { data, loading } = useQuery(DETAIL_QUIZ_QUERY, { variables: { id: parseInt(id) } })
-  console.log(data);
   return (<Container>
     <PageTitle><FontAwesomeIcon icon={faEdit} />퀴즈 수정</PageTitle>
     {loading ? <div>Loading...</div> : <EditQuizForm {...data.detailQuiz} />}
