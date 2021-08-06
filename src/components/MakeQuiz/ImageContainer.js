@@ -67,9 +67,9 @@ const ImageContainer = ({ register, setValue, setImage, nextMode, imageId, previ
     <span className="subMsg">이미지가 필요하나요?</span>
     <span className="subMsg">아래의 박스를 눌러 이미지를 불러오세요.</span>
     {nextMode === "" ? <ImageLabel htmlFor={imageId}>
-      사진선택하기<FontAwesomeIcon icon={faImage} />
+      이미지 선택하기<FontAwesomeIcon icon={faImage} />
     </ImageLabel> :
-      <PreviewMsg>사진미리보기<FontAwesomeIcon icon={faImage} /></PreviewMsg>
+      <PreviewMsg>이미지 미리보기<FontAwesomeIcon icon={faImage} /></PreviewMsg>
     }
     <input
       {...register("image")}
