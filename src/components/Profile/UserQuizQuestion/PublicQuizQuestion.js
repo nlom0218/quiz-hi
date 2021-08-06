@@ -44,9 +44,6 @@ const PublicQuizQuestion = ({ totalPublicQuiz, totalPublicQuestion, userId }) =>
   const history = useHistory()
   const [lastPage, setLastPage] = useState(null)
   const [putQuiz, setPutQuiz] = useState(true)
-  useEffect(() => {
-    return setPutQuiz(false)
-  }, [])
   const onClickTagType = (type) => {
     history.push(`/profile/${username}/${mode}/${state}/${type}/1`)
   }

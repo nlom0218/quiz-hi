@@ -1,6 +1,6 @@
 import { useQuery } from '@apollo/client';
 import gql from 'graphql-tag';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { useParams } from 'react-router';
 import QuizList from '../../QuizFeed/QuizList';
 
@@ -30,9 +30,6 @@ const SEE_USER_PUBLIC_QUIZ_QUERY = gql`
 
 const PublicQuiz = ({ totalNum, userId, setLastPage, setPutQuiz }) => {
   const { page } = useParams()
-  useEffect(() => {
-    return () => setPutQuiz(false)
-  }, [])
   const onCompleted = () => {
     if (totalNum === 0) {
       setLastPage(1)
@@ -45,7 +42,7 @@ const PublicQuiz = ({ totalNum, userId, setLastPage, setPutQuiz }) => {
     const lastPage = Math.floor(totalNum / 10) + 1
     setLastPage(lastPage)
   }
-  const { data, loading, refetch } = useQuery(SEE_USER_PUBLIC_QUIZ_QUERY, {
+  const { data, loading } = useQuery(SEE_USER_PUBLIC_QUIZ_QUERY, {
     variables: {
       page: parseInt(page),
       userId

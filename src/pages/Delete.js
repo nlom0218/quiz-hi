@@ -3,8 +3,6 @@ import { useParams } from 'react-router';
 import styled from 'styled-components';
 import BasicContainer from '../components/BasicContainer';
 import DeleteContainer from '../components/Delete/DeleteContainer';
-import DeleteQuestion from '../components/Delete/DeleteQuestion';
-import DeleteQuiz from '../components/Delete/DeleteQuiz';
 import Header from '../components/Header';
 import NavBtn from '../components/NavBtn';
 

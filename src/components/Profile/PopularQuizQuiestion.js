@@ -2,7 +2,7 @@ import { useMutation, useQuery } from '@apollo/client';
 import { faBook, faBookOpen, faFire, faHeart } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import gql from 'graphql-tag';
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 import PopularQuestionItem from './PopularQuestionItem';

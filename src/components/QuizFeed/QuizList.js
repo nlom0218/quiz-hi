@@ -19,7 +19,7 @@ const NotFoundData = styled.div`
   color: tomato;
 `
 
-const QuizList = ({ setPutQuiz, loading, seeQuiz, edit }) => {
+const QuizList = ({ setPutQuiz, loading, seeQuiz, edit, }) => {
   const noData = () => {
     if (!seeQuiz || seeQuiz.quiz.length === 0) {
       return true

@@ -30,9 +30,6 @@ const SEE_USER_PRIVATE_QUESTION_QUERY = gql`
 
 const PrivateQuestion = ({ totalNum, userId, setLastPage, setPutQuiz }) => {
   const { page } = useParams()
-  useEffect(() => {
-    return () => setPutQuiz(false)
-  }, [])
   const onCompleted = () => {
     if (totalNum === 0) {
       setLastPage(1)

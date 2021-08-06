@@ -3,7 +3,7 @@ import { faHeart } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import gql from 'graphql-tag';
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 
 const ContentItem = styled.li`
@@ -12,6 +12,9 @@ const ContentItem = styled.li`
   svg {
     color: tomato;
     margin-right: 10px;
+  }
+  .contentTitle{
+    cursor: pointer;
   }
 `
 
@@ -25,6 +28,7 @@ const UPDATE_HIT_MUTATION = gql`
 `
 
 const PopularQuestionItem = ({ id, question, likes, index }) => {
+  const history = useHistory()
   const update = (cache, result) => {
     const { data: { updateHit: { ok } } } = result
     if (ok) {
@@ -37,7 +41,7 @@ const PopularQuestionItem = ({ id, question, likes, index }) => {
           }
         }
       })
-
+      history.push(`/detail/question/${id}`)
     }
   }
   const [updateHit] = useMutation(UPDATE_HIT_MUTATION, {
@@ -47,12 +51,13 @@ const PopularQuestionItem = ({ id, question, likes, index }) => {
     },
     update
   })
+  const onClickTitle = () => {
+    updateHit()
+  }
   return (<ContentItem>
-    <Link to={`/detail/question/${id}`} onClick={updateHit}>
-      <div className="contentTitle">
-        {index + 1}. {question.length > 10 ? `${question.substring(0, 10)}...` : question}
-      </div>
-    </Link>
+    <div className="contentTitle" onClick={onClickTitle}>
+      {index + 1}. {question.length > 10 ? `${question.substring(0, 10)}...` : question}
+    </div>
     <div className="contentLikes"><FontAwesomeIcon icon={faHeart} />{likes}</div>
   </ContentItem>);
 }
