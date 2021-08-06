@@ -1,9 +1,10 @@
 import { useQuery } from '@apollo/client';
-import { faEdit } from '@fortawesome/free-solid-svg-icons';
+import { faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import gql from 'graphql-tag';
 import React from 'react';
 import { useParams } from 'react-router';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import useUser from '../../hooks/useUser';
 import EditQuestionForm from './EditQuestionForm';
@@ -21,6 +22,15 @@ const PageTitle = styled.div`
   font-weight: 600;
   svg {
     margin-right: 10px;
+  }
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  .delBtn {
+    font-size: 16px;
+    color: tomato;
+    border: 1px solid tomato;
+    padding: 5px 10px;
   }
 `
 
@@ -47,10 +57,12 @@ const DETAIL_QUESTION_QUERY = gql`
 
 const EditQuestion = () => {
   const { id } = useParams()
-  const user = useUser()
   const { data, loading } = useQuery(DETAIL_QUESTION_QUERY, { variables: { id: parseInt(id) } })
   return (<Container>
-    <PageTitle><FontAwesomeIcon icon={faEdit} />문제 수정</PageTitle>
+    <PageTitle>
+      <div><FontAwesomeIcon icon={faEdit} />문제 수정</div>
+      <Link className="delBtn" to={`/delete/question/${id}`}><FontAwesomeIcon icon={faTrash} />문제 삭제</Link>
+    </PageTitle>
     {loading ? <div>Loading...</div> : <EditQuestionForm {...data.detailQuestion} />}
   </Container>);
 }
