@@ -20,6 +20,30 @@ const InputTitle = styled.div`
   
 `
 
+const Wrapper = styled.div`
+  display: grid;
+  grid-template-columns: 1fr;
+  row-gap: 20px;
+`
+
+const ActionBtn = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+`
+
+const DelBtn = styled.input`
+  cursor: pointer;
+`
+
+const AllCkeckBtn = styled.div`
+  margin-right: 21px;
+  svg {
+    margin-left: 10px;
+    cursor: pointer;
+  }
+`
+
 const QuestionsList = styled.ul`
   display: grid;
   grid-template-columns: 1fr;
@@ -92,6 +116,15 @@ const EditQuestions = ({ questions }) => {
     }
   }
   const onClickCheckBtn = (id) => {
+    if (id === "all") {
+      const questionsIdArr = questions.map((item) => item.id)
+      if (questionsIdArr.every((item) => delQuestions.includes(item))) {
+        setDelQuestions([])
+      } else {
+        setDelQuestions(questionsIdArr)
+      }
+      return
+    }
     let newDelQuestions = []
     if (delQuestions.includes(id)) {
       newDelQuestions = delQuestions.filter((item) => id !== item)
@@ -100,7 +133,15 @@ const EditQuestions = ({ questions }) => {
     }
     setDelQuestions(newDelQuestions)
   }
-  const ckeckDelQuestions = (id) => {
+  const checkDelQuestions = (id) => {
+    if (id === "all") {
+      const questionsIdArr = questions.map((item) => item.id)
+      if (questionsIdArr.every((item) => delQuestions.includes(item))) {
+        return true
+      } else {
+        return false
+      }
+    }
     if (delQuestions.includes(id)) {
       return true
     } else {
@@ -114,36 +155,48 @@ const EditQuestions = ({ questions }) => {
           <InputTitle>퀴즈 문제 삭제하기</InputTitle>
           {questions.length === 0 ? <div>등록된 퀴즈가 없습니다.</div>
             :
-            <QuestionsList>
-              {questions.map((item, index) => {
-                return <QUestionsItem key={index}>
-                  <div className="questionWrapper">
-                    <div className="question">
-                      {item.question.length > 40 ? `${item.question.substring(0, 40)}...` : item.question}
-                    </div>
-                    <div className="questionInfo">
-                      <div className="username">
-                        {item.user.avatarURL ?
-                          <AvatarImage src={item.user.avatarURL} /> :
-                          <FontAwesomeIcon icon={faUser} />
-                        }
-                        <span>{item.user.nickname}</span>
+            <Wrapper>
+              <ActionBtn>
+                <DelBtn type="submit" value="삭제하기" />
+                <AllCkeckBtn>
+                  모두 선택하기
+                <FontAwesomeIcon
+                    icon={checkDelQuestions("all") ? faCheckSquare : faSquare}
+                    onClick={() => onClickCheckBtn("all")}
+                  />
+                </AllCkeckBtn>
+              </ActionBtn>
+              <QuestionsList>
+                {questions.map((item, index) => {
+                  return <QUestionsItem key={index}>
+                    <div className="questionWrapper">
+                      <div className="question">
+                        {item.question.length > 40 ? `${item.question.substring(0, 40)}...` : item.question}
                       </div>
-                      <div className="type">{processType(item.type)}</div>
-                      <div className="likes"><FontAwesomeIcon icon={faHeart} />{item.likes}</div>
-                      <div className="comment"><FontAwesomeIcon icon={faComment} />3</div>
-                      <div className="hits">조회수 {item.hits}</div>
+                      <div className="questionInfo">
+                        <div className="username">
+                          {item.user.avatarURL ?
+                            <AvatarImage src={item.user.avatarURL} /> :
+                            <FontAwesomeIcon icon={faUser} />
+                          }
+                          <span>{item.user.nickname}</span>
+                        </div>
+                        <div className="type">{processType(item.type)}</div>
+                        <div className="likes"><FontAwesomeIcon icon={faHeart} />{item.likes}</div>
+                        <div className="comment"><FontAwesomeIcon icon={faComment} />3</div>
+                        <div className="hits">조회수 {item.hits}</div>
+                      </div>
                     </div>
-                  </div>
-                  <CheckBtn>
-                    <FontAwesomeIcon
-                      icon={ckeckDelQuestions(item.id) ? faCheckSquare : faSquare}
-                      onClick={() => onClickCheckBtn(item.id)}
-                    />
-                  </CheckBtn>
-                </QUestionsItem>
-              })}
-            </QuestionsList>
+                    <CheckBtn>
+                      <FontAwesomeIcon
+                        icon={checkDelQuestions(item.id) ? faCheckSquare : faSquare}
+                        onClick={() => onClickCheckBtn(item.id)}
+                      />
+                    </CheckBtn>
+                  </QUestionsItem>
+                })}
+              </QuestionsList>
+            </Wrapper>
           }
         </EditInputLayout>
       </SEditForm>
