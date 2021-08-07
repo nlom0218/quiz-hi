@@ -7,7 +7,7 @@ import React from 'react';
 import { useParams } from 'react-router';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import EditQuestions from './EditQuestions';
+import DisconnectQuestions from './DisconnectQuestions';
 import EditQuizForm from './EditQuizForm';
 
 const Container = styled.div`
@@ -93,7 +93,7 @@ const EditQuiz = () => {
         <PageTitle style={{ marginTop: "40px" }}>
           <div><FontAwesomeIcon icon={faBookOpen} />문제 추가 & 삭제</div>
         </PageTitle>
-        <EditQuestions questions={data.detailQuiz.questions} />
+        <DisconnectQuestions questions={data.detailQuiz.questions} />
       </React.Fragment>
     }
   </Container>);

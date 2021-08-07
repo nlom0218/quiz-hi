@@ -1,7 +1,11 @@
+import { useMutation } from '@apollo/client';
 import { faCheckSquare, faComment, faSquare } from '@fortawesome/free-regular-svg-icons';
 import { faHeart, faTags, faUser } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import gql from 'graphql-tag';
 import React, { useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { useParams } from 'react-router';
 import styled from 'styled-components';
 import EditInputLayout from './EditInputLayout';
 
@@ -34,6 +38,7 @@ const ActionBtn = styled.div`
 
 const DelBtn = styled.input`
   cursor: pointer;
+  opacity: ${props => props.disabled ? 0.6 : 1};
 `
 
 const AllCkeckBtn = styled.div`
@@ -104,8 +109,28 @@ const CheckBtn = styled.div`
   cursor: pointer;
 `
 
-const EditQuestions = ({ questions }) => {
+const DISCONNECT_QUESTIONS_MUTATION = gql`
+  mutation disconnectQuestions($questionsId: String!, $quizId: Int!) {
+    disconnectQuestions(questionsId: $questionsId, quizId: $quizId) {
+      ok
+      error
+    }
+  }
+`
+
+const DisconnectQuestions = ({ questions }) => {
+  const { id } = useParams()
   const [delQuestions, setDelQuestions] = useState([])
+  const { handleSubmit } = useForm()
+  const onCompleted = (result) => {
+    const { disconnectQuestions: { ok } } = result
+    if (ok) {
+      window.location.reload()
+    }
+  }
+  const [disconnectQuestions, { loading }] = useMutation(DISCONNECT_QUESTIONS_MUTATION, {
+    onCompleted
+  })
   const processType = (type) => {
     if (type === "sub") {
       return "주관식"
@@ -148,16 +173,30 @@ const EditQuestions = ({ questions }) => {
       return false
     }
   }
+  const onSubmit = () => {
+    if (loading) {
+      return
+    }
+    disconnectQuestions({
+      variables: {
+        quizId: parseInt(id),
+        questionsId: delQuestions.join(",")
+      }
+    })
+  }
   return (
     <React.Fragment>
-      <SEditForm>
+      <SEditForm onSubmit={handleSubmit(onSubmit)}>
         <EditInputLayout>
           <InputTitle>퀴즈 문제 삭제하기</InputTitle>
           {questions.length === 0 ? <div>등록된 퀴즈가 없습니다.</div>
             :
             <Wrapper>
               <ActionBtn>
-                <DelBtn type="submit" value="삭제하기" />
+                <DelBtn
+                  type="submit"
+                  value="삭제하기"
+                  disabled={delQuestions.length === 0} />
                 <AllCkeckBtn>
                   모두 선택하기
                 <FontAwesomeIcon
@@ -204,4 +243,4 @@ const EditQuestions = ({ questions }) => {
   );
 }
 
-export default EditQuestions;
+export default DisconnectQuestions;
