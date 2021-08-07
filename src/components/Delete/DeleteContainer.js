@@ -74,15 +74,16 @@ const DeleteContainer = () => {
   const { type } = useParams()
   const history = useHistory()
   const location = useLocation()
+  console.log(location.state);
   const user = useUser()
   useEffect(() => {
     if (!user) {
-      alert("잘못된 접근입니다.")
+      alert("해당 페이지에서는 새로고침을 할 수 없거나 퀴즈 / 문제 삭제 권한이 없습니다.")
       history.push("/")
       return
     }
     if (user.id !== location.state.userId) {
-      alert("잘못된 접근입니다.")
+      alert("해당 페이지에서는 새로고침을 할 수 없거나 퀴즈 / 문제 삭제 권한이 없습니다.")
       history.push("/")
     }
   }, [])

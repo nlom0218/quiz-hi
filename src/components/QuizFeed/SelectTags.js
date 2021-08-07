@@ -145,24 +145,24 @@ const SelectTags = ({ setTagsArr, tagsArr, refetch }) => {
       return
     }
     const newTagsArr = [...tagsArr, tag]
+    localStorage.setItem("searchTag", JSON.stringify(newTagsArr))
     setTagsArr(newTagsArr)
     if (location.search === "") {
       history.push(`/feed/${type}/${seeType}/${sort}/1`)
     } else {
       history.push(`/feed/${type}/${seeType}/${sort}/1${location.search}`)
     }
-    // refetch()
     setValue("tag", "")
   }
   const onClickDelTag = (tag) => {
     const newTagsArr = tagsArr.filter((item) => item !== tag)
+    localStorage.setItem("searchTag", JSON.stringify(newTagsArr))
     setTagsArr(newTagsArr)
     if (location.search === "") {
       history.push(`/feed/${type}/${seeType}/${sort}/1`)
     } else {
       history.push(`/feed/${type}/${seeType}/${sort}/1${location.search}`)
     }
-    // refetch()
   }
   const checkTag = (tag) => {
     if (tagsArr.includes(tag)) {
@@ -173,13 +173,13 @@ const SelectTags = ({ setTagsArr, tagsArr, refetch }) => {
   }
   const onClickAddTag = (tag) => {
     const newTagsArr = [...tagsArr, tag]
+    localStorage.setItem("searchTag", JSON.stringify(newTagsArr))
     setTagsArr(newTagsArr)
     if (location.search === "") {
       history.push(`/feed/${type}/${seeType}/${sort}/1`)
     } else {
       history.push(`/feed/${type}/${seeType}/${sort}/1${location.search}`)
     }
-    // refetch()
   }
   return (<Container>
     <SelectedTags>

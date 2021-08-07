@@ -78,6 +78,7 @@ const SortList = styled.ul`
   border-radius: 5px;
   animation: ${fadeIn} 0.4s linear;
   transition: background-color 1s ease;
+  z-index: 1;
 `
 
 const SortItem = styled.li`

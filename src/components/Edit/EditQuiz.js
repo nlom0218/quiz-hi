@@ -1,12 +1,13 @@
 import { useQuery } from '@apollo/client';
 import { faEdit } from '@fortawesome/free-regular-svg-icons';
-import { faTrash } from '@fortawesome/free-solid-svg-icons';
+import { faBookOpen, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import gql from 'graphql-tag';
 import React from 'react';
 import { useParams } from 'react-router';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import EditQuestions from './EditQuestions';
 import EditQuizForm from './EditQuizForm';
 
 const Container = styled.div`
@@ -89,6 +90,10 @@ const EditQuiz = () => {
             }}><FontAwesomeIcon icon={faTrash} />퀴즈 삭제</Link>
         </PageTitle>
         <EditQuizForm {...data.detailQuiz} />
+        <PageTitle style={{ marginTop: "40px" }}>
+          <div><FontAwesomeIcon icon={faBookOpen} />문제 추가 & 삭제</div>
+        </PageTitle>
+        <EditQuestions questions={data.detailQuiz.questions} />
       </React.Fragment>
     }
   </Container>);

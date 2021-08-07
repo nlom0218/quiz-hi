@@ -16,6 +16,7 @@ const SEditForm = styled.form`
   grid-template-columns: 1fr;
   row-gap: 60px;
   transition: border 1s ease;
+  box-shadow: ${props => props.theme.boxShadow};
 `
 
 const InputTitle = styled.div`

@@ -39,7 +39,7 @@ const SeeQuestion = ({ feedType }) => {
   const query = useParameter()
   const search = query.get("search")
   const [putQuiz, setPutQuiz] = useState(true)
-  const [tagsArr, setTagsArr] = useState([])
+  const [tagsArr, setTagsArr] = useState(JSON.parse(localStorage.getItem("searchTag")) || [])
   const [lastPage, setLastPage] = useState(1)
   useEffect(() => {
     return () => setPutQuiz(false)
