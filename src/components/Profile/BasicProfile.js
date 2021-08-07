@@ -8,6 +8,7 @@ import LevelStep from '../LevelStep';
 import PopularQuizQuiestion from './PopularQuizQuiestion';
 
 const Container = styled.div`
+  margin-top: 20px;
   display: grid;
   grid-template-columns: 1fr 2fr;
   grid-template-rows: auto 1fr;

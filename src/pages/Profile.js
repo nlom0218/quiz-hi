@@ -7,6 +7,7 @@ import Header from '../components/Header';
 import NavBtn from '../components/NavBtn';
 import BasicProfile from '../components/Profile/BasicProfile';
 import BottomProfile from '../components/Profile/BottomProfile';
+import EditProfile from '../components/Profile/Edit/EditProfile';
 import TopProfile from '../components/Profile/TopProfile';
 import UserQuizQuestion from '../components/Profile/UserQuizQuestion/UserQuizQuestion';
 
@@ -48,6 +49,7 @@ const Profile = () => {
         <TopProfile data={{ ...data }} />
         {mode === "info" && <BottomProfile><BasicProfile data={{ ...data }} /></BottomProfile>}
         {mode === "quizQuestion" && <BottomProfile><UserQuizQuestion data={{ ...data }} /></BottomProfile>}
+        {mode === "edit" && <BottomProfile><EditProfile data={{ ...data }} /></BottomProfile>}
       </BasicContainer>
     }
     <NavBtn />

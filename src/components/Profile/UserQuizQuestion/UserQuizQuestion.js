@@ -8,10 +8,10 @@ import PrivateQuizQuestion from './PrivateQuizQuestion';
 import PublicQuizQuestion from './PublicQuizQuestion';
 
 const Container = styled.div`
-  margin-top: 20px;
   display: grid;
   grid-template-columns: 4fr 1fr;
-  row-gap: 30px;
+  row-gap: 20px;
+  margin-top: 20px;
 `
 
 const QuizQestionState = styled.div`
