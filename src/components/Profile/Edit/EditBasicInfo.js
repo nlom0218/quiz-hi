@@ -31,7 +31,7 @@ const EditTextArea = styled.textarea`
   padding: 10px 20px;
   color: ${props => props.theme.fontColor};
   background-color: rgb(200, 200, 200, 0.2);
-  transition: box-shadow 0.4s linear;
+  transition: box-shadow 0.4s linear, color 1s ease;
   :focus {
     box-shadow: 0 0 1px 0.5px ${props => props.theme.fontColor};
     outline: none;
