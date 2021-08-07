@@ -60,6 +60,7 @@ const EditImageContainer = ({ register, setNewImage, imageId, previewImg, setPre
   const onClickRemoveImage = () => {
     setPreviewImg(undefined)
     setDelImg(true)
+    setNewImage(undefined)
   }
   return (<ImageContainer>
     <ImageLabel htmlFor={imageId} className="label">

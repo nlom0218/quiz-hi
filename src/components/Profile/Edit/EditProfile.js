@@ -20,10 +20,10 @@ const Title = styled.div`
   font-weight: 600;
 `
 
-const EditProfile = ({ nickname, caption, avatarURL }) => {
+const EditProfile = ({ nickname, caption, avatarURL, id }) => {
   return (<Container>
     <Title>기본정보 수정</Title>
-    <EditBasicInfo nickname={nickname} caption={caption} avatarURL={avatarURL} />
+    <EditBasicInfo nickname={nickname} caption={caption} avatarURL={avatarURL} id={id} />
     <Title>개인 홈페이지 수정</Title>
     <EditPrivatePage />
     <Title>비밀번호 수정</Title>

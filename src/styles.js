@@ -9,6 +9,7 @@ const color = {
 export const lightTheme = {
   fontColor: color.black,
   bgColor: color.white,
+  boxColor: "#f7f7f7",
   blurColor: "rgb(255, 255, 255, 0.6)",
   blurBgColor: "rgb(244, 244, 244, 0.9)",
   grayColor: "#EBEBEB",
@@ -17,6 +18,7 @@ export const lightTheme = {
 export const darkTheme = {
   fontColor: color.white,
   bgColor: color.black,
+  boxColor: "#383838",
   blurColor: "rgb(0, 0, 0, 0.6)",
   blurBgColor: "rgb(63, 63, 63, 0.8)",
   grayColor: "#5A5A5A",
