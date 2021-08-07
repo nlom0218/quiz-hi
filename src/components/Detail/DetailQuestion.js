@@ -7,14 +7,14 @@ import styled from 'styled-components';
 const Question = styled.div`
   margin-top: ${props => props.tags ? "10px" : "20px"};
   grid-column: 1 / -1;
-  line-height: 20px;
+  line-height: 25px;
   display: grid;
   grid-template-columns: 90px 1fr;
   align-items: flex-start;
 `
 
 const QuestionText = styled.textarea`
-  line-height: 20px;
+  line-height: 25px;
   width: 100%;
   height: ${props => props.txtHeight}px;
   resize: none;
@@ -23,7 +23,7 @@ const QuestionText = styled.textarea`
   padding: 0px;
   color: ${props => props.theme.fontColor};
   background-color: ${props => props.theme.bgColor};
-  transition: box-shadow 0.4s linear;
+  transition: background-color 1s ease, color 1s ease;
   :focus {
     outline: none;
   }
@@ -32,7 +32,7 @@ const QuestionText = styled.textarea`
 const Answer = styled.div`
   margin-top: 20px;
   grid-column: 1 / -1;
-  line-height: 20px;
+  line-height: 25px;
   display: grid;
   grid-template-columns: 90px 1fr;
   .title, .content {
@@ -56,7 +56,7 @@ const DisTractorItem = styled.li`
 `
 
 const DistractorTextarea = styled.textarea`
-  line-height: 20px;
+  line-height: 25px;
   align-self: flex-start;
   justify-self: flex-start;
   width: 100%;
@@ -67,7 +67,7 @@ const DistractorTextarea = styled.textarea`
   padding: 0px;
   color: ${props => props.answer ? "tomato" : props.theme.fontColor};
   background-color: ${props => props.theme.bgColor};
-  transition: box-shadow 0.4s linear;
+  transition: background-color 1s ease, color 1s ease;
   :focus {
     outline: none;
   }
@@ -77,7 +77,7 @@ const DistractorTextarea = styled.textarea`
 const Hint = styled.div`
   margin-top: 20px;
   grid-column: 1 / -1;
-  line-height: 20px;
+  line-height: 25px;
   display: grid;
   grid-template-columns: 90px 1fr;
   .title, .content {
@@ -88,7 +88,7 @@ const Hint = styled.div`
 const Image = styled.div`
   margin-top: 20px;
   grid-column: 1 / -1;
-  line-height: 20px;
+  line-height: 25px;
   display: grid;
   grid-template-columns: 90px 1fr;
   .title, .content {
@@ -123,10 +123,12 @@ const DetailQuestion = ({ question, tags, answer, type, distractor, hint, image 
   const [distractor4Height, setDistractor4Height] = useState(null)
   useEffect(() => {
     setTxtHeight(textarea.current.scrollHeight)
-    setDistractor1Height(distractor1.current.scrollHeight)
-    setDistractor2Height(distractor2.current.scrollHeight)
-    setDistractor3Height(distractor3.current.scrollHeight)
-    setDistractor4Height(distractor4.current.scrollHeight)
+    if (type === "obj") {
+      setDistractor1Height(distractor1.current.scrollHeight)
+      setDistractor2Height(distractor2.current.scrollHeight)
+      setDistractor3Height(distractor3.current.scrollHeight)
+      setDistractor4Height(distractor4.current.scrollHeight)
+    }
   }, [])
   const processDistractorHeight = (index) => {
     if (index === 0) {

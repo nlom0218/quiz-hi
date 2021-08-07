@@ -63,7 +63,7 @@ const Title = styled.div`
   grid-column: 1 / -1;
   grid-row: 2 / 3;
   font-size: 20px;
-  line-height: 24px;
+  line-height: 25px;
 `
 
 const UserProfile = styled.div`

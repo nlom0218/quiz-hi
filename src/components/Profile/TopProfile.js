@@ -82,7 +82,7 @@ const UserCaption = styled.textarea`
   padding: 0px;
   color: ${props => props.answer ? "tomato" : props.theme.fontColor};
   background-color: ${props => props.theme.bgColor};
-  transition: box-shadow 0.4s linear;
+  transition: background-color 1s ease, color 1s ease;
   :focus {
     outline: none;
   }

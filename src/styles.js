@@ -3,7 +3,7 @@ import reset from "styled-reset";
 
 const color = {
   black: "#3f3f3f",
-  white: "#f4f4f4"
+  white: "#efefef"
 }
 
 export const lightTheme = {

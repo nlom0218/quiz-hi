@@ -74,7 +74,6 @@ const DeleteContainer = () => {
   const { type } = useParams()
   const history = useHistory()
   const location = useLocation()
-  console.log(location.state);
   const user = useUser()
   useEffect(() => {
     if (!user) {

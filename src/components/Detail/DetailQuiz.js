@@ -17,7 +17,7 @@ const QuizCaption = styled.textarea`
   font-size: 16px;
   color: ${props => props.theme.fontColor};
   background-color: ${props => props.theme.bgColor};
-  transition: box-shadow 0.4s linear;
+  transition: background-color 1s ease, color 1s ease;
   :focus {
     outline: none;
   }
@@ -30,7 +30,7 @@ const QuestionListTitle = styled.div`
 `
 
 const Basket = styled.div`
-    grid-column: 2 / 3;
+  grid-column: 2 / 3;
   grid-row: 6 / 7;
   align-self: flex-end;
   justify-self: flex-end;
