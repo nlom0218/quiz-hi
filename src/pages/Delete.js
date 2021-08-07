@@ -1,5 +1,4 @@
 import React from 'react';
-import { useParams } from 'react-router';
 import styled from 'styled-components';
 import BasicContainer from '../components/BasicContainer';
 import DeleteContainer from '../components/Delete/DeleteContainer';
@@ -11,14 +10,11 @@ const Contnaer = styled.div`
 `
 
 const Delete = () => {
-  const { type } = useParams()
   return (<React.Fragment>
     <Header />
     <BasicContainer>
       <Contnaer>
         <DeleteContainer />
-        {/* {type === "quiz" && <DeleteQuiz />}
-        {type === "question" && <DeleteQuestion />} */}
       </Contnaer>
     </BasicContainer>
     <NavBtn />

@@ -3,11 +3,12 @@ import { faEye, faEyeSlash } from '@fortawesome/free-regular-svg-icons';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import gql from 'graphql-tag';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { useParams } from 'react-router';
+import { useHistory, useLocation, useParams } from 'react-router';
 import styled from 'styled-components';
 import { fadeIn } from '../../animation/fade';
+import useUser from '../../hooks/useUser';
 import InputLayout from '../MakeQuiz/InputLayout';
 import DeleteBtn from './DeleteBtn';
 
@@ -71,6 +72,20 @@ const CONFIRM_PASSWORD_MUTATION = gql`
 
 const DeleteContainer = () => {
   const { type } = useParams()
+  const history = useHistory()
+  const location = useLocation()
+  const user = useUser()
+  useEffect(() => {
+    if (!user) {
+      alert("잘못된 접근입니다.")
+      history.push("/")
+      return
+    }
+    if (user.id !== location.state.userId) {
+      alert("잘못된 접근입니다.")
+      history.push("/")
+    }
+  }, [])
   const { register, handleSubmit, formState: { isValid } } = useForm({
     mode: "onChange"
   })

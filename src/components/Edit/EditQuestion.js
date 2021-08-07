@@ -31,6 +31,10 @@ const PageTitle = styled.div`
     color: tomato;
     border: 1px solid tomato;
     padding: 5px 10px;
+    :hover {
+      color: #f4f4f4;
+      background-color: tomato;
+    }
   }
 `
 
@@ -57,14 +61,23 @@ const DETAIL_QUESTION_QUERY = gql`
 
 const EditQuestion = () => {
   const { id } = useParams()
-  const user = useUser()
   const { data, loading } = useQuery(DETAIL_QUESTION_QUERY, { variables: { id: parseInt(id) } })
   return (<Container>
-    <PageTitle>
-      <div><FontAwesomeIcon icon={faEdit} />문제 수정</div>
-      <Link className="delBtn" to={`/delete/question/${id}`}><FontAwesomeIcon icon={faTrash} />문제 삭제</Link>
-    </PageTitle>
-    {loading ? <div>Loading...</div> : <EditQuestionForm {...data.detailQuestion} />}
+    {loading ? <div>Loading...</div> :
+      <React.Fragment>
+        <PageTitle>
+          <div><FontAwesomeIcon icon={faEdit} />문제 수정</div>
+          <Link
+            className="delBtn"
+            to={{
+              pathname: `/delete/question/${id}`,
+              state: { userId: data.detailQuestion.user.id }
+            }}
+          ><FontAwesomeIcon icon={faTrash} />문제 삭제</Link>
+        </PageTitle>
+        <EditQuestionForm {...data.detailQuestion} />
+      </React.Fragment>
+    }
   </Container>);
 }
 

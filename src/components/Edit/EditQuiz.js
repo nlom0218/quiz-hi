@@ -77,11 +77,20 @@ const EditQuiz = () => {
   const { id } = useParams()
   const { data, loading } = useQuery(DETAIL_QUIZ_QUERY, { variables: { id: parseInt(id) } })
   return (<Container>
-    <PageTitle>
-      <div><FontAwesomeIcon icon={faEdit} />퀴즈 수정</div>
-      <Link className="delBtn" to={`/delete/quiz/${id}`}><FontAwesomeIcon icon={faTrash} />퀴즈 삭제</Link>
-    </PageTitle>
-    {loading ? <div>Loading...</div> : <EditQuizForm {...data.detailQuiz} />}
+    {loading ? <div>Loading...</div> :
+      <React.Fragment>
+        <PageTitle>
+          <div><FontAwesomeIcon icon={faEdit} />퀴즈 수정</div>
+          <Link
+            className="delBtn"
+            to={{
+              pathname: `/delete/quiz/${id}`,
+              state: { userId: data.detailQuiz.user.id }
+            }}><FontAwesomeIcon icon={faTrash} />퀴즈 삭제</Link>
+        </PageTitle>
+        <EditQuizForm {...data.detailQuiz} />
+      </React.Fragment>
+    }
   </Container>);
 }
 
