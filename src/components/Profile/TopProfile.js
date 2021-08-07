@@ -1,6 +1,6 @@
 import { faUser } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useHistory, useParams } from 'react-router';
 import styled from 'styled-components';
 import { processUserLevel } from '../../sharedFn';
@@ -69,10 +69,23 @@ const UserLevel = styled.div`
   align-self: center;
 `
 
-const UserCaption = styled.div`
+const UserCaption = styled.textarea`
   grid-column: 1 / -1;
-  line-height: 25px;
-  padding: 0px 30px;
+  line-height: 20px;
+  align-self: flex-start;
+  justify-self: flex-start;
+  width: 100%;
+  height: ${props => props.txtHeight}px;
+  resize: none;
+  border: none;
+  font-size: 16px;
+  padding: 0px;
+  color: ${props => props.answer ? "tomato" : props.theme.fontColor};
+  background-color: ${props => props.theme.bgColor};
+  transition: box-shadow 0.4s linear;
+  :focus {
+    outline: none;
+  }
 `
 
 const ProfileNav = styled.div`
@@ -96,6 +109,11 @@ const NavBtn = styled.div`
 `
 
 const TopProfile = ({ data }) => {
+  const textarea = useRef()
+  const [txtHeight, setTxtHeight] = useState(null)
+  useEffect(() => {
+    setTxtHeight(textarea.current.scrollHeight)
+  }, [])
   const { seeProfile: { id, username, nickname, email, avatarURL, type, score, isMe, isFollow, caption } } = data
   const { mode } = useParams()
   const history = useHistory()
@@ -146,8 +164,13 @@ const TopProfile = ({ data }) => {
       {/* <LevelStep level={level} /> */}
     </UserLevel>
     <FollowBtn isMe={isMe} isFollow={isFollow} username={username} id={id} />
-    {caption && <UserCaption>
-      {caption}
+    {caption && <UserCaption
+      value={caption}
+      readOnly="readOnly"
+      rows={1}
+      txtHeight={txtHeight}
+      ref={textarea}
+    >
     </UserCaption>}
     <ProfileNav>
       <NavBtn

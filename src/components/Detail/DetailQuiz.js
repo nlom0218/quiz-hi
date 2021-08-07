@@ -1,15 +1,26 @@
 import { faCheckSquare, faSquare } from '@fortawesome/free-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import { checkAllQuestionsBasketBtn, onClickAllQuestionsBasketBtn } from '../QuizFeed/basketFn';
 import QuestionItem from '../QuizFeed/QuestionItem';
 
-const QuizCaption = styled.div`
+const QuizCaption = styled.textarea`
   margin-top: ${props => props.tags ? "10px" : "20px"};
   grid-column: 1 / -1;
   grid-row: 5 / 6;
-  line-height: 20px;
+  line-height: 25px;
+  width: 100%;
+  height: ${props => props.txtHeight}px;
+  resize: none;
+  border: none;
+  font-size: 16px;
+  color: ${props => props.theme.fontColor};
+  background-color: ${props => props.theme.bgColor};
+  transition: box-shadow 0.4s linear;
+  :focus {
+    outline: none;
+  }
 `
 
 const QuestionListTitle = styled.div`
@@ -41,11 +52,24 @@ const QuestionList = styled.div`
 
 
 const DetailQuiz = ({ caption, questions, setPutQuiz, tags }) => {
+  const textarea = useRef()
+  const [txtHeight, setTxtHeight] = useState(null)
   const questionIdTitle = questions.map((item) => {
     return { question: item.question, id: item.id }
   })
+  useEffect(() => {
+    setTxtHeight(textarea.current.scrollHeight)
+  }, [])
   return (<React.Fragment>
-    {caption && <QuizCaption tags={tags.length !== 0 ? true : false}>{caption}</QuizCaption>}
+    {caption && <QuizCaption
+      tags={tags.length !== 0 ? true : false}
+      value={caption}
+      cols={20}
+      rows={1}
+      txtHeight={txtHeight}
+      readOnly="readOnly"
+      ref={textarea}
+    ></QuizCaption>}
     {questions.length === 0 ? <QuestionListTitle>등록된 문제가 없습니다.</QuestionListTitle>
       :
       <React.Fragment>

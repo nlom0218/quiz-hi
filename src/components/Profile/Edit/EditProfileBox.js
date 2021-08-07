@@ -3,8 +3,10 @@ import styled from 'styled-components';
 
 const SEditProfileBox = styled.div`
   border: 1px solid ${props => props.theme.fontColor};
+  /* border-radius: 5px; */
   padding: 40px 30px;
   box-shadow: ${prosp => prosp.theme.boxShadow};
+  transition: border 1s ease;
 `
 
 const EditProfileBox = ({ children }) => {

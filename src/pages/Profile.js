@@ -49,7 +49,7 @@ const Profile = () => {
         <TopProfile data={{ ...data }} />
         {mode === "info" && <BottomProfile><BasicProfile data={{ ...data }} /></BottomProfile>}
         {mode === "quizQuestion" && <BottomProfile><UserQuizQuestion data={{ ...data }} /></BottomProfile>}
-        {mode === "edit" && <BottomProfile><EditProfile data={{ ...data }} /></BottomProfile>}
+        {mode === "edit" && <BottomProfile><EditProfile {...data?.seeProfile} /></BottomProfile>}
       </BasicContainer>
     }
     <NavBtn />

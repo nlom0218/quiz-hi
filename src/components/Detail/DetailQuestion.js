@@ -1,7 +1,7 @@
 import { faBell, faFile } from '@fortawesome/free-regular-svg-icons';
 import { faImage, faListOl, faMagic } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 
 const Question = styled.div`
@@ -10,8 +10,22 @@ const Question = styled.div`
   line-height: 20px;
   display: grid;
   grid-template-columns: 90px 1fr;
-  .title, .content {
-    align-self: flex-start;
+  align-items: flex-start;
+`
+
+const QuestionText = styled.textarea`
+  line-height: 20px;
+  width: 100%;
+  height: ${props => props.txtHeight}px;
+  resize: none;
+  border: none;
+  font-size: 16px;
+  padding: 0px;
+  color: ${props => props.theme.fontColor};
+  background-color: ${props => props.theme.bgColor};
+  transition: box-shadow 0.4s linear;
+  :focus {
+    outline: none;
   }
 `
 
@@ -39,12 +53,25 @@ const DisTractorItem = styled.li`
     margin-right: 10px;
     align-self: flex-start;
   }
-  .distractor {
-    line-height: 20px;
-    align-self: flex-start;
-    justify-self: flex-start;
-    background-color: ${props => props.answer && "rgb(255, 255, 28, 0.4)"};
+`
+
+const DistractorTextarea = styled.textarea`
+  line-height: 20px;
+  align-self: flex-start;
+  justify-self: flex-start;
+  width: 100%;
+  height: ${props => props.txtHeight}px;
+  resize: none;
+  border: none;
+  font-size: 16px;
+  padding: 0px;
+  color: ${props => props.answer ? "tomato" : props.theme.fontColor};
+  background-color: ${props => props.theme.bgColor};
+  transition: box-shadow 0.4s linear;
+  :focus {
+    outline: none;
   }
+
 `
 
 const Hint = styled.div`
@@ -72,18 +99,46 @@ const Image = styled.div`
   }
 `
 
-const QuestionList = styled.div`
-  display: grid;
-  grid-column: 1 / -1;
-  grid-row: 7 / 8;
-  grid-template-columns: 1fr;
-  border-top: 1px solid rgb(200, 200, 200, 0.8);
-  border-right: 1px solid rgb(200, 200, 200, 0.8);
-  border-left: 1px solid rgb(200, 200, 200, 0.8);
-`
-
-
 const DetailQuestion = ({ question, tags, answer, type, distractor, hint, image }) => {
+  const textarea = useRef()
+  const distractor1 = useRef()
+  const distractor2 = useRef()
+  const distractor3 = useRef()
+  const distractor4 = useRef()
+  const processDistractor = (index) => {
+    if (index === 0) {
+      return distractor1
+    } else if (index === 1) {
+      return distractor2
+    } else if (index === 2) {
+      return distractor3
+    } else if (index === 3) {
+      return distractor4
+    }
+  }
+  const [txtHeight, setTxtHeight] = useState(null)
+  const [distractor1Height, setDistractor1Height] = useState(null)
+  const [distractor2Height, setDistractor2Height] = useState(null)
+  const [distractor3Height, setDistractor3Height] = useState(null)
+  const [distractor4Height, setDistractor4Height] = useState(null)
+  useEffect(() => {
+    setTxtHeight(textarea.current.scrollHeight)
+    setDistractor1Height(distractor1.current.scrollHeight)
+    setDistractor2Height(distractor2.current.scrollHeight)
+    setDistractor3Height(distractor3.current.scrollHeight)
+    setDistractor4Height(distractor4.current.scrollHeight)
+  }, [])
+  const processDistractorHeight = (index) => {
+    if (index === 0) {
+      return distractor1Height
+    } else if (index === 1) {
+      return distractor2Height
+    } else if (index === 2) {
+      return distractor3Height
+    } else if (index === 3) {
+      return distractor4Height
+    }
+  }
   const checkAnswer = (num) => {
     const answerArr = answer.split(",").map((item) => parseInt(item))
     const checked = answerArr.includes(num)
@@ -96,7 +151,14 @@ const DetailQuestion = ({ question, tags, answer, type, distractor, hint, image 
   return (<React.Fragment>
     <Question tags={tags.length !== 0 ? true : false}>
       <div className="title"><FontAwesomeIcon icon={faFile} /> 문제</div>
-      <div className="content">{question}</div>
+      <QuestionText
+        value={question}
+        cols={20}
+        rows={1}
+        txtHeight={txtHeight}
+        readOnly="readOnly"
+        ref={textarea}
+      ></QuestionText>
     </Question>
     {type === "obj" &&
       <Answer>
@@ -104,9 +166,17 @@ const DetailQuestion = ({ question, tags, answer, type, distractor, hint, image 
         <div className="content">
           <DisTractorList>
             {distractor.split("//!@#").map((item, index) => {
-              return <DisTractorItem key={index} answer={checkAnswer(index + 1) ? true : false}>
+              return <DisTractorItem key={index}>
                 <div className="num">{`${index + 1}번`}</div>
-                <div className="distractor">{item}</div>
+                <DistractorTextarea
+                  answer={checkAnswer(index + 1) ? true : false}
+                  value={item}
+                  cols={20}
+                  rows={1}
+                  ref={processDistractor(index)}
+                  txtHeight={processDistractorHeight(index)}
+                  readOnly="readOnly"
+                ></DistractorTextarea>
               </DisTractorItem>
             })}
           </DisTractorList>
