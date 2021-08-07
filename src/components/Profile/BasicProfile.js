@@ -154,11 +154,11 @@ const BasicProfile = ({ data }) => {
       <Title><div><FontAwesomeIcon icon={faInfoCircle} /> 기본정보</div></Title>
       <Wrapper>
         <div className="input">닉네임</div>
-        <div className="value">{nickname}</div>
+        <div className="value">{nickname.length > 10 ? `${nickname.substring(0, 10)}...` : nickname}</div>
       </Wrapper>
       {type === "teacher" && <Wrapper>
         <div className="input">이메일</div>
-        <div className="value">{email}</div>
+        <div className="value">{email.length > 20 ? `${email.substring(0, 20)}...` : email}</div>
       </Wrapper>}
       <Wrapper>
         <div className="input">가입일</div>
