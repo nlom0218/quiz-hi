@@ -1,6 +1,7 @@
 import { useMutation } from '@apollo/client';
 import gql from 'graphql-tag';
 import React from 'react';
+import { useHistory } from 'react-router';
 import styled from 'styled-components';
 import useUser from '../../hooks/useUser';
 
@@ -40,8 +41,9 @@ const UNFOLLOW_USER_MUTATION = gql`
   }
 `
 
-const FollowBtn = ({ isMe, isFollow, username, id, setProfileMode }) => {
+const FollowBtn = ({ isMe, isFollow, username, id }) => {
   const user = useUser()
+  const history = useHistory()
   const updataFollowUser = (cache, result) => {
     const { data: { followUser: { ok } } } = result
     if (!ok) {
@@ -96,7 +98,7 @@ const FollowBtn = ({ isMe, isFollow, username, id, setProfileMode }) => {
     }
   }
   const onClickEdit = () => {
-    setProfileMode("edit")
+    history.push(`/profile/${username}/edit`)
   }
   return (<SFollowBtn>
     {isMe ? <div onClick={onClickEdit}>프로필 수정하기</div> : sortFollow()}

@@ -31,6 +31,10 @@ const PageTitle = styled.div`
     color: tomato;
     border: 1px solid tomato;
     padding: 5px 10px;
+    :hover {
+      color: #f4f4f4;
+      background-color: tomato;
+    }
   }
 `
 const DETAIL_QUIZ_QUERY = gql`

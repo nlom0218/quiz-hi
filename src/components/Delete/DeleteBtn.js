@@ -56,9 +56,12 @@ const DeleteBtn = () => {
       ok = result.deleteQuestion
       error = result.deleteQuestion
     }
-    if (ok) {
+    if (ok === true) {
       history.push(`/profile/${user.username}/quizQuestion/public/${type}/1`)
+    } else {
+      window.alert("해당 퀴즈 / 문제의 삭제 권한이 없습니다.")
     }
+
   }
   const [deleteQuiz, { loading: deleteQuizLoading }] = useMutation(DELETE_QUIZ_MUTATION, {
     onCompleted

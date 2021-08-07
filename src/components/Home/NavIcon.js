@@ -84,7 +84,7 @@ const NavIcon = () => {
         </Icon>
         <Description>퀴즈 검색하기</Description>
       </Wapper>
-      <Wapper onClick={() => onClinkNavBtn("feed/quiz/all/recent")}>
+      <Wapper onClick={() => onClinkNavBtn("feed/quiz/all/recent/1")}>
         <Icon>
           <FontAwesomeIcon icon={faClipboard} />
         </Icon>

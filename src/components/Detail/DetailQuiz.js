@@ -46,23 +46,28 @@ const DetailQuiz = ({ caption, questions, setPutQuiz, tags }) => {
   })
   return (<React.Fragment>
     {caption && <QuizCaption tags={tags.length !== 0 ? true : false}>{caption}</QuizCaption>}
-    <QuestionListTitle>문제 목록</QuestionListTitle>
-    <Basket>
-      장바구니에 모두 담기
-    <FontAwesomeIcon
-        icon={faSquare}
-        icon={checkAllQuestionsBasketBtn(questionIdTitle) ? faCheckSquare : faSquare}
-        onClick={() => {
-          onClickAllQuestionsBasketBtn(questionIdTitle)
-          setPutQuiz(prev => !prev)
-        }}
-      />
-    </Basket>
-    <QuestionList>
-      {questions.map((item, index) => {
-        return <QuestionItem key={index} {...item} setPutQuiz={setPutQuiz} edit={true} />
-      })}
-    </QuestionList>
+    {questions.length === 0 ? <QuestionListTitle>등록된 문제가 없습니다.</QuestionListTitle>
+      :
+      <React.Fragment>
+        <QuestionListTitle>문제 목록</QuestionListTitle>
+        <Basket>
+          장바구니에 모두 담기
+            <FontAwesomeIcon
+            icon={faSquare}
+            icon={checkAllQuestionsBasketBtn(questionIdTitle) ? faCheckSquare : faSquare}
+            onClick={() => {
+              onClickAllQuestionsBasketBtn(questionIdTitle)
+              setPutQuiz(prev => !prev)
+            }}
+          />
+        </Basket>
+        <QuestionList>
+          {questions.map((item, index) => {
+            return <QuestionItem key={index} {...item} setPutQuiz={setPutQuiz} edit={true} />
+          })}
+        </QuestionList>
+      </React.Fragment>
+    }
   </React.Fragment>);
 }
 
