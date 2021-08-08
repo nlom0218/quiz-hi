@@ -2,9 +2,12 @@ import React from 'react';
 import styled from 'styled-components';
 import { faTrashAlt } from '@fortawesome/free-regular-svg-icons';
 import { onClickResetBasket, removeBasketItem } from './basketFn';
-import { faRedo, faShare, faShoppingCart } from '@fortawesome/free-solid-svg-icons';
+import { faPlay, faRedo, faShare, faShoppingCart } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { fadeIn } from '../../animation/fade';
+import gql from 'graphql-tag';
+import { useMutation } from '@apollo/client';
+import { useHistory } from 'react-router';
 
 
 const SQuizQuestionBasket = styled.div`
@@ -70,7 +73,77 @@ const BasketBtn = styled.div`
   }
 `
 
+const FOLLOW_QUIZ_MUTATION = gql`
+  mutation followQuiz($quizIds: String!) {
+    followQuiz(quizIds: $quizIds) {
+      ok
+    }
+  }
+`
+
+const FOLLOW_QUESTION_MUTATION = gql`
+  mutation followQuestion($questionIds: String!) {
+    followQuestion(questionIds: $questionIds) {
+      ok
+    }
+  }
+`
+
+
 const QuizQuestionBasket = ({ setPutQuiz }) => {
+  const history = useHistory()
+  const [followQuiz] = useMutation(FOLLOW_QUIZ_MUTATION, {
+    onCompleted: (result) => {
+      if (result.followQuiz.ok) {
+        if (window.confirm("퀴즈가 라이브러리에 저장이 되었습니다.\n라이브러리로 이동하시겠습니까?")) {
+          history.push("/play-quiz")
+        }
+        localStorage.removeItem("quizBasket")
+        setPutQuiz(prev => !prev)
+      } else {
+        window.alert("이벤트가 정상적으로 작동되지 않았습니다.\n다시 로그인하여 시도해주세요.\n계속 될 경우 관리자에게 문의해주세요.")
+      }
+    }
+  })
+  const [followQuestion] = useMutation(FOLLOW_QUESTION_MUTATION, {
+    onCompleted: (result) => {
+      if (result.followQuestion.ok) {
+        if (window.confirm("문제가 라이브러리에 저장이 되었습니다.\n라이브러리로 이동하시겠습니까?")) {
+          history.push("/play-quiz")
+        }
+        localStorage.removeItem("questionBasket")
+        setPutQuiz(prev => !prev)
+      } else {
+        window.alert("이벤트가 정상적으로 작동되지 않았습니다.\n다시 로그인하여 시도해주세요.\n계속 될 경우 관리자에게 문의해주세요.")
+      }
+    }
+  })
+
+  const onClickFollowBtn = (type) => {
+    if (type === "quiz") {
+      const quizArr = JSON.parse(localStorage.getItem("quizBasket"))
+      if (!quizArr || quizArr.length === 0) {
+        return
+      } else {
+        const quizIds = quizArr.map((item) => item.id).join(",")
+        followQuiz({
+          variables: { quizIds }
+        })
+      }
+    }
+    if (type === "question") {
+      const questionArr = JSON.parse(localStorage.getItem("questionBasket"))
+      if (!questionArr || questionArr.length === 0) {
+        return
+      } else {
+        const questionIds = questionArr.map((item) => item.id).join(",")
+        followQuestion({
+          variables: { questionIds }
+        })
+      }
+    }
+  }
+
   const processBasket = (type) => {
     if (type === "quiz") {
       const quizBasket = JSON.parse(localStorage.getItem("quizBasket"))
@@ -111,7 +184,7 @@ const QuizQuestionBasket = ({ setPutQuiz }) => {
           })}
         </BasketList>}
         <BasketBtn>
-          <FontAwesomeIcon icon={faShare} />
+          <FontAwesomeIcon icon={faShare} onClick={() => onClickFollowBtn("quiz")} />
           <FontAwesomeIcon icon={faRedo} onClick={() => {
             onClickResetBasket("quiz")
             setPutQuiz(prev => !prev)
@@ -136,7 +209,7 @@ const QuizQuestionBasket = ({ setPutQuiz }) => {
           })}
         </BasketList>}
         <BasketBtn>
-          <FontAwesomeIcon icon={faShare} />
+          <FontAwesomeIcon icon={faShare} onClick={() => onClickFollowBtn("question")} />
           <FontAwesomeIcon icon={faRedo} onClick={() => {
             onClickResetBasket("question")
             setPutQuiz(prev => !prev)
