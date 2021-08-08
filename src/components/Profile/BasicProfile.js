@@ -1,4 +1,5 @@
-import { faInfoCircle, faTags } from '@fortawesome/free-solid-svg-icons';
+import { faFacebook, faGithub, faInstagram, faTwitter, faYoutube } from '@fortawesome/free-brands-svg-icons';
+import { faBlog, faHouseUser, faIcons, faInfoCircle, faTags } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
 import { Link } from 'react-router-dom';
@@ -125,7 +126,18 @@ const UserSite = styled.div`
   align-self: flex-start;
   grid-column: 1 / 2;
   grid-row: 2 / 3;
-  background-color: green;
+  padding: 20px;
+  border: 1px solid rgb(200, 200, 200, 0.6);
+`
+
+const PageList = styled.div`
+  padding-top: 20px;
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  justify-items: center;
+  svg {
+    font-size: 24px;
+  }
 `
 
 const BasicProfile = ({ data }) => {
@@ -140,14 +152,45 @@ const BasicProfile = ({ data }) => {
     totalPublicQuestion,
     score,
     createdAt,
-    tags
+    tags,
+    personalPage
   } } = data
+  const personalPageArr = personalPage ?
+    personalPage
+      .split("!@#")
+      .map((item) => {
+        const division = item.split("^^")
+        return {
+          page: division[0],
+          url: division[1]
+        }
+      })
+    :
+    []
+  console.log(personalPageArr);
   const level = processUserLevel(score)
   const processPopular = () => {
     if (totalPublicQuiz === 0 && totalPublicQuestion === 0) {
       return false
     } else {
       return true
+    }
+  }
+  const processPageIcon = (page) => {
+    if (page === "인스타그램") {
+      return <FontAwesomeIcon icon={faInstagram} />
+    } else if (page === "페이스북") {
+      return <FontAwesomeIcon icon={faFacebook} />
+    } else if (page === "유튜브") {
+      return <FontAwesomeIcon icon={faYoutube} />
+    } else if (page === "깃허브") {
+      return <FontAwesomeIcon icon={faGithub} />
+    } else if (page === "트위터") {
+      return <FontAwesomeIcon icon={faTwitter} />
+    } else if (page === "블로그") {
+      return <FontAwesomeIcon icon={faBlog} />
+    } else if (page === "기타") {
+      return <FontAwesomeIcon icon={faIcons} />
     }
   }
   return (<Container>
@@ -217,9 +260,16 @@ const BasicProfile = ({ data }) => {
       </DetailInfoLayout>}
       {processPopular() && <PopularQuizQuiestion userId={id} />}
     </DetailInto>
-    <UserSite>
-      ee
-    </UserSite>
+    {personalPage && <UserSite>
+      <Title><div><FontAwesomeIcon icon={faHouseUser} /> 개인 홈페이지</div></Title>
+      <PageList>
+        {personalPageArr.map((item, index) => {
+          return <a href={`${item.url}`} target="_blank" key={index}>
+            {processPageIcon(item.page)}
+          </a>
+        })}
+      </PageList>
+    </UserSite>}
   </Container>);
 }
 

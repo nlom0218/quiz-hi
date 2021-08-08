@@ -46,63 +46,6 @@ const PageType = styled.div`
    }
 `
 
-const DelBtn = styled.div`
-`
-const AddBtn = styled.div``
-
-const AddPage = styled.div`
-  display: grid;
-  grid-template-columns: 30px 1fr auto;
-  column-gap: 20px;
-  row-gap: 20px;
-  align-items: center;
-`
-
-const SortBar = styled.div`
-  grid-column: 1 / -1;
-  justify-self: flex-start;
-  padding: 8px 20px;
-  border: 1px solid rgb(200, 200, 200, 0.6);
-  border-radius: 5px;
-  display: flex;
-  position: relative;
-`
-
-const Sort = styled.div`
-  margin-right: 10px;
-`
-
-const SortBtn = styled.div`
-  cursor: pointer;
-`
-
-const SortList = styled.ul`
-  position: absolute;
-  top: 40px;
-  right: 0px;
-  background-color: ${props => props.theme.grayColor};
-  display: grid;
-  grid-template-columns: 160px;
-  grid-template-rows: 1fr 1fr 1fr;
-  border-radius: 5px;
-  animation: ${fadeIn} 0.4s linear;
-  transition: background-color 1s ease;
-  z-index: 1;
-`
-
-const SortItem = styled.li`
-  margin: 5px 10px;
-  padding: 5px 10px;
-  border-radius: 5px;
-  cursor: pointer;
-  svg {
-    margin-left: 10px;
-    font-size: 12px;
-  }
-  display: flex;
-  align-items: center;
-`
-
 const SaveMsg = styled.div`
   justify-self: center;
   color: tomato;
