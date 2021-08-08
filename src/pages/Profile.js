@@ -10,6 +10,7 @@ import BottomProfile from '../components/Profile/BottomProfile';
 import EditProfile from '../components/Profile/Edit/EditProfile';
 import TopProfile from '../components/Profile/TopProfile';
 import UserQuizQuestion from '../components/Profile/UserQuizQuestion/UserQuizQuestion';
+import useUser from '../hooks/useUser';
 
 const SEE_PROFILE_QUERY = gql`
   query seeProfile($username: String!) {
@@ -42,6 +43,7 @@ const SEE_PROFILE_QUERY = gql`
 
 const Profile = () => {
   const { username, mode } = useParams()
+  const user = useUser()
   const { data, loading } = useQuery(SEE_PROFILE_QUERY, { variables: { username } })
   return (<React.Fragment>
     <Header />
@@ -50,7 +52,9 @@ const Profile = () => {
         <TopProfile data={{ ...data }} />
         {mode === "info" && <BottomProfile><BasicProfile data={{ ...data }} /></BottomProfile>}
         {mode === "quizQuestion" && <BottomProfile><UserQuizQuestion data={{ ...data }} /></BottomProfile>}
-        {mode === "edit" && <BottomProfile><EditProfile {...data?.seeProfile} /></BottomProfile>}
+        {mode === "edit" && <BottomProfile>
+          {user.username === username && <EditProfile {...data?.seeProfile} />}
+        </BottomProfile>}
       </BasicContainer>
     }
     <NavBtn />

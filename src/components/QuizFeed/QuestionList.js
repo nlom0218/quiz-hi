@@ -5,7 +5,7 @@ import QuestionItem from './QuestionItem';
 const Container = styled.div`
   grid-column: 1 / 2;
   align-self: flex-start;
-  background-color: ${props => props.noData ? props.theme.bgColor : props.theme.boxColor};
+  background-color: ${props => props.theme.boxColor};
   transition: background-color 1s ease;
 `
 
@@ -18,7 +18,8 @@ const SQuestionList = styled.div`
 `
 
 const NotFoundData = styled.div`
-  margin-top: 20px;
+  grid-column: 1 / 2;
+  /* margin-top: 20px; */
   color: tomato;
 `
 
@@ -28,14 +29,17 @@ const QuestionList = ({ seeQuestion, loading, setPutQuiz, edit }) => {
       return true
     }
   }
-  return (<Container noData={noData}>
-    {loading ? <div>loading...</div> : <SQuestionList>
-      {seeQuestion?.question?.map((item, index) => {
-        return <QuestionItem key={index} {...item} setPutQuiz={setPutQuiz} edit={edit} />
-      })}
-    </SQuestionList>}
-    {noData() && <NotFoundData>검색된 문제가 없습니다.</NotFoundData>}
-  </Container>);
+  return (
+    <React.Fragment>
+      <Container>
+        {loading ? <div>loading...</div> : <SQuestionList>
+          {seeQuestion?.question?.map((item, index) => {
+            return <QuestionItem key={index} {...item} setPutQuiz={setPutQuiz} edit={edit} />
+          })}
+        </SQuestionList>}
+      </Container>
+      {noData() && <NotFoundData>검색된 문제가 없습니다.</NotFoundData>}
+    </React.Fragment>);
 }
 
 export default QuestionList;

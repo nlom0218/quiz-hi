@@ -92,7 +92,7 @@ const ProfileNav = styled.div`
   grid-column: 1 / -1;
   display: grid;
   grid-template-columns: repeat(6, 1fr);
-  background-color: rgb(200, 200, 200, 0.2);
+  background-color: rgb(220, 220, 220, 0.2);
 `
 
 const NavBtn = styled.div`
@@ -104,7 +104,7 @@ const NavBtn = styled.div`
     background-color: ${props => props.seleted ? "rgb(200, 200, 200, 0.4)" : ""};
     transition: background-color linear 0.5s;
     :hover {
-      background-color: rgb(200, 200, 200, 0.6);
+      background-color: rgb(220, 220, 220, 0.6);
     }
 `
 

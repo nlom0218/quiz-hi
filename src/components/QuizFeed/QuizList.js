@@ -5,7 +5,7 @@ import QuizItem from './QuizItem';
 const Container = styled.div`
   grid-column: 1 / 2;
   align-self: flex-start;
-  background-color: ${props => props.noData ? props.theme.bgColor : props.theme.boxColor};
+  background-color: ${props => props.theme.boxColor};
   transition: background-color 1s ease;
 `
 
@@ -18,7 +18,8 @@ const SQuizList = styled.div`
 `
 
 const NotFoundData = styled.div`
-  margin-top: 20px;
+  grid-column: 1 / 2;
+  /* margin-top: 20px; */
   color: tomato;
 `
 
@@ -28,17 +29,20 @@ const QuizList = ({ setPutQuiz, loading, seeQuiz, edit, }) => {
       return true
     }
   }
-  return (<Container noData={noData}>
-    {loading ? <div>loading...</div> :
-      <SQuizList>
-        {
-          seeQuiz?.quiz.map((item, index) => {
-            return <QuizItem key={index} {...item} setPutQuiz={setPutQuiz} edit={edit} />
-          })
-        }
-      </SQuizList>}
-    { noData() && <NotFoundData>검색된 퀴즈가 없습니다.</NotFoundData>}
-  </Container >);
+  return (
+    <React.Fragment>
+      <Container>
+        {loading ? <div>loading...</div> :
+          <SQuizList>
+            {
+              seeQuiz?.quiz.map((item, index) => {
+                return <QuizItem key={index} {...item} setPutQuiz={setPutQuiz} edit={edit} />
+              })
+            }
+          </SQuizList>}
+      </Container >
+      { noData() && <NotFoundData>검색된 퀴즈가 없습니다.</NotFoundData>}
+    </React.Fragment>);
 }
 
 export default QuizList;
