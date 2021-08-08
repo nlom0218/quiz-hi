@@ -173,7 +173,6 @@ const BasicProfile = ({ data }) => {
       })
     :
     []
-  console.log(personalPageArr);
   const level = processUserLevel(score)
   const processPopular = () => {
     if (totalPublicQuiz === 0 && totalPublicQuestion === 0) {

@@ -76,6 +76,7 @@ const EidtPassword = () => {
         <EditInput
           type="password"
           {...register("oldPassword", { required: true })}
+          autoComplete="off"
         />
       </EditPageItem>
       <EditPageItem>
@@ -83,6 +84,7 @@ const EidtPassword = () => {
         <EditInput
           type="password"
           {...register("newPassword", { required: true })}
+          autoComplete="off"
         />
       </EditPageItem>
       <EditPageItem>
@@ -90,6 +92,7 @@ const EidtPassword = () => {
         <EditInput
           type="password"
           {...register("newPasswordConfirm", { required: true })}
+          autoComplete="off"
         />
       </EditPageItem>
       <SaveBtn type="submit" value="저장하기" disabled={!isValid} />

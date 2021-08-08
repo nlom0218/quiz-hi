@@ -4,7 +4,8 @@ import QuizItem from './QuizItem';
 
 const Container = styled.div`
   grid-column: 1 / 2;
-  background-color: ${props => props.theme.boxColor};
+  align-self: flex-start;
+  background-color: ${props => props.noData ? props.theme.bgColor : props.theme.boxColor};
   transition: background-color 1s ease;
 `
 
@@ -27,7 +28,7 @@ const QuizList = ({ setPutQuiz, loading, seeQuiz, edit, }) => {
       return true
     }
   }
-  return (<Container>
+  return (<Container noData={noData}>
     {loading ? <div>loading...</div> :
       <SQuizList>
         {
