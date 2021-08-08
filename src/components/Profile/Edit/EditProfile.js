@@ -33,7 +33,7 @@ const EditProfile = ({ nickname, caption, avatarURL, id, personalPage }) => {
     <EditBasicInfo nickname={nickname} caption={caption} avatarURL={avatarURL} id={id} />
     <DivisionLine></DivisionLine>
     <Title>개인 홈페이지 수정</Title>
-    <EditPrivatePage personalPage={personalPage} />
+    <EditPrivatePage personalPage={personalPage} id={id} />
     <DivisionLine></DivisionLine>
     <Title>비밀번호 수정</Title>
     <EidtPassword />

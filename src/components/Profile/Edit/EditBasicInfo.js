@@ -6,6 +6,7 @@ import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useParams } from 'react-router';
 import styled from 'styled-components';
+import { fadeIn } from '../../../animation/fade';
 import EditInput from './EditInput';
 import EditProfileBox from './EditProfileBox';
 import SaveBtn from './SaveBtn';
@@ -102,6 +103,7 @@ const SaveMsg = styled.div`
   justify-self: center;
   color: tomato;
   font-weight: 600;
+  animation: ${fadeIn} 0.4s linear;
 `
 
 const EDIT_PROFILE_MUTATION = gql`
