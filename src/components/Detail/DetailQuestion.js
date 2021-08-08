@@ -22,7 +22,7 @@ const QuestionText = styled.textarea`
   font-size: 16px;
   padding: 0px;
   color: ${props => props.theme.fontColor};
-  background-color: ${props => props.theme.bgColor};
+  background-color: ${props => props.theme.boxColor};
   transition: background-color 1s ease, color 1s ease;
   :focus {
     outline: none;
@@ -66,7 +66,7 @@ const DistractorTextarea = styled.textarea`
   font-size: 16px;
   padding: 0px;
   color: ${props => props.answer ? "tomato" : props.theme.fontColor};
-  background-color: ${props => props.theme.bgColor};
+  background-color: ${props => props.theme.boxColor};
   transition: background-color 1s ease, color 1s ease;
   :focus {
     outline: none;

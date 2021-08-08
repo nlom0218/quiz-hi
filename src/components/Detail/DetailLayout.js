@@ -20,6 +20,8 @@ const SDetailQuiz = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr;
   row-gap: 20px;
+  background-color: ${props => props.theme.boxColor};
+  transition: background-color 1s ease;
 `
 
 const Basket = styled.div`

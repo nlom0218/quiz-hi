@@ -4,6 +4,8 @@ import QuizItem from './QuizItem';
 
 const Container = styled.div`
   grid-column: 1 / 2;
+  background-color: ${props => props.theme.boxColor};
+  transition: background-color 1s ease;
 `
 
 const SQuizList = styled.div`

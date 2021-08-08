@@ -11,6 +11,8 @@ import PopularQuizItem from './PopularQuizItem';
 const DetailInfoLayout = styled.div`
   padding: 20px;
   border: 1px solid rgb(200, 200, 200, 0.6);
+  background-color: ${props => props.theme.boxColor};
+  transition: background-color 1s ease;
 `
 
 const Title = styled.div`

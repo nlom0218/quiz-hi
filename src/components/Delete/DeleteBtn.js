@@ -56,8 +56,9 @@ const DeleteBtn = () => {
       ok = result.deleteQuestion
       error = result.deleteQuestion
     }
-    if (ok === true) {
+    if (ok) {
       history.push(`/profile/${user.username}/quizQuestion/public/${type}/1`)
+      window.location.reload()
     } else {
       window.alert("해당 퀴즈 / 문제의 삭제 권한이 없습니다.")
     }

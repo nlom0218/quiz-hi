@@ -34,6 +34,8 @@ const BasicInfo = styled.div`
   grid-template-rows: auto auto;
   grid-gap: 20px;
   border: 1px solid rgb(200, 200, 200, 0.6);
+  background-color: ${props => props.theme.boxColor};
+  transition: background-color 1s ease;
 `
 
 const Wrapper = styled.div`
@@ -62,6 +64,8 @@ const DetailInto = styled.div`
 const DetailInfoLayout = styled.div`
   padding: 20px;
   border: 1px solid rgb(200, 200, 200, 0.6);
+  background-color: ${props => props.theme.boxColor};
+  transition: background-color 1s ease;
 `
 
 const LevelContainer = styled.div`
@@ -128,6 +132,8 @@ const UserSite = styled.div`
   grid-row: 2 / 3;
   padding: 20px;
   border: 1px solid rgb(200, 200, 200, 0.6);
+  background-color: ${props => props.theme.boxColor};
+  transition: background-color 1s ease;
 `
 
 const PageList = styled.div`

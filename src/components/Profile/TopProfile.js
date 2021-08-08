@@ -112,7 +112,9 @@ const TopProfile = ({ data }) => {
   const textarea = useRef()
   const [txtHeight, setTxtHeight] = useState(null)
   useEffect(() => {
-    setTxtHeight(textarea.current.scrollHeight)
+    if (caption) {
+      setTxtHeight(textarea.current.scrollHeight)
+    }
   }, [])
   const { seeProfile: { id, username, nickname, email, avatarURL, type, score, isMe, isFollow, caption } } = data
   const { mode } = useParams()

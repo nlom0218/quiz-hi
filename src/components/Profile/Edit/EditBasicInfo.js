@@ -191,6 +191,7 @@ const EditBasicInfo = ({ nickname, caption, avatarURL, id }) => {
         <EditInput
           {...register("nickname", { required: true })}
           type="text"
+          autoComplete="off"
         />
       </Wrapper>
       <Wrapper>
