@@ -9,7 +9,7 @@ const color = {
 export const lightTheme = {
   fontColor: color.black,
   bgColor: color.white,
-  boxColor: "#f7f7f7",
+  boxColor: "#f4f4f4",
   blurColor: "rgb(255, 255, 255, 0.6)",
   blurBgColor: "rgb(244, 244, 244, 0.9)",
   grayColor: "#EBEBEB",

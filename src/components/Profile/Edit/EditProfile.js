@@ -27,13 +27,13 @@ const DivisionLine = styled.div`
   transition: background-color 1s ease;
 `
 
-const EditProfile = ({ nickname, caption, avatarURL, id }) => {
+const EditProfile = ({ nickname, caption, avatarURL, id, personalPage }) => {
   return (<Container>
     <Title>기본정보 수정</Title>
     <EditBasicInfo nickname={nickname} caption={caption} avatarURL={avatarURL} id={id} />
     <DivisionLine></DivisionLine>
     <Title>개인 홈페이지 수정</Title>
-    <EditPrivatePage />
+    <EditPrivatePage personalPage={personalPage} />
     <DivisionLine></DivisionLine>
     <Title>비밀번호 수정</Title>
     <EidtPassword />

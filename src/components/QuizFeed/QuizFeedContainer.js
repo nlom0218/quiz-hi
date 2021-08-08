@@ -10,7 +10,7 @@ import PageBar from './PageBar';
 import { ScrollTrigger } from "gsap/ScrollTrigger"
 import { gsap } from "gsap"
 import { QuizFeedBottomContainerGsap } from '../../hooks/Gsap';
-import { useHistory, useLocation, useParams } from 'react-router';
+import { useHistory, useLocation } from 'react-router';
 gsap.registerPlugin(ScrollTrigger)
 
 const SQuizFeedContainer = styled.div`

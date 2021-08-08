@@ -120,12 +120,10 @@ const EDIT_PROFILE_MUTATION = gql`
 `
 
 const EditBasicInfo = ({ nickname, caption, avatarURL, id }) => {
-  // console.log(nickname, caption, avatarURL);
   const { username } = useParams()
   const [newAvatarURL, setNewAvatarURL] = useState(undefined)
   const [previewImg, setPreviewImg] = useState(avatarURL)
   const [delImg, setDelImg] = useState(false)
-  // console.log(newAvatarURL, previewImg, delImg);
   const [saveMsg, setSaveMsg] = useState(undefined)
   const { register, handleSubmit, formState: { isValid }, getValues } = useForm({
     mode: "onChange",
@@ -171,7 +169,6 @@ const EditBasicInfo = ({ nickname, caption, avatarURL, id }) => {
   }
   const onSubmit = (data) => {
     const { nickname, caption } = data
-    console.log(nickname, caption);
     if (loading) {
       return
     }
@@ -198,7 +195,7 @@ const EditBasicInfo = ({ nickname, caption, avatarURL, id }) => {
         <div>자기소개</div>
         <EditTextArea
           cols={20}
-          rows={2}
+          rows={3}
           {...register("caption", { required: true })}>
         </EditTextArea>
       </Wrapper>
@@ -225,7 +222,7 @@ const EditBasicInfo = ({ nickname, caption, avatarURL, id }) => {
           onChange={onChangeImage}
         />
       </ProfileImage>
-      <SaveBtn type="submit" value="저장하기" disabled={!isValid} />
+      <SaveBtn type="submit" value={loading ? "저장중..." : "저장하기"} disabled={!isValid} />
       {saveMsg && <SaveMsg>{saveMsg}</SaveMsg>}
     </EditForm>
   </EditProfileBox>);

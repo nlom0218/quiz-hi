@@ -1,8 +1,259 @@
-import React from 'react';
+import { faTrashAlt } from '@fortawesome/free-regular-svg-icons';
+import { faBlog, faCheck, faChevronDown, faChevronUp, faIcons, faPlusCircle } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import React, { useState } from 'react';
+import { useForm } from 'react-hook-form';
+import styled from 'styled-components';
+import EditInput from './EditInput';
 import EditProfileBox from './EditProfileBox';
+import { fadeIn } from '../../../animation/fade';
+import { faFacebook, faGithub, faInstagram, faTwitter, faYoutube } from '@fortawesome/free-brands-svg-icons';
+import SaveBtn from './SaveBtn';
+import gql from 'graphql-tag';
+import { useMutation } from '@apollo/client';
+import { useParams } from 'react-router';
 
-const EditPrivatePage = () => {
-  return (<EditProfileBox>EditPrivatePage</EditProfileBox>);
+const EditPageForm = styled.form`
+  display: grid;
+  grid-template-columns: 1fr;
+  row-gap: 40px;
+  .EditBtn {
+    padding: 10px 20px;
+    border-radius: 5px;
+    background-color: rgb(200, 200, 200, 0.2);
+    cursor: pointer;
+    transition: background-color 0.2s linear;
+    svg {
+      margin-left: 10px;
+    }
+    :hover {
+      background-color: rgb(200, 200, 200, 0.4);
+    }
+  }
+`
+
+const EditPageItem = styled.div`
+  display: grid;
+  grid-template-columns: 30px 1fr;
+  column-gap: 20px;
+  align-items: center;
+`
+
+const PageType = styled.div`
+   justify-self: center;
+   svg {
+     font-size: 24px;
+   }
+`
+
+const DelBtn = styled.div`
+`
+const AddBtn = styled.div``
+
+const AddPage = styled.div`
+  display: grid;
+  grid-template-columns: 30px 1fr auto;
+  column-gap: 20px;
+  row-gap: 20px;
+  align-items: center;
+`
+
+const SortBar = styled.div`
+  grid-column: 1 / -1;
+  justify-self: flex-start;
+  padding: 8px 20px;
+  border: 1px solid rgb(200, 200, 200, 0.6);
+  border-radius: 5px;
+  display: flex;
+  position: relative;
+`
+
+const Sort = styled.div`
+  margin-right: 10px;
+`
+
+const SortBtn = styled.div`
+  cursor: pointer;
+`
+
+const SortList = styled.ul`
+  position: absolute;
+  top: 40px;
+  right: 0px;
+  background-color: ${props => props.theme.grayColor};
+  display: grid;
+  grid-template-columns: 160px;
+  grid-template-rows: 1fr 1fr 1fr;
+  border-radius: 5px;
+  animation: ${fadeIn} 0.4s linear;
+  transition: background-color 1s ease;
+  z-index: 1;
+`
+
+const SortItem = styled.li`
+  margin: 5px 10px;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  svg {
+    margin-left: 10px;
+    font-size: 12px;
+  }
+  display: flex;
+  align-items: center;
+`
+
+const SaveMsg = styled.div`
+  justify-self: center;
+  color: tomato;
+  font-weight: 600;
+`
+
+
+const EDIT_PERSONAL_PAGE_MUTATION = gql`
+  mutation editPersonalPage($username: String!, $pageString: String!) {
+    editPersonalPage(username: $username, pageString: $pageString) {
+      ok
+      error
+    }
+  }
+`
+
+const EditPrivatePage = ({ personalPage }) => {
+  const { username } = useParams()
+  const personalPageArr = personalPage ?
+    personalPage
+      .split("!@#")
+      .map((item) => {
+        const division = item.split("^^")
+        return {
+          page: division[0],
+          url: division[1]
+        }
+      })
+    :
+    []
+  const [saveMsg, setSaveMsg] = useState(undefined)
+  const onCompleted = (result) => {
+    const { editPersonalPage: { ok } } = result
+    if (ok) {
+      setSaveMsg("개인 홈페이지가 수정 되었습니다.")
+    }
+  }
+  const [editPersonalPage, { loading }] = useMutation(EDIT_PERSONAL_PAGE_MUTATION, {
+    onCompleted
+  })
+  const findUrl = (page) => {
+    return personalPageArr.findIndex((item) => item.page === page)
+  }
+  const { register, handleSubmit, formState: { isValid }, getValues } = useForm({
+    mode: "onChange",
+    defaultValues: {
+      ...(findUrl("인스타그램") !== -1 && { 인스타그램: personalPageArr[findUrl("인스타그램")].url }),
+      ...(findUrl("페이스북") !== -1 && { 페이스북: personalPageArr[findUrl("페이스북")].url }),
+      ...(findUrl("유튜브") !== -1 && { 유튜브: personalPageArr[findUrl("유튜브")].url }),
+      ...(findUrl("깃허브") !== -1 && { 깃허브: personalPageArr[findUrl("깃허브")].url }),
+      ...(findUrl("트위터") !== -1 && { 트위터: personalPageArr[findUrl("트위터")].url }),
+      ...(findUrl("블로그") !== -1 && { 블로그: personalPageArr[findUrl("블로그")].url }),
+      ...(findUrl("기타") !== -1 && { 기타: personalPageArr[findUrl("기타")].url }),
+    }
+  })
+  const onSubmit = (data) => {
+    if (loading) {
+      return
+    }
+    const pageArr = []
+    if (data.인스타그램 !== "") {
+      pageArr.push({ page: "인스타그램", url: data.인스타그램 })
+    }
+    if (data.페이스북 !== "") {
+      pageArr.push({ page: "페이스북", url: data.페이스북 })
+    }
+    if (data.유튜브 !== "") {
+      pageArr.push({ page: "유튜브", url: data.유튜브 })
+    }
+    if (data.깃허브 !== "") {
+      pageArr.push({ page: "깃허브", url: data.깃허브 })
+    }
+    if (data.트위터 !== "") {
+      pageArr.push({ page: "트위터", url: data.트위터 })
+    }
+    if (data.블로그 !== "") {
+      pageArr.push({ page: "블로그", url: data.블로그 })
+    }
+    if (data.기타 !== "") {
+      pageArr.push({ page: "기타", url: data.기타 })
+    }
+    const newPageString = pageArr.map((item) => `${item.page}^^${item.url}`).join("!@#");
+    editPersonalPage({
+      variables: {
+        username,
+        pageString: newPageString
+      }
+    })
+  }
+  return (<EditProfileBox>
+    <EditPageForm onSubmit={handleSubmit(onSubmit)}>
+      <EditPageItem>
+        <PageType><FontAwesomeIcon icon={faInstagram} /></PageType>
+        <EditInput
+          {...register("인스타그램")}
+          placeholder="인스타그램 주소를 입력해 주세요."
+          autoComplete="off"
+        />
+      </EditPageItem>
+      <EditPageItem>
+        <PageType><FontAwesomeIcon icon={faFacebook} /></PageType>
+        <EditInput
+          {...register("페이스북")}
+          placeholder="페이스북 주소를 입력해 주세요."
+          autoComplete="off"
+        />
+      </EditPageItem>
+      <EditPageItem>
+        <PageType><FontAwesomeIcon icon={faYoutube} /></PageType>
+        <EditInput
+          {...register("유튜브")}
+          placeholder="유튜브 주소를 입력해 주세요."
+          autoComplete="off"
+        />
+      </EditPageItem>
+      <EditPageItem>
+        <PageType><FontAwesomeIcon icon={faGithub} /></PageType>
+        <EditInput
+          {...register("깃허브")}
+          placeholder="깃허브 주소를 입력해 주세요."
+          autoComplete="off"
+        />
+      </EditPageItem>
+      <EditPageItem>
+        <PageType><FontAwesomeIcon icon={faTwitter} /></PageType>
+        <EditInput
+          {...register("트위터")}
+          placeholder="트위터 주소를 입력해 주세요."
+          autoComplete="off"
+        />
+      </EditPageItem>
+      <EditPageItem>
+        <PageType><FontAwesomeIcon icon={faBlog} /></PageType>
+        <EditInput
+          {...register("블로그")}
+          placeholder="블로그 주소를 입력해 주세요."
+          autoComplete="off"
+        />
+      </EditPageItem>
+      <EditPageItem>
+        <PageType><FontAwesomeIcon icon={faIcons} /></PageType>
+        <EditInput
+          {...register("기타")}
+          placeholder="기타 홈페이지 주소를 입력해 주세요."
+          autoComplete="off"
+        />
+      </EditPageItem>
+      <SaveBtn type="submit" value={loading ? "저장중..." : "저장하기"} disabled={!isValid} />
+      {saveMsg && <SaveMsg>{saveMsg}</SaveMsg>}
+    </EditPageForm>
+  </EditProfileBox>);
 }
 
 export default EditPrivatePage;

@@ -9,6 +9,10 @@ const EditInput = styled.input`
   :focus {
     box-shadow: 0 0 1px 0.5px ${props => props.theme.fontColor};
  }
+ ::placeholder {
+   color: ${props => props.theme.fontColor};
+   opacity: 0.6;
+ }
 `
 
 export default EditInput

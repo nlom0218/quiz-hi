@@ -201,7 +201,7 @@ const DisconnectQuestions = ({ questions }) => {
       <SEditForm onSubmit={handleSubmit(onSubmit)}>
         <EditInputLayout>
           <InputTitle>퀴즈 문제 삭제하기</InputTitle>
-          {questions.length === 0 ? <div>등록된 퀴즈가 없습니다.</div>
+          {questions.length === 0 ? <div>등록된 문제가 없습니다.</div>
             :
             <Wrapper>
               <ActionBtn>

@@ -21,6 +21,7 @@ const SEE_PROFILE_QUERY = gql`
       avatarURL
       type
       caption
+      personalPage
       score
       isMe
       isFollow
