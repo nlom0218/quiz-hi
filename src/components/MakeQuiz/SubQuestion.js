@@ -19,7 +19,9 @@ const CREATE_QUESTION_MUTATION = gql`
       $hint: String,
       $image: Upload,
       $tags: String,
-      $distractor: String
+      $distractor: String,
+      $updata: Boolean,
+      $quizId: Int
       ) {
       createQuestion(
         question: $question,
@@ -29,7 +31,9 @@ const CREATE_QUESTION_MUTATION = gql`
         hint: $hint,
         image: $image,
         tags: $tags,
-        distractor: $distractor
+        distractor: $distractor,
+        updata: $updata,
+        quizId: $quizId
       ) {
       ok
       questionId
@@ -38,7 +42,7 @@ const CREATE_QUESTION_MUTATION = gql`
   }
 `
 
-const SubQuestion = ({ quizTags, quizType, setQuestionIdArr, questionIdArr, setNextMode, nextMode, imageId, state }) => {
+const SubQuestion = ({ quizTags, quizType, setQuestionIdArr, questionIdArr, setNextMode, nextMode, imageId, state, updata, quizId }) => {
   const [questionTags, setQuestionTags] = useState([])
   const [image, setImage] = useState(undefined)
   const [option, setOption] = useState(false)
@@ -49,6 +53,10 @@ const SubQuestion = ({ quizTags, quizType, setQuestionIdArr, questionIdArr, setN
   const onCompleted = (result) => {
     const { createQuestion: { questionId, ok } } = result
     if (ok) {
+      if (updata) {
+        window.location.reload()
+        return
+      }
       const newQuestionIdArr = [...questionIdArr, questionId]
       setQuestionIdArr(newQuestionIdArr)
       setNextMode("next")
@@ -73,6 +81,8 @@ const SubQuestion = ({ quizTags, quizType, setQuestionIdArr, questionIdArr, setN
         ...(hint && { hint }),
         ...(image && { image }),
         ...(tags && { tags }),
+        ...(updata && { updata }),
+        ...(quizId && { quizId })
       }
     })
   }

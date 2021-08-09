@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 const SInputBtn = styled.input`
-  width: 100%;
+  /* width: 100%; */
   background-color: rgb(200, 200, 200, 0.6);
   opacity: ${props => props.disabled ? 0.4 : 1};
   text-align: center;

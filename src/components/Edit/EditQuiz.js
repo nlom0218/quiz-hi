@@ -7,6 +7,8 @@ import React from 'react';
 import { useParams } from 'react-router';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import AddOrDisConnectQuestions from './AddOrDisConnectQuestions';
+import AddQuestions from './AddQuestions';
 import DisconnectQuestions from './DisconnectQuestions';
 import EditQuizForm from './EditQuizForm';
 
@@ -38,12 +40,21 @@ const PageTitle = styled.div`
     }
   }
 `
+
+const DivisionLine = styled.div`
+  grid-column: 1 / -1;
+  height: 1px;
+  background-color: rgb(200, 200, 200, 0.6);
+  transition: background-color 1s ease;
+`
+
 const DETAIL_QUIZ_QUERY = gql`
   query detailQuiz($id: Int!) {
     detailQuiz(id: $id) {
       id
       title
       caption
+      state
       user {
         id
       }
@@ -93,7 +104,10 @@ const EditQuiz = () => {
         <PageTitle style={{ marginTop: "40px" }}>
           <div><FontAwesomeIcon icon={faBookOpen} />문제 추가 & 삭제</div>
         </PageTitle>
-        <DisconnectQuestions questions={data.detailQuiz.questions} />
+        <AddOrDisConnectQuestions>
+          <AddQuestions {...data.detailQuiz} />
+          <DisconnectQuestions questions={data.detailQuiz.questions} />
+        </AddOrDisConnectQuestions>
       </React.Fragment>
     }
   </Container>);
