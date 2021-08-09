@@ -90,7 +90,7 @@ const QUestionsItem = styled.li`
 
 const Likes = styled.div`
   svg {
-    color: ${props => props.isLiked ? "red" : props.theme.fontColor};
+    color: ${props => props.isLiked ? "tomato" : props.theme.fontColor};
   }
 `
 

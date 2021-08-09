@@ -47,6 +47,7 @@ const DETAIL_QUESTION_QUERY = gql`
       hint
       answer
       image
+      updateInfo
       type
       user {
         id

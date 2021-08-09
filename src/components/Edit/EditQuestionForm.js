@@ -40,7 +40,7 @@ const EDIT_QUESTION_MUTATION = gql`
     $question: String!, 
     $answer: String!,
     $tags: String!, 
-    $updataInfo: String!, 
+    $updateInfo: String!, 
     $hint: String, 
     $distractor: String, 
     $image: Upload,
@@ -51,7 +51,7 @@ const EDIT_QUESTION_MUTATION = gql`
       question: $question, 
       answer: $answer, 
       tags: $tags, 
-      updateInfo: $updataInfo, 
+      updateInfo: $updateInfo, 
       hint: $hint, 
       distractor: $distractor, 
       image: $image,
@@ -63,7 +63,7 @@ const EDIT_QUESTION_MUTATION = gql`
   }
 `
 
-const EditQuestionForm = ({ tags, user: { id: ownerId }, type, image, question, distractor, answer, hint }) => {
+const EditQuestionForm = ({ tags, user: { id: ownerId }, type, image, question, distractor, answer, hint, updateInfo }) => {
   const { id } = useParams()
   const user = useUser()
   const history = useHistory()
@@ -91,6 +91,7 @@ const EditQuestionForm = ({ tags, user: { id: ownerId }, type, image, question, 
     defaultValues: {
       question,
       hint,
+      updateInfo,
       ...(type === "sub" && { answer }),
       ...(type === "obj" && {
         distractor1: distractorArr()[0],
@@ -114,7 +115,7 @@ const EditQuestionForm = ({ tags, user: { id: ownerId }, type, image, question, 
     if (loading) {
       return
     }
-    const { question, updataInfo, hint } = data
+    const { question, updateInfo, hint } = data
     const tags = [...questionTags].join(",")
     const processAnswer = () => {
       if (type === "sub") {
@@ -137,7 +138,7 @@ const EditQuestionForm = ({ tags, user: { id: ownerId }, type, image, question, 
       variables: {
         id: parseInt(id),
         question,
-        updataInfo,
+        updateInfo,
         tags,
         answer: processAnswer(),
         hint,
@@ -217,7 +218,7 @@ const EditQuestionForm = ({ tags, user: { id: ownerId }, type, image, question, 
       <textarea
         cols={20}
         rows={5}
-        {...register("updataInfo", {
+        {...register("updateInfo", {
           required: true
         })}
       ></textarea>

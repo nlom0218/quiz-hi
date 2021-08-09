@@ -34,15 +34,15 @@ const InputTitle = styled.div`
 `
 
 const EDIT_QUIZ_MUTATION = gql`
-  mutation editQuiz($id: Int!, $title: String!, $caption: String!, $tags: String!, $updataInfo: String!) {
-    editQuiz(id: $id, title: $title, caption: $caption, tags: $tags, updateInfo: $updataInfo) {
+  mutation editQuiz($id: Int!, $title: String!, $caption: String!, $tags: String!, $updateInfo: String!) {
+    editQuiz(id: $id, title: $title, caption: $caption, tags: $tags, updateInfo: $updateInfo) {
       ok
       error
     }
   }
 `
 
-const EditQuizForm = ({ title, caption, tags, user: { id: ownerId } }) => {
+const EditQuizForm = ({ title, caption, tags, updateInfo, user: { id: ownerId } }) => {
   const { id } = useParams()
   const user = useUser()
   const history = useHistory()
@@ -58,28 +58,46 @@ const EditQuizForm = ({ title, caption, tags, user: { id: ownerId } }) => {
     }
   }, [])
   const [quizTags, setQuizTags] = useState(tags.map((item) => item.name))
+  console.log(quizTags);
   const { register, formState: { isValid }, handleSubmit, getValues, setValue } = useForm({
     mode: "onChange",
     defaultValues: {
       title,
-      caption
+      caption,
+      updateInfo
     }
   })
   const onCompleted = (result) => {
-    const { editQuiz: { ok } } = result
+    // const { editQuiz: { ok } } = result
+    // if (ok) {
+    //   history.push(`/detail/quiz/${id}`)
+    //   window.location.reload()
+    // }
+  }
+  const update = (cache, result) => {
+    const { data: { editQuiz: { ok } } } = result
     if (ok) {
-      history.push(`/detail/quiz/${id}`)
-      window.location.reload()
+      const QuizId = `Quiz:${parseInt(id)}`
+      cache.modify({
+        id: QuizId,
+        fields: {
+          title() { return getValues("title") },
+          caption() { return getValues("caption") },
+          updateInfo() { return getValues("updateInfo") },
+          tags() { return quizTags.map((item) => { return { name: item } }) }
+        }
+      })
     }
   }
   const [editQuiz, { loading }] = useMutation(EDIT_QUIZ_MUTATION, {
-    onCompleted
+    onCompleted,
+    update
   })
   const onSubmit = (data) => {
     if (loading) {
       return
     }
-    const { title, caption, updataInfo } = data
+    const { title, caption, updateInfo } = data
     const tags = [...quizTags].join(",")
     editQuiz({
       variables: {
@@ -87,7 +105,7 @@ const EditQuizForm = ({ title, caption, tags, user: { id: ownerId } }) => {
         title,
         caption,
         tags,
-        updataInfo
+        updateInfo
       }
     })
   }
@@ -127,7 +145,7 @@ const EditQuizForm = ({ title, caption, tags, user: { id: ownerId } }) => {
       <textarea
         cols={20}
         rows={5}
-        {...register("updataInfo", {
+        {...register("updateInfo", {
           required: true
         })}
       ></textarea>

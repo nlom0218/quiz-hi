@@ -54,6 +54,7 @@ const DETAIL_QUIZ_QUERY = gql`
       id
       title
       caption
+      updateInfo
       state
       user {
         id
