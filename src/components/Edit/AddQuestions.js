@@ -16,7 +16,11 @@ const SMakeQuestionContainer = styled.div`
   display: grid;
   grid-template-columns: 1fr;
   grid-template-rows: auto;
-  row-gap: 30px;
+  row-gap: 60px;
+  .addQuestionMsg {
+    justify-self: center;
+    color: tomato;
+  }
 `
 const QuestionType = styled.div`
   display: grid;
@@ -101,6 +105,7 @@ const AddQuestions = ({ state, tags }) => {
               updata={true}
               quizId={parseInt(id)}
             />}
+          <div className="addQuestionMsg">문제는 퀴즈의 마지막 번호로 추가 됩니다.</div>
         </SMakeQuestionContainer>
       </EditInputLayout>
     </Container>

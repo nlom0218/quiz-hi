@@ -1,5 +1,5 @@
 import { useMutation } from '@apollo/client';
-import { faCheckSquare, faComment, faSquare } from '@fortawesome/free-regular-svg-icons';
+import { faHeart as faHeartRegular, faCheckSquare, faComment, faSquare } from '@fortawesome/free-regular-svg-icons';
 import { faHeart, faTags, faUser } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import gql from 'graphql-tag';
@@ -72,6 +72,7 @@ const QUestionsItem = styled.li`
     font-size: 14px;
     margin-top: 10px;
     display: flex;
+    align-items: flex-end;
     div {
       margin-right: 10px;
     }
@@ -84,9 +85,12 @@ const QUestionsItem = styled.li`
     align-items: flex-end;
   }
   .likes {
-    svg {
-      color: tomato;
-    }
+  }
+`
+
+const Likes = styled.div`
+  svg {
+    color: ${props => props.isLiked ? "red" : props.theme.fontColor};
   }
 `
 
@@ -214,7 +218,9 @@ const DisconnectQuestions = ({ questions }) => {
                           <span>{item.user.nickname}</span>
                         </div>
                         <div className="type">{processType(item.type)}</div>
-                        <div className="likes"><FontAwesomeIcon icon={faHeart} />{item.likes}</div>
+                        <Likes className="likes" isLiked={item.isLiked}>
+                          <FontAwesomeIcon icon={item.isLiked ? faHeart : faHeartRegular} />{item.likes}
+                        </Likes>
                         <div className="comment"><FontAwesomeIcon icon={faComment} />3</div>
                         <div className="hits">조회수 {item.hits}</div>
                       </div>
