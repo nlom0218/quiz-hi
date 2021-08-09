@@ -13,11 +13,11 @@ const STagQuizQuestionLayout = styled.div`
   grid-template-columns: 4fr 1fr;
   grid-template-rows: auto 1fr;
   column-gap: 30px;
+  row-gap: 30px;
 `
 
 const SelectedType = styled.div`
   grid-column: 1 / 2;
-  margin-bottom: 20px;
   display: grid;
   grid-template-columns: auto auto 1fr;
   column-gap: 20px;
