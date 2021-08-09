@@ -42,7 +42,7 @@ const CREATE_QUESTION_MUTATION = gql`
   }
 `
 
-const SubQuestion = ({ quizTags, quizType, setQuestionIdArr, questionIdArr, setNextMode, nextMode, imageId, state, updata, quizId }) => {
+const SubQuestion = ({ quizTags, quizType, setQuestionIdArr, questionIdArr, setNextMode, nextMode, imageId, state, updata, quizId, nickname, avatarURL }) => {
   const [questionTags, setQuestionTags] = useState([])
   const [image, setImage] = useState(undefined)
   const [option, setOption] = useState(false)
@@ -54,7 +54,6 @@ const SubQuestion = ({ quizTags, quizType, setQuestionIdArr, questionIdArr, setN
     const { createQuestion: { questionId, ok } } = result
     if (ok) {
       if (updata) {
-        window.location.reload()
         return
       }
       const newQuestionIdArr = [...questionIdArr, questionId]
@@ -62,8 +61,40 @@ const SubQuestion = ({ quizTags, quizType, setQuestionIdArr, questionIdArr, setN
       setNextMode("next")
     }
   }
+  const update = (cache, result) => {
+    if (!updata) {
+      return
+    }
+    const { data: { createQuestion: { ok, questionId } } } = result
+    if (ok) {
+      const question = {
+        id: questionId,
+        __typename: "Question",
+        question: getValues("question"),
+        type: quizType,
+        isLiked: false,
+        likes: 0,
+        hits: 0,
+        user: {
+          nickname: nickname,
+          avatarURL: avatarURL
+        }
+      }
+      const QuizId = `Quiz:${quizId}`
+      cache.modify({
+        id: QuizId,
+        fields: {
+          questions(prev) {
+            const newQuestions = [...prev, question]
+            return newQuestions
+          }
+        }
+      })
+    }
+  }
   const [createQuestion, { loading }] = useMutation(CREATE_QUESTION_MUTATION, {
-    onCompleted
+    onCompleted,
+    update
   })
   const onSubmit = (data) => {
     const { answer, question, hint } = data

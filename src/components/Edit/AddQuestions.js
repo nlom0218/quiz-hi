@@ -44,7 +44,7 @@ const Types = styled.div`
    }
 `
 
-const AddQuestions = ({ state, tags }) => {
+const AddQuestions = ({ state, tags, user: { nickname, avatarURL } }) => {
   const { id } = useParams()
   const [quizType, setQuizType] = useState("sub")
   const onClickType = (type) => {
@@ -84,6 +84,8 @@ const AddQuestions = ({ state, tags }) => {
               state={state}
               updata={true}
               quizId={parseInt(id)}
+              nickname={nickname}
+              avatarUR={avatarURL}
             />}
           {quizType === "obj"
             && <ObjQuestion
@@ -94,6 +96,8 @@ const AddQuestions = ({ state, tags }) => {
               state={state}
               updata={true}
               quizId={parseInt(id)}
+              nickname={nickname}
+              avatarUR={avatarURL}
             />}
           {quizType === "tf"
             && <TFQuestion
@@ -104,6 +108,8 @@ const AddQuestions = ({ state, tags }) => {
               state={state}
               updata={true}
               quizId={parseInt(id)}
+              nickname={nickname}
+              avatarUR={avatarURL}
             />}
           <div className="addQuestionMsg">문제는 퀴즈의 마지막 번호로 추가 됩니다.</div>
         </SMakeQuestionContainer>
