@@ -122,11 +122,31 @@ const DisconnectQuestions = ({ questions }) => {
   const onCompleted = (result) => {
     const { disconnectQuestions: { ok } } = result
     if (ok) {
-      window.location.reload()
+      // window.location.reload()
+    }
+  }
+  const update = (cache, result) => {
+    const { data: { disconnectQuestions: { ok } } } = result
+    if (ok) {
+      const QuizId = `Quiz:${parseInt(id)}`
+      cache.modify({
+        id: QuizId,
+        fields: {
+          questions(prev) {
+            const DelCacheQuestion = delQuestions.map((item) => `Question:${item}`)
+            const newQuestions = prev.filter((item) => {
+              if (DelCacheQuestion.includes(item.__ref)) { return false }
+              else { return true }
+            })
+            return newQuestions
+          }
+        }
+      })
     }
   }
   const [disconnectQuestions, { loading }] = useMutation(DISCONNECT_QUESTIONS_MUTATION, {
-    onCompleted
+    onCompleted,
+    update
   })
   const processType = (type) => {
     if (type === "sub") {

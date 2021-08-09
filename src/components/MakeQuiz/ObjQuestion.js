@@ -133,6 +133,16 @@ const ObjQuestion = ({ quizTags, quizType, setQuestionIdArr, questionIdArr, setN
         }
       })
     }
+    setValue("question", "")
+    setValue("hint", "")
+    setValue("distractor1", "")
+    setValue("distractor2", "")
+    setValue("distractor3", "")
+    setValue("distractor4", "")
+    setQuestionTags([])
+    setImage(undefined)
+    setAnswer([])
+    setPreviewImg(undefined)
   }
   const [createQuestion, { loading }] = useMutation(CREATE_QUESTION_MUTATION, {
     onCompleted,

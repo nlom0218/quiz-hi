@@ -91,6 +91,12 @@ const SubQuestion = ({ quizTags, quizType, setQuestionIdArr, questionIdArr, setN
         }
       })
     }
+    setValue("question", "")
+    setValue("answer", "")
+    setValue("hint", "")
+    setQuestionTags([])
+    setImage(undefined)
+    setPreviewImg(undefined)
   }
   const [createQuestion, { loading }] = useMutation(CREATE_QUESTION_MUTATION, {
     onCompleted,

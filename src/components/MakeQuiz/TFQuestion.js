@@ -112,6 +112,12 @@ const TFQuestion = ({ quizTags, quizType, setQuestionIdArr, questionIdArr, setNe
         }
       })
     }
+    setValue("question", "")
+    setValue("hint", "")
+    setQuestionTags([])
+    setAnswer("")
+    setImage(undefined)
+    setPreviewImg(undefined)
   }
   const [createQuestion, { loading }] = useMutation(CREATE_QUESTION_MUTATION, {
     onCompleted,
