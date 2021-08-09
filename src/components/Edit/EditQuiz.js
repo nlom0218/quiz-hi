@@ -4,7 +4,7 @@ import { faBookOpen, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import gql from 'graphql-tag';
 import React from 'react';
-import { useParams } from 'react-router';
+import { useHistory, useParams } from 'react-router';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import AddOrDisConnectQuestions from './AddOrDisConnectQuestions';
@@ -26,6 +26,9 @@ const PageTitle = styled.div`
   svg {
     margin-right: 10px;
   }
+  .navBtn {
+    display: flex;
+  }
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
@@ -34,10 +37,24 @@ const PageTitle = styled.div`
     color: tomato;
     border: 1px solid tomato;
     padding: 5px 10px;
+    margin-left: 20px;
     :hover {
       color: #f4f4f4;
       background-color: tomato;
     }
+  }
+`
+
+const PrePage = styled.div`
+  font-size: 16px;
+  border: 1px solid ${props => props.theme.fontColor};
+  padding: 5px 10px;
+  cursor: pointer;
+  font-weight: 400;
+  transition: background-color 0.3s linear, color 0.6s linear;
+  :hover {
+    color: ${props => props.theme.bgColor};
+    background-color: ${props => props.theme.fontColor};
   }
 `
 
@@ -88,22 +105,31 @@ const DETAIL_QUIZ_QUERY = gql`
 
 const EditQuiz = () => {
   const { id } = useParams()
+  const history = useHistory()
   const { data, loading } = useQuery(DETAIL_QUIZ_QUERY, { variables: { id: parseInt(id) } })
+  const onClickPreBtn = () => {
+    history.push(`/detail/quiz/${id}`)
+    window.location.reload()
+  }
   return (<Container>
     {loading ? <div>Loading...</div> :
       <React.Fragment>
         <PageTitle>
           <div><FontAwesomeIcon icon={faEdit} />퀴즈 수정</div>
-          <Link
-            className="delBtn"
-            to={{
-              pathname: `/delete/quiz/${id}`,
-              state: { userId: data.detailQuiz.user.id }
-            }}><FontAwesomeIcon icon={faTrash} />퀴즈 삭제</Link>
+          <div className="navBtn">
+            <PrePage onClick={onClickPreBtn}>이전페이지</PrePage>
+            <Link
+              className="delBtn"
+              to={{
+                pathname: `/delete/quiz/${id}`,
+                state: { userId: data.detailQuiz.user.id }
+              }}><FontAwesomeIcon icon={faTrash} />퀴즈 삭제</Link>
+          </div>
         </PageTitle>
         <EditQuizForm {...data.detailQuiz} />
         <PageTitle style={{ marginTop: "40px" }}>
           <div><FontAwesomeIcon icon={faBookOpen} />문제 추가 & 삭제</div>
+          <PrePage onClick={onClickPreBtn}>이전페이지</PrePage>
         </PageTitle>
         <AddOrDisConnectQuestions>
           <AddQuestions {...data.detailQuiz} />

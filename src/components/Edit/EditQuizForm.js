@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useHistory, useParams } from 'react-router';
 import styled from 'styled-components';
+import { fadeIn } from '../../animation/fade';
 import useUser from '../../hooks/useUser';
 import InputBtn from '../InputBtn';
 import EditInputLayout from './EditInputLayout';
@@ -33,6 +34,12 @@ const InputTitle = styled.div`
   
 `
 
+const EidtMsg = styled.div`
+  justify-self: center;
+  color: tomato;
+  animation: ${fadeIn} 0.4s linear;
+`
+
 const EDIT_QUIZ_MUTATION = gql`
   mutation editQuiz($id: Int!, $title: String!, $caption: String!, $tags: String!, $updateInfo: String!) {
     editQuiz(id: $id, title: $title, caption: $caption, tags: $tags, updateInfo: $updateInfo) {
@@ -43,6 +50,7 @@ const EDIT_QUIZ_MUTATION = gql`
 `
 
 const EditQuizForm = ({ title, caption, tags, updateInfo, user: { id: ownerId } }) => {
+  const [editMsg, setEditMsg] = useState(undefined)
   const { id } = useParams()
   const user = useUser()
   const history = useHistory()
@@ -88,6 +96,7 @@ const EditQuizForm = ({ title, caption, tags, updateInfo, user: { id: ownerId } 
         }
       })
     }
+    setEditMsg("퀴즈 정보가 수정 되었습니다.")
   }
   const [editQuiz, { loading }] = useMutation(EDIT_QUIZ_MUTATION, {
     onCompleted,
@@ -151,6 +160,7 @@ const EditQuizForm = ({ title, caption, tags, updateInfo, user: { id: ownerId } 
       ></textarea>
     </EditInputLayout>
     <InputBtn disabled={!isValid} value="수정하기" />
+    {editMsg && <EidtMsg>{editMsg}</EidtMsg>}
   </SEditForm>);
 }
 
