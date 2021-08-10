@@ -20,6 +20,8 @@ const DETAIL_QUESTION_QUERY = gql`
       answer
       image
       createdAt
+      updatedAt
+      updateInfo
       likes
       isLiked
       hits

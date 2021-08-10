@@ -18,9 +18,11 @@ const DETAIL_QUIZ_QUERY = gql`
       title
       createdAt
       caption
+      updateInfo
       likes
       isLiked
       hits
+      updatedAt
       user {
         id
         nickname

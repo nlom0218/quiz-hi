@@ -66,7 +66,6 @@ const EditQuizForm = ({ title, caption, tags, updateInfo, user: { id: ownerId } 
     }
   }, [])
   const [quizTags, setQuizTags] = useState(tags.map((item) => item.name))
-  console.log(quizTags);
   const { register, formState: { isValid }, handleSubmit, getValues, setValue } = useForm({
     mode: "onChange",
     defaultValues: {

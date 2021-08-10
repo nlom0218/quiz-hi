@@ -1,7 +1,7 @@
 import { faHeart, faTags, faUser } from '@fortawesome/free-solid-svg-icons';
 import { faHeart as faHeartRegular, faCheckSquare, faSquare, faEdit } from '@fortawesome/free-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import { getCreatedDay } from "../../sharedFn"
 import gql from 'graphql-tag';
@@ -120,6 +120,46 @@ const TagItem = styled.div`
   border-radius: 5px;
 `
 
+const UpdateInfo = styled.div`
+  grid-column:  1 / -1;
+  margin-top: 20px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  row-gap: 20px;
+`
+
+const UpdateTitle = styled.div`
+
+`
+
+const UpdateDay = styled.div`
+  justify-self: flex-end;
+`
+
+const UpdateContent = styled.textarea`
+  line-height: 25px;
+  width: 100%;
+  height: ${props => props.txtHeight}px;
+  resize: none;
+  border: none;
+  font-size: 16px;
+  padding: 0px;
+  color: ${props => props.theme.fontColor};
+  background-color: ${props => props.theme.boxColor};
+  transition: background-color 1s ease, color 1s ease;
+  :focus {
+    outline: none;
+  }
+`
+
+const DivisionLine = styled.div`
+  margin-top: 20px;
+  grid-column: 1 / -1;
+  height: 1px;
+  background-color: rgb(200, 200, 200, 0.6);
+  transition: background-color 1s ease;
+`
+
 const TOGGLE_LIKE_MUTATION = gql`
   mutation toggleLike($type: String!, $id: Int!) {
     toggleLike(type: $type, id: $id) {
@@ -129,7 +169,16 @@ const TOGGLE_LIKE_MUTATION = gql`
   }
 `
 
-const DetailLayout = ({ id, children, title, question, user: { avatarURL, nickname, username, id: userId }, createdAt, isLiked, likes, hits, tags, setPutQuiz }) => {
+const DetailLayout = ({
+  id, children, title, question, user: { avatarURL, nickname, username, id: userId }, createdAt, isLiked, likes, hits, tags, setPutQuiz, updateInfo, updatedAt
+}) => {
+  const textarea = useRef()
+  const [txtHeight, setTxtHeight] = useState(null)
+  useEffect(() => {
+    if (updateInfo) {
+      setTxtHeight(textarea.current.scrollHeight)
+    }
+  }, [])
   const history = useHistory()
   const user = useUser()
   const processType = () => {
@@ -255,6 +304,22 @@ const DetailLayout = ({ id, children, title, question, user: { avatarURL, nickna
     </Tags>
     }
     {children}
+    {updateInfo && <React.Fragment>
+      <DivisionLine></DivisionLine>
+      <UpdateInfo>
+        <UpdateTitle>업데이트 내용</UpdateTitle>
+        <UpdateDay>최근 업데이트 날짜 {getCreatedDay(updatedAt)}</UpdateDay>
+        <UpdateContent
+          value={updateInfo}
+          ref={textarea}
+          cols={20}
+          rows={1}
+          txtHeight={txtHeight}
+          readOnly="readOnly"
+        ></UpdateContent>
+      </UpdateInfo>
+    </React.Fragment>
+    }
   </SDetailQuiz>);
 }
 
