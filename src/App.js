@@ -20,6 +20,7 @@ import FeedQuestion from './pages/FeedQuestion';
 import FeedTag from './pages/FeedTag';
 import Edit from './pages/Edit';
 import Delete from './pages/Delete';
+import Library from './pages/Library';
 
 function App() {
   const darkMode = useReactiveVar(darkModeVar)
@@ -38,6 +39,9 @@ function App() {
           <Route path="/notice-board"><NoticeBoard /></Route>
           <Route path="/make-quiz">{user ? <MakeQuiz /> : <NotFound />}</Route>
           <Route path="/play-quiz">{user ? <PlayQuiz /> : <NotFound />}</Route>
+          <Route path="/play-quiz/:id">{user ? <PlayQuiz /> : <NotFound />}</Route>
+          <Route path="/play-quiz/:id/:mode">{user ? <PlayQuiz /> : <NotFound />}</Route>
+          <Route path="/library">{user ? <Library /> : <NotFound />}</Route>
           <Route path="/profile/:username/:mode/:state/:type/:page">{user ? <Profile /> : <NotFound />}</Route>
           <Route path="/profile/:username/:mode">{user ? <Profile /> : <NotFound />}</Route>
           <Route path="/login"><Login /></Route>
