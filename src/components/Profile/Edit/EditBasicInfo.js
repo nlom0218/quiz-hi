@@ -107,7 +107,7 @@ const SaveMsg = styled.div`
 `
 
 const EDIT_PROFILE_MUTATION = gql`
-  mutation EditProfileMutation($username: String!, $nickname: String!, $caption: String!, $delImg: Boolean!, $avatarURL: Upload) {
+  mutation EditProfileMutation($username: String!, $nickname: String!, $caption: String, $delImg: Boolean!, $avatarURL: Upload) {
     editProfile(
       username: $username, 
       nickname: $nickname, 
@@ -174,11 +174,12 @@ const EditBasicInfo = ({ nickname, caption, avatarURL, id }) => {
     if (loading) {
       return
     }
+    console.log(caption === "");
     editProfile({
       variables: {
         username,
         nickname,
-        caption,
+        ...(caption !== "" && { caption }),
         delImg,
         ...(newAvatarURL && { avatarURL: newAvatarURL })
       }
@@ -199,7 +200,7 @@ const EditBasicInfo = ({ nickname, caption, avatarURL, id }) => {
         <EditTextArea
           cols={20}
           rows={3}
-          {...register("caption", { required: true })}>
+          {...register("caption")}>
         </EditTextArea>
       </Wrapper>
       <ProfileImage>
