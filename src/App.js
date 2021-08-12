@@ -38,8 +38,8 @@ function App() {
           <Route path="/detail/tag/:id/:type/:sort/:page"><FeedTag /></Route>
           <Route path="/notice-board"><NoticeBoard /></Route>
           <Route path="/make-quiz">{user ? <MakeQuiz /> : <NotFound />}</Route>
-          <Route path="/play-quiz">{user ? <PlayQuiz /> : <NotFound />}</Route>
-          <Route path="/play-quiz/:id">{user ? <PlayQuiz /> : <NotFound />}</Route>
+          <Route exact path="/play-quiz">{user ? <PlayQuiz /> : <NotFound />}</Route>
+          <Route exact path="/play-quiz/:id">{user ? <PlayQuiz /> : <NotFound />}</Route>
           <Route path="/play-quiz/:id/:mode">{user ? <PlayQuiz /> : <NotFound />}</Route>
           <Route path="/library">{user ? <Library /> : <NotFound />}</Route>
           <Route path="/profile/:username/:mode/:state/:type/:page">{user ? <Profile /> : <NotFound />}</Route>
