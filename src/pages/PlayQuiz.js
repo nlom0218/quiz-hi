@@ -6,6 +6,7 @@ import BasicContainer from '../components/BasicContainer';
 import Header from '../components/Header';
 import PageTitle from '../components/PageTitle';
 import PlayQuizLayout from '../components/PlayQuiz/PlayQuizLayout';
+import SelectMode from '../components/PlayQuiz/SelectMode';
 import SelectQuiz from '../components/PlayQuiz/SelectQuiz';
 
 const OptionBox = styled.div`
@@ -15,6 +16,7 @@ const OptionBox = styled.div`
   padding: 40px 30px;
   box-shadow: ${prosp => prosp.theme.boxShadow};
   background-color: ${props => props.theme.boxColor};
+  transition: background-color 1s ease;
 `
 
 const OptionTitle = styled.div`
@@ -36,7 +38,7 @@ const PlayQuiz = () => {
           </OptionBox>
           <OptionBox>
             <OptionTitle>모드 선택하기</OptionTitle>
-            <OptionContent></OptionContent>
+            <OptionContent><SelectMode /></OptionContent>
           </OptionBox>
           <OptionBox>
             <OptionTitle>문제, 정답 미리보기</OptionTitle>
