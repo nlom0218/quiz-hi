@@ -6,6 +6,7 @@ import React, { useState } from 'react';
 import { useHistory, useParams } from 'react-router';
 import styled from 'styled-components';
 import { fadeIn } from '../../animation/fade';
+import SelectQuizList from './SelectQuizList';
 
 const Container = styled.div`
   display: grid;
@@ -64,7 +65,7 @@ const SelectQuiz = () => {
     <Wrapper>
       <SelectBtn className="leftContent" onClick={onClickSeletBtn}><FontAwesomeIcon icon={faHandPointer} /> 퀴즈 선택하기</SelectBtn>
     </Wrapper>
-
+    {seeList && <SelectQuizList />}
   </Container >);
 }
 
