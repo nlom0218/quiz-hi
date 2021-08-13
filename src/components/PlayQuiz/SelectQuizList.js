@@ -2,10 +2,11 @@ import { useQuery } from '@apollo/client';
 import { faSquare } from '@fortawesome/free-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import gql from 'graphql-tag';
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { fadeIn } from '../../animation/fade';
 import useUser from '../../hooks/useUser';
+import PageBar from '../QuizFeed/PageBar';
 
 const Container = styled.div`
   animation: ${fadeIn} 0.6s ease;
@@ -37,11 +38,11 @@ const PageBarBtn = styled.div`
   }
   :first-child {
     border-right: 1px solid rgb(200, 200, 200, 0.6);
-    opacity: ${props => props.firstPage && "0.4"};
+    opacity: ${props => props.firstPage ? "0.4" : "1"};
     cursor: ${props => props.firstPage ? "not-allowd" : "pointer"};
   }
   :nth-child(2) {
-    opacity: ${props => props.lastPage && "0.4"};
+    opacity: ${props => props.lastPage ? "0.4" : "1"};
     cursor: ${props => props.lastPage ? "not-allowd" : "pointer"};
   }
 `
@@ -85,31 +86,61 @@ const SeleteQuizBtn = styled.div`
 const SEE_FOLLOW_QUIZ_QUERY = gql`
   query seeFollowQuiz($id: Int!, $page: Int!) {
     seeFollowQuiz(id: $id, page: $page) {
-      title
-      id
+      quiz {
+        title
+      }
+      totalNum
     }
   }
 `
 
 const SelectQuizList = () => {
   const user = useUser()
+  const [page, setPage] = useState(1)
+  const [lastPage, setLastPage] = useState(null)
+  const onCompleted = (data) => {
+    if (data.seeFollowQuiz.totalNum === 0) {
+      setLastPage(1)
+      return
+    }
+    if (Number.isInteger(data.seeFollowQuiz.totalNum / 10)) {
+      setLastPage(data.seeFollowQuiz.totalNum / 10)
+      return
+    }
+    const lastPage = Math.floor(data.seeFollowQuiz.totalNum / 10) + 1
+    setLastPage(lastPage)
+  }
   const { data, loading } = useQuery(SEE_FOLLOW_QUIZ_QUERY, {
     variables: {
       id: user.id,
-      page: 1
-    }
+      page
+    },
+    onCompleted
   })
+  const onClickPageBtn = (btn) => {
+    if (btn === "pre") {
+      if (page === 1) {
+        return
+      }
+      setPage(prev => prev - 1)
+    } else {
+      if (page === lastPage) {
+        return
+      }
+      setPage(prev => prev + 1)
+    }
+  }
   return (<Container>
     <Wrapper>
       <ContainerTitle>라이브러리에 저장된 퀴즈</ContainerTitle>
       <SPageBar>
-        <PageBarBtn>이전</PageBarBtn>
-        <PageBarBtn>다음</PageBarBtn>
+        <PageBarBtn firstPage={page === 1 ? true : false} onClick={() => onClickPageBtn("pre")}>이전</PageBarBtn>
+        <PageBarBtn lastPage={lastPage === page} onClick={() => onClickPageBtn("next")}>다음</PageBarBtn>
       </SPageBar>
     </Wrapper>
     {loading ? <div>로딩중...</div> :
       <List>
-        {data?.seeFollowQuiz.map((item, index) => {
+        {data?.seeFollowQuiz?.quiz.map((item, index) => {
           return <React.Fragment key={index}>
             <Item>
               <QuizTitle>{item.title.length > 35 ? `${item.title.substring(0, 35)}...` : item.title}</QuizTitle>

@@ -19,11 +19,11 @@ const PageBarBtn = styled.div`
   }
   :first-child {
     border-right: 1px solid rgb(200, 200, 200, 0.6);
-    opacity: ${props => props.firstPage && "0.4"};
+    opacity: ${props => props.firstPage ? "0.4" : "1"};
     cursor: ${props => props.firstPage ? "not-allowd" : "pointer"};
   }
   :nth-child(2) {
-    opacity: ${props => props.lastPage && "0.4"};
+    opacity: ${props => props.lastPage ? "0.4" : "1"};
     cursor: ${props => props.lastPage ? "not-allowd" : "pointer"};
   }
 `
