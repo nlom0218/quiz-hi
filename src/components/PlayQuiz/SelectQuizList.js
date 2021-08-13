@@ -63,6 +63,7 @@ const Item = styled.li`
   border-bottom: 1px solid rgb(200, 200, 200, 0.8);
   display: grid;
   grid-template-columns: 1fr auto;
+  background-color: ${props => props.selected && "rgb(200, 200, 200, 0.2)"};
   transition: background-color 0.2s linear;
   :hover {
     background-color: rgb(200, 200, 200, 0.2);
@@ -75,7 +76,7 @@ const QuizTitle = styled.div`
 
 const SeleteQuizBtn = styled.div`
   align-self: flex-start;
-  background-color: rgb(255, 165, 0, 0.4);
+  background-color: ${props => props.selected ? "rgb(255, 165, 0, 0.8)" : "rgb(255, 165, 0, 0.4)"};
   padding: 5px 10px;
   border-radius: 5px;
   cursor: pointer;
@@ -97,8 +98,7 @@ const SEE_FOLLOW_QUIZ_QUERY = gql`
   }
 `
 
-const SelectQuizList = () => {
-  const history = useHistory()
+const SelectQuizList = ({ setQuizId }) => {
   const user = useUser()
   const [page, setPage] = useState(1)
   const [lastPage, setLastPage] = useState(null)
@@ -135,7 +135,16 @@ const SelectQuizList = () => {
     }
   }
   const onClickQuiz = (quizId) => {
-    history.push(`/play-quiz/${quizId}`)
+    localStorage.setItem("selectQuiz", quizId)
+    setQuizId(quizId)
+  }
+  const selected = (quizId) => {
+    const selectedId = parseInt(localStorage.getItem("selectQuiz"))
+    if (selectedId === quizId) {
+      return true
+    } else {
+      return false
+    }
   }
   return (<Container>
     <Wrapper>
@@ -150,9 +159,11 @@ const SelectQuizList = () => {
         {data?.seeFollowQuiz?.quiz.length === 0 && <Item>라이브러리에 퀴즈가 없습니다.</Item>}
         {data?.seeFollowQuiz?.quiz.map((item, index) => {
           return <React.Fragment key={index}>
-            <Item>
+            <Item selected={selected(item.id)}>
               <QuizTitle>{item.title.length > 35 ? `${item.title.substring(0, 35)}...` : item.title}</QuizTitle>
-              <SeleteQuizBtn onClick={() => onClickQuiz(item.id)}>선택</SeleteQuizBtn>
+              <SeleteQuizBtn onClick={() => onClickQuiz(item.id)} selected={selected(item.id)}>
+                {selected(item.id) ? "선택됨" : "선택"}
+              </SeleteQuizBtn>
             </Item>
           </React.Fragment>
         })}

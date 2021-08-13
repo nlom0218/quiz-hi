@@ -5,7 +5,8 @@ import { fadeIn } from '../../animation/fade';
 const SStep = styled.div`
   grid-column: 2 / -2;
   animation: ${fadeIn} 1s linear forwards;
-  margin-top: 40px;
+  margin-top: 20px;
+  margin-bottom: 40px;
 `
 
 const Layout = styled.div`

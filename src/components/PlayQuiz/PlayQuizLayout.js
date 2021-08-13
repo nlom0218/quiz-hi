@@ -6,6 +6,7 @@ const Layout = styled.div`
   display: grid;
   grid-template-columns: 1fr;
   row-gap: 60px;
+  margin-top: 20px;
 `
 
 const PlayQuizLayout = ({ children }) => {

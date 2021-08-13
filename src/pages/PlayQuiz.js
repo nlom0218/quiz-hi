@@ -1,11 +1,9 @@
-import { faFolderOpen, faPlay } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
 import styled from 'styled-components';
 import BasicContainer from '../components/BasicContainer';
 import Header from '../components/Header';
+import PageTitle from '../components/PageTitle';
 import PlayQuizLayout from '../components/PlayQuiz/PlayQuizLayout';
-import PlayQuizLibraryBtn from '../components/PlayQuiz/PlayQuizLibraryBtn';
 import SelectQuiz from '../components/PlayQuiz/SelectQuiz';
 
 const OptionBox = styled.div`
@@ -31,8 +29,8 @@ const PlayQuiz = () => {
     <React.Fragment>
       <Header />
       <BasicContainer>
+        <PageTitle title="퀴즈 진행하기" />
         <PlayQuizLayout>
-          <PlayQuizLibraryBtn />
           <OptionBox>
             <OptionTitle>퀴즈 선택하기</OptionTitle>
             <OptionContent><SelectQuiz /></OptionContent>

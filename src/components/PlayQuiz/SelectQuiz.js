@@ -44,20 +44,20 @@ const DETATIL_QUIZ_QUERY = gql`
 `
 
 const SelectQuiz = () => {
-  const { id } = useParams()
+  const [quizId, setQuizId] = useState(localStorage.getItem("selectQuiz") || null)
   const { data, loading } = useQuery(DETATIL_QUIZ_QUERY, {
-    variables: { id: parseInt(id) },
-    skip: !id
+    variables: { id: parseInt(quizId) },
+    skip: !quizId
   })
   return (<Container>
     <Wrapper>
       <div className="leftContent"><FontAwesomeIcon icon={faBook} /> 선택된 퀴즈</div>
-      <div className="rightContent">{id ? data?.detailQuiz?.title : "선택된 퀴즈가 없습니다."}</div>
+      <div className="rightContent">{quizId ? data?.detailQuiz?.title : "선택된 퀴즈가 없습니다."}</div>
     </Wrapper>
     <Wrapper>
       <SelectBtn className="leftContent"><FontAwesomeIcon icon={faHandPointer} /> 퀴즈 선택하기</SelectBtn>
       <div className="rightContent">아래의 퀴즈 중 하나를 선택하세요.</div>
-      <SelectQuizList />
+      <SelectQuizList setQuizId={setQuizId} />
     </Wrapper>
   </Container >);
 }
