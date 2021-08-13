@@ -25,6 +25,7 @@ const Wrapper = styled.div`
   }
   .rightContent {
     align-self: center;
+    line-height: 20px;
   }
 `
 

@@ -3,6 +3,7 @@ import { faSquare } from '@fortawesome/free-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import gql from 'graphql-tag';
 import React, { useState } from 'react';
+import { useHistory } from 'react-router';
 import styled from 'styled-components';
 import { fadeIn } from '../../animation/fade';
 import useUser from '../../hooks/useUser';
@@ -88,6 +89,7 @@ const SEE_FOLLOW_QUIZ_QUERY = gql`
     seeFollowQuiz(id: $id, page: $page) {
       quiz {
         title
+        id
       }
       totalNum
     }
@@ -95,6 +97,7 @@ const SEE_FOLLOW_QUIZ_QUERY = gql`
 `
 
 const SelectQuizList = () => {
+  const history = useHistory()
   const user = useUser()
   const [page, setPage] = useState(1)
   const [lastPage, setLastPage] = useState(null)
@@ -130,6 +133,9 @@ const SelectQuizList = () => {
       setPage(prev => prev + 1)
     }
   }
+  const onClickQuiz = (quizId) => {
+    history.push(`/play-quiz/${quizId}`)
+  }
   return (<Container>
     <Wrapper>
       <ContainerTitle>라이브러리에 저장된 퀴즈</ContainerTitle>
@@ -140,11 +146,12 @@ const SelectQuizList = () => {
     </Wrapper>
     {loading ? <div>로딩중...</div> :
       <List>
+        {data?.seeFollowQuiz?.quiz.length === 0 && <Item>라이브러리에 퀴즈가 없습니다.</Item>}
         {data?.seeFollowQuiz?.quiz.map((item, index) => {
           return <React.Fragment key={index}>
             <Item>
               <QuizTitle>{item.title.length > 35 ? `${item.title.substring(0, 35)}...` : item.title}</QuizTitle>
-              <SeleteQuizBtn>선택</SeleteQuizBtn>
+              <SeleteQuizBtn onClick={() => onClickQuiz(item.id)}>선택</SeleteQuizBtn>
             </Item>
           </React.Fragment>
         })}
