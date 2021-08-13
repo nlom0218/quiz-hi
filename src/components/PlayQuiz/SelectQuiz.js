@@ -37,8 +37,7 @@ const DETATIL_QUIZ_QUERY = gql`
   }
 `
 
-const SelectQuiz = () => {
-  const [quizId, setQuizId] = useState(localStorage.getItem("selectQuiz") || null)
+const SelectQuiz = ({ setQuizId, quizId }) => {
   const { data, loading } = useQuery(DETATIL_QUIZ_QUERY, {
     variables: { id: parseInt(quizId) },
     skip: !quizId

@@ -44,8 +44,7 @@ const ExplainMode = styled.div`
   line-height: 20px;
 `
 
-const SelectMode = () => {
-  const [quizMode, setQuizMode] = useState(localStorage.getItem("selectMode") || null)
+const SelectMode = ({ quizMode, setQuizMode }) => {
   const onClickModeBtn = (mode) => {
     localStorage.setItem("selectMode", mode)
     setQuizMode(mode)
