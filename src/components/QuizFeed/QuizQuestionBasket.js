@@ -97,6 +97,7 @@ const QuizQuestionBasket = ({ setPutQuiz }) => {
       if (result.followQuiz.ok) {
         if (window.confirm("퀴즈가 라이브러리에 저장이 되었습니다.\n라이브러리로 이동하시겠습니까?")) {
           history.push("/play-quiz")
+          window.location.reload()
         }
         localStorage.removeItem("quizBasket")
         setPutQuiz(prev => !prev)
@@ -110,6 +111,7 @@ const QuizQuestionBasket = ({ setPutQuiz }) => {
       if (result.followQuestion.ok) {
         if (window.confirm("문제가 라이브러리에 저장이 되었습니다.\n라이브러리로 이동하시겠습니까?")) {
           history.push("/play-quiz")
+          window.location.reload()
         }
         localStorage.removeItem("questionBasket")
         setPutQuiz(prev => !prev)
