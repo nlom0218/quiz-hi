@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 const Layout = styled.div`
+  grid-column: 1 / -1;
   border-radius: 5px;
   padding: 40px 30px;
   box-shadow: ${prosp => prosp.theme.boxShadow};

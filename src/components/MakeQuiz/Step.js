@@ -3,21 +3,20 @@ import styled from 'styled-components';
 import { fadeIn } from '../../animation/fade';
 
 const SStep = styled.div`
-  grid-column: 2 / -3;
+  grid-column: 2 / -2;
   animation: ${fadeIn} 1s linear forwards;
+  margin-top: 40px;
 `
 
 const Layout = styled.div`
-  /* grid-column: 1 / 13; */
   display: grid;
-  grid-template-columns: 1fr;
-  grid-template-rows: auto;
-  margin-bottom: 50px;
+  grid-template-columns: auto 1fr;
+  row-gap: 20px;
 `
 
 const Title = styled.div`
   font-size: 16px;
-  margin-bottom: 5px;
+  margin-right: 10px;
   letter-spacing: 5px;
   font-weight: 600;
 `
@@ -25,7 +24,6 @@ const Title = styled.div`
 const Msg = styled.div`
   font-size: 16px;
   font-weight: 400;
-  margin-bottom: 10px;
 `
 
 const Step = ({ step, msg, children, frist }) => {

@@ -10,6 +10,7 @@ import useUser from '../../hooks/useUser';
 import PageBar from '../QuizFeed/PageBar';
 
 const Container = styled.div`
+  grid-column: 1 / -1;
   animation: ${fadeIn} 0.6s ease;
 `
 
