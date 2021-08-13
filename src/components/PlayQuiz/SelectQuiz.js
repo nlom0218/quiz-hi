@@ -55,8 +55,8 @@ const SelectQuiz = () => {
       <div className="rightContent">{quizId ? data?.detailQuiz?.title : "선택된 퀴즈가 없습니다."}</div>
     </Wrapper>
     <Wrapper>
-      <SelectBtn className="leftContent"><FontAwesomeIcon icon={faHandPointer} /> 퀴즈 선택하기</SelectBtn>
-      <div className="rightContent">아래의 퀴즈 중 하나를 선택하세요.</div>
+      {/* <SelectBtn className="leftContent"><FontAwesomeIcon icon={faHandPointer} /> 퀴즈 선택하기</SelectBtn> */}
+      {/* <div className="rightContent">아래의 퀴즈 중 하나를 선택하세요.</div> */}
       <SelectQuizList setQuizId={setQuizId} />
     </Wrapper>
   </Container >);

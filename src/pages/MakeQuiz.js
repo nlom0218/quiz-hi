@@ -10,6 +10,8 @@ import PageTitle from '../components/PageTitle';
 import NavBtn from '../components/NavBtn';
 import CompletionQuiz from '../components/MakeQuiz/CompletionQuiz';
 import useUser from '../hooks/useUser';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPencilAlt } from '@fortawesome/free-solid-svg-icons';
 
 const MakeQuiz = () => {
   const user = useUser()
@@ -28,7 +30,7 @@ const MakeQuiz = () => {
   return (<React.Fragment>
     <Header />
     <BasicContainer>
-      <PageTitle title="퀴즈 만들기" />
+      <PageTitle><FontAwesomeIcon icon={faPencilAlt} /> 퀴즈 만들기</PageTitle>
       <Step step={1} msg="퀴즈의 제목과 태그를 입력하세요." frist={true}>
         <QuizFormLayout>
           <MakeQuizForm

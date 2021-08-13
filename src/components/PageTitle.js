@@ -9,8 +9,8 @@ const SPageTitle = styled.div`
   font-weight: 600;
 `
 
-const PageTitle = ({ title }) => {
-  return (<SPageTitle>{title}</SPageTitle>);
+const PageTitle = ({ children }) => {
+  return (<SPageTitle>{children}</SPageTitle>);
 }
 
 export default PageTitle;

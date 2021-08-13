@@ -63,7 +63,7 @@ const Item = styled.li`
   border-bottom: 1px solid rgb(200, 200, 200, 0.8);
   display: grid;
   grid-template-columns: 1fr auto;
-  background-color: ${props => props.selected && "rgb(200, 200, 200, 0.2)"};
+  /* background-color: ${props => props.selected && "rgb(200, 200, 200, 0.2)"}; */
   transition: background-color 0.2s linear;
   :hover {
     background-color: rgb(200, 200, 200, 0.2);
