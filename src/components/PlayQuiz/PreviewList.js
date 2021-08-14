@@ -14,7 +14,7 @@ const SPreviewList = styled.div`
 const PreviewItem = styled.div`
   display: grid;
   grid-template-columns: 1fr;
-  row-gap: 20px;
+  row-gap: 30px;
   border: 1px solid rgb(200, 200, 200, 0.8);
   padding: 30px 20px;
 `
@@ -31,7 +31,7 @@ const Title = styled.div`
 const Content = styled.div`
   display: grid;
   grid-template-columns: 1fr;
-  row-gap: 10px;
+  row-gap: 20px;
 `
 
 const DisTractorItem = styled.li`
@@ -40,17 +40,27 @@ const DisTractorItem = styled.li`
   .num {
     margin-right: 10px;
     align-self: flex-start;
+    margin-top: 5px;
   }
 `
 
 const DistractorContent = styled.div`
   align-self: flex-start;
   justify-self: flex-start;
-  /* line-height: 20px; */
+  line-height: 24px;
   color: ${props => props.answer ? "tomato" : props.theme.fontColor};
 `
 
 const PreviewList = ({ quizList }) => {
+  const processAnswer = (answer) => {
+    if (answer === "true") {
+      return "○"
+    } else if (answer === "false") {
+      return "✕"
+    } else {
+      return answer
+    }
+  }
   return (<SPreviewList>
     {quizList.map((item, index) => {
       return <PreviewItem key={index}>
@@ -73,9 +83,8 @@ const PreviewList = ({ quizList }) => {
         </Wrapper>}
         <Wrapper>
           <Title><FontAwesomeIcon icon={faBell} /> 정답</Title>
-          <Content>{item.answer}</Content>
+          <Content>{processAnswer(item.answer)}</Content>
         </Wrapper>
-        {/* <Line></Line> */}
       </PreviewItem>
     })}
   </SPreviewList>);
