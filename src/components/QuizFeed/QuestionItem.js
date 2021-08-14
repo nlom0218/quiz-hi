@@ -191,12 +191,22 @@ const QuestionItem = (
       history.push(`/edit/question/${id}`)
     }
   }
+  const editMode = () => {
+    if (!edit) {
+      return false
+    }
+    if (user.id !== userId) {
+      return false
+    } else {
+      return true
+    }
+  }
   return (<SQuestionItem tags={tags.length !== 0 ? true : false}>
     <QuizTitle onClick={onClickTitle}>
       {question.length > 40 ? `${question.substring(0, 40)}...` : question}
     </QuizTitle>
     <EditBasketBtn>
-      {edit && <EditBtn onClick={onClickEditBtn}>
+      {editMode() && <EditBtn onClick={onClickEditBtn}>
         <FontAwesomeIcon icon={faEdit} />
       </EditBtn>}
       <QuizBasketBtn onClick={() => {
