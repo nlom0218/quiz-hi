@@ -45,8 +45,7 @@ const DETATIL_QUIZ_QUERY = gql`
   }
 `
 
-const Preview = ({ quizMode, quizId }) => {
-  const [quizList, setQuizList] = useState(JSON.parse(localStorage.getItem("quizList")) || [])
+const Preview = ({ quizMode, quizId, quizList, setQuizList }) => {
   const onCompleted = () => {
     const quizList = data.detailQuiz.questions.map((item, index) => {
       return {
@@ -76,6 +75,8 @@ const Preview = ({ quizMode, quizId }) => {
       return "포인트모드를 선택하였습니다. 문제에 점수를 입력해주세요."
     } else if (quizMode === "cooperation") {
       return "협동모드를 선택하였습니다. 문제에 점수를 입력해주세요."
+    } else {
+      return "모드를 선택해주세요."
     }
   }
   return (<Container>

@@ -45,11 +45,14 @@ const OptionContent = styled.div`
 const PlayQuiz = () => {
   const [quizId, setQuizId] = useState(localStorage.getItem("selectQuiz") || null)
   const [quizMode, setQuizMode] = useState(localStorage.getItem("selectMode") || null)
+  const [quizList, setQuizList] = useState(JSON.parse(localStorage.getItem("quizList")) || null)
   const onClickResetBtn = () => {
     localStorage.removeItem("selectQuiz")
     setQuizId(null)
     localStorage.removeItem("selectMode")
     setQuizMode(null)
+    localStorage.removeItem("quizList")
+    setQuizList(null)
   }
   return (
     <React.Fragment>
@@ -68,7 +71,7 @@ const PlayQuiz = () => {
           </OptionBox>
           <OptionBox>
             <OptionTitle>문제, 정답 미리보기</OptionTitle>
-            <OptionContent><Preview quizMode={quizMode} quizId={quizId} /></OptionContent>
+            <OptionContent><Preview quizMode={quizMode} quizId={quizId} quizList={quizList} setQuizList={setQuizList} /></OptionContent>
           </OptionBox>
           <OptionBox>
             <OptionTitle>타이머 설정하기</OptionTitle>
