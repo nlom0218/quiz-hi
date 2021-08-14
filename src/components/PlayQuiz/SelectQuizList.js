@@ -1,13 +1,9 @@
 import { useQuery } from '@apollo/client';
-import { faSquare } from '@fortawesome/free-regular-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import gql from 'graphql-tag';
 import React, { useState } from 'react';
-import { useHistory } from 'react-router';
 import styled from 'styled-components';
 import { fadeIn } from '../../animation/fade';
 import useUser from '../../hooks/useUser';
-import PageBar from '../QuizFeed/PageBar';
 
 const Container = styled.div`
   grid-column: 1 / -1;

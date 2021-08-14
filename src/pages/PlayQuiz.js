@@ -6,6 +6,7 @@ import BasicContainer from '../components/BasicContainer';
 import Header from '../components/Header';
 import PageTitle from '../components/PageTitle';
 import PlayQuizLayout from '../components/PlayQuiz/PlayQuizLayout';
+import Preview from '../components/PlayQuiz/Preview';
 import SelectMode from '../components/PlayQuiz/SelectMode';
 import SelectQuiz from '../components/PlayQuiz/SelectQuiz';
 
@@ -67,7 +68,7 @@ const PlayQuiz = () => {
           </OptionBox>
           <OptionBox>
             <OptionTitle>문제, 정답 미리보기</OptionTitle>
-            <OptionContent></OptionContent>
+            <OptionContent><Preview quizMode={quizMode} quizId={quizId} /></OptionContent>
           </OptionBox>
           <OptionBox>
             <OptionTitle>타이머 설정하기</OptionTitle>
