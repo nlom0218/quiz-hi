@@ -88,7 +88,7 @@ const Preview = ({ quizMode, quizId, quizList, setQuizList }) => {
       <div className="rightContent">{processQuizMode()}</div>
     </Wrapper>
     {quizList && <PreviewList quizList={quizList} quizMode={quizMode} />}
-
+    <div>dsfsdf</div>
   </Container >);
 }
 

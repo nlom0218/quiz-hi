@@ -3,6 +3,8 @@ import { faBell, faFile, faSquare } from '@fortawesome/free-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
 import styled from 'styled-components';
+import GoldenBellSetting from './GoldenBellSetting';
+import ScoreSetting from './ScoreSetting';
 
 const SPreviewList = styled.div`
   display: grid;
@@ -97,9 +99,9 @@ const PreviewList = ({ quizList, quizMode }) => {
             <Content>{processAnswer(item.answer)}</Content>
           </Wrapper>
         </div>
-        {quizMode === "goldenBell" && <QuizSetting className="quizSetting"><FontAwesomeIcon icon={faSquare} /></QuizSetting>}
-        {quizMode === "score" && <QuizSetting className="quizSetting">점수</QuizSetting>}
-        {quizMode === "cooperation" && <QuizSetting className="quizSetting">점수</QuizSetting>}
+        {quizMode === "goldenBell" && <GoldenBellSetting />}
+        {quizMode === "score" && <ScoreSetting />}
+        {quizMode === "cooperation" && <ScoreSetting />}
       </PreviewItem>
     })}
   </SPreviewList >);
