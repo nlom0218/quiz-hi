@@ -19,6 +19,7 @@ const PreviewItem = styled.div`
   row-gap: 30px;
   border: 1px solid rgb(200, 200, 200, 0.8);
   padding: 30px 20px;
+  align-items: flex-start;
   .quizContent {
     display: grid;
     grid-template-columns: 1fr;

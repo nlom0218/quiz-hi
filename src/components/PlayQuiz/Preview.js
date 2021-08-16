@@ -78,9 +78,9 @@ const Preview = ({ quizMode, quizId, quizList, setQuizList }) => {
     } else if (quizMode === "goldenBell") {
       return "골든벨모드를 선택하였습니다. 패자부활전 문제를 선택해주세요."
     } else if (quizMode === "score") {
-      return "포인트모드를 선택하였습니다. 문제에 점수를 입력해주세요."
+      return "포인트모드를 선택하였습니다. 문제에 점수를 설정해주세요."
     } else if (quizMode === "cooperation") {
-      return "협동모드를 선택하였습니다. 문제에 점수를 입력해주세요."
+      return "협동모드를 선택하였습니다. 문제에 점수를 설정해주세요."
     } else {
       return "모드를 선택해주세요."
     }
