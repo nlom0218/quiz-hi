@@ -57,6 +57,7 @@ const SortBar = styled.div`
   border-radius: 5px;
   display: flex;
   position: relative;
+  cursor: pointer;
 `
 
 const Sort = styled.div`
@@ -64,7 +65,6 @@ const Sort = styled.div`
 `
 
 const SortBtn = styled.div`
-  cursor: pointer;
 `
 
 const SortList = styled.ul`
@@ -147,9 +147,9 @@ const QuizFeedContainer = ({ children, feedType, sort, page, lastPage, tagsArr, 
         </form>
       </SearchBar>
       {checkPageBar() ? <PageBar lastPage={lastPage} /> : null}
-      <SortBar>
+      <SortBar onClick={onClickSortBtn}>
         <Sort>{processSort(sort)}</Sort>
-        <SortBtn onClick={onClickSortBtn}>
+        <SortBtn>
           <FontAwesomeIcon icon={seeSortList ? faChevronUp : faChevronDown} />
         </SortBtn>
         {seeSortList && <SortList>
