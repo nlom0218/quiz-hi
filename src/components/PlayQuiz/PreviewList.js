@@ -58,12 +58,7 @@ const DistractorContent = styled.div`
   color: ${props => props.answer ? "tomato" : props.theme.fontColor};
 `
 
-const QuizSetting = styled.div`
-  margin-left: 20px;
-`
-
-const PreviewList = ({ quizList, quizMode }) => {
-  console.log(quizMode);
+const PreviewList = ({ quizList, quizMode, setQuizList }) => {
   const processAnswer = (answer) => {
     if (answer === "true") {
       return "○"
@@ -99,9 +94,9 @@ const PreviewList = ({ quizList, quizMode }) => {
             <Content>{processAnswer(item.answer)}</Content>
           </Wrapper>
         </div>
-        {quizMode === "goldenBell" && <GoldenBellSetting />}
-        {quizMode === "score" && <ScoreSetting />}
-        {quizMode === "cooperation" && <ScoreSetting />}
+        {quizMode === "goldenBell" && <GoldenBellSetting setQuizList={setQuizList} {...item} quizList={quizList} />}
+        {quizMode === "score" && <ScoreSetting setQuizList={setQuizList} />}
+        {quizMode === "cooperation" && <ScoreSetting setQuizList={setQuizList} />}
       </PreviewItem>
     })}
   </SPreviewList >);
