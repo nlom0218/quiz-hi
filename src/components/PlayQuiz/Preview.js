@@ -1,9 +1,10 @@
 import { gql, useQuery } from '@apollo/client';
-import { faBook } from '@fortawesome/free-solid-svg-icons';
+import { faBook, faCog } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import PreviewList from './PreviewList';
+import UnityScore from './UnityScore';
 
 const Container = styled.div`
   display: grid;
@@ -102,6 +103,15 @@ const Preview = ({ quizMode, quizId, quizList, setQuizList }) => {
       return `점수 설정이 완료되었습니다. 개인이 얻을 수 있는 최고점은 ${totalScore}점입니다.`
     }
   }
+  const unityScore = () => {
+    if (quizMode === "score") {
+      return true
+    } else if (quizMode === "cooperation") {
+      return true
+    } else {
+      return false
+    }
+  }
   return (<Container>
     <Wrapper>
       <div className="leftContent"><FontAwesomeIcon icon={faBook} /> 선택된 퀴즈</div>
@@ -110,6 +120,10 @@ const Preview = ({ quizMode, quizId, quizList, setQuizList }) => {
     <Wrapper>
       <div className="rightContent">{processQuizMode()}</div>
     </Wrapper>
+    {unityScore() && <Wrapper>
+      <div className="leftContent"><FontAwesomeIcon icon={faCog} /> 같은 점수로 설정</div>
+      <div className="rightContent"><UnityScore quizList={quizList} setQuizList={setQuizList} setChange={setChange} /></div>
+    </Wrapper>}
     {quizList && <PreviewList quizList={quizList} quizMode={quizMode} setQuizList={setQuizList} setChange={setChange} />}
     {quizMode === "goldenBell" && <ConsolationQuestion>{processConsolationQuestion()}</ConsolationQuestion>}
     {quizMode === "score" && <ConsolationQuestion>{processScoreQuestion()}</ConsolationQuestion>}
