@@ -74,6 +74,9 @@ const Preview = ({ quizMode, quizId, quizList, setQuizList }) => {
     onCompleted
   })
   const processQuizMode = () => {
+    if (!quizList) {
+      return
+    }
     if (quizMode === "nomal") {
       return "일반모드를 선택하였습니다."
     } else if (quizMode === "goldenBell") {
@@ -87,6 +90,9 @@ const Preview = ({ quizMode, quizId, quizList, setQuizList }) => {
     }
   }
   const processConsolationQuestion = () => {
+    if (!quizList) {
+      return
+    }
     const consolationQuestion = quizList.filter((item) => item.consolation)
     if (consolationQuestion.length !== 0) {
       return `${consolationQuestion.map((item) => `${item.order}번`).join(", ")} 문제를 패자부활전 문제로 선택하였습니다.`
@@ -95,6 +101,9 @@ const Preview = ({ quizMode, quizId, quizList, setQuizList }) => {
     }
   }
   const processScoreQuestion = () => {
+    if (!quizList) {
+      return
+    }
     const scoreArr = quizList.map((item) => item.score)
     if (scoreArr.includes(undefined)) {
       return "모든 문제에 점수 설정이 완료되지 않았습니다."
@@ -104,6 +113,9 @@ const Preview = ({ quizMode, quizId, quizList, setQuizList }) => {
     }
   }
   const unityScore = () => {
+    if (!quizList) {
+      return
+    }
     if (quizMode === "score") {
       return true
     } else if (quizMode === "cooperation") {
