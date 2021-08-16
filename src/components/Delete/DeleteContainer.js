@@ -28,11 +28,12 @@ const PageTitle = styled.div`
 
 const DeleteMsg = styled.div`
   padding: 40px 30px;
-  border: 1px solid ${props => props.theme.fontColor};
+  border: 1px solid rgb(200, 200, 200, 0.8);
   display: grid;
   grid-template-columns: 1fr;
   row-gap: 20px;
-  transition: border 1s ease;
+  transition: border 1s ease, background-color 1s ease;
+  background-color: ${props => props.theme.boxColor};
 `
 
 const CheckPassword = styled.form`
