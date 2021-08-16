@@ -96,8 +96,8 @@ const PreviewList = ({ quizList, quizMode, setQuizList, setChange }) => {
           </Wrapper>
         </div>
         {quizMode === "goldenBell" && <GoldenBellSetting setQuizList={setQuizList} {...item} quizList={quizList} setChange={setChange} />}
-        {quizMode === "score" && <ScoreSetting setQuizList={setQuizList} />}
-        {quizMode === "cooperation" && <ScoreSetting setQuizList={setQuizList} />}
+        {quizMode === "score" && <ScoreSetting setQuizList={setQuizList} {...item} quizList={quizList} setChange={setChange} />}
+        {quizMode === "cooperation" && <ScoreSetting setQuizList={setQuizList} {...item} quizList={quizList} setChange={setChange} />}
       </PreviewItem>
     })}
   </SPreviewList >);

@@ -1,20 +1,18 @@
-import { faCheck, faChevronDown, faChevronUp } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { fadeIn } from '../../animation/fade';
 
 const QuizSetting = styled.div`
   margin-left: 20px;
 `
 
-const SortBar = styled.div`
+const ScoreBar = styled.div`
   display: grid;
   grid-template-columns: 1fr;
-  row-gap: 10px;
+  row-gap: 15px;
 `
 
-const SortItem = styled.div`
+const ScoreItem = styled.div`
+  background-color: ${props => props.selected ? "rgb(200, 200, 200, 0.2)" : props.theme.boxColor};
   text-align: center;
   padding: 5px 10px;
   border: 1px solid rgb(200, 200, 200, 0.8);
@@ -26,14 +24,30 @@ const SortItem = styled.div`
   }
 `
 
-const ScoreSetting = () => {
+const ScoreSetting = ({ setQuizList, order, quizList, setChange }) => {
+  const onClickScoreItem = (order, score) => {
+    const index = quizList.findIndex((item) => item.order === order)
+    const changedQuiz = { ...quizList[index], score }
+    quizList.splice(index, 1, changedQuiz)
+    localStorage.setItem("quizList", JSON.stringify(quizList))
+    setQuizList(quizList)
+    setChange(prev => !prev)
+  }
+  const selectedScore = (order, score) => {
+    const index = quizList.findIndex((item) => item.order === order)
+    if (quizList[index].score === score) {
+      return true
+    } else {
+      return false
+    }
+  }
   return (<QuizSetting>
-    <SortBar>
-      <SortItem>5점</SortItem>
-      <SortItem>10점</SortItem>
-      <SortItem>20점</SortItem>
-      <SortItem>30점</SortItem>
-    </SortBar>
+    <ScoreBar>
+      <ScoreItem onClick={() => onClickScoreItem(order, 5)} selected={selectedScore(order, 5)}>5점</ScoreItem>
+      <ScoreItem onClick={() => onClickScoreItem(order, 10)} selected={selectedScore(order, 10)}>10점</ScoreItem>
+      <ScoreItem onClick={() => onClickScoreItem(order, 20)} selected={selectedScore(order, 20)}>20점</ScoreItem>
+      <ScoreItem onClick={() => onClickScoreItem(order, 30)} selected={selectedScore(order, 30)}>30점</ScoreItem>
+    </ScoreBar>
 
   </QuizSetting>);
 }

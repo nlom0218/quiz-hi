@@ -93,6 +93,15 @@ const Preview = ({ quizMode, quizId, quizList, setQuizList }) => {
       return "선택된 패자부활전 문제가 없습니다."
     }
   }
+  const processScoreQuestion = () => {
+    const scoreArr = quizList.map((item) => item.score)
+    if (scoreArr.includes(undefined)) {
+      return "모든 문제에 점수 설정이 완료되지 않았습니다."
+    } else {
+      const totalScore = scoreArr.reduce((acc, cur) => acc + cur)
+      return `점수 설정이 완료되었습니다. 개인이 얻을 수 있는 최고점은 ${totalScore}점입니다.`
+    }
+  }
   return (<Container>
     <Wrapper>
       <div className="leftContent"><FontAwesomeIcon icon={faBook} /> 선택된 퀴즈</div>
@@ -103,6 +112,8 @@ const Preview = ({ quizMode, quizId, quizList, setQuizList }) => {
     </Wrapper>
     {quizList && <PreviewList quizList={quizList} quizMode={quizMode} setQuizList={setQuizList} setChange={setChange} />}
     {quizMode === "goldenBell" && <ConsolationQuestion>{processConsolationQuestion()}</ConsolationQuestion>}
+    {quizMode === "score" && <ConsolationQuestion>{processScoreQuestion()}</ConsolationQuestion>}
+    {quizMode === "cooperation" && <ConsolationQuestion>{processScoreQuestion()}</ConsolationQuestion>}
   </Container >);
 }
 

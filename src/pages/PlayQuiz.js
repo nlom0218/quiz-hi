@@ -74,8 +74,6 @@ const PlayQuiz = () => {
             <OptionContent><Preview quizMode={quizMode} quizId={quizId} quizList={quizList} setQuizList={setQuizList} /></OptionContent>
           </OptionBox>
           <OptionBox>
-            <OptionTitle>타이머 설정하기</OptionTitle>
-            <OptionContent></OptionContent>
           </OptionBox>
         </PlayQuizLayout>
       </BasicContainer>
