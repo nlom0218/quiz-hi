@@ -8,8 +8,7 @@ const QuizSetting = styled.div`
   cursor: pointer;
 `
 
-const GoldenBellSetting = ({ setQuizList, order, quizList, consolation }) => {
-  const [change, setChange] = useState(true)
+const GoldenBellSetting = ({ setQuizList, order, quizList, setChange }) => {
   const onClickCheckBox = (order) => {
     const index = quizList.findIndex((item) => item.order === order)
     let changedQuiz = {}

@@ -27,6 +27,11 @@ const Wrapper = styled.div`
   }
 `
 
+const ConsolationQuestion = styled.div`
+  justify-self: center;
+  color: tomato;
+`
+
 const DETATIL_QUIZ_QUERY = gql`
   query detailQuiz($id: Int!) {
     detailQuiz(id: $id) {
@@ -46,6 +51,7 @@ const DETATIL_QUIZ_QUERY = gql`
 `
 
 const Preview = ({ quizMode, quizId, quizList, setQuizList }) => {
+  const [change, setChange] = useState(true)
   const onCompleted = () => {
     const quizList = data.detailQuiz.questions.map((item, index) => {
       return {
@@ -79,6 +85,14 @@ const Preview = ({ quizMode, quizId, quizList, setQuizList }) => {
       return "모드를 선택해주세요."
     }
   }
+  const processConsolationQuestion = () => {
+    const consolationQuestion = quizList.filter((item) => item.consolation)
+    if (consolationQuestion.length !== 0) {
+      return `${consolationQuestion.map((item) => `${item.order}번`).join(", ")} 문제를 패자부활전 문제로 선택하였습니다.`
+    } else {
+      return "선택된 패자부활전 문제가 없습니다."
+    }
+  }
   return (<Container>
     <Wrapper>
       <div className="leftContent"><FontAwesomeIcon icon={faBook} /> 선택된 퀴즈</div>
@@ -87,8 +101,8 @@ const Preview = ({ quizMode, quizId, quizList, setQuizList }) => {
     <Wrapper>
       <div className="rightContent">{processQuizMode()}</div>
     </Wrapper>
-    {quizList && <PreviewList quizList={quizList} quizMode={quizMode} setQuizList={setQuizList} />}
-    <div>dsfsdf</div>
+    {quizList && <PreviewList quizList={quizList} quizMode={quizMode} setQuizList={setQuizList} setChange={setChange} />}
+    {quizMode === "goldenBell" && <ConsolationQuestion>{processConsolationQuestion()}</ConsolationQuestion>}
   </Container >);
 }
 
