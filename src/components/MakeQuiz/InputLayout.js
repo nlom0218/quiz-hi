@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 const SInputLayout = styled.div`
   display: grid;
-  grid-template-columns: 180px 1fr;
+  grid-template-columns: ${props => props.updateQuestion ? "100px" : "180px"} 1fr;
   align-items: flex-start;
   input {
     padding: 10px 20px;
@@ -16,8 +16,8 @@ const SInputLayout = styled.div`
   }
 `
 
-const InputLayout = ({ children, bgColor, fcBgColor }) => {
-  return (<SInputLayout>
+const InputLayout = ({ children, updateQuestion }) => {
+  return (<SInputLayout updateQuestion={updateQuestion}>
     {children}
   </SInputLayout>);
 }

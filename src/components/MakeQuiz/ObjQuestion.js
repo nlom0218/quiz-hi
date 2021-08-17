@@ -83,7 +83,7 @@ const CREATE_QUESTION_MUTATION = gql`
   }
 `
 
-const ObjQuestion = ({ quizTags, quizType, setQuestionIdArr, questionIdArr, setNextMode, nextMode, imageId, state, updata, quizId, nickname, avatarURL }) => {
+const ObjQuestion = ({ quizTags, quizType, setQuestionIdArr, questionIdArr, setNextMode, nextMode, imageId, state, updateQuestion, quizId, nickname, avatarURL }) => {
   const [questionTags, setQuestionTags] = useState([])
   const [answer, setAnswer] = useState([])
   const [image, setImage] = useState(undefined)
@@ -95,7 +95,7 @@ const ObjQuestion = ({ quizTags, quizType, setQuestionIdArr, questionIdArr, setN
   const onCompleted = (result) => {
     const { createQuestion: { questionId, ok } } = result
     if (ok) {
-      if (updata) {
+      if (updateQuestion) {
         return
       }
       const newQuestionIdArr = [...questionIdArr, questionId]
@@ -104,7 +104,7 @@ const ObjQuestion = ({ quizTags, quizType, setQuestionIdArr, questionIdArr, setN
     }
   }
   const update = (cache, result) => {
-    if (!updata) {
+    if (!updateQuestion) {
       return
     }
     const { data: { createQuestion: { ok, questionId } } } = result
@@ -185,20 +185,19 @@ const ObjQuestion = ({ quizTags, quizType, setQuestionIdArr, questionIdArr, setN
         ...(hint && { hint }),
         ...(image && { image }),
         ...(tags && { tags }),
-        ...(updata && { updata }),
+        ...(updateQuestion && { updata: updateQuestion }),
         ...(quizId && { quizId })
       }
     })
-    console.log(updata, quizId, question, type, state);
   }
   return (<MakeQuestionForm onSubmit={handleSubmit(onSubmit)}>
-    <InputLayout>
+    <InputLayout updateQuestion={updateQuestion}>
       <span className="inputTitle">문제</span>
       <QuestionTextarea
         register={register}
         nextMode={nextMode} />
     </InputLayout>
-    <InputLayout>
+    <InputLayout updateQuestion={updateQuestion}>
       <span className="inputTitle">선택지</span>
       {/* <span className="subMsg">문항을 입력하고 정답을 체크해주세요.(중복가능)</span> */}
       <DistractorBox>
@@ -233,6 +232,7 @@ const ObjQuestion = ({ quizTags, quizType, setQuestionIdArr, questionIdArr, setN
       imageId={imageId}
       previewImg={previewImg}
       setPreviewImg={setPreviewImg}
+      updateQuestion={updateQuestion}
     />}
     {nextMode === "" ?
       <InputBtn

@@ -13,10 +13,10 @@ const Option = styled.div`
 `
 
 const QuestionOption = (
-  { register, getValues, setValue, questionTags, setQuestionTags, setImage, nextMode, imageId, previewImg, setPreviewImg }
+  { register, getValues, setValue, questionTags, setQuestionTags, setImage, nextMode, imageId, previewImg, setPreviewImg, updateQuestion }
 ) => {
   return (<Option>
-    <InputLayout>
+    <InputLayout updateQuestion={updateQuestion}>
       <span className="inputTitle">힌트</span>
       {/* <span className="subMsg">힌트가 있나요? 아래에 힌트를 작성하세요.</span> */}
       <input
@@ -26,7 +26,7 @@ const QuestionOption = (
         autoComplete="off"
       />
     </InputLayout>
-    <InputLayout>
+    <InputLayout updateQuestion={updateQuestion}>
       <ImageContainer
         setValue={setValue}
         register={register}
@@ -37,7 +37,7 @@ const QuestionOption = (
         setPreviewImg={setPreviewImg}
       />
     </InputLayout>
-    <InputLayout>
+    <InputLayout updateQuestion={updateQuestion}>
       <TagContainer
         getValues={getValues}
         setValue={setValue}

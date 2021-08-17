@@ -24,16 +24,10 @@ const SMakeQuestionContainer = styled.div`
 `
 const QuestionType = styled.div`
   display: grid;
-  grid-template-columns: 1fr;
-  grid-template-columns: auto 1fr;
-  span {
-    grid-column: 1 / -1;
-    margin-bottom: 15px;
-  }
+  grid-template-columns: 100px auto;
 `
 
 const Types = styled.div`
-   grid-column: 1 / -1;
    display: grid;
    grid-template-columns: repeat(3, 1fr);
    justify-items: start;
@@ -56,7 +50,7 @@ const AddQuestions = ({ state, tags, user: { nickname, avatarURL } }) => {
         <InputTitle>퀴즈 문제 추가하기</InputTitle>
         <SMakeQuestionContainer>
           <QuestionType>
-            <span>・ 문제 유형을 선택하세요.</span>
+            <span>문제 유형</span>
             <Types>
               <div>
                 <FontAwesomeIcon
@@ -82,7 +76,7 @@ const AddQuestions = ({ state, tags, user: { nickname, avatarURL } }) => {
               nextMode=""
               imageId="newImage"
               state={state}
-              updata={true}
+              updateQuestion={true}
               quizId={parseInt(id)}
               nickname={nickname}
               avatarUR={avatarURL}
@@ -94,7 +88,7 @@ const AddQuestions = ({ state, tags, user: { nickname, avatarURL } }) => {
               nextMode=""
               imageId="newImage"
               state={state}
-              updata={true}
+              updateQuestion={true}
               quizId={parseInt(id)}
               nickname={nickname}
               avatarUR={avatarURL}
@@ -106,7 +100,7 @@ const AddQuestions = ({ state, tags, user: { nickname, avatarURL } }) => {
               nextMode=""
               imageId="newImage"
               state={state}
-              updata={true}
+              updateQuestion={true}
               quizId={parseInt(id)}
               nickname={nickname}
               avatarUR={avatarURL}

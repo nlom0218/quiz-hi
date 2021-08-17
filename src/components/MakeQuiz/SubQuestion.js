@@ -42,7 +42,7 @@ const CREATE_QUESTION_MUTATION = gql`
   }
 `
 
-const SubQuestion = ({ quizTags, quizType, setQuestionIdArr, questionIdArr, setNextMode, nextMode, imageId, state, updata, quizId, nickname, avatarURL }) => {
+const SubQuestion = ({ quizTags, quizType, setQuestionIdArr, questionIdArr, setNextMode, nextMode, imageId, state, updateQuestion, quizId, nickname, avatarURL }) => {
   const [questionTags, setQuestionTags] = useState([])
   const [image, setImage] = useState(undefined)
   const [option, setOption] = useState(false)
@@ -53,7 +53,7 @@ const SubQuestion = ({ quizTags, quizType, setQuestionIdArr, questionIdArr, setN
   const onCompleted = (result) => {
     const { createQuestion: { questionId, ok } } = result
     if (ok) {
-      if (updata) {
+      if (updateQuestion) {
         return
       }
       const newQuestionIdArr = [...questionIdArr, questionId]
@@ -62,7 +62,7 @@ const SubQuestion = ({ quizTags, quizType, setQuestionIdArr, questionIdArr, setN
     }
   }
   const update = (cache, result) => {
-    if (!updata) {
+    if (!updateQuestion) {
       return
     }
     const { data: { createQuestion: { ok, questionId } } } = result
@@ -118,19 +118,19 @@ const SubQuestion = ({ quizTags, quizType, setQuestionIdArr, questionIdArr, setN
         ...(hint && { hint }),
         ...(image && { image }),
         ...(tags && { tags }),
-        ...(updata && { updata }),
+        ...(updateQuestion && { updata: updateQuestion }),
         ...(quizId && { quizId })
       }
     })
   }
   return (<MakeQuestionForm onSubmit={handleSubmit(onSubmit)}>
-    <InputLayout>
+    <InputLayout updateQuestion={updateQuestion}>
       <span className="inputTitle">문제</span>
       <QuestionTextarea
         register={register}
         nextMode={nextMode} />
     </InputLayout>
-    <InputLayout>
+    <InputLayout updateQuestion={updateQuestion}>
       <span className="inputTitle">정답</span>
       <input
         {...register("answer", {
@@ -153,6 +153,7 @@ const SubQuestion = ({ quizTags, quizType, setQuestionIdArr, questionIdArr, setN
       imageId={imageId}
       previewImg={previewImg}
       setPreviewImg={setPreviewImg}
+      updateQuestion={updateQuestion}
     />}
     {nextMode === "" ?
       <InputBtn value={loading ? "문제 만드는 중..." : "문제 만들기"} disabled={!isValid} bgColor="rgb(172, 255, 20)" />

@@ -4,7 +4,6 @@ import styled from 'styled-components';
 const Wrapper = styled.div`
   display: grid;
   grid-template-columns: 180px 1fr;
-  column-gap: 30px;
   input {
     padding: 10px 20px;
     border-radius: 5px;

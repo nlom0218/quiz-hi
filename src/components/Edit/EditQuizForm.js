@@ -119,7 +119,7 @@ const EditQuizForm = ({ title, caption, tags, updateInfo, user: { id: ownerId } 
   }
   return (<SEditForm onSubmit={handleSubmit(onSubmit)}>
     <EditInputLayout>
-      <InputTitle>퀴즈 제목 수정하기</InputTitle>
+      <InputTitle>제목 수정하기</InputTitle>
       <input
         {...register("title", {
           required: true
@@ -129,7 +129,7 @@ const EditQuizForm = ({ title, caption, tags, updateInfo, user: { id: ownerId } 
       />
     </EditInputLayout>
     <EditInputLayout>
-      <InputTitle>퀴즈 설명 수정하기</InputTitle>
+      <InputTitle>설명 수정하기</InputTitle>
       <textarea
         cols={20}
         rows={5}
@@ -139,7 +139,7 @@ const EditQuizForm = ({ title, caption, tags, updateInfo, user: { id: ownerId } 
       ></textarea>
     </EditInputLayout>
     <EditInputLayout>
-      <InputTitle>퀴즈 태그 수정하기</InputTitle>
+      <InputTitle>태그 수정하기</InputTitle>
       <EditTagInput
         register={register}
         tags={quizTags}

@@ -182,7 +182,7 @@ const EditQuestionForm = ({ tags, user: { id: ownerId }, type, image, question, 
         setTfAnswer={setTfAnswer}
       />}
     <EditInputLayout>
-      <InputTitle>퀴즈 태그 수정하기</InputTitle>
+      <InputTitle>태그 수정하기</InputTitle>
       <EditTagInput
         register={register}
         tags={questionTags}
