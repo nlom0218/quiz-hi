@@ -44,6 +44,7 @@ const MakeQuiz = () => {
             quizTitle={quizTitle}
             state={state}
             setState={setState}
+            quizCaption={quizCaption}
           />
         </QuizFormLayout>
       </Step>

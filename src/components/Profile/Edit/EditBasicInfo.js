@@ -174,7 +174,6 @@ const EditBasicInfo = ({ nickname, caption, avatarURL, id }) => {
     if (loading) {
       return
     }
-    console.log(caption === "");
     editProfile({
       variables: {
         username,

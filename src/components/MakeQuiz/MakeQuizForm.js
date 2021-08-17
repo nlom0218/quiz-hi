@@ -52,7 +52,7 @@ const StateBtn = styled.div`
 `
 
 const MakeQuizForm = (
-  { setQuizTags, quizTags, setQuizTitle, quizTitle, makeQuestion, setMakeQuestion, state, setState, setQuizCaption }) => {
+  { setQuizTags, quizTags, setQuizTitle, quizTitle, makeQuestion, setMakeQuestion, state, setState, setQuizCaption, quizCaption }) => {
   const user = useUser()
   const { register, getValues, setValue, formState: { isValid }, handleSubmit, watch } = useForm({
     mode: "onChange"
@@ -62,8 +62,12 @@ const MakeQuizForm = (
     setQuizCaption(data.question)
     setMakeQuestion(true)
   }
-  const onClickChangeBtn = () => {
-    setQuizTitle(getValues("quizTitle"))
+  const onClickChangeBtn = (value) => {
+    if (value === "title") {
+      setQuizTitle(getValues("quizTitle"))
+    } else if (value === "caption") {
+      setQuizCaption(getValues("question"))
+    }
   }
   const onClickStateBtn = (state) => {
     if (makeQuestion || user.type === "nomal") {
@@ -84,7 +88,7 @@ const MakeQuizForm = (
       {makeQuestion && <React.Fragment>
         {quizTitle !== watch("quizTitle") && <ChangeMsg>
           <span>변경사항이 있습니다. 수정하시겠습니까?</span>
-          <ChangeBtn onClick={onClickChangeBtn}>수정하기</ChangeBtn>
+          <ChangeBtn onClick={() => onClickChangeBtn("title")}>수정하기</ChangeBtn>
         </ChangeMsg>}
       </React.Fragment>}
     </InputLayout>
@@ -93,6 +97,12 @@ const MakeQuizForm = (
       {/* <span className="subMsg">퀴즈에 대한 설명을 적어주세요.</span> */}
       <QuestionTextarea
         register={register} nextMode="" />
+      {makeQuestion && <React.Fragment>
+        {quizCaption !== watch("question") && <ChangeMsg>
+          <span>변경사항이 있습니다. 수정하시겠습니까?</span>
+          <ChangeBtn onClick={() => onClickChangeBtn("caption")}>수정하기</ChangeBtn>
+        </ChangeMsg>}
+      </React.Fragment>}
     </InputLayout>
     <InputLayout>
       <TagContainer
