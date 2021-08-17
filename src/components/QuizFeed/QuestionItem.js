@@ -192,6 +192,9 @@ const QuestionItem = (
     }
   }
   const editMode = () => {
+    if (!user) {
+      return false
+    }
     if (!edit) {
       return false
     }

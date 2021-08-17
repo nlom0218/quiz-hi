@@ -251,6 +251,16 @@ const DetailLayout = ({
       history.push(`/edit/question/${id}`)
     }
   }
+  const confirmUser = () => {
+    if (!user) {
+      return false
+    }
+    if (user.id === userId) {
+      return true
+    } else {
+      return false
+    }
+  }
   return (<SDetailQuiz>
     <Basket>
       장바구니에 담기
@@ -277,7 +287,7 @@ const DetailLayout = ({
       <Hits>
         조회수 {hits}
       </Hits>
-      {user.id === userId && <EditBtn onClick={onClickEditBtn}>
+      {confirmUser() && <EditBtn onClick={onClickEditBtn}>
         <FontAwesomeIcon icon={faEdit} />
       </EditBtn>}
     </Info>
