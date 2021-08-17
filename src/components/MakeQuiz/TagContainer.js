@@ -77,9 +77,9 @@ const TagContainer = ({ getValues, tags, setTags, setValue, register, subMsg1, s
     }
   }
   return (<React.Fragment>
-    <span className="inputTitle">・ 태그</span>
-    <span className="subMsg">{subMsg1}</span>
-    <span className="subMsg">{subMsg2}</span>
+    <span className="inputTitle">태그</span>
+    {/* <span className="subMsg">{subMsg1}</span>
+    <span className="subMsg">{subMsg2}</span> */}
     <TagInput>
       <input
         {...register("tag")}

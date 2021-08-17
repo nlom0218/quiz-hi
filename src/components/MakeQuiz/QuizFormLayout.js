@@ -12,7 +12,7 @@ const Layout = styled.div`
 `
 
 const QuizFormLayout = ({ children, bgColor }) => {
-  return (<Layout bgColor={bgColor}>
+  return (<Layout>
     {children}
   </Layout>);
 }

@@ -125,13 +125,13 @@ const SubQuestion = ({ quizTags, quizType, setQuestionIdArr, questionIdArr, setN
   }
   return (<MakeQuestionForm onSubmit={handleSubmit(onSubmit)}>
     <InputLayout>
-      <span className="inputTitle">・ 문제</span>
+      <span className="inputTitle">문제</span>
       <QuestionTextarea
         register={register}
         nextMode={nextMode} />
     </InputLayout>
     <InputLayout>
-      <span className="inputTitle">・ 정답</span>
+      <span className="inputTitle">정답</span>
       <input
         {...register("answer", {
           required: true

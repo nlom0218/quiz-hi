@@ -2,15 +2,9 @@ import React from 'react';
 import styled from 'styled-components';
 
 const SInputLayout = styled.div`
-  display: flex;
-  flex-direction: column;
-  .inputTitle {
-    margin-bottom: 10px;
-    font-size: 16px;
-  }
-  .subMsg {
-    margin-bottom: 5px;
-  }
+  display: grid;
+  grid-template-columns: 180px 1fr;
+  align-items: flex-start;
   input {
     padding: 10px 20px;
     border-radius: 5px;

@@ -152,13 +152,13 @@ const TFQuestion = ({ quizTags, quizType, setQuestionIdArr, questionIdArr, setNe
   }
   return (<MakeQuestionForm onSubmit={handleSubmit(onSubmit)}>
     <InputLayout>
-      <span className="inputTitle">・ 문제</span>
+      <span className="inputTitle">문제</span>
       <QuestionTextarea
         register={register}
         nextMode={nextMode} />
     </InputLayout>
     <InputLayout>
-      <span className="inputTitle">・ 정답</span>
+      <span className="inputTitle">정답</span>
       <SeletBox>
         <TFBtn
           onClick={() => onClickTFBtn("true")}

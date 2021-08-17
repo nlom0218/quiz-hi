@@ -30,6 +30,7 @@ const PreviewMsg = styled.div`
 `
 
 const PreviewImageBox = styled.div`
+  grid-column: 2 / 3;
   margin-top: 10px; 
   position: relative;
   svg {
@@ -63,9 +64,9 @@ const ImageContainer = ({ register, setValue, setImage, nextMode, imageId, previ
     setValue("image", null)
   }
   return (<React.Fragment>
-    <span className="inputTitle">・ 이미지</span>
-    <span className="subMsg">이미지가 필요하나요?</span>
-    <span className="subMsg">아래의 박스를 눌러 이미지를 불러오세요.</span>
+    <span className="inputTitle">이미지</span>
+    {/* <span className="subMsg">이미지가 필요하나요?</span>
+    <span className="subMsg">아래의 박스를 눌러 이미지를 불러오세요.</span> */}
     {nextMode === "" ? <ImageLabel htmlFor={imageId}>
       이미지 선택하기<FontAwesomeIcon icon={faImage} />
     </ImageLabel> :

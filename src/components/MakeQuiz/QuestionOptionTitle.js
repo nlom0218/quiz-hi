@@ -5,11 +5,11 @@ import styled from 'styled-components';
 
 const SOptionTitle = styled.div`
   grid-column: 1 / -1;
-  font-size: 18px;
+  font-size: 16px;
+  cursor: pointer;
   svg {
     margin-left: 10px;
-    font-size: 24px;
-    cursor: pointer;
+    font-size: 20px;
   }
 `
 
@@ -17,9 +17,9 @@ const QuestionOptionTitle = ({ option, setOption }) => {
   const onClickOption = () => {
     setOption(!option)
   }
-  return (<SOptionTitle>
+  return (<SOptionTitle onClick={onClickOption}>
     <span>옵션</span>
-    <FontAwesomeIcon icon={option ? faCaretUp : faCaretDown} onClick={onClickOption} />
+    <FontAwesomeIcon icon={option ? faCaretUp : faCaretDown} />
   </SOptionTitle>);
 }
 

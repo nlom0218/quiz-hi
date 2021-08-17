@@ -11,7 +11,7 @@ const SMakeQuestionContainer = styled.div`
   display: grid;
   grid-template-columns: 1fr;
   grid-template-rows: auto;
-  row-gap: 30px;
+  row-gap: 60px;
 `
 
 const QuestionNum = styled.div`
@@ -21,16 +21,10 @@ const QuestionNum = styled.div`
 
 const QuestionType = styled.div`
   display: grid;
-  grid-template-columns: 1fr;
-  grid-template-columns: auto 1fr;
-  span {
-    grid-column: 1 / -1;
-    margin-bottom: 15px;
-  }
+  grid-template-columns: 180px 1fr;
 `
 
 const Types = styled.div`
-   grid-column: 1 / -1;
    display: grid;
    grid-template-columns: repeat(3, 1fr);
    justify-items: start;
@@ -70,8 +64,8 @@ const MakeQuestionContainer = ({ quizTags, setQuestionIdArr, questionIdArr, ques
     <QuestionNum>{num}번 문제</QuestionNum>
     { nextMode === "" ?
       <QuestionType>
-        <span>・ 문제 유형을 선택하세요.</span>
-        <Types> <React.Fragment>
+        <span>문제 유형</span>
+        <Types>
           <div>
             <FontAwesomeIcon
               onClick={() => onClickType("sub")}
@@ -92,7 +86,7 @@ const MakeQuestionContainer = ({ quizTags, setQuestionIdArr, questionIdArr, ques
               icon={quizType === "tf" ? faCheckCircle : faCircle}
             />
           ○ / ✕
-          </div></React.Fragment>
+          </div>
         </Types>
       </QuestionType> :
       <QuizSaveMsg>

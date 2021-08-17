@@ -193,14 +193,14 @@ const ObjQuestion = ({ quizTags, quizType, setQuestionIdArr, questionIdArr, setN
   }
   return (<MakeQuestionForm onSubmit={handleSubmit(onSubmit)}>
     <InputLayout>
-      <span className="inputTitle">・ 문제</span>
+      <span className="inputTitle">문제</span>
       <QuestionTextarea
         register={register}
         nextMode={nextMode} />
     </InputLayout>
     <InputLayout>
-      <span className="inputTitle">・ 선택지</span>
-      <span className="subMsg">문항을 입력하고 정답을 체크해주세요.(중복가능)</span>
+      <span className="inputTitle">선택지</span>
+      {/* <span className="subMsg">문항을 입력하고 정답을 체크해주세요.(중복가능)</span> */}
       <DistractorBox>
         {[1, 2, 3, 4].map((item) => {
           return <div className="distractorWrapper" key={item}>

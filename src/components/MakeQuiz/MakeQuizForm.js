@@ -5,6 +5,7 @@ import { fadeIn } from '../../animation/fade';
 import useUser from '../../hooks/useUser';
 import InputBtn from '../InputBtn';
 import InputLayout from './InputLayout';
+import QuestionTextarea from './QuestionTextarea';
 import TagContainer from './TagContainer';
 
 const SMakeQuizForm = styled.form`
@@ -15,6 +16,7 @@ const SMakeQuizForm = styled.form`
 `
 
 const ChangeMsg = styled.div`
+  grid-column: 2 / 3;
   width: 100%;
   display: flex;
   justify-content: center;
@@ -50,13 +52,14 @@ const StateBtn = styled.div`
 `
 
 const MakeQuizForm = (
-  { setQuizTags, quizTags, setQuizTitle, quizTitle, makeQuestion, setMakeQuestion, state, setState }) => {
+  { setQuizTags, quizTags, setQuizTitle, quizTitle, makeQuestion, setMakeQuestion, state, setState, setQuizCaption }) => {
   const user = useUser()
   const { register, getValues, setValue, formState: { isValid }, handleSubmit, watch } = useForm({
     mode: "onChange"
   })
   const onSubmit = (data) => {
     setQuizTitle(data.quizTitle)
+    setQuizCaption(data.question)
     setMakeQuestion(true)
   }
   const onClickChangeBtn = () => {
@@ -70,7 +73,7 @@ const MakeQuizForm = (
   }
   return (<SMakeQuizForm onSubmit={handleSubmit(onSubmit)}>
     <InputLayout>
-      <span className="inputTitle">・ 퀴즈 제목</span>
+      <span className="inputTitle">퀴즈 제목</span>
       <input
         {...register("quizTitle", {
           required: true
@@ -86,6 +89,12 @@ const MakeQuizForm = (
       </React.Fragment>}
     </InputLayout>
     <InputLayout>
+      <span className="inputTitle">퀴즈 설명</span>
+      {/* <span className="subMsg">퀴즈에 대한 설명을 적어주세요.</span> */}
+      <QuestionTextarea
+        register={register} nextMode="" />
+    </InputLayout>
+    <InputLayout>
       <TagContainer
         getValues={getValues}
         setValue={setValue}
@@ -99,7 +108,7 @@ const MakeQuizForm = (
       />
     </InputLayout>
     <InputLayout>
-      <span className="inputTitle">・ 공유하시겠습니까?</span>
+      <span className="inputTitle">공유</span>
       <SeletBox>
         <StateBtn
           onClick={() => onClickStateBtn("public")}

@@ -75,6 +75,23 @@ const SNavBtn = styled.div`
   }
 `
 
+const Textarea = styled.textarea`
+  width: 100%;
+  resize: none;
+  border: none;
+  font-size: 16px;
+  border-radius: 5px;
+  padding: 10px 20px;
+  color: ${props => props.theme.fontColor};
+  background-color: rgb(200, 200, 200, 0.2);
+  transition: box-shadow 0.4s linear;
+  :focus {
+    box-shadow: 0 0 1px 0.5px ${props => props.theme.fontColor};
+    outline: none;
+  }
+`
+
+
 const CREATE_QUIZ_MUTATION = gql`
   mutation createQuiz(      
       $questions: String!,
@@ -96,7 +113,7 @@ const CREATE_QUIZ_MUTATION = gql`
   }
 `
 
-const CompletionQuiz = ({ quizTags, quizTitle, state, questionIdArr }) => {
+const CompletionQuiz = ({ quizTags, quizTitle, state, questionIdArr, quizCaption }) => {
   const user = useUser()
   const history = useHistory()
   const num = questionIdArr.length
@@ -126,14 +143,13 @@ const CompletionQuiz = ({ quizTags, quizTitle, state, questionIdArr }) => {
     onCompleted,
     update
   })
-  const { handleSubmit, register, formState: { isValid } } = useForm({
+  const { handleSubmit } = useForm({
     mode: "onChange"
   })
   const onSubmit = (data) => {
     if (loading) {
       return
     }
-    const { question: caption } = data
     const questionString = questionIdArr.join(",")
     const tags = [...quizTags].join(",")
     createQuiz({
@@ -142,7 +158,7 @@ const CompletionQuiz = ({ quizTags, quizTitle, state, questionIdArr }) => {
         state,
         tags,
         questions: questionString,
-        caption
+        caption: quizCaption
       }
     })
   }
@@ -152,34 +168,41 @@ const CompletionQuiz = ({ quizTags, quizTitle, state, questionIdArr }) => {
   }
   return (<SCompletionQuizForm onSubmit={handleSubmit(onSubmit)}>
     <InputLayout>
-      <span className="inputTitle">・ 퀴즈 제목</span>
-      <span className="subMsg">퀴즈 제목은 1단계에서 수정 가능합니다.</span>
+      <span className="inputTitle">퀴즈 제목</span>
+      {/* <span className="subMsg">퀴즈 제목은 1단계에서 수정 가능합니다.</span> */}
       <input
         value={quizTitle}
         type="text"
         readOnly="readOnly"
       />
     </InputLayout>
-    <Wrapper>
-      <InputLayout>
-        <span className="inputTitle">・ 공유</span>
-        <input
-          value={state === "private" ? "공유하지 않음" : "공유함"}
-          type="text"
-          readOnly="readOnly"
-        />
-      </InputLayout>
-      <InputLayout>
-        <span className="inputTitle">・ 문제 개수</span>
-        <input
-          value={`${num}개`}
-          type="text"
-          readOnly="readOnly"
-        />
-      </InputLayout>
-    </Wrapper>
     <InputLayout>
-      <span className="inputTitle">・ 태그</span>
+      <span className="inputTitle">퀴즈 설명</span>
+      <Textarea
+        cols={20}
+        rows={5}
+        readOnly="readOnly"
+        value={quizCaption}
+      ></Textarea >
+    </InputLayout>
+    <InputLayout>
+      <span className="inputTitle">공유</span>
+      <input
+        value={state === "private" ? "공유하지 않음" : "공유함"}
+        type="text"
+        readOnly="readOnly"
+      />
+    </InputLayout>
+    <InputLayout>
+      <span className="inputTitle">문제 개수</span>
+      <input
+        value={`${num}개`}
+        type="text"
+        readOnly="readOnly"
+      />
+    </InputLayout>
+    <InputLayout>
+      <span className="inputTitle">태그</span>
       <span className="subMsg">
         <SeeTag>
           {quizTags.map((item, index) => {
@@ -189,12 +212,6 @@ const CompletionQuiz = ({ quizTags, quizTitle, state, questionIdArr }) => {
           })}
         </SeeTag>
       </span>
-    </InputLayout>
-    <InputLayout>
-      <span className="inputTitle">・ 퀴즈 설명</span>
-      <span className="subMsg">퀴즈에 대한 설명을 적어주세요.</span>
-      <QuestionTextarea
-        register={register} nextMode="" />
     </InputLayout>
     {complete ?
       <React.Fragment>
@@ -220,7 +237,6 @@ const CompletionQuiz = ({ quizTags, quizTitle, state, questionIdArr }) => {
       </React.Fragment>
       :
       <InputBtn
-        disabled={!isValid}
         value={loading ? "퀴즈 만드는 중..." : "퀴즈 만들기"}
       />}
   </SCompletionQuizForm>);

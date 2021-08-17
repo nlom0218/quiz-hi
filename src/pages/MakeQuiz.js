@@ -17,6 +17,7 @@ const MakeQuiz = () => {
   const user = useUser()
   const [quizTitle, setQuizTitle] = useState("")
   const [quizTags, setQuizTags] = useState([])
+  const [quizCaption, setQuizCaption] = useState("")
   const [state, setState] = useState("")
   const [questionIdArr, setQuestionIdArr] = useState([])
   const [makeQuestion, setMakeQuestion] = useState(false)
@@ -37,6 +38,7 @@ const MakeQuiz = () => {
             quizTags={quizTags}
             setQuizTags={setQuizTags}
             setQuizTitle={setQuizTitle}
+            setQuizCaption={setQuizCaption}
             setMakeQuestion={setMakeQuestion}
             makeQuestion={makeQuestion}
             quizTitle={quizTitle}
@@ -73,6 +75,7 @@ const MakeQuiz = () => {
           <CompletionQuiz
             quizTags={quizTags}
             quizTitle={quizTitle}
+            quizCaption={quizCaption}
             state={state}
             questionIdArr={questionIdArr}
           />
