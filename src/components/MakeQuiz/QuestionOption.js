@@ -46,8 +46,7 @@ const QuestionOption = (
         setTags={setQuestionTags}
         nextMode={nextMode}
         question={true}
-        subMsg1="해당 문제에만 해당되는 태그가 있나요?"
-        subMsg2="태그를 입력하고 + 버튼을 눌러주세요."
+        subMsg1="해당 문제에만 해당되는 태그가 있나요? 태그를 입력하고 + 버튼을 눌러주세요."
       />
     </InputLayout>
   </Option>);

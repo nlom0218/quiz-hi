@@ -1,8 +1,9 @@
-import React from 'react';
-import { faMinusCircle, faPlusCircle } from '@fortawesome/free-solid-svg-icons';
+import React, { useState } from 'react';
+import { faMinusCircle, faPlusCircle, faTimes } from '@fortawesome/free-solid-svg-icons';
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { fadeIn } from '../../animation/fade';
+import { faQuestionCircle } from '@fortawesome/free-regular-svg-icons';
 
 const TagInput = styled.div`
   display: grid;
@@ -49,6 +50,7 @@ const RemoveBtn = styled.div`
 `
 
 const TagContainer = ({ getValues, tags, setTags, setValue, register, subMsg1, subMsg2, nextMode, question, color, bgColor, makeQuestion }) => {
+  const [questionMark, setQuestionMark] = useState(false)
   const onClickPlusQuizTag = () => {
     if (getValues("tag") === "" || makeQuestion) {
       return
@@ -76,10 +78,14 @@ const TagContainer = ({ getValues, tags, setTags, setValue, register, subMsg1, s
       }
     }
   }
+  const onClickQuestionMark = () => {
+    setQuestionMark(prev => !prev)
+  }
   return (<React.Fragment>
-    <span className="inputTitle">태그</span>
-    {/* <span className="subMsg">{subMsg1}</span>
-    <span className="subMsg">{subMsg2}</span> */}
+    <span className="inputTitle">
+      태그 <FontAwesomeIcon onClick={onClickQuestionMark} icon={faQuestionCircle} />
+      {questionMark && <span className="subMsg">{subMsg1}</span>}
+    </span>
     <TagInput>
       <input
         {...register("tag")}

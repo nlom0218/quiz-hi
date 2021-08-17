@@ -1,10 +1,30 @@
 import React from 'react';
 import styled from 'styled-components';
+import { fadeIn } from '../../animation/fade';
 
 const SInputLayout = styled.div`
   display: grid;
   grid-template-columns: ${props => props.updateQuestion ? "100px" : "180px"} 1fr;
   align-items: flex-start;
+  position: relative;
+  .inputTitle {
+    svg {
+      cursor: pointer;
+    }
+  }
+  .subMsg {
+    position: absolute;
+    top: 25px;
+    left: 10px;
+    background-color: ${props => props.theme.fontColor};
+    color: ${props => props.theme.bgColor};
+    opacity: 0.8;
+    padding: 10px 20px;
+    border-radius: 10px;
+    border-top-left-radius: 0px;
+    transition: background-color 1s ease, color 1s ease;
+    animation: ${fadeIn} 0.6s ease;
+  }
   input {
     padding: 10px 20px;
     border-radius: 5px;
