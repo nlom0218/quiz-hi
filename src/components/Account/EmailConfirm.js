@@ -12,13 +12,13 @@ const Form = styled.form`
 `
 
 const Input = styled.input`
-  background-color:  rgb(67, 216, 122, 0.2);
   padding: 10px 20px;
   border-radius: 5px;
-  transition: background-color 0.2s linear;
-    :focus {
-      background-color: rgb(67, 216, 122, 0.6);
-    }
+  background-color: rgb(200, 200, 200, 0.2);
+  transition: background-color 1s ease, box-shadow 0.4s linear;
+  :focus {
+    box-shadow: 0 0 1px 0.5px ${props => props.theme.fontColor};
+  }
   ::placeholder {
     color: ${props => props.theme.fontColor};
     opacity: 0.6;
@@ -26,7 +26,7 @@ const Input = styled.input`
 `
 
 const InputBtn = styled.button`
-  background-color: rgb(67, 216, 122);
+  background-color: rgb(200, 200, 200);
   opacity: ${props => props.disabled ? 0.2 : 0.9};
   padding: 10px 20px;
   border-radius: 5px;

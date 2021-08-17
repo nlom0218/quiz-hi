@@ -3,17 +3,18 @@ import { useForm } from 'react-hook-form';
 import styled from 'styled-components';
 import emailjs from 'emailjs-com';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPaperPlane, faRedoAlt } from '@fortawesome/free-solid-svg-icons';
+import { faPaperPlane, faRedoAlt, faSpinner } from '@fortawesome/free-solid-svg-icons';
 import EmailConfirm from './EmailConfirm';
 
 const Wrapper = styled.div``
 
 const Form = styled.form`
-  margin-bottom: 20px;
+  margin-bottom: 40px;
   display: grid;
   grid-template-columns: 3fr 1fr;
   grid-template-rows: auto;
-  grid-gap: 10px;
+  column-gap: 10px;
+  row-gap: 10px;
   span {
     grid-column: 1 / 3;
   }
@@ -21,17 +22,17 @@ const Form = styled.form`
 
 const Input = styled.input`
   grid-column: 1 / 2;
-  background-color:  rgb(67, 216, 122, 0.2);
   padding: 10px 20px;
   border-radius: 5px;
-  transition: background-color 0.2s linear;
-    :focus {
-      background-color: rgb(67, 216, 122, 0.6);
-    }
+  background-color: rgb(200, 200, 200, 0.2);
+  transition: background-color 1s ease, box-shadow 0.4s linear;
+  :focus {
+    box-shadow: 0 0 1px 0.5px ${props => props.theme.fontColor};
+  }
 `
 
 const EmailBtn = styled.button`
-  background-color: rgb(67, 216, 122);
+  background-color: rgb(200, 200, 200);
   opacity: ${props => props.disabled ? 0.2 : 0.9};
   padding: 10px 20px;
   border-radius: 5px;
@@ -44,7 +45,7 @@ const EmailBtn = styled.button`
 
 const PlatForm = styled.div`
   text-align: center;
-  margin-bottom: 20px;
+  margin-bottom: 40px;
   a {
     color: tomato;
     opacity: 1;
@@ -52,6 +53,7 @@ const PlatForm = styled.div`
   }
   svg  {
     cursor: pointer;
+    color: tomato;
     opacity: 0.6;
     transition: opacity 0.3s linear;
     :hover {
@@ -70,7 +72,6 @@ const EmailForm = ({ setDoneConfirm, setError, setEmail }) => {
   })
   const onSubmit = (data) => {
     const { email } = data
-    console.log(email);
     const randomNum = Math.floor(Math.random() * 1000000)
     setConfirmNum(randomNum)
     setSending(true)
@@ -108,7 +109,7 @@ const EmailForm = ({ setDoneConfirm, setError, setEmail }) => {
           autoComplete="off"
         />
         <EmailBtn type="submit" disabled={!isValid || sendEmail} >
-          {sending ? <div>전송중...</div> : <FontAwesomeIcon icon={faPaperPlane} />}
+          {sending ? <FontAwesomeIcon icon={faSpinner} /> : <FontAwesomeIcon icon={faPaperPlane} />}
         </EmailBtn>
       </Form>
       {sendEmail &&

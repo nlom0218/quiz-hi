@@ -1,6 +1,6 @@
 import { useMutation, useReactiveVar } from '@apollo/client';
-import { faEye, faEyeSlash, faQuestionCircle } from '@fortawesome/free-regular-svg-icons';
-import { faHome, faMoon, faSun } from '@fortawesome/free-solid-svg-icons';
+import { faCircle, faEye, faEyeSlash, faQuestionCircle } from '@fortawesome/free-regular-svg-icons';
+import { faCheckCircle, faHome, faMoon, faSun } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import gql from 'graphql-tag';
 import React, { useState } from 'react';
@@ -22,20 +22,17 @@ import QusetionContainer from '../components/Question/QuestionContainer';
 import LoginQuestion from '../components/Question/LoginQuestion';
 
 const SelectType = styled.div`
-  justify-self: flex-end;
-  grid-column: 1 / 2;
-  grid-row: 2 / 3;
-  ul {
-    li {
-      padding: 10px 10px 10px 0px;
-      margin-bottom: 10px;
+  .title {
+    margin-bottom: 20px;
+  }
+  .selectBox {
+    margin-top: 10px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    svg {
+      font-size: 14px;
+      margin-right: 10px;
       cursor: pointer;
-      width: 100px;
-      text-align: end;
-      font-size: 16px;
-      border-bottom-left-radius: 10px;
-      border-top-left-radius: 10px;
-      transition: background-color linear 0.3s;
     }
   }
 `
@@ -64,9 +61,6 @@ const Login = () => {
     const { login: { ok, error, token } } = data
     if (error) {
       setError(error)
-      setTimeout(() => {
-        setError(undefined)
-      }, 4000)
     }
     if (ok) {
       logInUser(token)
@@ -101,27 +95,25 @@ const Login = () => {
   return (
     <AccountContainer>
       <Title page="로그인" />
-      <SelectType>
-        <ul>
-          <li onClick={() => onClickType("teacher")}
-            style={{
-              backgroundColor: `${type === "teacher" ? "rgb(67, 216, 122, 0.2)" : "rgb(67, 216, 122, 0.1)"}`
-            }}
-          >선생님</li>
-          <li onClick={() => onClickType("student")}
-            style={{
-              backgroundColor: `${type === "student" ? "rgb(67, 216, 122, 0.2)" : "rgb(67, 216, 122, 0.1)"}`
-            }}
-          >학생</li>
-          <li onClick={() => onClickType("nomal")}
-            style={{
-              backgroundColor: `${type === "nomal" ? "rgb(67, 216, 122, 0.2)" : "rgb(67, 216, 122, 0.1)"}`
-            }}
-          >일반인</li>
-        </ul>
-      </SelectType>
       <FormLayout>
-        <form onSubmit={handleSubmit(onSubmit)}>
+        <form className="loginCreateAccountForm" onSubmit={handleSubmit(onSubmit)}>
+          <SelectType>
+            <div className="title">계정 유형</div>
+            <div className="selectBox">
+              <div className="selectItem">
+                <FontAwesomeIcon icon={type === "teacher" ? faCheckCircle : faCircle} onClick={() => onClickType("teacher")} />
+                <span className="typeName">선생님</span>
+              </div>
+              <div className="selectItem">
+                <FontAwesomeIcon icon={type === "nomal" ? faCheckCircle : faCircle} onClick={() => onClickType("nomal")} />
+                <span className="typeName">일반인</span>
+              </div>
+              <div className="selectItem">
+                <FontAwesomeIcon icon={type === "student" ? faCheckCircle : faCircle} onClick={() => onClickType("student")} />
+                <span className="typeName">학생</span>
+              </div>
+            </div>
+          </SelectType>
           <InputLayout>
             <span>아이디</span>
             <input

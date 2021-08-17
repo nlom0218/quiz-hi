@@ -2,27 +2,23 @@ import React from 'react';
 import styled from 'styled-components';
 
 const SInputLayout = styled.div`
-  display: flex;
-  flex-direction: column;
-  font-weight: 400;
-  span {
-    margin-bottom: 10px;
-  }
+  display: grid;
+  grid-template-columns: 1fr;
+  row-gap: 10px;
   svg {
     margin-left: 5px;
     font-size: 16px;
     cursor: pointer;
   }
   input {
-    background-color: rgb(67, 216, 122, 0.2);
     padding: 10px 20px;
     border-radius: 5px;
-    transition: background-color 0.2s linear;
+    background-color: rgb(200, 200, 200, 0.2);
+    transition: background-color 1s ease, box-shadow 0.4s linear;
     :focus {
-      background-color: rgb(67, 216, 122, 0.6);
+      box-shadow: 0 0 1px 0.5px ${props => props.theme.fontColor};
     }
   }
-  margin-bottom: 20px;
 `
 
 const InputLayout = ({ children, bgColor }) => {

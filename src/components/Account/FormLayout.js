@@ -2,22 +2,24 @@ import React from 'react';
 import styled from 'styled-components';
 
 const SFormLayout = styled.div`
-  background-color: rgb(67, 216, 122, 0.2);
+  background-color: ${props => props.theme.boxColor};
   padding: 30px 40px;
-  box-shadow: 0px 17px 6px -14px rgb(0 0 0 / 20%);
+  border-radius: 5px;
+  box-shadow: ${props => props.theme.boxShadow};
+  border: 1px solid rgb(200, 200, 200, 0.8);
   position: relative;
   grid-row: 2 / 3;
   grid-column: 2 / 3;
-  form {
+  transition: background-color 1s ease;
+  .loginCreateAccountForm {
     width: 100%;
-    /* display: flex;
-    flex-direction: column;
-    justify-content: center; */
+    display: grid;
+    row-gap: 40px;
   }
 `
 
 const FormLayout = ({ children, bgColor }) => {
-  return (<SFormLayout bgColor={bgColor}>
+  return (<SFormLayout>
     {children}
   </SFormLayout>);
 }

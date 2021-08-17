@@ -58,9 +58,6 @@ const CreateAccount = () => {
     const { createAccount: { ok, error } } = result
     if (error) {
       setError(error)
-      setTimeout(() => {
-        setError(undefined)
-      }, 4000)
     }
     if (ok) {
       history.push("/login")
@@ -123,7 +120,7 @@ const CreateAccount = () => {
           </div>
         </SelectType>
         {type === "teacher" && <EmailForm setDoneConfirm={setDoneConfirm} setError={setError} setEmail={setEmail} />}
-        <form onSubmit={handleSubmit(onSubmit)}>
+        <form className="loginCreateAccountForm" onSubmit={handleSubmit(onSubmit)}>
           <InputLayout>
             <span>아이디</span>
             <input type="text" {...register("username", { required: true })} autoComplete="off" />
