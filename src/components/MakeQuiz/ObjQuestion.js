@@ -1,5 +1,5 @@
 import { useMutation } from '@apollo/client';
-import { faCheckCircle, faCircle } from '@fortawesome/free-regular-svg-icons';
+import { faCheckCircle, faCircle, faQuestionCircle } from '@fortawesome/free-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import gql from 'graphql-tag';
 import React, { useState } from 'react';
@@ -190,6 +190,10 @@ const ObjQuestion = ({ quizTags, quizType, setQuestionIdArr, questionIdArr, setN
       }
     })
   }
+  const [questionMark, setQuestionMark] = useState(false)
+  const onClickQuestionMark = () => {
+    setQuestionMark(prev => !prev)
+  }
   return (<MakeQuestionForm onSubmit={handleSubmit(onSubmit)}>
     <InputLayout updateQuestion={updateQuestion}>
       <span className="inputTitle">문제</span>
@@ -198,8 +202,10 @@ const ObjQuestion = ({ quizTags, quizType, setQuestionIdArr, questionIdArr, setN
         nextMode={nextMode} />
     </InputLayout>
     <InputLayout updateQuestion={updateQuestion}>
-      <span className="inputTitle">선택지</span>
-      {/* <span className="subMsg">문항을 입력하고 정답을 체크해주세요.(중복가능)</span> */}
+      <span className="inputTitle">
+        선택지 <FontAwesomeIcon onClick={onClickQuestionMark} icon={faQuestionCircle} />
+        {questionMark && <span className="subMsg">문항을 입력하고 정답을 체크해주세요.(중복가능)</span>}
+      </span>
       <DistractorBox>
         {[1, 2, 3, 4].map((item) => {
           return <div className="distractorWrapper" key={item}>

@@ -1,3 +1,4 @@
+import { faQuestionCircle } from '@fortawesome/free-regular-svg-icons';
 import { faImage, faTimesCircle } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useState } from 'react';
@@ -63,10 +64,15 @@ const ImageContainer = ({ register, setValue, setImage, nextMode, imageId, previ
     setPreviewImg(undefined)
     setValue("image", null)
   }
+  const [questionMark, setQuestionMark] = useState(false)
+  const onClickQuestionMark = () => {
+    setQuestionMark(prev => !prev)
+  }
   return (<React.Fragment>
-    <span className="inputTitle">이미지</span>
-    {/* <span className="subMsg">이미지가 필요하나요?</span>
-    <span className="subMsg">아래의 박스를 눌러 이미지를 불러오세요.</span> */}
+    <span className="inputTitle">
+      이미지 <FontAwesomeIcon onClick={onClickQuestionMark} icon={faQuestionCircle} />
+      {questionMark && <span className="subMsg">이미지가 필요한가요? 박스를 눌러 이미지를 불러오세요.(복수선택 불가능)</span>}
+    </span>
     {nextMode === "" ? <ImageLabel htmlFor={imageId}>
       이미지 선택하기<FontAwesomeIcon icon={faImage} />
     </ImageLabel> :

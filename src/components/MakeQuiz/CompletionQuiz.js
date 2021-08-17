@@ -2,14 +2,12 @@ import { useMutation } from '@apollo/client';
 import gql from 'graphql-tag';
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { Link, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 import { fadeIn } from '../../animation/fade';
 import useUser from '../../hooks/useUser';
-import { MoveTopScreen } from '../../sharedFn';
 import InputBtn from '../InputBtn';
 import InputLayout from './InputLayout';
-import QuestionTextarea from './QuestionTextarea';
 
 const SCompletionQuizForm = styled.form`
   display: grid;
@@ -20,7 +18,6 @@ const SCompletionQuizForm = styled.form`
 `
 
 const SeeTag = styled.div`
-  grid-column: 1 / -1;
   display: flex;
   flex-wrap: wrap;
 `
@@ -39,8 +36,12 @@ const TagBox = styled.div`
 
 const Wrapper = styled.div`
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  column-gap: 30px;
+  grid-template-columns: 1fr;
+  row-gap: 20px;
+  .editMsg{
+    justify-self: center;
+    color: tomato;
+  }
 `
 
 const MovePageBtn = styled.div`
@@ -166,10 +167,10 @@ const CompletionQuiz = ({ quizTags, quizTitle, state, questionIdArr, quizCaption
     history.push(page)
     window.location.reload()
   }
+  console.log(quizTags);
   return (<SCompletionQuizForm onSubmit={handleSubmit(onSubmit)}>
     <InputLayout>
       <span className="inputTitle">퀴즈 제목</span>
-      {/* <span className="subMsg">퀴즈 제목은 1단계에서 수정 가능합니다.</span> */}
       <input
         value={quizTitle}
         type="text"
@@ -178,12 +179,15 @@ const CompletionQuiz = ({ quizTags, quizTitle, state, questionIdArr, quizCaption
     </InputLayout>
     <InputLayout>
       <span className="inputTitle">퀴즈 설명</span>
-      <Textarea
-        cols={20}
-        rows={5}
-        readOnly="readOnly"
-        value={quizCaption}
-      ></Textarea >
+      <Wrapper>
+        <Textarea
+          cols={20}
+          rows={5}
+          readOnly="readOnly"
+          value={quizCaption}
+        ></Textarea >
+        <span className="editMsg">퀴즈 제목과 설명은 1단계에서 수정 가능합니다.</span>
+      </Wrapper>
     </InputLayout>
     <InputLayout>
       <span className="inputTitle">공유</span>
@@ -203,43 +207,43 @@ const CompletionQuiz = ({ quizTags, quizTitle, state, questionIdArr, quizCaption
     </InputLayout>
     <InputLayout>
       <span className="inputTitle">태그</span>
-      <span className="subMsg">
-        <SeeTag>
-          {quizTags.map((item, index) => {
-            return <TagBox key={index}>
-              {item}
-            </TagBox>
-          })}
-        </SeeTag>
-      </span>
+      <SeeTag>
+        {quizTags.map((item, index) => {
+          return <TagBox key={index}>
+            {item}
+          </TagBox>
+        })}
+      </SeeTag>
     </InputLayout>
-    {complete ?
-      <React.Fragment>
-        <MovePageBtn>
-          <CompleteMsg className="inputTitle">・ 퀴즈가 생성 되었습니다.</CompleteMsg>
-          <SNavBtn onClick={() => window.location.reload()}>새로 만들기</SNavBtn>
-          <div onClick={() => onClickPageBtn("/feed/quiz/all/recent/1")}>
-            <SNavBtn>
-              퀴즈 피드
+    {
+      complete ?
+        <React.Fragment>
+          <MovePageBtn>
+            <CompleteMsg className="inputTitle">・ 퀴즈가 생성 되었습니다.</CompleteMsg>
+            <SNavBtn onClick={() => window.location.reload()}>새로 만들기</SNavBtn>
+            <div onClick={() => onClickPageBtn("/feed/quiz/all/recent/1")}>
+              <SNavBtn>
+                퀴즈 피드
             </SNavBtn>
-          </div>
-          <div onClick={() => onClickPageBtn("/paly-quiz")}>
-            <SNavBtn>
-              퀴즈 진행하기
+            </div>
+            <div onClick={() => onClickPageBtn("/paly-quiz")}>
+              <SNavBtn>
+                퀴즈 진행하기
             </SNavBtn>
-          </div>
-          <div onClick={() => onClickPageBtn(`/profile/${user?.username}/quizQuestion/${state}/quiz/1`)}>
-            <SNavBtn>
-              퀴즈 확인하기
+            </div>
+            <div onClick={() => onClickPageBtn(`/profile/${user?.username}/quizQuestion/${state}/quiz/1`)}>
+              <SNavBtn>
+                퀴즈 확인하기
             </SNavBtn>
-          </div>
-        </MovePageBtn>
-      </React.Fragment>
-      :
-      <InputBtn
-        value={loading ? "퀴즈 만드는 중..." : "퀴즈 만들기"}
-      />}
-  </SCompletionQuizForm>);
+            </div>
+          </MovePageBtn>
+        </React.Fragment>
+        :
+        <InputBtn
+          value={loading ? "퀴즈 만드는 중..." : "퀴즈 만들기"}
+        />
+    }
+  </SCompletionQuizForm >);
 }
 
 export default CompletionQuiz;

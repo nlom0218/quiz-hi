@@ -1,4 +1,6 @@
-import React from 'react';
+import { faQuestionCircle } from '@fortawesome/free-regular-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { fadeIn } from '../../animation/fade';
 import ImageContainer from './ImageContainer';
@@ -15,10 +17,16 @@ const Option = styled.div`
 const QuestionOption = (
   { register, getValues, setValue, questionTags, setQuestionTags, setImage, nextMode, imageId, previewImg, setPreviewImg, updateQuestion }
 ) => {
+  const [questionMark, setQuestionMark] = useState(false)
+  const onClickQuestionMark = () => {
+    setQuestionMark(prev => !prev)
+  }
   return (<Option>
     <InputLayout updateQuestion={updateQuestion}>
-      <span className="inputTitle">힌트</span>
-      {/* <span className="subMsg">힌트가 있나요? 아래에 힌트를 작성하세요.</span> */}
+      <span className="inputTitle">
+        힌트 <FontAwesomeIcon onClick={onClickQuestionMark} icon={faQuestionCircle} />
+        {questionMark && <span className="subMsg">힌트가 있나요? 힌트를 작성하세요.</span>}
+      </span>
       <input
         {...register("hint")}
         type="text"

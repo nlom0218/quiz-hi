@@ -13,12 +13,14 @@ const SInputLayout = styled.div`
     }
   }
   .subMsg {
+    z-index: 1;
+    line-height: 20px;
     position: absolute;
     top: 25px;
     left: 10px;
+    /* opacity: 0.8; */
     background-color: ${props => props.theme.fontColor};
     color: ${props => props.theme.bgColor};
-    opacity: 0.8;
     padding: 10px 20px;
     border-radius: 10px;
     border-top-left-radius: 0px;
