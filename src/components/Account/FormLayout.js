@@ -14,7 +14,7 @@ const SFormLayout = styled.div`
   .loginCreateAccountForm {
     width: 100%;
     display: grid;
-    row-gap: 40px;
+    row-gap: 30px;
   }
 `
 

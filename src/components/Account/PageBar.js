@@ -12,8 +12,6 @@ const SPageBar = styled.div`
   align-items: center;
   border-radius: 10px;
   padding: 0px 10px;
-  opacity: 0.6;
-  transition: opacity 0.6s linear, background-color 0.6s linear;
 `
 
 const PageBar = ({ children, borderColor, hoverBgColor }) => {

@@ -9,7 +9,7 @@ import EmailConfirm from './EmailConfirm';
 const Wrapper = styled.div``
 
 const Form = styled.form`
-  margin-bottom: 40px;
+  margin-bottom: 30px;
   display: grid;
   grid-template-columns: 3fr 1fr;
   grid-template-rows: auto;
@@ -45,7 +45,7 @@ const EmailBtn = styled.button`
 
 const PlatForm = styled.div`
   text-align: center;
-  margin-bottom: 40px;
+  margin-bottom: 30px;
   a {
     color: tomato;
     opacity: 1;
@@ -75,22 +75,23 @@ const EmailForm = ({ setDoneConfirm, setError, setEmail }) => {
     const randomNum = Math.floor(Math.random() * 1000000)
     setConfirmNum(randomNum)
     setSending(true)
-    emailjs.send(
-      "service_y3st5zf",
-      "template_9ibugnm",
-      {
-        email,
-        confirmNum: randomNum
-      },
-      "user_sJAAszXnKTFqusb3xguHm")
-      .then((result) => {
-        setSendEmail(true)
-        setSending(false)
-        setEmail(email)
-        setPlatForm(email.split("@").reverse()[0])
-      }, (error) => {
-        console.log(error.text);
-      })
+    // emailjs.send(
+    //   "service_y3st5zf",
+    //   "template_9ibugnm",
+    //   {
+    //     email,
+    //     confirmNum: randomNum
+    //   },
+    //   "user_sJAAszXnKTFqusb3xguHm")
+    //   .then((result) => {
+    //    밑에 4줄을 여기에다!!  
+    //   }, (error) => {
+    //     console.log(error.text);
+    //   })
+    setSendEmail(true)
+    setSending(false)
+    setEmail(email)
+    setPlatForm(email.split("@").reverse()[0])
   }
   const onClinkAgainBtn = () => {
     setSendEmail(false)

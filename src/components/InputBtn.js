@@ -8,7 +8,7 @@ const SInputBtn = styled.input`
   text-align: center;
   font-weight: 600;
   padding: 10px 0px;
-  margin-top: 10px;
+  /* margin-top: 10px; */
   border-radius: 5px;
   transition: opacity 0.6s linear;
   cursor: pointer;
