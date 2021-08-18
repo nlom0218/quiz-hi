@@ -8,6 +8,7 @@ import NavBtn from '../components/NavBtn';
 import BasicProfile from '../components/Profile/BasicProfile';
 import BottomProfile from '../components/Profile/BottomProfile';
 import EditProfile from '../components/Profile/Edit/EditProfile';
+import ManagemnetStudent from '../components/Profile/ManagemnetStudent/ManagemnetStudent';
 import TopProfile from '../components/Profile/TopProfile';
 import UserQuizQuestion from '../components/Profile/UserQuizQuestion/UserQuizQuestion';
 import useUser from '../hooks/useUser';
@@ -37,6 +38,9 @@ const SEE_PROFILE_QUERY = gql`
         id
         name
       }
+      students {
+        username
+      }
     }
   }
 `
@@ -54,6 +58,9 @@ const Profile = () => {
         {mode === "quizQuestion" && <BottomProfile><UserQuizQuestion data={{ ...data }} /></BottomProfile>}
         {mode === "edit" && <BottomProfile>
           {user.username === username && <EditProfile {...data?.seeProfile} />}
+        </BottomProfile>}
+        {mode === "student" && <BottomProfile>
+          {user.username === username && <ManagemnetStudent {...data?.seeProfile} />}
         </BottomProfile>}
       </BasicContainer>
     }
