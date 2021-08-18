@@ -37,6 +37,13 @@ const SelectType = styled.div`
   }
 `
 
+const AccountLink = styled.div`
+  justify-self: center;
+  a {
+    font-weight: 600;
+  }
+`
+
 const LOGIN_MUTATION = gql`
   mutation login($username: String!, $password: String!, $type: String!) {
     login(username: $username, password: $password, type: $type) {
@@ -138,6 +145,9 @@ const Login = () => {
             />
           </InputLayout>
           <InputBtn value="로그인" disabled={!isValid} bgColor="rgb(67, 216, 122)" />
+          <AccountLink>
+            계정이 없으신가요? <Link to="/create-account"><span>계정 만들기</span></Link>
+          </AccountLink>
         </form>
         {error ? <ErrMsg error={error} /> : null}
       </FormLayout>
@@ -151,9 +161,6 @@ const Login = () => {
             onClick={() => onCLickDarkMode(darkMode)}
             style={{ color: `${darkMode ? "#ff765e" : "#212121"}` }}
           />
-        </PageBarItem>
-        <PageBarItem>
-          <Link to="/create-account"><span>N</span></Link>
         </PageBarItem>
         <PageBarItem>
           <FontAwesomeIcon icon={faQuestionCircle} onClick={onClickQuestionMode} />

@@ -60,9 +60,6 @@ const LoginQuestion = () => {
       <Description>
         <FontAwesomeIcon icon={faSun} /> 라이트모드로 바뀝니다.
       </Description>
-      <Description>
-        N 회원가입 페이지로 이동합니다.
-      </Description>
     </div>
   </Container>);
 }

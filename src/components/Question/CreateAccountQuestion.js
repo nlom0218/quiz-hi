@@ -80,9 +80,6 @@ const CreateAccountQuestion = () => {
       <Description>
         <FontAwesomeIcon icon={faSun} /> 라이트모드로 바뀝니다.
       </Description>
-      <Description>
-        <FontAwesomeIcon icon={faSignInAlt} /> 로그인 페이지로 이동합니다.
-      </Description>
     </div>
   </Container>);
 }

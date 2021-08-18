@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { fadeOut } from '../../animation/fade';
+import { fadeIn, fadeOut } from '../../animation/fade';
 
 const SErrMsg = styled.div`
   position: absolute;
@@ -10,7 +10,7 @@ const SErrMsg = styled.div`
   color: tomato;
   line-height: 20px;
   padding-bottom: 20px;
-  animation: ${fadeOut} 4s forwards;
+  animation: ${fadeIn} 0.6s ease;
 `
 
 const ErrMsg = ({ error }) => {
