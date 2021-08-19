@@ -6,6 +6,7 @@ import { useForm } from 'react-hook-form';
 import styled from 'styled-components';
 import { fadeIn } from '../../../animation/fade';
 import EditInput from '../Edit/EditInput';
+import SaveBtn from '../Edit/SaveBtn';
 
 const CREATE_STUDENT_ACCOUNT_MUTATION = gql`
   mutation createStudentAccount($id: Int!, $nickname: String!, $password: String!) {
@@ -76,6 +77,27 @@ const Wrapper = styled.div`
   align-items: center;
 `
 
+const SetPassword = styled.div`
+  display: grid;
+  grid-template-columns: auto 1fr;
+  column-gap: 30px;
+  row-gap: 20px;
+  align-items: center;
+  input {
+    justify-self: flex-start;
+  }
+`
+
+const SetPasswordMsg = styled.div`
+  grid-column: 1 / -1;
+  line-height: 24px;
+  opacity: 0.8;
+  span {
+    color: tomato;
+    font-weight: 800;
+  }
+`
+
 const CreateStudents = ({ id }) => {
   const [studentNum, setStudentNum] = useState(["s"])
   const { register, handleSubmit, formState: { isValid }, getValues } = useForm({
@@ -97,7 +119,11 @@ const CreateStudents = ({ id }) => {
     }
     setStudentNum(newStudentNum)
   }
-  return (<EditForm>
+  const onSubmit = (data) => {
+    console.log(data);
+    console.log([data.nickname1, data.nickname2]);
+  }
+  return (<EditForm onSubmit={handleSubmit(onSubmit)}>
     <SetStudentNum>
       <StudentNum>학생 수: {studentNum.length}명</StudentNum>
       <SetNumBtn>
@@ -119,6 +145,18 @@ const CreateStudents = ({ id }) => {
         </Wrapper>
       })}
     </StudentNameList>
+    <SetPassword>
+      <div>비밀번호</div>
+      <EditInput
+        {...register("password", { required: true })}
+        type="password"
+        autoComplete="off"
+      />
+      <SetPasswordMsg>"학생 아이디는 선생님 <span>아이디_s학생번호</span>이며 비밀번호는 입력한 <span>비밀번호^^학생번호</span>입니다.
+        학생들의 비밀번호는 동일한 패턴이기 때문에 계정 생성이후 비밀번호 변경을 권합니다."
+      </SetPasswordMsg>
+    </SetPassword>
+    <SaveBtn type="submit" value="학생 계정 생성하기" disabled={!isValid} />
   </EditForm>);
 }
 
