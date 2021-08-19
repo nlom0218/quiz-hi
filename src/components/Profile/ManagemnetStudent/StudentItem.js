@@ -1,8 +1,9 @@
 import { faEdit } from '@fortawesome/free-regular-svg-icons';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
+import { fadeIn } from '../../../animation/fade';
 import { processUserLevel } from '../../../sharedFn';
 import LevelStep from '../../LevelStep';
 
@@ -11,6 +12,7 @@ const SStudentItem = styled.div`
   display: grid;
   grid-template-columns: 60px 200px 220px auto 1fr;
   column-gap: 20px;
+  row-gap: 20px;
   justify-items: flex-start;
   align-items: center;
   transition: background-color 1s ease;
@@ -53,9 +55,18 @@ const StudentLevel = styled.div`
 
 const StudentEdit = styled.div`
   justify-self: flex-end;
+  svg {
+    cursor: pointer;
+  }
+`
+
+const StudentEditting = styled.div`
+  grid-column: 1 / -1;
+  animation: ${fadeIn} 0.6s ease;
 `
 
 const StudentItem = ({ nickname, avatarURL, index, username, score }) => {
+  const [editMode, setEditMode] = useState(false)
   const level = processUserLevel(score)
   return (<SStudentItem>
     <StudentNum>{index + 1}번</StudentNum>
@@ -67,14 +78,18 @@ const StudentItem = ({ nickname, avatarURL, index, username, score }) => {
           <FontAwesomeIcon icon={faUser} />
         </div>
       }
-      {nickname}
+      {nickname.length > 8 ? `${nickname.substring(0, 8)}...` : nickname}
     </StudentNickname>
     <StudentLevel>
       Lv.{level}({score})
     </StudentLevel>
     <StudentEdit>
-      <FontAwesomeIcon icon={faEdit} />
+      <FontAwesomeIcon icon={faEdit} onClick={() => setEditMode(prev => !prev)} />
     </StudentEdit>
+    {editMode && <StudentEditting>
+      ddd
+      </StudentEditting>
+    }
   </SStudentItem>);
 }
 
