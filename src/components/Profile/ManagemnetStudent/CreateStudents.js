@@ -1,3 +1,5 @@
+import { useMutation } from '@apollo/client';
+import { faEye, faEyeSlash } from '@fortawesome/free-regular-svg-icons';
 import { faMinus, faPlus } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import gql from 'graphql-tag';
@@ -79,12 +81,16 @@ const Wrapper = styled.div`
 
 const SetPassword = styled.div`
   display: grid;
-  grid-template-columns: auto 1fr;
+  grid-template-columns: 100px 1fr;
   column-gap: 30px;
   row-gap: 20px;
   align-items: center;
   input {
     justify-self: flex-start;
+  }
+  svg {
+    margin-left: 10px;
+    cursor: pointer;
   }
 `
 
@@ -100,12 +106,22 @@ const SetPasswordMsg = styled.div`
 
 const CreateStudents = ({ id }) => {
   const [studentNum, setStudentNum] = useState(["s"])
+  const [visible, setVisible] = useState(false)
   const { register, handleSubmit, formState: { isValid }, getValues } = useForm({
     mode: "onChange"
   }
   )
-  let newStudentNum = null
+  const onCompleted = (result) => {
+    const { createStudentAccount: { ok } } = result
+    if (ok) {
+      window.location.reload()
+    }
+  }
+  const [createStudentAccount, { loading }] = useMutation(CREATE_STUDENT_ACCOUNT_MUTATION, {
+    onCompleted
+  })
   const onClickNumBtn = (type) => {
+    let newStudentNum = null
     if (type === "minus") {
       if (studentNum.length === 1) {
         return
@@ -120,8 +136,31 @@ const CreateStudents = ({ id }) => {
     setStudentNum(newStudentNum)
   }
   const onSubmit = (data) => {
-    console.log(data);
-    console.log([data.nickname1, data.nickname2]);
+    if (loading) {
+      return
+    }
+    const { password } = data
+    const nicknameArr = Object.keys(data).map((item) => {
+      if (item === "password") {
+        return
+      }
+      return data[item]
+    }).filter((item) => item !== undefined)
+    const nickname = nicknameArr.join(",")
+    createStudentAccount({
+      variables: {
+        id,
+        nickname,
+        password
+      }
+    })
+  }
+  const onClickEye = () => {
+    if (visible) {
+      setVisible(false)
+    } else {
+      setVisible(true)
+    }
   }
   return (<EditForm onSubmit={handleSubmit(onSubmit)}>
     <SetStudentNum>
@@ -146,14 +185,16 @@ const CreateStudents = ({ id }) => {
       })}
     </StudentNameList>
     <SetPassword>
-      <div>비밀번호</div>
+      <div>비밀번호
+      <FontAwesomeIcon icon={visible ? faEye : faEyeSlash} onClick={onClickEye} />
+      </div>
       <EditInput
         {...register("password", { required: true })}
-        type="password"
+        type={visible ? "text" : "password"}
         autoComplete="off"
       />
       <SetPasswordMsg>"학생 아이디는 선생님 <span>아이디_s학생번호</span>이며 비밀번호는 입력한 <span>비밀번호^^학생번호</span>입니다.
-        학생들의 비밀번호는 동일한 패턴이기 때문에 계정 생성이후 비밀번호 변경을 권합니다."
+        학생들의 비밀번호는 동일한 패턴이기 때문에 계정 생성이후 비밀번호 변경을 권장합니다."
       </SetPasswordMsg>
     </SetPassword>
     <SaveBtn type="submit" value="학생 계정 생성하기" disabled={!isValid} />
