@@ -62,16 +62,22 @@ const Btn = styled.div`
   }
 `
 
+const StudentNameList = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  row-gap: 20px;
+  column-gap: 40px;
+`
+
 const Wrapper = styled.div`
   display: grid;
   grid-template-columns: auto 1fr;
-  column-gap: 30px;
+  column-gap: 20px;
   align-items: center;
 `
 
 const CreateStudents = ({ id }) => {
   const [studentNum, setStudentNum] = useState(["s"])
-  console.log(studentNum);
   const { register, handleSubmit, formState: { isValid }, getValues } = useForm({
     mode: "onChange"
   }
@@ -100,16 +106,19 @@ const CreateStudents = ({ id }) => {
       </SetNumBtn>
       {studentNum.length === 50 && <div className="setNumMsg">생성가능한 최대 학생 계정수은 50입니다.</div>}
     </SetStudentNum>
-    {studentNum.map((item, index) => {
-      return <Wrapper key={index}>
-        <div>{index + 1}번 학생이름(닉네임)</div>
-        <EditInput
-          {...register("nickname", { required: true })}
-          type="text"
-          autoComplete="off"
-        />
-      </Wrapper>
-    })}
+    <StudentNameList>
+      {studentNum.map((item, index) => {
+        return <Wrapper key={index}>
+          <div>{index + 1}번</div>
+          <EditInput
+            {...register(`nickname${index + 1}`, { required: true })}
+            type="text"
+            autoComplete="off"
+            placeholder={`${index + 1}번 학생의 이름(닉네임) 입력`}
+          />
+        </Wrapper>
+      })}
+    </StudentNameList>
   </EditForm>);
 }
 
