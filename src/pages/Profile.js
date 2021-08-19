@@ -39,7 +39,11 @@ const SEE_PROFILE_QUERY = gql`
         name
       }
       students {
+        id
+        nickname
         username
+        avatarURL
+        score
       }
     }
   }

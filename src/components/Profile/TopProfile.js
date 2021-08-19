@@ -47,7 +47,7 @@ const UserBasicInfo = styled.div`
 
 const Wrapper = styled.div`
   display: flex;
-  align-items: flex-end;
+  align-items: center;
 `
 
 const Nickname = styled.div`

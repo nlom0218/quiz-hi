@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import EditProfileBox from '../Edit/EditProfileBox';
 import CreateStudents from './CreateStudents';
+import StudentItem from './StudentItem';
 
 const Wrapper = styled.div`
   display: grid;
@@ -25,8 +26,29 @@ const ActionStudentsBtn = styled.div`
   }
 `
 
+const SStudentList = styled.div`
+  display: grid;
+  grid-template-columns: 1fr;
+  border: 1px solid rgb(200, 200, 200, 0.8);
+`
+
+const StudentInfo = styled.div`
+  padding: 13px 15px;
+  grid-column: 1 / -1;
+  border-bottom: 1px solid rgb(200, 200, 200, 0.8);
+  display: grid;
+  grid-template-columns: 60px 200px 220px auto 1fr;
+  column-gap: 20px;
+  justify-items: flex-start;
+  align-items: center;
+  font-weight: 600;
+  .studentEdit {
+    justify-self: flex-end;
+  }
+`
 
 const StudentList = ({ students, id }) => {
+  console.log(students);
   const [createStudents, setCreateStudents] = useState(false)
   const onClickCreateStudents = () => {
     setCreateStudents(true)
@@ -40,7 +62,18 @@ const StudentList = ({ students, id }) => {
           {createStudents && <CreateStudents id={id} />}
         </Wrapper>
         :
-        <></>
+        <SStudentList>
+          <StudentInfo>
+            <div>번호</div>
+            <div>아이디</div>
+            <div>이름(닉네임)</div>
+            <div>레벨(점수)</div>
+            <div className="studentEdit">수정</div>
+          </StudentInfo>
+          {students.map((item, index) => {
+            return <StudentItem {...item} key={index} index={index} />
+          })}
+        </SStudentList>
       }
     </EditProfileBox>
   </React.Fragment>);
