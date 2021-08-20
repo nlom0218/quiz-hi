@@ -6,6 +6,7 @@ import styled from 'styled-components';
 import { fadeIn } from '../../../animation/fade';
 import { processUserLevel } from '../../../sharedFn';
 import LevelStep from '../../LevelStep';
+import StudentEditting from './StudentEditting';
 
 const SStudentItem = styled.div`
   padding: 20px 15px;
@@ -60,11 +61,6 @@ const StudentEdit = styled.div`
   }
 `
 
-const StudentEditting = styled.div`
-  grid-column: 1 / -1;
-  animation: ${fadeIn} 0.6s ease;
-`
-
 const StudentItem = ({ nickname, avatarURL, index, username, score }) => {
   const [editMode, setEditMode] = useState(false)
   const level = processUserLevel(score)
@@ -86,10 +82,7 @@ const StudentItem = ({ nickname, avatarURL, index, username, score }) => {
     <StudentEdit>
       <FontAwesomeIcon icon={faEdit} onClick={() => setEditMode(prev => !prev)} />
     </StudentEdit>
-    {editMode && <StudentEditting>
-      ddd
-      </StudentEditting>
-    }
+    {editMode && <StudentEditting nickname={nickname} />}
   </SStudentItem>);
 }
 
