@@ -11,8 +11,8 @@ import EditInput from '../Edit/EditInput';
 import SaveBtn from '../Edit/SaveBtn';
 
 const CREATE_STUDENT_ACCOUNT_MUTATION = gql`
-  mutation createStudentAccount($id: Int!, $nickname: String!, $password: String!) {
-    createStudentAccount(id: $id, nickname: $nickname, password: $password) {
+  mutation createStudentAccount($id: Int!, $nickname: String!, $password: String!, $username: String) {
+    createStudentAccount(id: $id, nickname: $nickname, password: $password, username: $username) {
       ok
       error
     }
@@ -104,17 +104,29 @@ const SetPasswordMsg = styled.div`
   }
 `
 
+const ErrMsg = styled.div`
+  grid-column: 1 / -1;
+  justify-self: center;
+  color: tomato;
+  font-weight: 600;
+  animation: ${fadeIn} 0.4s linear;
+`
+
 const CreateStudents = ({ id, addAccount }) => {
   const [studentNum, setStudentNum] = useState(["s"])
   const [visible, setVisible] = useState(false)
+  const [errMsg, setErrMsg] = useState(undefined)
   const { register, handleSubmit, formState: { isValid }, getValues } = useForm({
     mode: "onChange"
   }
   )
   const onCompleted = (result) => {
-    const { createStudentAccount: { ok } } = result
+    const { createStudentAccount: { ok, error } } = result
     if (ok) {
       window.location.reload()
+    }
+    if (!ok) {
+      setErrMsg(error)
     }
   }
   const [createStudentAccount, { loading }] = useMutation(CREATE_STUDENT_ACCOUNT_MUTATION, {
@@ -139,9 +151,12 @@ const CreateStudents = ({ id, addAccount }) => {
     if (loading) {
       return
     }
-    const { password } = data
+    const { password, username } = data
     const nicknameArr = Object.keys(data).map((item) => {
       if (item === "password") {
+        return
+      }
+      if (item === "username") {
         return
       }
       return data[item]
@@ -151,7 +166,8 @@ const CreateStudents = ({ id, addAccount }) => {
       variables: {
         id,
         nickname,
-        password
+        password,
+        ...(username && { username })
       }
     })
   }
@@ -215,6 +231,7 @@ const CreateStudents = ({ id, addAccount }) => {
       학생들의 비밀번호는 동일한 패턴이기 때문에 계정 생성이후 비밀번호 변경을 권장합니다."
     </SetPasswordMsg>}
     <SaveBtn type="submit" value="학생 계정 생성하기" disabled={!isValid} />
+    <ErrMsg>{errMsg}</ErrMsg>
   </EditForm>);
 }
 
