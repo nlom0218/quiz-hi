@@ -74,6 +74,15 @@ const EDIT_STUDENT_PROFILE_MUTATION = gql`
   }
 `
 
+const DELETE_STUDENT_ACCOUNT_MUTATION = gql`
+  mutation deleteStudentAccount($teacherId: Int!, $studentId: Int!) {
+    deleteStudentAccount(teacherId: $teacherId, studentId: $studentId) {
+      ok
+      error
+    }
+  }
+`
+
 const StudentEditting = ({ nickname, teacherId, studentId }) => {
   const [visible, setVisible] = useState(false)
   const [saveMsg, setSaveMsg] = useState(undefined)
@@ -103,6 +112,24 @@ const StudentEditting = ({ nickname, teacherId, studentId }) => {
   const [editStudentProfile, { loading }] = useMutation(EDIT_STUDENT_PROFILE_MUTATION, {
     update
   })
+  const [deleteStudentAccount, { loading: delLoading }] = useMutation(DELETE_STUDENT_ACCOUNT_MUTATION, {
+    onCompleted: () => window.location.reload()
+  })
+  const onClickDelBtn = () => {
+    if (delLoading) {
+      return
+    }
+    if (window.confirm("학생 계정을 삭제합니다. 삭제된 계정은 다시 복구되지 않으며 학생의 모든 정보는 삭제됩니다.")) {
+      deleteStudentAccount({
+        variables: {
+          teacherId,
+          studentId,
+        }
+      })
+    } else {
+      return
+    }
+  }
   const onSubmit = (data) => {
     const { nickname, password } = data
     if (loading) {
@@ -145,7 +172,7 @@ const StudentEditting = ({ nickname, teacherId, studentId }) => {
     </Wrapper>
     <Button>
       <SaveBtn type="submit" value="저장하기" disabled={!isValid} />
-      <DelBtn>계정 삭제하기</DelBtn>
+      <DelBtn onClick={onClickDelBtn}>계정 삭제하기</DelBtn>
     </Button>
     {errMsg && <ErrMsg>{errMsg}</ErrMsg>}
     {saveMsg && <SaveMsg>{saveMsg}</SaveMsg>}
