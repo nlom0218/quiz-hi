@@ -48,7 +48,6 @@ const StudentInfo = styled.div`
 `
 
 const StudentList = ({ students, id }) => {
-  console.log(students);
   const [createStudents, setCreateStudents] = useState(false)
   const onClickCreateStudents = () => {
     setCreateStudents(true)
@@ -71,7 +70,7 @@ const StudentList = ({ students, id }) => {
             <div className="studentEdit">수정</div>
           </StudentInfo>
           {students.map((item, index) => {
-            return <StudentItem {...item} key={index} index={index} />
+            return <StudentItem {...item} key={index} index={index} teacherId={id} />
           })}
         </SStudentList>
       }

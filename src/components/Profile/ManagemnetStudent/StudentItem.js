@@ -61,7 +61,7 @@ const StudentEdit = styled.div`
   }
 `
 
-const StudentItem = ({ nickname, avatarURL, index, username, score }) => {
+const StudentItem = ({ nickname, avatarURL, index, username, score, id, teacherId }) => {
   const [editMode, setEditMode] = useState(false)
   const level = processUserLevel(score)
   return (<SStudentItem>
@@ -82,7 +82,7 @@ const StudentItem = ({ nickname, avatarURL, index, username, score }) => {
     <StudentEdit>
       <FontAwesomeIcon icon={faEdit} onClick={() => setEditMode(prev => !prev)} />
     </StudentEdit>
-    {editMode && <StudentEditting nickname={nickname} />}
+    {editMode && <StudentEditting nickname={nickname} teacherId={teacherId} studentId={id} />}
   </SStudentItem>);
 }
 
