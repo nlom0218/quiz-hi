@@ -2,6 +2,8 @@ import { faCheckCircle, faCircle } from '@fortawesome/free-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import CallQuiz from './CallQuiz';
+import SendQuiz from './SendQuiz';
 
 const Container = styled.div`
   display: grid;
@@ -52,6 +54,8 @@ const CallSendQuiz = () => {
         <TypeInfo selected={type === "send"}>학생들에게 퀴즈 보내기: 학생 계정으로 퀴즈를 보냅니다.</TypeInfo>
       </TypeWrapper>
     </SetType>
+    {type === "call" && <CallQuiz />}
+    {type === "send" && <SendQuiz />}
   </Container>);
 }
 

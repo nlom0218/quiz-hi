@@ -14,6 +14,10 @@ const ME_QUERY = gql`
         id
         name
       }
+      students {
+        id
+        nickname
+      }
     }
   }
 `
