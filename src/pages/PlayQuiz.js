@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import BasicContainer from '../components/BasicContainer';
 import Header from '../components/Header';
 import PageTitle from '../components/PageTitle';
+import CallSendQuiz from '../components/PlayQuiz/CallSendQuiz';
 import PlayQuizLayout from '../components/PlayQuiz/PlayQuizLayout';
 import Preview from '../components/PlayQuiz/Preview';
 import SelectMode from '../components/PlayQuiz/SelectMode';
@@ -74,6 +75,12 @@ const PlayQuiz = () => {
             <OptionContent><Preview quizMode={quizMode} quizId={quizId} quizList={quizList} setQuizList={setQuizList} /></OptionContent>
           </OptionBox>
           <OptionBox>
+            <OptionTitle>불러오기 / 내보내기</OptionTitle>
+            <OptionContent><CallSendQuiz quizMode={quizMode} quizId={quizId} quizList={quizList} setQuizList={setQuizList} /></OptionContent>
+          </OptionBox>
+          <OptionBox>
+            <OptionTitle>문제, 정답 미리보기</OptionTitle>
+            <OptionContent><Preview quizMode={quizMode} quizId={quizId} quizList={quizList} setQuizList={setQuizList} /></OptionContent>
           </OptionBox>
         </PlayQuizLayout>
       </BasicContainer>

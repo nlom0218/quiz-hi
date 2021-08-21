@@ -1,3 +1,5 @@
+import { faUsers } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import EditProfileBox from '../Edit/EditProfileBox';
@@ -47,10 +49,17 @@ const StudentInfo = styled.div`
   }
 `
 
+const TotalStudentNum = styled.div`
+  margin-bottom: 20px;
+  svg {
+    margin-right: 10px;
+  }
+`
+
 const StudentList = ({ students, id }) => {
   const [createStudents, setCreateStudents] = useState(false)
   const onClickCreateStudents = () => {
-    setCreateStudents(true)
+    setCreateStudents(prev => !prev)
   }
   return (<React.Fragment>
     <EditProfileBox>
@@ -62,6 +71,7 @@ const StudentList = ({ students, id }) => {
         </Wrapper>
         :
         <React.Fragment>
+          {/* <TotalStudentNum><FontAwesomeIcon icon={faUsers} />{students.length}명의 학생</TotalStudentNum>  */}
           <SStudentList>
             <StudentInfo>
               <div>번호</div>
@@ -75,7 +85,7 @@ const StudentList = ({ students, id }) => {
             })}
           </SStudentList>
           <Wrapper>
-            <ActionStudentsBtn style={{ marginTop: "40px" }} onClick={onClickCreateStudents}>학생 계정 추가하기</ActionStudentsBtn>
+            <ActionStudentsBtn style={{ marginTop: "20px" }} onClick={onClickCreateStudents}>학생 계정 추가하기</ActionStudentsBtn>
             {createStudents && <CreateStudents id={id} addAccount={true} />}
           </Wrapper>
         </React.Fragment>

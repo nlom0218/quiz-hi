@@ -22,7 +22,7 @@ const Title = styled.div`
 const ManagemnetStudent = ({ students, id }) => {
   return (<Container>
     <Wrapper>
-      <Title>학생목록</Title>
+      <Title>학생 목록</Title>
       <StudentList students={students} id={id} />
     </Wrapper>
   </Container>);
