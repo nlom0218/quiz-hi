@@ -68,3 +68,7 @@ export const getCreatedDay = (createdAt) => {
   var day = ('0' + createDay.getDate()).slice(-2);
   return year + '-' + month + '-' + day;
 }
+
+export const compare = (key) => {
+  return (a, b) => (a[key] > b[key] ? 1 : (a[key] < b[key] ? -1 : 0))
+}
