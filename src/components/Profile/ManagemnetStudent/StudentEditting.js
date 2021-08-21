@@ -50,6 +50,21 @@ const DelBtn = styled.div`
   }
 `
 
+const SaveMsg = styled.div`
+  justify-self: center;
+  color: tomato;
+  font-weight: 600;
+  animation: ${fadeIn} 0.4s linear;
+`
+
+const ErrMsg = styled.div`
+  grid-column: 1 / -1;
+  justify-self: center;
+  color: tomato;
+  font-weight: 600;
+  animation: ${fadeIn} 0.4s linear;
+`
+
 const EDIT_STUDENT_PROFILE_MUTATION = gql`
   mutation editStudentProfile($teacherId: Int!, $studentId: Int!, $password: String, $nickname: String) {
     editStudentProfile(teacherId: $teacherId, studentId: $studentId, password: $password, nickname: $nickname) {
@@ -61,13 +76,33 @@ const EDIT_STUDENT_PROFILE_MUTATION = gql`
 
 const StudentEditting = ({ nickname, teacherId, studentId }) => {
   const [visible, setVisible] = useState(false)
-  const { register, formState: { isValid }, handleSubmit } = useForm({
+  const [saveMsg, setSaveMsg] = useState(undefined)
+  const [errMsg, setErrMsg] = useState(undefined)
+  const { register, formState: { isValid }, handleSubmit, getValues } = useForm({
     mode: "onChange",
     defaultValues: {
       nickname
     }
   })
-  const [editStudentProfile, { loading }] = useMutation(EDIT_STUDENT_PROFILE_MUTATION)
+  const update = (cache, result) => {
+    const { data: { editStudentProfile: { ok, error } } } = result
+    if (ok) {
+      setErrMsg(undefined);
+      const UserId = `User:${studentId}`
+      cache.modify({
+        id: UserId,
+        fields: {
+          nickname() { return getValues("nickname") },
+        }
+      })
+      setSaveMsg("학생정보가 수정 되었습니다.")
+    } else if (!ok) {
+      setErrMsg(error);
+    }
+  }
+  const [editStudentProfile, { loading }] = useMutation(EDIT_STUDENT_PROFILE_MUTATION, {
+    update
+  })
   const onSubmit = (data) => {
     const { nickname, password } = data
     if (loading) {
@@ -112,6 +147,8 @@ const StudentEditting = ({ nickname, teacherId, studentId }) => {
       <SaveBtn type="submit" value="저장하기" disabled={!isValid} />
       <DelBtn>계정 삭제하기</DelBtn>
     </Button>
+    {errMsg && <ErrMsg>{errMsg}</ErrMsg>}
+    {saveMsg && <SaveMsg>{saveMsg}</SaveMsg>}
   </SStudentEditting>);
 }
 
