@@ -104,7 +104,7 @@ const SetPasswordMsg = styled.div`
   }
 `
 
-const CreateStudents = ({ id }) => {
+const CreateStudents = ({ id, addAccount }) => {
   const [studentNum, setStudentNum] = useState(["s"])
   const [visible, setVisible] = useState(false)
   const { register, handleSubmit, formState: { isValid }, getValues } = useForm({
@@ -184,19 +184,36 @@ const CreateStudents = ({ id }) => {
         </Wrapper>
       })}
     </StudentNameList>
-    <SetPassword>
-      <div>비밀번호
+    <StudentNameList>
+      {addAccount &&
+        <SetPassword>
+          <div>아이디</div>
+          <EditInput
+            {...register("username", { required: true })}
+            type="text"
+            autoComplete="off"
+          />
+        </SetPassword>
+      }
+      <SetPassword>
+        <div>비밀번호
       <FontAwesomeIcon icon={visible ? faEye : faEyeSlash} onClick={onClickEye} />
-      </div>
-      <EditInput
-        {...register("password", { required: true })}
-        type={visible ? "text" : "password"}
-        autoComplete="off"
-      />
-      <SetPasswordMsg>"학생 아이디는 선생님 <span>아이디_s학생번호</span>이며 비밀번호는 입력한 <span>비밀번호^^학생번호</span>입니다.
-        학생들의 비밀번호는 동일한 패턴이기 때문에 계정 생성이후 비밀번호 변경을 권장합니다."
-      </SetPasswordMsg>
-    </SetPassword>
+        </div>
+        <EditInput
+          {...register("password", { required: true })}
+          type={visible ? "text" : "password"}
+          autoComplete="off"
+        />
+      </SetPassword>
+    </StudentNameList>
+    {!addAccount && <SetPasswordMsg>
+      "학생 아이디는 선생님 <span>아이디_s학생번호</span>이며 비밀번호는 입력한 <span>비밀번호^^학생번호</span>입니다.
+      학생들의 비밀번호는 동일한 패턴이기 때문에 계정 생성이후 비밀번호 변경을 권장합니다."
+    </SetPasswordMsg>}
+    {addAccount && <SetPasswordMsg>
+      "아이디의 중복을 방지하고자 추가로 생성하는 학생 아이디는 입력한 <span>아이디_s입력순서</span>이며 비밀번호는 입력한 <span>비밀번호^^입력순서</span>입니다.
+      학생들의 비밀번호는 동일한 패턴이기 때문에 계정 생성이후 비밀번호 변경을 권장합니다."
+    </SetPasswordMsg>}
     <SaveBtn type="submit" value="학생 계정 생성하기" disabled={!isValid} />
   </EditForm>);
 }

@@ -61,18 +61,24 @@ const StudentList = ({ students, id }) => {
           {createStudents && <CreateStudents id={id} />}
         </Wrapper>
         :
-        <SStudentList>
-          <StudentInfo>
-            <div>번호</div>
-            <div>아이디</div>
-            <div>이름(닉네임)</div>
-            <div>레벨(점수)</div>
-            <div className="studentEdit">수정</div>
-          </StudentInfo>
-          {students.map((item, index) => {
-            return <StudentItem {...item} key={index} index={index} teacherId={id} />
-          })}
-        </SStudentList>
+        <React.Fragment>
+          <SStudentList>
+            <StudentInfo>
+              <div>번호</div>
+              <div>아이디</div>
+              <div>이름(닉네임)</div>
+              <div>레벨(점수)</div>
+              <div className="studentEdit">수정</div>
+            </StudentInfo>
+            {students.map((item, index) => {
+              return <StudentItem {...item} key={index} index={index} teacherId={id} />
+            })}
+          </SStudentList>
+          <Wrapper>
+            <ActionStudentsBtn style={{ marginTop: "40px" }} onClick={onClickCreateStudents}>학생 계정 추가하기</ActionStudentsBtn>
+            {createStudents && <CreateStudents id={id} addAccount={true} />}
+          </Wrapper>
+        </React.Fragment>
       }
     </EditProfileBox>
   </React.Fragment>);
