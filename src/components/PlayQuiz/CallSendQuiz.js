@@ -33,9 +33,9 @@ const TypeInfo = styled.div`
   transition: background-color 0.6s ease;
 `
 
-const CallSendQuiz = () => {
-  const [type, setType] = useState(undefined)
+const CallSendQuiz = ({ setStduents, students, type, setType }) => {
   const onClickTypeBtn = (type) => {
+    setStduents([])
     setType(type)
   }
   return (<Container>
@@ -53,8 +53,8 @@ const CallSendQuiz = () => {
         <TypeInfo selected={type === "send"}>학생들에게 퀴즈 보내기: 학생 계정으로 퀴즈를 보냅니다.</TypeInfo>
       </TypeWrapper>
     </SetType>
-    {type === "call" && <SelectStudents msg="퀴즈에 참여하는 학생을 선택해 주세요." />}
-    {type === "send" && <SelectStudents msg="퀴즈를 보낼 학생을 선택해 주세요." />}
+    {type === "call" && <SelectStudents msg="퀴즈에 참여하는 학생을 선택해 주세요." students={students} setStduents={setStduents} />}
+    {type === "send" && <SelectStudents msg="퀴즈를 보낼 학생을 선택해 주세요." students={students} setStduents={setStduents} />}
   </Container>);
 }
 

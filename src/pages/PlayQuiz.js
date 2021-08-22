@@ -47,6 +47,8 @@ const PlayQuiz = () => {
   const [quizId, setQuizId] = useState(localStorage.getItem("selectQuiz") || null)
   const [quizMode, setQuizMode] = useState(localStorage.getItem("selectMode") || null)
   const [quizList, setQuizList] = useState(JSON.parse(localStorage.getItem("quizList")) || null)
+  const [students, setStduents] = useState([])
+  const [type, setType] = useState(undefined)
   const onClickResetBtn = () => {
     localStorage.removeItem("selectQuiz")
     setQuizId(null)
@@ -54,6 +56,8 @@ const PlayQuiz = () => {
     setQuizMode(null)
     localStorage.removeItem("quizList")
     setQuizList(null)
+    setStduents([])
+    setType(undefined)
   }
   return (
     <React.Fragment>
@@ -76,11 +80,11 @@ const PlayQuiz = () => {
           </OptionBox>
           <OptionBox>
             <OptionTitle>불러오기 / 내보내기</OptionTitle>
-            <OptionContent><CallSendQuiz quizMode={quizMode} quizId={quizId} quizList={quizList} setQuizList={setQuizList} /></OptionContent>
+            <OptionContent><CallSendQuiz students={students} setStduents={setStduents} type={type} setType={setType} /></OptionContent>
           </OptionBox>
           <OptionBox>
-            <OptionTitle>문제, 정답 미리보기</OptionTitle>
-            <OptionContent><Preview quizMode={quizMode} quizId={quizId} quizList={quizList} setQuizList={setQuizList} /></OptionContent>
+            <OptionTitle>퀴즈 진행하기</OptionTitle>
+            <OptionContent></OptionContent>
           </OptionBox>
         </PlayQuizLayout>
       </BasicContainer>

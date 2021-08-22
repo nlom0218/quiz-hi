@@ -58,9 +58,8 @@ const StudentListEven = styled.div`
 
 const StudentInfo = styled.div``
 
-const SelectStudents = ({ msg }) => {
+const SelectStudents = ({ msg, setStduents, students }) => {
   const user = useUser()
-  const [students, setStduents] = useState([])
   const onClickSelectBtn = (nickname, id) => {
     const exist = students.some((item) => item.nickname === nickname)
     let newStudents = []
