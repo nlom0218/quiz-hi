@@ -85,6 +85,10 @@ const Header = () => {
     }
     return false
   }
+  const onCLickPalyQuiz = () => {
+    localStorage.removeItem("startQuiz")
+    localStorage.removeItem("joinStudent")
+  }
   return (<SHeader className="headerContainer">
     <HeaderContainerGsap />
     <List>
@@ -102,7 +106,7 @@ const Header = () => {
         <SiteNameText><Link to="/">quiz Hi</Link></SiteNameText>
       </SiteName>
       <Nav><Link to="/make-quiz"><FontAwesomeIcon icon={faPencilAlt} /></Link></Nav>
-      <Nav><Link to="/play-quiz"><FontAwesomeIcon icon={faPlay} /></Link></Nav>
+      <Nav><Link to="/play-quiz" onClick={onCLickPalyQuiz}><FontAwesomeIcon icon={faPlay} /></Link></Nav>
       <Nav>
         <Link to={`/profile/${user?.username}/info`}>
           {profileIcon() ?

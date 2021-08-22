@@ -63,6 +63,15 @@ const PlayQuiz = () => {
     setStduents([])
     setType(undefined)
   }
+  const questionSetting = () => {
+    if (!quizMode) {
+      return false
+    }
+    if (quizMode === "nomal") {
+      return false
+    }
+    return true
+  }
   return (
     <React.Fragment>
       {startQuiz ? <div></div> :
@@ -84,7 +93,7 @@ const PlayQuiz = () => {
                 <OptionTitle>문제, 정답 미리보기</OptionTitle>
                 <OptionContent><Preview quizMode={quizMode} quizId={quizId} quizList={quizList} setQuizList={setQuizList} setChange={setChange} /></OptionContent>
               </OptionBox>
-              {quizMode !== "nomal" && <OptionBox>
+              {questionSetting() && <OptionBox>
                 <OptionTitle>진행하기 / 내보내기</OptionTitle>
                 <OptionContent><CallSendQuiz students={students} setStduents={setStduents} type={type} setType={setType} /></OptionContent>
               </OptionBox>}

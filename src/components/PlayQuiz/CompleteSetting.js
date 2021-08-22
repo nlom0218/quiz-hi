@@ -140,6 +140,9 @@ const CompleteSetting = ({ quizId, quizMode, type, quizList, students, setStartQ
     }
   }
   const ablePalyQuiz = () => {
+    if (!quizList) {
+      return false
+    }
     if (!quizId && !quizList && !quizMode) {
       return false
     }
@@ -190,7 +193,7 @@ const CompleteSetting = ({ quizId, quizMode, type, quizList, students, setStartQ
       <div className="leftContent"><FontAwesomeIcon icon={faCog} />설정</div>
       <div className="rightContent">{quizMode === "goldenBell" ? processConsolationQuestion() : processScoreQuestion()}</div>
     </Wrapper>}
-    {quizMode !== "nomal" &&
+    {questionSetting() &&
       <React.Fragment>
         <Wrapper>
           <div className="leftContent"><FontAwesomeIcon icon={faShare} />타입</div>
