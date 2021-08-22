@@ -2,8 +2,7 @@ import { faCheckCircle, faCircle } from '@fortawesome/free-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import CallQuiz from './CallQuiz';
-import SendQuiz from './SendQuiz';
+import SelectStudents from './SelectStudents';
 
 const Container = styled.div`
   display: grid;
@@ -35,7 +34,7 @@ const TypeInfo = styled.div`
 `
 
 const CallSendQuiz = () => {
-  const [type, setType] = useState("basic")
+  const [type, setType] = useState(undefined)
   const onClickTypeBtn = (type) => {
     setType(type)
   }
@@ -54,8 +53,8 @@ const CallSendQuiz = () => {
         <TypeInfo selected={type === "send"}>학생들에게 퀴즈 보내기: 학생 계정으로 퀴즈를 보냅니다.</TypeInfo>
       </TypeWrapper>
     </SetType>
-    {type === "call" && <CallQuiz />}
-    {type === "send" && <SendQuiz />}
+    {type === "call" && <SelectStudents msg="퀴즈에 참여하는 학생을 선택해 주세요." />}
+    {type === "send" && <SelectStudents msg="퀴즈를 보낼 학생을 선택해 주세요." />}
   </Container>);
 }
 

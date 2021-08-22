@@ -58,7 +58,7 @@ const StudentListEven = styled.div`
 
 const StudentInfo = styled.div``
 
-const CallQuiz = () => {
+const SelectStudents = ({ msg }) => {
   const user = useUser()
   const [students, setStduents] = useState([])
   const onClickSelectBtn = (nickname, id) => {
@@ -116,7 +116,7 @@ const CallQuiz = () => {
     }
   }
   return (<Container>
-    <CallQuizInfo>퀴즈에 참여하는 학생을 선택해 주세요.</CallQuizInfo>
+    <CallQuizInfo>{msg}</CallQuizInfo>
     <SeleteAllBtn>모두 선택하기 <FontAwesomeIcon icon={checkStudentAll() ? faCheckSquare : faSquare} onClick={onClickSelectAllBtn} /></SeleteAllBtn>
     <StudentList>
       {user.students.map((item, index) => {
@@ -149,4 +149,4 @@ const CallQuiz = () => {
   </Container>);
 }
 
-export default CallQuiz;
+export default SelectStudents;
