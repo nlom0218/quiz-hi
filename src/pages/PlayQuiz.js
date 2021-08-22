@@ -12,6 +12,7 @@ import PlayQuizLayout from '../components/PlayQuiz/PlayQuizLayout';
 import Preview from '../components/PlayQuiz/Preview';
 import SelectMode from '../components/PlayQuiz/SelectMode';
 import SelectQuiz from '../components/PlayQuiz/SelectQuiz';
+import StartQuiz from '../components/PlayQuiz/StartQuiz';
 
 const ResetBtn = styled.div`
   grid-column: 7 / 12;
@@ -74,7 +75,9 @@ const PlayQuiz = () => {
   }
   return (
     <React.Fragment>
-      {startQuiz ? <div></div> :
+      {startQuiz ?
+        <BasicContainer><StartQuiz /></BasicContainer>
+        :
         <React.Fragment>
           <Header />
           <BasicContainer>
