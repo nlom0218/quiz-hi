@@ -3,6 +3,7 @@ import { faBook, faCog } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import { compare } from '../../sharedFn';
 import PreviewList from './PreviewList';
 import UnityScore from './UnityScore';
 
@@ -63,7 +64,7 @@ const Preview = ({ quizMode, quizId, quizList, setQuizList, setChange }) => {
         hint: item.hint,
         image: item.image,
       }
-    })
+    }).sort(compare("order"))
     localStorage.setItem("quizList", JSON.stringify(quizList))
     setQuizList(quizList)
   }

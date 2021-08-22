@@ -2,6 +2,7 @@ import { gql, useQuery } from '@apollo/client';
 import { faBook, faBookOpen, faCog, faGamepad, faShare, faUserFriends } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
+import { useHistory } from 'react-router';
 import styled from 'styled-components';
 import { fadeIn } from '../../animation/fade';
 
@@ -36,6 +37,16 @@ const Wrapper = styled.div`
   }
 `
 
+const PlayQuizBtn = styled.div`
+  text-align: center;
+  background-color: rgb(255, 165, 0, 0.4);
+  padding: 10px;
+  border-radius: 5px;
+  opacity: ${props => props.able ? "1" : "0.6"};
+  cursor: ${props => props.able ? "pointer" : "not-allowed"};
+  transition: opacity 0.6s ease;
+`
+
 const DETATIL_QUIZ_QUERY = gql`
   query detailQuiz($id: Int!) {
     detailQuiz(id: $id) {
@@ -46,7 +57,7 @@ const DETATIL_QUIZ_QUERY = gql`
 `
 
 const CompleteSetting = ({ quizId, quizMode, type, quizList, students }) => {
-  console.log(students);
+  const history = useHistory()
   const { data, loading } = useQuery(DETATIL_QUIZ_QUERY, {
     variables: { id: parseInt(quizId) },
     skip: !quizId
@@ -130,6 +141,37 @@ const CompleteSetting = ({ quizId, quizMode, type, quizList, students }) => {
       return `${students.length}명의 학생이 퀴즈에 참여합니다.`
     }
   }
+  const ablePalyQuiz = () => {
+    if (!quizList) {
+      return false
+    }
+    if (!quizId && !quizMode && !type) {
+      return false
+    }
+    if (quizMode === "goldenBell") {
+      const consolationQuestion = quizList.filter((item) => item.consolation)
+      if (consolationQuestion.length === 0) {
+        return false
+      }
+    } else if (quizMode === "score" || "cooperation") {
+      const scoreArr = quizList.map((item) => item.score)
+      if (scoreArr.includes(undefined)) {
+        return false
+      }
+    }
+    if (students.length === 0 && type !== "nomal") {
+      return false
+    }
+    return true
+  }
+
+  const onClickPalyQuiz = () => {
+    if (type === "send") {
+
+    } else {
+
+    }
+  }
   return (<Container>
     <Wrapper>
       <div className="leftContent"><FontAwesomeIcon icon={faBook} />퀴즈</div>
@@ -155,6 +197,9 @@ const CompleteSetting = ({ quizId, quizMode, type, quizList, students }) => {
       <div className="leftContent"><FontAwesomeIcon icon={faUserFriends} />학생</div>
       <div className="rightContent">{processJoinStudents()}</div>
     </Wrapper>}
+    <PlayQuizBtn able={ablePalyQuiz()} onClick={onClickPalyQuiz}>
+      {type === "send" ? "퀴즈 내보내기" : "퀴즈 진행하기"}
+    </PlayQuizBtn>
   </Container>);
 }
 
