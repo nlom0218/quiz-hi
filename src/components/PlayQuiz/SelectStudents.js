@@ -1,6 +1,7 @@
 import { faCheckSquare, faSquare } from '@fortawesome/free-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { fadeIn } from '../../animation/fade';
 import useUser from '../../hooks/useUser';
@@ -57,6 +58,27 @@ const StudentListEven = styled.div`
 `
 
 const StudentInfo = styled.div``
+
+const NonExistStudents = styled.div`
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  a {
+    background-color: rgb(255, 165, 0, 0.4);
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color linear 0.5s;
+    :hover {
+      background-color: rgb(255, 165, 0, 0.8);
+    }
+  }
+`
+
+const Msg = styled.div`
+  color: tomato;
+`
 
 const SelectStudents = ({ msg, setStduents, students }) => {
   const user = useUser()
@@ -115,36 +137,45 @@ const SelectStudents = ({ msg, setStduents, students }) => {
     }
   }
   return (<Container>
-    <CallQuizInfo>{msg}</CallQuizInfo>
-    <SeleteAllBtn>모두 선택하기 <FontAwesomeIcon icon={checkStudentAll() ? faCheckSquare : faSquare} onClick={onClickSelectAllBtn} /></SeleteAllBtn>
-    <StudentList>
-      {user.students.map((item, index) => {
-        if ((index + 1) % 2 === 0) {
-          return
-        } else {
-          return <StudentItem key={index}>
-            <StudentInfo>
-              {index + 1}번 {item.nickname}
-            </StudentInfo>
-            <FontAwesomeIcon icon={checkStudent(item.nickname) ? faCheckSquare : faSquare} onClick={() => onClickSelectBtn(item.nickname, item.id)} />
-          </StudentItem>
-        }
-      })}
-    </StudentList>
-    <StudentListEven>
-      {user.students.map((item, index) => {
-        if ((index + 1) % 2 === 1) {
-          return
-        } else {
-          return <StudentItem key={index}>
-            <StudentInfo>
-              {index + 1}번 {item.nickname}
-            </StudentInfo>
-            <FontAwesomeIcon icon={checkStudent(item.nickname) ? faCheckSquare : faSquare} onClick={() => onClickSelectBtn(item.nickname, item.id)} />
-          </StudentItem>
-        }
-      })}
-    </StudentListEven>
+    {user.students.length !== 0 ?
+      <React.Fragment>
+        <CallQuizInfo>{msg}</CallQuizInfo>
+        <SeleteAllBtn>모두 선택하기 <FontAwesomeIcon icon={checkStudentAll() ? faCheckSquare : faSquare} onClick={onClickSelectAllBtn} /></SeleteAllBtn>
+        <StudentList>
+          {user.students.map((item, index) => {
+            if ((index + 1) % 2 === 0) {
+              return
+            } else {
+              return <StudentItem key={index}>
+                <StudentInfo>
+                  {index + 1}번 {item.nickname}
+                </StudentInfo>
+                <FontAwesomeIcon icon={checkStudent(item.nickname) ? faCheckSquare : faSquare} onClick={() => onClickSelectBtn(item.nickname, item.id)} />
+              </StudentItem>
+            }
+          })}
+        </StudentList>
+        <StudentListEven>
+          {user.students.map((item, index) => {
+            if ((index + 1) % 2 === 1) {
+              return
+            } else {
+              return <StudentItem key={index}>
+                <StudentInfo>
+                  {index + 1}번 {item.nickname}
+                </StudentInfo>
+                <FontAwesomeIcon icon={checkStudent(item.nickname) ? faCheckSquare : faSquare} onClick={() => onClickSelectBtn(item.nickname, item.id)} />
+              </StudentItem>
+            }
+          })}
+        </StudentListEven>
+      </React.Fragment>
+      :
+      <NonExistStudents>
+        <Msg>생성된 학생 계정이 없습니다.</Msg>
+        <Link to={`/profile/${user.username}/student`}>계정 생성하러 가기</Link>
+      </NonExistStudents>
+    }
   </Container>);
 }
 

@@ -43,7 +43,7 @@ const DETATIL_QUIZ_QUERY = gql`
   }
 `
 
-const CompleteSetting = ({ quizId, quizMode }) => {
+const CompleteSetting = ({ quizId, quizMode, type }) => {
   const { data, loading } = useQuery(DETATIL_QUIZ_QUERY, {
     variables: { id: parseInt(quizId) },
     skip: !quizId
@@ -60,11 +60,11 @@ const CompleteSetting = ({ quizId, quizMode }) => {
     }
   }
   const processQuizType = () => {
-    if (quizMode === "basic") {
+    if (type === "basic") {
       return "설정없이 퀴즈 진행하기"
-    } else if (quizMode === "call") {
+    } else if (type === "call") {
       return "학생들과 함께 퀴즈 진행하기"
-    } else if (quizMode === "send") {
+    } else if (type === "send") {
       return "학생들에게 퀴즈 보내기"
     }
   }
@@ -88,7 +88,7 @@ const CompleteSetting = ({ quizId, quizMode }) => {
     </Wrapper>
     <Wrapper>
       <div className="leftContent"><FontAwesomeIcon icon={faShare} />타입</div>
-      <div className="rightContent">{quizMode ? processQuizType() : <span>불러오기 / 내보내기에서 타입를 선택해 주세요.</span>}</div>
+      <div className="rightContent">{type ? processQuizType() : <span>불러오기 / 내보내기에서 타입를 선택해 주세요.</span>}</div>
     </Wrapper>
     {joinStudents() && <Wrapper>
       <div className="leftContent"><FontAwesomeIcon icon={faUserFriends} />학생</div>
