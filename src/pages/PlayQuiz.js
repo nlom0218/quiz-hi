@@ -12,7 +12,7 @@ import PlayQuizLayout from '../components/PlayQuiz/PlayQuizLayout';
 import Preview from '../components/PlayQuiz/Preview';
 import SelectMode from '../components/PlayQuiz/SelectMode';
 import SelectQuiz from '../components/PlayQuiz/SelectQuiz';
-import StartQuiz from '../components/PlayQuiz/StartQuiz';
+import StartQuiz from '../components/PlayQuiz/StartQuiz/StartQuiz';
 
 const ResetBtn = styled.div`
   grid-column: 7 / 12;

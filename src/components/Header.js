@@ -88,6 +88,7 @@ const Header = () => {
   const onCLickPalyQuiz = () => {
     localStorage.removeItem("startQuiz")
     localStorage.removeItem("joinStudent")
+    localStorage.removeItem("questionIndex")
   }
   return (<SHeader className="headerContainer">
     <HeaderContainerGsap />
