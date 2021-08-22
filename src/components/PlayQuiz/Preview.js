@@ -47,6 +47,9 @@ const DETATIL_QUIZ_QUERY = gql`
         distractor
         hint
         image
+        user {
+          nickname
+        }
       }
     }
   }
@@ -63,6 +66,7 @@ const Preview = ({ quizMode, quizId, quizList, setQuizList, setChange }) => {
         distractor: item.distractor,
         hint: item.hint,
         image: item.image,
+        author: item.user.nickname
       }
     }).sort(compare("order"))
     localStorage.setItem("quizList", JSON.stringify(quizList))
