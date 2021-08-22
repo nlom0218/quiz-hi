@@ -105,7 +105,7 @@ const AddQuestions = ({ state, tags, user: { nickname, avatarURL } }) => {
               nickname={nickname}
               avatarUR={avatarURL}
             />}
-          <div className="addQuestionMsg">문제는 퀴즈의 마지막 번호로 추가 됩니다.</div>
+          <div className="addQuestionMsg">새롭게 추가된 문제는 퀴즈의 마지막 번호로 추가 됩니다.</div>
         </SMakeQuestionContainer>
       </EditInputLayout>
     </Container>
