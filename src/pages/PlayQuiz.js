@@ -45,6 +45,7 @@ const OptionContent = styled.div`
 `
 
 const PlayQuiz = () => {
+  const [change, setChange] = useState(true)
   const [quizId, setQuizId] = useState(localStorage.getItem("selectQuiz") || null)
   const [quizMode, setQuizMode] = useState(localStorage.getItem("selectMode") || null)
   const [quizList, setQuizList] = useState(JSON.parse(localStorage.getItem("quizList")) || null)
@@ -77,7 +78,7 @@ const PlayQuiz = () => {
           </OptionBox>
           <OptionBox>
             <OptionTitle>문제, 정답 미리보기</OptionTitle>
-            <OptionContent><Preview quizMode={quizMode} quizId={quizId} quizList={quizList} setQuizList={setQuizList} /></OptionContent>
+            <OptionContent><Preview quizMode={quizMode} quizId={quizId} quizList={quizList} setQuizList={setQuizList} setChange={setChange} /></OptionContent>
           </OptionBox>
           <OptionBox>
             <OptionTitle>불러오기 / 내보내기</OptionTitle>
@@ -85,7 +86,7 @@ const PlayQuiz = () => {
           </OptionBox>
           <OptionBox>
             <OptionTitle>퀴즈 진행하기</OptionTitle>
-            <OptionContent><CompleteSetting quizId={quizId} quizMode={quizMode} students={students} type={type} /></OptionContent>
+            <OptionContent><CompleteSetting quizId={quizId} quizMode={quizMode} students={students} type={type} quizList={quizList} /></OptionContent>
           </OptionBox>
         </PlayQuizLayout>
       </BasicContainer>

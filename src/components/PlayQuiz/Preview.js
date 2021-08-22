@@ -51,8 +51,7 @@ const DETATIL_QUIZ_QUERY = gql`
   }
 `
 
-const Preview = ({ quizMode, quizId, quizList, setQuizList }) => {
-  const [change, setChange] = useState(true)
+const Preview = ({ quizMode, quizId, quizList, setQuizList, setChange }) => {
   const onCompleted = () => {
     const quizList = data.detailQuiz.questions.map((item, index) => {
       return {

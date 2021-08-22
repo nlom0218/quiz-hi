@@ -41,8 +41,8 @@ const CallSendQuiz = ({ setStduents, students, type, setType }) => {
   return (<Container>
     <SetType>
       <TypeWrapper>
-        <FontAwesomeIcon icon={type === "basic" ? faCheckCircle : faCircle} onClick={() => onClickTypeBtn("basic")} />
-        <TypeInfo selected={type === "basic"}>설정없이 퀴즈 진행하기</TypeInfo>
+        <FontAwesomeIcon icon={type === "nomal" ? faCheckCircle : faCircle} onClick={() => onClickTypeBtn("nomal")} />
+        <TypeInfo selected={type === "nomal"}>설정없이 퀴즈 진행하기</TypeInfo>
       </TypeWrapper>
       <TypeWrapper>
         <FontAwesomeIcon icon={type === "call" ? faCheckCircle : faCircle} onClick={() => onClickTypeBtn("call")} />
