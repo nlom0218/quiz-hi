@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import BasicContainer from '../components/BasicContainer';
 import Header from '../components/Header';
+import NavBtn from '../components/NavBtn';
 import PageTitle from '../components/PageTitle';
 import CallSendQuiz from '../components/PlayQuiz/CallSendQuiz';
 import CompleteSetting from '../components/PlayQuiz/CompleteSetting';
@@ -46,7 +47,7 @@ const OptionContent = styled.div`
 
 const PlayQuiz = () => {
   const [change, setChange] = useState(true)
-  const [startQuiz, setStartQuiz] = useState(false)
+  const [startQuiz, setStartQuiz] = useState(localStorage.getItem("startQuiz") || false)
   const [quizId, setQuizId] = useState(localStorage.getItem("selectQuiz") || null)
   const [quizMode, setQuizMode] = useState(localStorage.getItem("selectMode") || null)
   const [quizList, setQuizList] = useState(JSON.parse(localStorage.getItem("quizList")) || null)
@@ -64,7 +65,7 @@ const PlayQuiz = () => {
   }
   return (
     <React.Fragment>
-      {    startQuiz ? <div></div> :
+      {startQuiz ? <div></div> :
         <React.Fragment>
           <Header />
           <BasicContainer>
@@ -83,16 +84,17 @@ const PlayQuiz = () => {
                 <OptionTitle>문제, 정답 미리보기</OptionTitle>
                 <OptionContent><Preview quizMode={quizMode} quizId={quizId} quizList={quizList} setQuizList={setQuizList} setChange={setChange} /></OptionContent>
               </OptionBox>
-              <OptionBox>
-                <OptionTitle>불러오기 / 내보내기</OptionTitle>
+              {quizMode !== "nomal" && <OptionBox>
+                <OptionTitle>진행하기 / 내보내기</OptionTitle>
                 <OptionContent><CallSendQuiz students={students} setStduents={setStduents} type={type} setType={setType} /></OptionContent>
-              </OptionBox>
+              </OptionBox>}
               <OptionBox>
                 <OptionTitle>퀴즈 진행하기</OptionTitle>
                 <OptionContent><CompleteSetting quizId={quizId} quizMode={quizMode} students={students} type={type} quizList={quizList} setStartQuiz={setStartQuiz} /></OptionContent>
               </OptionBox>
             </PlayQuizLayout>
           </BasicContainer>
+          <NavBtn />
         </React.Fragment>
       }
     </React.Fragment>

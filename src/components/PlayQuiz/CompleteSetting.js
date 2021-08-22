@@ -140,8 +140,11 @@ const CompleteSetting = ({ quizId, quizMode, type, quizList, students, setStartQ
     }
   }
   const ablePalyQuiz = () => {
-    if (!quizId && !quizList && !quizMode && !type) {
+    if (!quizId && !quizList && !quizMode) {
       return false
+    }
+    if (quizMode === "nomal") {
+      return true
     }
     if (quizMode === "goldenBell" && quizList.filter((item) => item.consolation).length === 0) {
       return false
@@ -165,6 +168,8 @@ const CompleteSetting = ({ quizId, quizMode, type, quizList, students, setStartQ
     if (type === "send") {
       console.log("내보내기");
     } else {
+      localStorage.setItem("joinStudent", JSON.stringify(students))
+      localStorage.setItem("startQuiz", true)
       setStartQuiz(true)
     }
   }
@@ -185,14 +190,18 @@ const CompleteSetting = ({ quizId, quizMode, type, quizList, students, setStartQ
       <div className="leftContent"><FontAwesomeIcon icon={faCog} />설정</div>
       <div className="rightContent">{quizMode === "goldenBell" ? processConsolationQuestion() : processScoreQuestion()}</div>
     </Wrapper>}
-    <Wrapper>
-      <div className="leftContent"><FontAwesomeIcon icon={faShare} />타입</div>
-      <div className="rightContent">{type ? processQuizType() : <span>불러오기 / 내보내기에서 타입를 선택해 주세요.</span>}</div>
-    </Wrapper>
-    {joinStudents() && <Wrapper>
-      <div className="leftContent"><FontAwesomeIcon icon={faUserFriends} />학생</div>
-      <div className="rightContent">{processJoinStudents()}</div>
-    </Wrapper>}
+    {quizMode !== "nomal" &&
+      <React.Fragment>
+        <Wrapper>
+          <div className="leftContent"><FontAwesomeIcon icon={faShare} />타입</div>
+          <div className="rightContent">{type ? processQuizType() : <span>진행하기 / 내보내기에서 타입를 선택해 주세요.</span>}</div>
+        </Wrapper>
+        {joinStudents() && <Wrapper>
+          <div className="leftContent"><FontAwesomeIcon icon={faUserFriends} />학생</div>
+          <div className="rightContent">{processJoinStudents()}</div>
+        </Wrapper>}
+      </React.Fragment>
+    }
     <PlayQuizBtn able={ablePalyQuiz()} onClick={onClickPalyQuiz}>
       {type === "send" ? "퀴즈 내보내기" : "퀴즈 진행하기"}
     </PlayQuizBtn>
