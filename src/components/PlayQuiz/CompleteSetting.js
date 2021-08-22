@@ -1,8 +1,7 @@
 import { gql, useQuery } from '@apollo/client';
 import { faBook, faBookOpen, faCog, faGamepad, faShare, faUserFriends } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import React from 'react';
-import { useHistory } from 'react-router';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { fadeIn } from '../../animation/fade';
 
@@ -56,8 +55,7 @@ const DETATIL_QUIZ_QUERY = gql`
   }
 `
 
-const CompleteSetting = ({ quizId, quizMode, type, quizList, students }) => {
-  const history = useHistory()
+const CompleteSetting = ({ quizId, quizMode, type, quizList, students, setStartQuiz }) => {
   const { data, loading } = useQuery(DETATIL_QUIZ_QUERY, {
     variables: { id: parseInt(quizId) },
     skip: !quizId
@@ -142,34 +140,32 @@ const CompleteSetting = ({ quizId, quizMode, type, quizList, students }) => {
     }
   }
   const ablePalyQuiz = () => {
-    if (!quizList) {
+    if (!quizId && !quizList && !quizMode && !type) {
       return false
     }
-    if (!quizId && !quizMode && !type) {
+    if (quizMode === "goldenBell" && quizList.filter((item) => item.consolation).length === 0) {
       return false
     }
-    if (quizMode === "goldenBell") {
-      const consolationQuestion = quizList.filter((item) => item.consolation)
-      if (consolationQuestion.length === 0) {
-        return false
-      }
-    } else if (quizMode === "score" || "cooperation") {
-      const scoreArr = quizList.map((item) => item.score)
-      if (scoreArr.includes(undefined)) {
-        return false
-      }
+    if (quizMode === "score" && quizList.map((item) => item.score).includes(undefined)) {
+      return false
     }
-    if (students.length === 0 && type !== "nomal") {
+    if (quizMode === "cooperation" && quizList.map((item) => item.score).includes(undefined)) {
+      return false
+    }
+    if (type !== "nomal" && students.length === 0) {
       return false
     }
     return true
   }
 
   const onClickPalyQuiz = () => {
+    if (!ablePalyQuiz()) {
+      return
+    }
     if (type === "send") {
-
+      console.log("내보내기");
     } else {
-
+      setStartQuiz(true)
     }
   }
   return (<Container>

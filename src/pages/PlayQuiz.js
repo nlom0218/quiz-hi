@@ -46,6 +46,7 @@ const OptionContent = styled.div`
 
 const PlayQuiz = () => {
   const [change, setChange] = useState(true)
+  const [startQuiz, setStartQuiz] = useState(false)
   const [quizId, setQuizId] = useState(localStorage.getItem("selectQuiz") || null)
   const [quizMode, setQuizMode] = useState(localStorage.getItem("selectMode") || null)
   const [quizList, setQuizList] = useState(JSON.parse(localStorage.getItem("quizList")) || null)
@@ -63,33 +64,37 @@ const PlayQuiz = () => {
   }
   return (
     <React.Fragment>
-      <Header />
-      <BasicContainer>
-        <PageTitle><FontAwesomeIcon icon={faPlay} /> 퀴즈 진행하기</PageTitle>
-        <ResetBtn onClick={onClickResetBtn} ><FontAwesomeIcon icon={faRedoAlt} />초기화</ResetBtn>
-        <PlayQuizLayout>
-          <OptionBox>
-            <OptionTitle>퀴즈 선택하기</OptionTitle>
-            <OptionContent><SelectQuiz quizId={quizId} setQuizId={setQuizId} /></OptionContent>
-          </OptionBox>
-          <OptionBox>
-            <OptionTitle>모드 선택하기</OptionTitle>
-            <OptionContent><SelectMode quizMode={quizMode} setQuizMode={setQuizMode} /></OptionContent>
-          </OptionBox>
-          <OptionBox>
-            <OptionTitle>문제, 정답 미리보기</OptionTitle>
-            <OptionContent><Preview quizMode={quizMode} quizId={quizId} quizList={quizList} setQuizList={setQuizList} setChange={setChange} /></OptionContent>
-          </OptionBox>
-          <OptionBox>
-            <OptionTitle>불러오기 / 내보내기</OptionTitle>
-            <OptionContent><CallSendQuiz students={students} setStduents={setStduents} type={type} setType={setType} /></OptionContent>
-          </OptionBox>
-          <OptionBox>
-            <OptionTitle>퀴즈 진행하기</OptionTitle>
-            <OptionContent><CompleteSetting quizId={quizId} quizMode={quizMode} students={students} type={type} quizList={quizList} /></OptionContent>
-          </OptionBox>
-        </PlayQuizLayout>
-      </BasicContainer>
+      {    startQuiz ? <div></div> :
+        <React.Fragment>
+          <Header />
+          <BasicContainer>
+            <PageTitle><FontAwesomeIcon icon={faPlay} /> 퀴즈 진행하기</PageTitle>
+            <ResetBtn onClick={onClickResetBtn} ><FontAwesomeIcon icon={faRedoAlt} />초기화</ResetBtn>
+            <PlayQuizLayout>
+              <OptionBox>
+                <OptionTitle>퀴즈 선택하기</OptionTitle>
+                <OptionContent><SelectQuiz quizId={quizId} setQuizId={setQuizId} /></OptionContent>
+              </OptionBox>
+              <OptionBox>
+                <OptionTitle>모드 선택하기</OptionTitle>
+                <OptionContent><SelectMode quizMode={quizMode} setQuizMode={setQuizMode} /></OptionContent>
+              </OptionBox>
+              <OptionBox>
+                <OptionTitle>문제, 정답 미리보기</OptionTitle>
+                <OptionContent><Preview quizMode={quizMode} quizId={quizId} quizList={quizList} setQuizList={setQuizList} setChange={setChange} /></OptionContent>
+              </OptionBox>
+              <OptionBox>
+                <OptionTitle>불러오기 / 내보내기</OptionTitle>
+                <OptionContent><CallSendQuiz students={students} setStduents={setStduents} type={type} setType={setType} /></OptionContent>
+              </OptionBox>
+              <OptionBox>
+                <OptionTitle>퀴즈 진행하기</OptionTitle>
+                <OptionContent><CompleteSetting quizId={quizId} quizMode={quizMode} students={students} type={type} quizList={quizList} setStartQuiz={setStartQuiz} /></OptionContent>
+              </OptionBox>
+            </PlayQuizLayout>
+          </BasicContainer>
+        </React.Fragment>
+      }
     </React.Fragment>
   );
 }
