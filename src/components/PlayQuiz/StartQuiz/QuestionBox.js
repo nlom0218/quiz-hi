@@ -20,14 +20,14 @@ const Wrapper = styled.div`
   grid-column: 1 / 2;
   display: grid;
   grid-template-columns: 100px 1fr;
-  font-size: 22px;
+  font-size: 26px;
   font-weight: 600;
 `
 
 const Question = styled.textarea`
-  font-size: 22px;
+  font-size: 26px;
   font-weight: 600;
-  line-height: 28px;
+  line-height: 32px;
   width: 100%;
   height: ${props => props.txtHeight}px;
   resize: none;
@@ -44,7 +44,7 @@ const Question = styled.textarea`
 const DisTractorList = styled.ol`
   display: grid;
   grid-template-columns: 1fr;
-  row-gap: 22px;
+  row-gap: 26px;
 `
 
 const DisTractorItem = styled.li`
@@ -52,15 +52,15 @@ const DisTractorItem = styled.li`
   grid-template-columns: auto 1fr;
   .num {
     margin-top: 3px;
-    margin-right: 30px;
+    margin-right: 26px;
     align-self: flex-start;
   }
 `
 
 const DistractorTextarea = styled.textarea`
-  font-size: 22px;
+  font-size: 26px;
   font-weight: 600;
-  line-height: 28px;
+  line-height: 32px;
   align-self: flex-start;
   justify-self: flex-start;
   width: 100%;
