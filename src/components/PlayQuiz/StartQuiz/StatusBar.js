@@ -6,6 +6,7 @@ const Container = styled.div`
   display: grid;
   grid-template-columns: 1000px 1fr;
   position: relative;
+  column-gap: 40px;
 `
 
 const Bar = styled.div`
@@ -29,7 +30,7 @@ const Progress = styled.div`
 `
 
 const QuestionNum = styled.div`
-  justify-self: flex-end;
+  /* justify-self: flex-end; */
   font-size: 24px;
   font-weight: 600;
 `

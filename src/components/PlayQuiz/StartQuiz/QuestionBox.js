@@ -10,10 +10,18 @@ const Container = styled.div`
   padding: 40px 40px;
   background-color: ${props => props.theme.boxColor};
   display: grid;
-  grid-template-columns: 1fr auto;
-  grid-template-rows: auto auto auto;
+  grid-template-columns: 1000px 1fr;
+  grid-template-rows: auto auto;
   box-shadow: ${props => props.theme.boxShadow};
-  column-gap: 80px;
+  column-gap: 40px;
+  row-gap: 40px;
+  align-items: flex-start;
+`
+
+const SQuestionBox = styled.div`
+  grid-column: 1 / 2;
+  display: grid;
+  grid-template-columns: 1fr;
   row-gap: 40px;
 `
 
@@ -68,46 +76,50 @@ const Answer = styled.div``
 const QuestionBox = ({ setQuestionNum, questionNum, quizList, totalNum }) => {
 
   const question = quizList.filter((item) => parseInt(item.order) === questionNum)[0]
-  return (<Container>
-    <StatusBar questionNum={questionNum} totalNum={totalNum} />
-    <Wrapper>
-      <FontAwesomeIcon icon={faFile} />
-      <Question>{question.question}</Question>
-    </Wrapper>
-    {question.type === "obj" &&
-      <Wrapper>
-        <FontAwesomeIcon icon={faListOl} />
-        <DisTractorList>
-          {question.distractor.split("//!@#").map((item, index) => {
-            return <DisTractorItem key={index}>
-              <div className="num">{`${index + 1}번`}</div>
-              <Distractor>{item}</Distractor>
-            </DisTractorItem>
-          })}
-        </DisTractorList>
-      </Wrapper>
-    }
-    {/* <Answer>{question.answer}</Answer> */}
-    <Wrapper>
-      <div onClick={() => {
-        if (questionNum === totalNum) {
-          return
+  return (
+    <Container>
+      <StatusBar questionNum={questionNum} totalNum={totalNum} />
+      <SQuestionBox>
+        <Wrapper>
+          <FontAwesomeIcon icon={faFile} />
+          <Question>{question.question}</Question>
+        </Wrapper>
+        {question.type === "obj" &&
+          <Wrapper>
+            <FontAwesomeIcon icon={faListOl} />
+            <DisTractorList>
+              {question.distractor.split("//!@#").map((item, index) => {
+                return <DisTractorItem key={index}>
+                  <div className="num">{`${index + 1}번`}</div>
+                  <Distractor>{item}</Distractor>
+                </DisTractorItem>
+              })}
+            </DisTractorList>
+          </Wrapper>
         }
-        const newQuestionNum = questionNum + 1
-        localStorage.setItem("questionNum", newQuestionNum)
-        setQuestionNum(newQuestionNum)
-      }}>+</div>
-      <div onClick={() => {
-        if (questionNum === 1) {
-          return
-        }
-        const newQuestionNum = questionNum - 1
-        localStorage.setItem("questionNum", newQuestionNum)
-        setQuestionNum(newQuestionNum)
-      }}>-</div>
-    </Wrapper>
-    <OptionBox />
-  </Container>);
+        {/* <Answer>{question.answer}</Answer> */}
+        <Wrapper>
+          <div onClick={() => {
+            if (questionNum === totalNum) {
+              return
+            }
+            const newQuestionNum = questionNum + 1
+            localStorage.setItem("questionNum", newQuestionNum)
+            setQuestionNum(newQuestionNum)
+          }}>+</div>
+          <div onClick={() => {
+            if (questionNum === 1) {
+              return
+            }
+            const newQuestionNum = questionNum - 1
+            localStorage.setItem("questionNum", newQuestionNum)
+            setQuestionNum(newQuestionNum)
+          }}>-</div>
+        </Wrapper>
+      </SQuestionBox>
+      <OptionBox />
+    </Container>
+  );
 }
 
 export default QuestionBox;
