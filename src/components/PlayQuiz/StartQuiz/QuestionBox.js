@@ -1,7 +1,7 @@
 import { faFile } from '@fortawesome/free-regular-svg-icons';
 import { faListOl } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import OptionBox from './OptionBox';
 import StatusBar from './StatusBar';
@@ -16,6 +16,7 @@ const Container = styled.div`
   column-gap: 40px;
   row-gap: 40px;
   align-items: flex-start;
+  transition: background-color 1s ease;
 `
 
 const SQuestionBox = styled.div`
@@ -23,6 +24,8 @@ const SQuestionBox = styled.div`
   display: grid;
   grid-template-columns: 1fr;
   row-gap: 40px;
+  transition: opacity 0.6s ease;
+  opacity: ${props => props.opacity};
 `
 
 const Wrapper = styled.div`
@@ -41,10 +44,6 @@ const Question = styled.div`
   resize: none;
   border: none;
   padding: 0px;
-  transition: background-color 1s ease, color 1s ease;
-  :focus {
-    outline: none;
-  }
 `
 
 const DisTractorList = styled.ol`
@@ -74,12 +73,12 @@ const Answer = styled.div``
 
 
 const QuestionBox = ({ setQuestionNum, questionNum, quizList, totalNum }) => {
-
+  const [action, setAction] = useState(null)
   const question = quizList.filter((item) => parseInt(item.order) === questionNum)[0]
   return (
     <Container>
-      <StatusBar questionNum={questionNum} totalNum={totalNum} />
-      <SQuestionBox>
+      <StatusBar questionNum={questionNum} totalNum={totalNum} action={action} />
+      <SQuestionBox opacity={action === null ? 1 : 0.2}>
         <Wrapper>
           <FontAwesomeIcon icon={faFile} />
           <Question>{question.question}</Question>
@@ -117,7 +116,14 @@ const QuestionBox = ({ setQuestionNum, questionNum, quizList, totalNum }) => {
           }}>-</div>
         </Wrapper>
       </SQuestionBox>
-      <OptionBox />
+      <OptionBox
+        questionNum={questionNum}
+        totalNum={totalNum}
+        setQuestionNum={setQuestionNum}
+        action={action}
+        setAction={setAction}
+        question={question}
+      />
     </Container>
   );
 }

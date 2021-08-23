@@ -7,6 +7,8 @@ const Container = styled.div`
   grid-template-columns: 1000px 1fr;
   position: relative;
   column-gap: 40px;
+  transition: opacity 0.6s ease;
+  opacity: ${props => props.opacity};
 `
 
 const Bar = styled.div`
@@ -30,14 +32,14 @@ const Progress = styled.div`
 `
 
 const QuestionNum = styled.div`
-  /* justify-self: flex-end; */
+  justify-self: flex-end;
   font-size: 24px;
   font-weight: 600;
 `
 
-const StatusBar = ({ questionNum, totalNum }) => {
+const StatusBar = ({ questionNum, totalNum, action }) => {
   const width = 1000 / totalNum * questionNum
-  return (<Container>
+  return (<Container opacity={action === null ? 1 : 0.2}>
     <Bar></Bar>
     <Progress width={width}></Progress>
     <QuestionNum>{questionNum}번</QuestionNum>
