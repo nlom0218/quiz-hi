@@ -34,12 +34,14 @@ const Wrapper = styled.div`
 
 const Title = styled.div`
   font-weight: 600;
+  line-height: 24px;
 `
 
 const Content = styled.div`
   display: grid;
   grid-template-columns: 1fr;
   row-gap: 20px;
+  line-height: 24px;
 `
 
 const DisTractorItem = styled.li`
@@ -48,7 +50,6 @@ const DisTractorItem = styled.li`
   .num {
     margin-right: 10px;
     align-self: flex-start;
-    margin-top: 5px;
   }
 `
 

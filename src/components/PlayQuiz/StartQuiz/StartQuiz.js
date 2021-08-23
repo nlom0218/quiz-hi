@@ -10,11 +10,11 @@ const Container = styled.div`
   grid-column: 1 / -1;
   display: grid;
   grid-template-columns: 1fr;
-  row-gap: 40px;
+  row-gap: 20px;
 `
 
 const QuizTitle = styled.div`
-  font-size: 30px;
+  font-size: 28px;
   svg {
     margin-right: 20px;
   }
@@ -30,7 +30,9 @@ const DETATIL_QUIZ_QUERY = gql`
 `
 
 const StartQuiz = () => {
-  const [questionIndex, setQuestionIndex] = useState(parseInt(localStorage.getItem("questionIndex")) || 0)
+  const quizList = JSON.parse(localStorage.getItem("quizList"))
+  const totalNum = quizList.length
+  const [questionNum, setQuestionNum] = useState(parseInt(localStorage.getItem("questionNum")) || 1)
   const { data, loading } = useQuery(DETATIL_QUIZ_QUERY, {
     variables: {
       id: parseInt(localStorage.getItem("selectQuiz"))
@@ -41,7 +43,7 @@ const StartQuiz = () => {
       <FontAwesomeIcon icon={faBook} />
       {data?.detailQuiz?.title.length > 40 ? `${data?.detailQuiz?.title.substring(0, 40)}...` : data?.detailQuiz?.title}
     </QuizTitle>
-    <QuestionBox setQuestionIndex={setQuestionIndex} questionIndex={questionIndex} />
+    <QuestionBox setQuestionNum={setQuestionNum} questionNum={questionNum} quizList={quizList} totalNum={totalNum} />
   </Container>);
 }
 
