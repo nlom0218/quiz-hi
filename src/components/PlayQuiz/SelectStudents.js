@@ -86,7 +86,7 @@ const SelectStudents = ({ msg, setStduents, students }) => {
     const exist = students.some((item) => item.nickname === nickname)
     let newStudents = []
     if (!exist) {
-      newStudents = [...students, { nickname, id }].sort(compare("id"))
+      newStudents = [...students, { nickname, id, pass: true, score: 0 }].sort(compare("id"))
     } else {
       newStudents = students.filter((item) => item.nickname !== nickname).sort(compare("id"))
     }
@@ -115,9 +115,11 @@ const SelectStudents = ({ msg, setStduents, students }) => {
       const newStudents = user.students.map((item) => {
         return {
           nickname: item.nickname,
-          id: item.id
+          id: item.id,
+          pass: true,
+          score: 0
         }
-      })
+      }).sort(compare("id"))
       setStduents(newStudents)
     }
   }
@@ -148,7 +150,7 @@ const SelectStudents = ({ msg, setStduents, students }) => {
             } else {
               return <StudentItem key={index}>
                 <StudentInfo>
-                  {index + 1}번 {item.nickname}
+                  {index + 1}번 {item.nickname.length > 12 ? `${item.nickname.substring(0, 12)}...` : item.nickname}
                 </StudentInfo>
                 <FontAwesomeIcon icon={checkStudent(item.nickname) ? faCheckSquare : faSquare} onClick={() => onClickSelectBtn(item.nickname, item.id)} />
               </StudentItem>
@@ -162,7 +164,7 @@ const SelectStudents = ({ msg, setStduents, students }) => {
             } else {
               return <StudentItem key={index}>
                 <StudentInfo>
-                  {index + 1}번 {item.nickname}
+                  {index + 1}번 {item.nickname.length > 12 ? `${item.nickname.substring(0, 12)}...` : item.nickname}
                 </StudentInfo>
                 <FontAwesomeIcon icon={checkStudent(item.nickname) ? faCheckSquare : faSquare} onClick={() => onClickSelectBtn(item.nickname, item.id)} />
               </StudentItem>

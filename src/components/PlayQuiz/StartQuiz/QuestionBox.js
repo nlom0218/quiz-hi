@@ -74,7 +74,7 @@ const Distractor = styled.div`
 const Answer = styled.div``
 
 
-const QuestionBox = ({ setQuestionNum, questionNum, quizList, totalNum, student }) => {
+const QuestionBox = ({ setQuestionNum, questionNum, quizList, totalNum, student, setStduent }) => {
   const [action, setAction] = useState(null)
   const question = quizList.filter((item) => parseInt(item.order) === questionNum)[0]
   return (
@@ -114,6 +114,7 @@ const QuestionBox = ({ setQuestionNum, questionNum, quizList, totalNum, student 
         setAction={setAction}
         question={question}
         student={student}
+        setStduent={setStduent}
       />
     </Container>
   );

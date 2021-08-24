@@ -33,7 +33,7 @@ const ActionBtn = styled.div`
   }
 `
 
-const OptionBox = ({ questionNum, setQuestionNum, action, setAction, question, totalNum, student }) => {
+const OptionBox = ({ questionNum, setQuestionNum, action, setAction, question, totalNum, student, setStduent }) => {
   const history = useHistory()
   const darkMode = useReactiveVar(darkModeVar)
   const onClickHomeBtn = () => {
@@ -97,6 +97,8 @@ const OptionBox = ({ questionNum, setQuestionNum, action, setAction, question, t
         totalNum={totalNum}
         setQuestionNum={setQuestionNum}
         setAction={setAction}
+        student={student}
+        setStduent={setStduent}
       />
     }
     {action === "hint" && <HintAction question={question} setAction={setAction} />}

@@ -25,9 +25,11 @@ export const LeaveBtn = styled.div`
 `
 
 export const ActionContent = styled.div`
-  padding: 20px 40px;
+  margin: 20px 40px;
   justify-self: center;
   font-size: 36px;
+  max-height: 340px;
+  overflow-y: scroll;
 `
 
 export const NextStep = styled.div`

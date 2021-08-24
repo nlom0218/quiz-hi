@@ -34,7 +34,6 @@ const StartQuiz = () => {
   const totalNum = quizList.length
   const [questionNum, setQuestionNum] = useState(parseInt(localStorage.getItem("questionNum")) || 1)
   const [student, setStduent] = useState(JSON.parse(localStorage.getItem("joinStudent")))
-  console.log(student);
   const { data, loading } = useQuery(DETATIL_QUIZ_QUERY, {
     variables: {
       id: parseInt(localStorage.getItem("selectQuiz"))
@@ -45,7 +44,7 @@ const StartQuiz = () => {
       <FontAwesomeIcon icon={faBook} />
       {data?.detailQuiz?.title.length > 40 ? `${data?.detailQuiz?.title.substring(0, 40)}...` : data?.detailQuiz?.title}
     </QuizTitle>
-    <QuestionBox setQuestionNum={setQuestionNum} questionNum={questionNum} quizList={quizList} totalNum={totalNum} student={student} />
+    <QuestionBox setQuestionNum={setQuestionNum} questionNum={questionNum} quizList={quizList} totalNum={totalNum} student={student} setStduent={setStduent} />
   </Container>);
 }
 
