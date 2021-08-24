@@ -72,7 +72,7 @@ const Distractor = styled.div`
 const Answer = styled.div``
 
 
-const QuestionBox = ({ setQuestionNum, questionNum, quizList, totalNum }) => {
+const QuestionBox = ({ setQuestionNum, questionNum, quizList, totalNum, student }) => {
   const [action, setAction] = useState(null)
   const question = quizList.filter((item) => parseInt(item.order) === questionNum)[0]
   return (
@@ -96,25 +96,6 @@ const QuestionBox = ({ setQuestionNum, questionNum, quizList, totalNum }) => {
             </DisTractorList>
           </Wrapper>
         }
-        {/* <Answer>{question.answer}</Answer> */}
-        <Wrapper>
-          <div onClick={() => {
-            if (questionNum === totalNum) {
-              return
-            }
-            const newQuestionNum = questionNum + 1
-            localStorage.setItem("questionNum", newQuestionNum)
-            setQuestionNum(newQuestionNum)
-          }}>+</div>
-          <div onClick={() => {
-            if (questionNum === 1) {
-              return
-            }
-            const newQuestionNum = questionNum - 1
-            localStorage.setItem("questionNum", newQuestionNum)
-            setQuestionNum(newQuestionNum)
-          }}>-</div>
-        </Wrapper>
       </SQuestionBox>
       <OptionBox
         questionNum={questionNum}
@@ -123,6 +104,7 @@ const QuestionBox = ({ setQuestionNum, questionNum, quizList, totalNum }) => {
         action={action}
         setAction={setAction}
         question={question}
+        student={student}
       />
     </Container>
   );

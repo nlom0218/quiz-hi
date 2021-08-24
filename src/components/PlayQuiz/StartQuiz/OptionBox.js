@@ -33,7 +33,7 @@ const ActionBtn = styled.div`
   }
 `
 
-const OptionBox = ({ questionNum, setQuestionNum, action, setAction, question, totalNum }) => {
+const OptionBox = ({ questionNum, setQuestionNum, action, setAction, question, totalNum, student }) => {
   const history = useHistory()
   const darkMode = useReactiveVar(darkModeVar)
   const onClickHomeBtn = () => {
@@ -56,6 +56,9 @@ const OptionBox = ({ questionNum, setQuestionNum, action, setAction, question, t
     if (type === "image" && !question.image) {
       return
     }
+    if (type === "student" && student.length === 0) {
+      return
+    }
     setAction(type)
   }
   const onCLickDarkMode = () => {
@@ -76,7 +79,7 @@ const OptionBox = ({ questionNum, setQuestionNum, action, setAction, question, t
     <ActionBtn selected={action === "image"} disabled={!question.image}>
       <FontAwesomeIcon icon={faImage} onClick={() => onClickActionBtn("image")} />
     </ActionBtn>
-    <ActionBtn selected={action === "student"} >
+    <ActionBtn selected={action === "student"} disabled={student.length === 0} >
       <FontAwesomeIcon icon={faUserFriends} onClick={() => onClickActionBtn("student")} />
     </ActionBtn>
     <ActionBtn><FontAwesomeIcon icon={faStepBackward} onClick={onClickBackBtn} /></ActionBtn>
