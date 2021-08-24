@@ -8,12 +8,12 @@ const ImageBox = styled.div`
   position: absolute;
   top: -80px;
   right: 50px;
-  height: 500px;
+  height: 510px;
   animation: ${fadeIn} 0.6s ease;
 `
 
 const ImageContent = styled.img`
-  height: 500px;
+  height: 510px;
   position: relative;
   border-radius: 5px;
 `

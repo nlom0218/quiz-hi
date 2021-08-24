@@ -1,4 +1,4 @@
-import { faFile } from '@fortawesome/free-regular-svg-icons';
+import { faFile, faHandRock } from '@fortawesome/free-regular-svg-icons';
 import { faListOl } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useState } from 'react';
@@ -19,6 +19,8 @@ const Container = styled.div`
   transition: background-color 1s ease;
 `
 
+const ConsolationQuestion = styled.div``
+
 const SQuestionBox = styled.div`
   grid-column: 1 / 2;
   display: grid;
@@ -31,19 +33,19 @@ const SQuestionBox = styled.div`
 const Wrapper = styled.div`
   grid-column: 1 / 2;
   display: grid;
-  grid-template-columns: 100px 1fr;
+  grid-template-columns: 60px 1fr auto;
   font-size: 26px;
   font-weight: 600;
   line-height: 32px;
+  column-gap: 40px;
 `
 
-const Question = styled.div`
-  font-size: 26px;
-  font-weight: 600;
-  width: 100%;
-  resize: none;
-  border: none;
-  padding: 0px;
+const Question = styled.div``
+
+const Score = styled.div`
+  /* color: rgb(255, 165, 0, 0.8); */
+  color: rgb(42, 140, 0);
+  font-size: 32px;
 `
 
 const DisTractorList = styled.ol`
@@ -79,9 +81,16 @@ const QuestionBox = ({ setQuestionNum, questionNum, quizList, totalNum, student 
     <Container>
       <StatusBar questionNum={questionNum} totalNum={totalNum} action={action} />
       <SQuestionBox opacity={action === null ? 1 : 0.2}>
+        {question.consolation && <ConsolationQuestion>
+          <Wrapper style={{ color: "tomato" }}>
+            <FontAwesomeIcon icon={faHandRock} />
+            <Question>패자부활전 문제</Question>
+          </Wrapper>
+        </ConsolationQuestion>}
         <Wrapper>
           <FontAwesomeIcon icon={faFile} />
           <Question>{question.question}</Question>
+          {question.score && <Score>{question.score}점</Score>}
         </Wrapper>
         {question.type === "obj" &&
           <Wrapper>

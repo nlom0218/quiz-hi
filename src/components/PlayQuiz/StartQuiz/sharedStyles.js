@@ -8,7 +8,7 @@ export const ActionBox = styled.div`
   top: -80px;
   right: 50px;
   width: 1000px;
-  height: 500px;
+  height: 510px;
   border-radius: 5px;
   color: #ffffff;
   display: grid;

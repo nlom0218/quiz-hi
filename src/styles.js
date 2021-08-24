@@ -1,6 +1,9 @@
 import { createGlobalStyle } from "styled-components";
 import reset from "styled-reset";
 
+// / color: rgb(255, 165, 0, 0.8); orange /
+//   / color: rgb(42, 140, 0) green; /
+
 const color = {
   black: "#3f3f3f",
   white: "#efefef"
