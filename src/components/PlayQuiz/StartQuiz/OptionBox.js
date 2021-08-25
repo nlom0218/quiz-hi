@@ -1,5 +1,5 @@
 import { useReactiveVar } from '@apollo/client';
-import { faHome, faImage, faMagic, faBell, faUserFriends, faStepBackward, faSun, faMoon } from '@fortawesome/free-solid-svg-icons';
+import { faHome, faImage, faMagic, faBell, faUserFriends, faStepBackward, faSun, faMoon, faPlay, faRedoAlt } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
 import { useHistory } from 'react-router';
@@ -39,13 +39,15 @@ const OptionBox = ({ questionNum, setQuestionNum, action, setAction, question, t
   const onClickHomeBtn = () => {
     history.push("/")
   }
-  const onClickBackBtn = () => {
-    if (questionNum === 1) {
-      window.alert("첫번째 문제입니다.")
-    } else {
-      const newQuestionNum = questionNum - 1
-      localStorage.setItem("questionNum", newQuestionNum)
-      setQuestionNum(newQuestionNum)
+  const onClickRecetBtn = () => {
+    if (window.confirm("퀴즈를 다시 시작하시겠습니까?")) {
+      localStorage.setItem("questionNum", 1)
+      setQuestionNum(1)
+      const newStudent = student.map((item) => {
+        return { nickname: item.nickname, id: item.id, pass: true, score: 0, order: item.order }
+      })
+      localStorage.setItem("joinStudent", JSON.stringify(newStudent))
+      setStduent(newStudent)
       setAction(null)
     }
   }
@@ -70,6 +72,7 @@ const OptionBox = ({ questionNum, setQuestionNum, action, setAction, question, t
   }
   return (<Container>
     <ActionBtn><FontAwesomeIcon icon={faHome} onClick={onClickHomeBtn} /></ActionBtn>
+    <ActionBtn><FontAwesomeIcon icon={faRedoAlt} onClick={onClickRecetBtn} /></ActionBtn>
     <ActionBtn selected={action === "answer"}>
       <FontAwesomeIcon icon={faBell} onClick={() => onClickActionBtn("answer")} />
     </ActionBtn>
@@ -82,7 +85,6 @@ const OptionBox = ({ questionNum, setQuestionNum, action, setAction, question, t
     <ActionBtn selected={action === "student"} disabled={student.length === 0} >
       <FontAwesomeIcon icon={faUserFriends} onClick={() => onClickActionBtn("student")} />
     </ActionBtn>
-    <ActionBtn><FontAwesomeIcon icon={faStepBackward} onClick={onClickBackBtn} /></ActionBtn>
     <ActionBtn>
       <FontAwesomeIcon
         icon={darkMode ? faSun : faMoon}
