@@ -108,7 +108,7 @@ const Marking = ({ student, setPassStudentArr, passStudentArr, question, setFail
             return
           }
           return <Student key={index}>
-            <div>{index + 1}번 {item.nickname.length > 5 ? `${item.nickname.substring(0, 5)}...` : item.nickname}</div>
+            <div>{item.order}번 {item.nickname.length > 5 ? `${item.nickname.substring(0, 5)}...` : item.nickname}</div>
             <div onClick={() => onClickStudentCheck(item.id)}>
               <FontAwesomeIcon icon={processPassStudent(item.id) ? faCheckSquare : faSquare} />
             </div>
@@ -118,7 +118,7 @@ const Marking = ({ student, setPassStudentArr, passStudentArr, question, setFail
           return
         }
         return <Student key={index}>
-          <div>{index + 1}번 {item.nickname.length > 5 ? `${item.nickname.substring(0, 5)}...` : item.nickname}</div>
+          <div>{item.order}번 {item.nickname.length > 5 ? `${item.nickname.substring(0, 5)}...` : item.nickname}</div>
           <div onClick={() => onClickStudentCheck(item.id)}>
             <FontAwesomeIcon icon={processPassStudent(item.id) ? faCheckSquare : faSquare} />
           </div>
