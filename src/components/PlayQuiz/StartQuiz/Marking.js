@@ -50,24 +50,31 @@ const Marking = ({ student, setPassStudentArr, passStudentArr, question, setFail
   const onClickCheckAll = () => {
     if (quizMode === "goldenBell") {
       if (!question.consolation) {
-        // 모두 통과
-        const newPassStudentArr = passStudentArr
-        const newFailStudentArr = failStudentArr
+        setPassStudentArr([])
+        setFailStudentArr([...passStudentArr, ...failStudentArr])
+      } else {
+        setPassStudentArr([...passStudentArr, ...failStudentArr])
+        setFailStudentArr([])
       }
     }
   }
 
   const onClickStudentCheck = (id) => {
-
-
+    if (passStudentArr.includes(id)) {
+      setPassStudentArr(passStudentArr.filter((item) => item !== id))
+      setFailStudentArr([...failStudentArr, id])
+    } else {
+      setPassStudentArr([...passStudentArr, id])
+      setFailStudentArr(failStudentArr.filter((item) => item !== id))
+    }
   }
 
   const processPassStudent = (id) => {
-
-  }
-
-  const processAllPass = () => {
-
+    if (passStudentArr.includes(id)) {
+      return true
+    } else {
+      return false
+    }
   }
 
   const processConsolationQuestion = () => {
@@ -84,16 +91,30 @@ const Marking = ({ student, setPassStudentArr, passStudentArr, question, setFail
     <MarkingMsg>
       {processConsolationQuestion() ? "패자부활전 문제를" : "정답을"} 맞춘 학생을 선택한 뒤 다음 문제를 진행해 주세요.
     </MarkingMsg>
-    <CheckAll onClick={onClickCheckAll}>모두 해제하기</CheckAll>
+    {processConsolationQuestion() ?
+      <CheckAll onClick={onClickCheckAll}>모두 선택하기</CheckAll>
+      :
+      <CheckAll onClick={onClickCheckAll}>모두 해제하기</CheckAll>}
     <MarkingStudent>
       {student.map((item, index) => {
+        if (question.consolation) {
+          if (item.pass === true) {
+            return
+          }
+          return <Student key={index}>
+            <div>{index + 1}번 {item.nickname.length > 5 ? `${item.nickname.substring(0, 5)}...` : item.nickname}</div>
+            <div onClick={() => onClickStudentCheck(item.id)}>
+              <FontAwesomeIcon icon={processPassStudent(item.id) ? faCheckSquare : faSquare} />
+            </div>
+          </Student>
+        }
         if (item.pass === false) {
           return
         }
         return <Student key={index}>
           <div>{index + 1}번 {item.nickname.length > 5 ? `${item.nickname.substring(0, 5)}...` : item.nickname}</div>
           <div onClick={() => onClickStudentCheck(item.id)}>
-            <FontAwesomeIcon icon={item.pass ? faCheckSquare : faSquare} />
+            <FontAwesomeIcon icon={processPassStudent(item.id) ? faCheckSquare : faSquare} />
           </div>
         </Student>
       })}
