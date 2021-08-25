@@ -1,7 +1,7 @@
 import { useReactiveVar } from '@apollo/client';
 import { faHome, faImage, faMagic, faBell, faUserFriends, faStepBackward, faSun, faMoon, faPlay, faRedoAlt } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import React from 'react';
+import React, { useState } from 'react';
 import { useHistory } from 'react-router';
 import styled from 'styled-components';
 import { darkModeVar, disableDarkMode, enableDarkMode } from '../../../apollo';
@@ -53,6 +53,9 @@ const OptionBox = ({ questionNum, setQuestionNum, action, setAction, question, t
     }
   }
   const onClickActionBtn = (type) => {
+    if (action === "result") {
+      return
+    }
     if (type === "hint" && !question.hint) {
       return
     }
@@ -74,16 +77,16 @@ const OptionBox = ({ questionNum, setQuestionNum, action, setAction, question, t
   return (<Container>
     <ActionBtn><FontAwesomeIcon icon={faHome} onClick={onClickHomeBtn} /></ActionBtn>
     <ActionBtn><FontAwesomeIcon icon={faRedoAlt} onClick={onClickResetBtn} /></ActionBtn>
-    <ActionBtn selected={action === "answer"}>
+    <ActionBtn selected={action === "answer"} disabled={action === "result"}>
       <FontAwesomeIcon icon={faBell} onClick={() => onClickActionBtn("answer")} />
     </ActionBtn>
-    <ActionBtn selected={action === "hint"} disabled={!question.hint}>
+    <ActionBtn selected={action === "hint"} disabled={!question.hint || action === "result"}>
       <FontAwesomeIcon icon={faMagic} onClick={() => onClickActionBtn("hint")} />
     </ActionBtn>
-    <ActionBtn selected={action === "image"} disabled={!question.image}>
+    <ActionBtn selected={action === "image"} disabled={!question.image || action === "result"}>
       <FontAwesomeIcon icon={faImage} onClick={() => onClickActionBtn("image")} />
     </ActionBtn>
-    <ActionBtn selected={action === "student"} disabled={student.length === 0} >
+    <ActionBtn selected={action === "student"} disabled={student.length === 0 || action === "result"} >
       <FontAwesomeIcon icon={faUserFriends} onClick={() => onClickActionBtn("student")} />
     </ActionBtn>
     <ActionBtn>

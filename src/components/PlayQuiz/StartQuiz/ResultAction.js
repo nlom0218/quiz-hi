@@ -1,37 +1,24 @@
-import { faTimes } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
 import styled from 'styled-components';
-import { compare, compareDesc } from '../../../sharedFn';
-import { ActionBox, ActionContent, BottomLine, LeaveBtn, NextStep } from './sharedStyles';
+import { ActionBox, BottomLine, LeaveBtn, NextStep } from './sharedStyles';
 
 const StudentList = styled.div`
   grid-column: 1 / -1;
-  margin: 20px 40px;
-  max-height: 340px;
+  margin: 0px 40px;
+  max-height: 380px;
   overflow-y: scroll;
-  font-size: 20px;
+  font-size: 24px;
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  column-gap: 40px;
-  align-items: flex-start;
-  .studentType {
-    display: grid;
-    grid-template-columns: 1fr;
-    column-gap: 40px;
-    row-gap: 20px;
+  grid-template-columns: 1fr;
+  row-gap: 40px;
+  align-self: flex-start;
+  .goldenBell_students {
+    display: flex;
+    flex-wrap: wrap;
+    line-height: 36px;
   }
-  .studentList {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    background-color: rgb(200, 200, 200, 0.8);
-    border: 1px solid rgb(200, 200, 200, 0.8);
-    row-gap: 1px;
-    column-gap: 1px;
-  }
-  .studentItem {
-    padding: 15px 20px;
-    background-color: rgb(42, 140, 0);
+  .goldenBell_student {
+    margin-right: 30px;
   }
 `
 
@@ -40,35 +27,43 @@ const StudentMsg = styled.div`
 `
 
 const ScoreBoard = styled.div`
-  margin: 20px 40px;
-  max-height: 340px;
+  margin: 0px 40px;
+  max-height: 380px;
   overflow-y: scroll;
-  font-size: 20px;
+  font-size: 24px;
   display: grid;
   grid-template-columns: 1fr;
   row-gap: 20px;
   align-self: flex-start;
 `
 
-const StudentScore = styled.div`
+const ScoreList = styled.ul`
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  background-color: rgb(200, 200, 200, 0.8);
-  border: 1px solid rgb(200, 200, 200, 0.8);
+  grid-template-columns: 1fr;
   row-gap: 1px;
-  column-gap: 1px;
-  .studentItem {
-    padding: 15px 20px;
-    background-color: rgb(42, 140, 0);
-    display: grid;
-    grid-template-columns: 1fr auto;
-    column-gap: 20px;
+  border: 1px solid rgb(200, 200, 200, 0.8);
+  background-color: rgb(200, 200, 200, 0.8);
+`
+
+const ScoreItem = styled.li`
+  display: grid;
+  grid-template-columns: 120px auto;
+  padding: 15px 20px;
+  background-color: rgb(42, 140, 0);
+  line-height: 36px;
+  .scoreItem_students {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  .scoreItem_student {
+    margin-right: 30px;
   }
 `
 
-const ScoreMsg = styled.div``
+const ScoreMsg = styled.div`
+`
 
-const ResultAction = ({ question, setAction, student }) => {
+const ResultAction = ({ student }) => {
   const scoreArr = student.map((item) => item.score)
     .reduce((acc, cur, i, arr) => {
       if (arr.indexOf(cur) === i) acc.push(cur)
@@ -77,47 +72,49 @@ const ResultAction = ({ question, setAction, student }) => {
     .sort((a, b) => b - a)
   console.log(scoreArr);
   const quizMode = localStorage.getItem("selectMode")
-  const onCLickLeaveBtn = () => {
-    setAction(null)
+  const onClickEndBtn = () => {
+    if (window.confirm("퀴즈를 종료하시겠습니까?")) {
+      localStorage.removeItem("startQuiz")
+      localStorage.removeItem("joinStudent")
+      localStorage.removeItem("questionNum")
+      window.location.reload()
+    }
   }
   return (<ActionBox>
-    <LeaveBtn><FontAwesomeIcon icon={faTimes} onClick={onCLickLeaveBtn} /></LeaveBtn>
+    <LeaveBtn></LeaveBtn>
     {quizMode === "goldenBell" ?
       <StudentList>
-        <div className="studentType">
-          <StudentMsg>통과한 학생</StudentMsg>
-          <div className="studentList">
-            {student.map((item, index) => {
-              if (!item.pass) { return }
-              return <div key={index} className="studentItem">{item.order}번 {item.nickname.length > 5 ? `${item.nickname.substring(0, 5)}...` : item.nickname}</div>
-            })}
-          </div>
-        </div>
-        <div className="studentType">
-          <StudentMsg>통과하지 못한 학생</StudentMsg>
-          <div className="studentList">
-            {student.map((item, index) => {
-              if (item.pass) { return }
-              return <div key={index} className="studentItem">{item.order}번 {item.nickname.length > 5 ? `${item.nickname.substring(0, 5)}...` : item.nickname}</div>
-            })}
-          </div>
+        <StudentMsg>골든벨을 울린 학생</StudentMsg>
+        <div className="goldenBell_students">
+          {student.map((item, index) => {
+            if (!item.pass) { return }
+            return <div key={index} className="goldenBell_student">{item.nickname}</div>
+          })}
         </div>
       </StudentList>
       :
       <ScoreBoard>
         <ScoreMsg>점수판</ScoreMsg>
-        <StudentScore>
-          {student.sort(compareDesc("score")).map((item, index) => {
-            if (!item.pass) { return }
-            return <div key={index} className="studentItem">
-              <div>{item.order}번 {item.nickname.length > 5 ? `${item.nickname.substring(0, 5)}...` : item.nickname}</div>
-              <div className="studentScore">{item.score}점</div>
-            </div>
+        <ScoreList>
+          {scoreArr.map((item, index) => {
+            return <ScoreItem key={index}>
+              <div className="socre">{item}점</div>
+              <div className="scoreItem_students">
+                {student.filter((student) => student.score === item).map((student, index) => {
+                  return <div className="scoreItem_student" key={index}>
+                    {student.nickname}
+                  </div>
+                })}
+              </div>
+            </ScoreItem>
           })}
-        </StudentScore>
+        </ScoreList>
       </ScoreBoard>
     }
-    <NextStep></NextStep>
+    <NextStep>
+      <div onClick={onClickEndBtn}>퀴즈 종료하기</div>
+      <div >결과 저장하기</div>
+    </NextStep>
     <BottomLine></BottomLine>
   </ActionBox>);
 }

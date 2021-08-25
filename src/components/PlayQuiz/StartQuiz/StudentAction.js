@@ -7,8 +7,8 @@ import { ActionBox, ActionContent, BottomLine, LeaveBtn, NextStep } from './shar
 
 const StudentList = styled.div`
   grid-column: 1 / -1;
-  margin: 20px 40px;
-  max-height: 340px;
+  margin: 0px 40px;
+  max-height: 380px;
   overflow-y: scroll;
   font-size: 20px;
   display: grid;
@@ -40,8 +40,8 @@ const StudentMsg = styled.div`
 `
 
 const ScoreBoard = styled.div`
-  margin: 20px 40px;
-  max-height: 340px;
+  margin: 0px 40px;
+  max-height: 380px;
   overflow-y: scroll;
   font-size: 20px;
   display: grid;

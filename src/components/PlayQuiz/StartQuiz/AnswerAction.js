@@ -57,6 +57,27 @@ const AnswerAction = ({ question, questionNum, totalNum, setQuestionNum, setActi
   }
   const onClickResultBtn = () => {
     setAction("result")
+    if (localStorage.getItem("selectMode") === "goldenBell") {
+      const newStudent = student.map((item) => {
+        if (passStudentArr.includes(item.id)) {
+          return { ...item, pass: true }
+        } else {
+          return { ...item, pass: false }
+        }
+      })
+      localStorage.setItem("joinStudent", JSON.stringify(newStudent))
+      setStduent(newStudent)
+    } else {
+      const newStudent = student.map((item) => {
+        if (passStudentArr.includes(item.id)) {
+          return { ...item, score: item.score + question.score }
+        } else {
+          return { ...item }
+        }
+      })
+      localStorage.setItem("joinStudent", JSON.stringify(newStudent))
+      setStduent(newStudent)
+    }
   }
   return (<ActionBox>
     <LeaveBtn><FontAwesomeIcon icon={faTimes} onClick={onCLickLeaveBtn} /></LeaveBtn>
