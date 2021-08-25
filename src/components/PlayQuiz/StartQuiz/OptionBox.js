@@ -8,6 +8,7 @@ import { darkModeVar, disableDarkMode, enableDarkMode } from '../../../apollo';
 import AnswerAction from './AnswerAction';
 import HintAction from './HintAction';
 import ImageAction from './ImageAction';
+import ResultAction from './ResultAction';
 import StudentAction from './StudentAction';
 
 const Container = styled.div`
@@ -39,7 +40,7 @@ const OptionBox = ({ questionNum, setQuestionNum, action, setAction, question, t
   const onClickHomeBtn = () => {
     history.push("/")
   }
-  const onClickRecetBtn = () => {
+  const onClickResetBtn = () => {
     if (window.confirm("퀴즈를 다시 시작하시겠습니까?")) {
       localStorage.setItem("questionNum", 1)
       setQuestionNum(1)
@@ -72,7 +73,7 @@ const OptionBox = ({ questionNum, setQuestionNum, action, setAction, question, t
   }
   return (<Container>
     <ActionBtn><FontAwesomeIcon icon={faHome} onClick={onClickHomeBtn} /></ActionBtn>
-    <ActionBtn><FontAwesomeIcon icon={faRedoAlt} onClick={onClickRecetBtn} /></ActionBtn>
+    <ActionBtn><FontAwesomeIcon icon={faRedoAlt} onClick={onClickResetBtn} /></ActionBtn>
     <ActionBtn selected={action === "answer"}>
       <FontAwesomeIcon icon={faBell} onClick={() => onClickActionBtn("answer")} />
     </ActionBtn>
@@ -106,6 +107,7 @@ const OptionBox = ({ questionNum, setQuestionNum, action, setAction, question, t
     {action === "hint" && <HintAction question={question} setAction={setAction} />}
     {action === "image" && <ImageAction question={question} setAction={setAction} />}
     {action === "student" && <StudentAction question={question} setAction={setAction} student={student} />}
+    {action === "result" && <ResultAction question={question} setAction={setAction} student={student} />}
   </Container>);
 }
 

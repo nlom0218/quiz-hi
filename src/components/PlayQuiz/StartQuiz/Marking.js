@@ -48,7 +48,7 @@ const Student = styled.div`
   }
 `
 
-const Marking = ({ student, setPassStudentArr, passStudentArr, question, setFailStudentArr, failStudentArr }) => {
+const Marking = ({ student, setPassStudentArr, passStudentArr, question, setFailStudentArr, failStudentArr, questionNum, totalNum }) => {
   const quizMode = localStorage.getItem("selectMode")
   const onClickCheckAll = () => {
     if (quizMode === "goldenBell") {
@@ -94,9 +94,15 @@ const Marking = ({ student, setPassStudentArr, passStudentArr, question, setFail
     }
   }
   return (<SMarking>
-    <MarkingMsg>
-      {processConsolationQuestion() ? "패자부활전 문제를" : "정답을"} 맞춘 학생을 선택한 뒤 다음 문제를 진행해 주세요.
-    </MarkingMsg>
+    {questionNum !== totalNum ?
+      <MarkingMsg>
+        {processConsolationQuestion() ? "패자부활전 문제를" : "정답을"} 맞춘 학생을 선택한 뒤 다음 문제를 진행해 주세요.
+      </MarkingMsg>
+      :
+      <MarkingMsg>
+        마지막 문제입니다. 정답을 맞춘 학생을 선택한 뒤 결과 보기를 눌러 주세요.
+      </MarkingMsg>
+    }
     {processConsolationQuestion() ?
       <CheckAll onClick={onClickCheckAll}>모두 선택하기</CheckAll>
       :

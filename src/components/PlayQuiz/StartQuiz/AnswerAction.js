@@ -55,6 +55,9 @@ const AnswerAction = ({ question, questionNum, totalNum, setQuestionNum, setActi
   const onClickStudentBtn = () => {
     setMarkingStudent(prev => !prev)
   }
+  const onClickResultBtn = () => {
+    setAction("result")
+  }
   return (<ActionBox>
     <LeaveBtn><FontAwesomeIcon icon={faTimes} onClick={onCLickLeaveBtn} /></LeaveBtn>
     {!markingStudent && <ActionContent>{processAnswer()}</ActionContent>}
@@ -66,11 +69,17 @@ const AnswerAction = ({ question, questionNum, totalNum, setQuestionNum, setActi
         question={question}
         failStudentArr={failStudentArr}
         setFailStudentArr={setFailStudentArr}
+        questionNum={questionNum}
+        totalNum={totalNum}
       />
     }
     <NextStep>
       {student.length !== 0 && <div onClick={onClickStudentBtn}>{markingStudent ? "정답 보기" : "맞춘 학생"}</div>}
-      <div onClick={onClickNextBtn}>다음 문제</div>
+      {questionNum !== totalNum ?
+        <div onClick={onClickNextBtn}>다음 문제</div>
+        :
+        <div onClick={onClickResultBtn}>결과 보기</div>
+      }
     </NextStep>
     <BottomLine></BottomLine>
   </ActionBox>);
