@@ -86,9 +86,13 @@ const SelectStudents = ({ msg, setStduents, students }) => {
     const exist = students.some((item) => item.nickname === nickname)
     let newStudents = []
     if (!exist) {
-      newStudents = [...students, { nickname, id, pass: true, score: 0 }].sort(compare("id"))
+      newStudents = [...students, { nickname, id, pass: true, score: 0 }]
+        .sort(compare("id"))
+        .map((item, index) => { return { ...item, order: index + 1 } })
     } else {
-      newStudents = students.filter((item) => item.nickname !== nickname).sort(compare("id"))
+      newStudents = students.filter((item) => item.nickname !== nickname)
+        .sort(compare("id"))
+        .map((item, index) => { return { ...item, order: index + 1 } })
     }
     setStduents(newStudents)
   }
@@ -119,7 +123,9 @@ const SelectStudents = ({ msg, setStduents, students }) => {
           pass: true,
           score: 0
         }
-      }).sort(compare("id"))
+      })
+        .sort(compare("id"))
+        .map((item, index) => { return { ...item, order: index + 1 } })
       setStduents(newStudents)
     }
   }
