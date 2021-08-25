@@ -9,6 +9,7 @@ import { darkModeVar, disableDarkMode, enableDarkMode } from '../../../apollo';
 import AnswerAction from './AnswerAction';
 import HintAction from './HintAction';
 import ImageAction from './ImageAction';
+import StudentAction from './StudentAction';
 
 const Container = styled.div`
   grid-column: 2 / 3;
@@ -103,6 +104,7 @@ const OptionBox = ({ questionNum, setQuestionNum, action, setAction, question, t
     }
     {action === "hint" && <HintAction question={question} setAction={setAction} />}
     {action === "image" && <ImageAction question={question} setAction={setAction} />}
+    {action === "student" && <StudentAction question={question} setAction={setAction} student={student} />}
   </Container>);
 }
 

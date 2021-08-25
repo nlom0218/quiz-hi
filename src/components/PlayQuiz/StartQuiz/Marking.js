@@ -48,7 +48,6 @@ const Student = styled.div`
 `
 
 const Marking = ({ student, setPassStudentArr, passStudentArr, question, setFailStudentArr, failStudentArr }) => {
-  console.log(passStudentArr, failStudentArr);
   const quizMode = localStorage.getItem("selectMode")
   const onClickCheckAll = () => {
     if (quizMode === "goldenBell") {
