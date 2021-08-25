@@ -8,6 +8,7 @@ import { ActionBox, ActionContent, BottomLine, LeaveBtn, NextStep } from './shar
 const AnswerAction = ({ question, questionNum, totalNum, setQuestionNum, setAction, student, setStduent }) => {
   const [markingStudent, setMarkingStudent] = useState(false)
   const [passStudentArr, setPassStudentArr] = useState(JSON.parse(localStorage.getItem("joinStudent")).filter((item) => item.pass === true).map((item) => item.id))
+  const [failStudentArr, setFailStudentArr] = useState(JSON.parse(localStorage.getItem("joinStudent")).filter((item) => item.pass === false).map((item) => item.id))
   const processAnswer = () => {
     if (question.type === "tf") {
       if (question.answer === "false") {
@@ -47,7 +48,16 @@ const AnswerAction = ({ question, questionNum, totalNum, setQuestionNum, setActi
   return (<ActionBox>
     <LeaveBtn><FontAwesomeIcon icon={faTimes} onClick={onCLickLeaveBtn} /></LeaveBtn>
     {!markingStudent && <ActionContent>{processAnswer()}</ActionContent>}
-    {markingStudent && <Marking student={student} passStudentArr={passStudentArr} setPassStudentArr={setPassStudentArr} question={question} />}
+    {markingStudent &&
+      <Marking
+        student={student}
+        passStudentArr={passStudentArr}
+        setPassStudentArr={setPassStudentArr}
+        question={question}
+        failStudentArr={failStudentArr}
+        setFailStudentArr={setFailStudentArr}
+      />
+    }
     <NextStep>
       {student.length !== 0 && <div onClick={onClickStudentBtn}>{markingStudent ? "정답 보기" : "맞춘 학생"}</div>}
       <div onClick={onClickNextBtn}>다음 문제</div>

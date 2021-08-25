@@ -44,93 +44,30 @@ const Student = styled.div`
   }
 `
 
-const Marking = ({ student, setPassStudentArr, passStudentArr, question }) => {
-  console.log(passStudentArr);
+const Marking = ({ student, setPassStudentArr, passStudentArr, question, setFailStudentArr, failStudentArr }) => {
+  console.log(passStudentArr, failStudentArr);
+  const quizMode = localStorage.getItem("selectMode")
   const onClickCheckAll = () => {
-    if (localStorage.getItem("selectMode") === "goldenBell") {
-      if (question.consolation === true) {
-        const confirmArr = student.filter((item) => item.pass === false).map((item) => {
-          if (student.filter((item) => item.pass === false).includes(item.id)) {
-            return item.id
-          } else {
-            return false
-          }
-        })
-        console.log(confirmArr);
-        if (confirmArr.includes(false)) {
-          setPassStudentArr(student.map((item) => item.id))
-        } else {
-          const newPassStudentArr = student.filter((item) => item.pass === true).map((item) => item.id)
-          setPassStudentArr(newPassStudentArr)
-        }
-      } else {
-        const confirmArr = student.filter((item) => item.pass === true).map((item) => {
-          if (passStudentArr.includes(item.id)) {
-            return item.id
-          } else {
-            return false
-          }
-        })
-        if (confirmArr.includes(false)) {
-          const newPassStudentArr = student.filter((item) => item.pass === true).map((item) => item.id)
-          setPassStudentArr(newPassStudentArr)
-        } else {
-          setPassStudentArr([])
-        }
+    if (quizMode === "goldenBell") {
+      if (!question.consolation) {
+        // 모두 통과
+        const newPassStudentArr = passStudentArr
+        const newFailStudentArr = failStudentArr
       }
     }
   }
 
   const onClickStudentCheck = (id) => {
-    if (localStorage.getItem("selectMode") === "goldenBell") {
-      let newPassStudentArr = null
-      if (passStudentArr.includes(id)) {
-        newPassStudentArr = passStudentArr.filter((item) => item !== id)
-      } else {
-        newPassStudentArr = [...passStudentArr, id]
-      }
-      setPassStudentArr(newPassStudentArr)
-    }
+
+
   }
 
   const processPassStudent = (id) => {
-    if (passStudentArr.includes(id)) {
-      return true
-    } else {
-      return false
-    }
+
   }
 
   const processAllPass = () => {
-    if (localStorage.getItem("selectMode") === "goldenBell") {
-      if (question.consolation === true) {
-        const confirmArr = student.filter((item) => item.pass === false).map((item) => {
-          if (student.filter((item) => item.pass === false).includes(item.id)) {
-            return item.id
-          } else {
-            return false
-          }
-        })
-        if (confirmArr.includes(false)) {
-          return false
-        } else {
-          return true
-        }
-      } else {
-        const confirmArr = student.filter((item) => item.pass === true).map((item) => {
-          if (passStudentArr.includes(item.id)) {
-            return item.id
-          } else {
-            return false
-          }
-        })
-        if (confirmArr.includes(false)) {
-          return false
-        } else {
-          return true
-        }
-      }
-    }
+
   }
 
   const processConsolationQuestion = () => {
@@ -147,35 +84,20 @@ const Marking = ({ student, setPassStudentArr, passStudentArr, question }) => {
     <MarkingMsg>
       {processConsolationQuestion() ? "패자부활전 문제를" : "정답을"} 맞춘 학생을 선택한 뒤 다음 문제를 진행해 주세요.
     </MarkingMsg>
-    <CheckAll>모두 선택하기 <FontAwesomeIcon icon={processAllPass() ? faCheckSquare : faSquare} onClick={onClickCheckAll} /></CheckAll>
-    {processConsolationQuestion() ?
-      <MarkingStudent>
-        {student.map((item, index) => {
-          if (item.pass === true) {
-            return
-          }
-          return <Student key={index}>
-            <div>{index + 1}번 {item.nickname.length > 5 ? `${item.nickname.substring(0, 5)}...` : item.nickname}</div>
-            <div onClick={() => onClickStudentCheck(item.id)}>
-              <FontAwesomeIcon icon={processPassStudent(item.id) ? faCheckSquare : faSquare} />
-            </div>
-          </Student>
-        })}
-      </MarkingStudent>
-      :
-      <MarkingStudent>
-        {student.map((item, index) => {
-          if (item.pass === false) {
-            return
-          }
-          return <Student key={index}>
-            <div>{index + 1}번 {item.nickname.length > 5 ? `${item.nickname.substring(0, 5)}...` : item.nickname}</div>
-            <div onClick={() => onClickStudentCheck(item.id)}>
-              <FontAwesomeIcon icon={processPassStudent(item.id) ? faCheckSquare : faSquare} />
-            </div>
-          </Student>
-        })}
-      </MarkingStudent>}
+    <CheckAll onClick={onClickCheckAll}>모두 해제하기</CheckAll>
+    <MarkingStudent>
+      {student.map((item, index) => {
+        if (item.pass === false) {
+          return
+        }
+        return <Student key={index}>
+          <div>{index + 1}번 {item.nickname.length > 5 ? `${item.nickname.substring(0, 5)}...` : item.nickname}</div>
+          <div onClick={() => onClickStudentCheck(item.id)}>
+            <FontAwesomeIcon icon={item.pass ? faCheckSquare : faSquare} />
+          </div>
+        </Student>
+      })}
+    </MarkingStudent>
   </SMarking>);
 }
 
