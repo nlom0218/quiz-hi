@@ -15,12 +15,15 @@ const SMarking = styled.div`
 `
 
 const MarkingMsg = styled.div`
+  align-self: flex-end;
 `
 
 const CheckAll = styled.div`
-  svg {
-    cursor: pointer;
-  }
+  font-size: 16px;
+  cursor: pointer;
+  background-color: tomato;
+  padding: 10px 20px;
+  border-radius: 5px;
 `
 
 const MarkingStudent = styled.div`
