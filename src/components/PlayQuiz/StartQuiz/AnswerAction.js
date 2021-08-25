@@ -37,6 +37,16 @@ const AnswerAction = ({ question, questionNum, totalNum, setQuestionNum, setActi
       })
       localStorage.setItem("joinStudent", JSON.stringify(newStudent))
       setStduent(newStudent)
+    } else {
+      const newStudent = student.map((item) => {
+        if (passStudentArr.includes(item.id)) {
+          return { ...item, score: item.score + question.score }
+        } else {
+          return { ...item }
+        }
+      })
+      localStorage.setItem("joinStudent", JSON.stringify(newStudent))
+      setStduent(newStudent)
     }
   }
   const onCLickLeaveBtn = () => {

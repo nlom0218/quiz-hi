@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { faCheckSquare, faSquare } from '@fortawesome/free-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { compare } from '../../../sharedFn';
 
 const SMarking = styled.div`
   align-self: flex-start;
@@ -58,6 +59,9 @@ const Marking = ({ student, setPassStudentArr, passStudentArr, question, setFail
         setPassStudentArr([...passStudentArr, ...failStudentArr])
         setFailStudentArr([])
       }
+    } else {
+      setPassStudentArr([])
+      setFailStudentArr([...passStudentArr, ...failStudentArr])
     }
   }
 
@@ -98,7 +102,7 @@ const Marking = ({ student, setPassStudentArr, passStudentArr, question, setFail
       :
       <CheckAll onClick={onClickCheckAll}>모두 해제하기</CheckAll>}
     <MarkingStudent>
-      {student.map((item, index) => {
+      {student.sort(compare("id")).map((item, index) => {
         if (question.consolation) {
           if (item.pass === true) {
             return

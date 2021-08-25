@@ -2,7 +2,7 @@ import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
 import styled from 'styled-components';
-import { compare } from '../../../sharedFn';
+import { compare, compareDesc } from '../../../sharedFn';
 import { ActionBox, ActionContent, BottomLine, LeaveBtn, NextStep } from './sharedStyles';
 
 const StudentList = styled.div`
@@ -92,7 +92,7 @@ const StudentAction = ({ question, setAction, student }) => {
       </StudentList>
       :
       <StudentScore>
-        {student.sort(compare("score")).map((item, index) => {
+        {student.sort(compareDesc("score")).map((item, index) => {
           if (!item.pass) { return }
           return <div key={index} className="studentItem">
             <div>{index + 1}번 {item.nickname.length > 5 ? `${item.nickname.substring(0, 5)}...` : item.nickname}</div>

@@ -1,10 +1,9 @@
 import { useReactiveVar } from '@apollo/client';
-import { faHome, faImage, faMagic, faBell, faUserFriends, faStepBackward, faSun, faMoon, faTimes } from '@fortawesome/free-solid-svg-icons';
+import { faHome, faImage, faMagic, faBell, faUserFriends, faStepBackward, faSun, faMoon } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import React, { useState } from 'react';
+import React from 'react';
 import { useHistory } from 'react-router';
 import styled from 'styled-components';
-import { fadeIn } from '../../../animation/fade';
 import { darkModeVar, disableDarkMode, enableDarkMode } from '../../../apollo';
 import AnswerAction from './AnswerAction';
 import HintAction from './HintAction';
