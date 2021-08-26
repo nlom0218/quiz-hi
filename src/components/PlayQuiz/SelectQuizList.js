@@ -94,7 +94,7 @@ const SEE_FOLLOW_QUIZ_QUERY = gql`
   }
 `
 
-const SelectQuizList = ({ setQuizId }) => {
+const SelectQuizList = ({ setQuizId, setQuizTitle }) => {
   const user = useUser()
   const [page, setPage] = useState(1)
   const [lastPage, setLastPage] = useState(null)
@@ -130,9 +130,11 @@ const SelectQuizList = ({ setQuizId }) => {
       setPage(prev => prev + 1)
     }
   }
-  const onClickQuiz = (quizId) => {
+  const onClickQuiz = (quizId, quizTitle) => {
     localStorage.setItem("selectQuiz", quizId)
     setQuizId(quizId)
+    localStorage.setItem("selectQuizTitle", quizTitle)
+    setQuizTitle(quizTitle)
   }
   const selected = (quizId) => {
     const selectedId = parseInt(localStorage.getItem("selectQuiz"))
@@ -157,7 +159,7 @@ const SelectQuizList = ({ setQuizId }) => {
           return <React.Fragment key={index}>
             <Item selected={selected(item.id)}>
               <QuizTitle>{item.title.length > 35 ? `${item.title.substring(0, 35)}...` : item.title}</QuizTitle>
-              <SeleteQuizBtn onClick={() => onClickQuiz(item.id)} selected={selected(item.id)}>
+              <SeleteQuizBtn onClick={() => onClickQuiz(item.id, item.title)} selected={selected(item.id)}>
                 {selected(item.id) ? "선택됨" : "선택"}
               </SeleteQuizBtn>
             </Item>

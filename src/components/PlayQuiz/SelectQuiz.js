@@ -37,7 +37,7 @@ const DETATIL_QUIZ_QUERY = gql`
   }
 `
 
-const SelectQuiz = ({ setQuizId, quizId }) => {
+const SelectQuiz = ({ setQuizId, quizId, setQuizTitle }) => {
   const { data, loading } = useQuery(DETATIL_QUIZ_QUERY, {
     variables: { id: parseInt(quizId) },
     skip: !quizId
@@ -47,7 +47,7 @@ const SelectQuiz = ({ setQuizId, quizId }) => {
       <div className="leftContent"><FontAwesomeIcon icon={faBook} /> 선택된 퀴즈</div>
       <div className="rightContent">{quizId ? data?.detailQuiz?.title : "선택된 퀴즈가 없습니다."}</div>
     </Wrapper>
-    <SelectQuizList setQuizId={setQuizId} />
+    <SelectQuizList setQuizId={setQuizId} setQuizTitle={setQuizTitle} />
   </Container >);
 }
 

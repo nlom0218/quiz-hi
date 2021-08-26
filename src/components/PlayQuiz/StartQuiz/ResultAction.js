@@ -78,8 +78,8 @@ const TotalScore = styled.div`
 `
 
 const UPDATE_QUIZ_SCORE_MUTATION = gql`
-  mutation updateQuizScore($result: String!, $teacherId: Int!) {
-    updateQuizScore(result: $result, teacherId: $teacherId) {
+  mutation updateQuizScore($result: String!, $teacherId: Int!, $quizTitle: String!, $quizId: Int!) {
+    updateQuizScore(result: $result, teacherId: $teacherId, quizTitle: $quizTitle, quizId: $quizId) {
       ok
       error
     }
@@ -130,17 +130,17 @@ const ResultAction = ({ student }) => {
     if (loading) {
       return
     }
-    if (quizMode === "goldenBell") {
-      window.prompt("점수를 입력하세요.")
-    }
     const quizId = localStorage.getItem("selectQuiz")
+    const quizTitle = localStorage.getItem("selectQuizTitle")
     const resultArr = student.map((item) => {
-      return { id: item.id, quizId, score: item.score }
+      return { id: item.id, score: item.score }
     })
     updateQuizScore({
       variables: {
         teacherId: user.id,
-        result: JSON.stringify(resultArr)
+        result: JSON.stringify(resultArr),
+        quizId: parseInt(quizId),
+        quizTitle
       }
     })
   }

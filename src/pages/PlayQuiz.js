@@ -50,6 +50,7 @@ const PlayQuiz = () => {
   const [change, setChange] = useState(true)
   const [startQuiz, setStartQuiz] = useState(localStorage.getItem("startQuiz") || false)
   const [quizId, setQuizId] = useState(localStorage.getItem("selectQuiz") || null)
+  const [quizTitle, setQuizTitle] = useState(localStorage.getItem("selectQuizTitle") || null)
   const [quizMode, setQuizMode] = useState(localStorage.getItem("selectMode") || null)
   const [quizList, setQuizList] = useState(JSON.parse(localStorage.getItem("quizList")) || null)
   const [students, setStduents] = useState([])
@@ -57,6 +58,8 @@ const PlayQuiz = () => {
   const onClickResetBtn = () => {
     localStorage.removeItem("selectQuiz")
     setQuizId(null)
+    localStorage.removeItem("selectQuizTitle")
+    setQuizTitle(null)
     localStorage.removeItem("selectMode")
     setQuizMode(null)
     localStorage.removeItem("quizList")
@@ -86,7 +89,7 @@ const PlayQuiz = () => {
             <PlayQuizLayout>
               <OptionBox>
                 <OptionTitle>퀴즈 선택하기</OptionTitle>
-                <OptionContent><SelectQuiz quizId={quizId} setQuizId={setQuizId} /></OptionContent>
+                <OptionContent><SelectQuiz quizId={quizId} setQuizId={setQuizId} setQuizTitle={setQuizTitle} /></OptionContent>
               </OptionBox>
               <OptionBox>
                 <OptionTitle>모드 선택하기</OptionTitle>
