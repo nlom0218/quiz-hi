@@ -83,21 +83,21 @@ const Msg = styled.div`
 const SelectStudents = ({ msg, setStduents, students }) => {
   const user = useUser()
   const onClickSelectBtn = (nickname, id) => {
-    const exist = students.some((item) => item.nickname === nickname)
+    const exist = students.some((item) => item.id === id)
     let newStudents = []
     if (!exist) {
       newStudents = [...students, { nickname, id, pass: true, score: 0 }]
         .sort(compare("id"))
         .map((item, index) => { return { ...item, order: index + 1 } })
     } else {
-      newStudents = students.filter((item) => item.nickname !== nickname)
+      newStudents = students.filter((item) => item.id !== id)
         .sort(compare("id"))
         .map((item, index) => { return { ...item, order: index + 1 } })
     }
     setStduents(newStudents)
   }
-  const checkStudent = (nickname) => {
-    const exist = students.some((item) => item.nickname === nickname)
+  const checkStudent = (id) => {
+    const exist = students.some((item) => item.id === id)
     if (exist) {
       return true
     } else {
@@ -106,8 +106,8 @@ const SelectStudents = ({ msg, setStduents, students }) => {
   }
   const onClickSelectAllBtn = () => {
     const existAll = user.students.map((item) => {
-      const studentsNickname = students.map((item) => item.nickname)
-      if (studentsNickname.includes(item.nickname)) {
+      const studentsId = students.map((item) => item.id)
+      if (studentsId.includes(item.id)) {
         return true
       } else {
         return false
@@ -131,8 +131,8 @@ const SelectStudents = ({ msg, setStduents, students }) => {
   }
   const checkStudentAll = () => {
     const existAll = user.students.map((item) => {
-      const studentsNickname = students.map((item) => item.nickname)
-      if (studentsNickname.includes(item.nickname)) {
+      const studentsId = students.map((item) => item.id)
+      if (studentsId.includes(item.id)) {
         return true
       } else {
         return false
@@ -158,7 +158,7 @@ const SelectStudents = ({ msg, setStduents, students }) => {
                 <StudentInfo>
                   {index + 1}번 {item.nickname.length > 12 ? `${item.nickname.substring(0, 12)}...` : item.nickname}
                 </StudentInfo>
-                <FontAwesomeIcon icon={checkStudent(item.nickname) ? faCheckSquare : faSquare} onClick={() => onClickSelectBtn(item.nickname, item.id)} />
+                <FontAwesomeIcon icon={checkStudent(item.id) ? faCheckSquare : faSquare} onClick={() => onClickSelectBtn(item.nickname, item.id)} />
               </StudentItem>
             }
           })}
@@ -172,7 +172,7 @@ const SelectStudents = ({ msg, setStduents, students }) => {
                 <StudentInfo>
                   {index + 1}번 {item.nickname.length > 12 ? `${item.nickname.substring(0, 12)}...` : item.nickname}
                 </StudentInfo>
-                <FontAwesomeIcon icon={checkStudent(item.nickname) ? faCheckSquare : faSquare} onClick={() => onClickSelectBtn(item.nickname, item.id)} />
+                <FontAwesomeIcon icon={checkStudent(item.id) ? faCheckSquare : faSquare} onClick={() => onClickSelectBtn(item.nickname, item.id)} />
               </StudentItem>
             }
           })}
