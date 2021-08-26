@@ -1,5 +1,9 @@
-import React from 'react';
+import { useMutation } from '@apollo/client';
+import gql from 'graphql-tag';
+import React, { useState } from 'react';
+import { useHistory } from 'react-router';
 import styled from 'styled-components';
+import useUser from '../../../hooks/useUser';
 import { ActionBox, BottomLine, LeaveBtn, NextStep } from './sharedStyles';
 
 const StudentList = styled.div`
@@ -73,7 +77,19 @@ const TotalScore = styled.div`
   border-radius: 5px;
 `
 
+const UPDATE_QUIZ_SCORE_MUTATION = gql`
+  mutation updateQuizScore($result: String!, $teacherId: Int!) {
+    updateQuizScore(result: $result, teacherId: $teacherId) {
+      ok
+      error
+    }
+  }
+`
+
 const ResultAction = ({ student }) => {
+  const history = useHistory()
+  const user = useUser()
+  const [save, setSave] = useState(false)
   const totalScore = student.map((item) => item.score).reduce((acc, cur) => acc + cur, 0)
   const scoreArr = student.map((item) => item.score)
     .reduce((acc, cur, i, arr) => {
@@ -81,7 +97,6 @@ const ResultAction = ({ student }) => {
       return acc
     }, [])
     .sort((a, b) => b - a)
-  console.log(scoreArr);
   const quizMode = localStorage.getItem("selectMode")
   const onClickEndBtn = () => {
     if (window.confirm("퀴즈를 종료하시겠습니까?")) {
@@ -90,6 +105,40 @@ const ResultAction = ({ student }) => {
       localStorage.removeItem("questionNum")
       window.location.reload()
     }
+  }
+  const onClickMoveProfileBtn = () => {
+    if (window.confirm("프로필 > 학생관리로 이동합니다.")) {
+      history.push(`/profile/${user.username}/student`)
+      localStorage.removeItem("startQuiz")
+      localStorage.removeItem("joinStudent")
+      localStorage.removeItem("questionNum")
+    }
+  }
+
+  const onCompleted = (result) => {
+    const { updateQuizScore: { ok } } = result
+    if (ok) {
+      window.alert("퀴즈 결과가 저장되었습니다.")
+      setSave(true)
+    }
+  }
+  const [updateQuizScore, { loading }] = useMutation(UPDATE_QUIZ_SCORE_MUTATION, {
+    onCompleted
+  })
+  const onClickSaveResult = () => {
+    if (loading) {
+      return
+    }
+    const quizId = localStorage.getItem("selectQuiz")
+    const resultArr = student.map((item) => {
+      return { id: item.id, quizId, score: item.score }
+    })
+    updateQuizScore({
+      variables: {
+        teacherId: user.id,
+        result: JSON.stringify(resultArr)
+      }
+    })
   }
   return (<ActionBox>
     <LeaveBtn></LeaveBtn>
@@ -125,7 +174,8 @@ const ResultAction = ({ student }) => {
     }
     <NextStep>
       <div onClick={onClickEndBtn}>퀴즈 종료하기</div>
-      <div >결과 저장하기</div>
+      {save ? <div onClick={onClickMoveProfileBtn}>점수 확인하기</div> :
+        <div onClick={onClickSaveResult}>결과 저장하기</div>}
     </NextStep>
     <BottomLine></BottomLine>
   </ActionBox>);
