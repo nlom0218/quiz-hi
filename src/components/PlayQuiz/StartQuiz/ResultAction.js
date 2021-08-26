@@ -32,12 +32,13 @@ const ScoreBoard = styled.div`
   overflow-y: scroll;
   font-size: 24px;
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: 1fr auto;
   row-gap: 20px;
   align-self: flex-start;
 `
 
 const ScoreList = styled.ul`
+  grid-column: 1 / -1;
   display: grid;
   grid-template-columns: 1fr;
   row-gap: 1px;
@@ -61,9 +62,19 @@ const ScoreItem = styled.li`
 `
 
 const ScoreMsg = styled.div`
+  align-self: flex-end;
+`
+
+const TotalScore = styled.div`
+  font-size: 20px;
+  background-color: tomato;
+  font-weight: 600;
+  padding: 10px 20px;
+  border-radius: 5px;
 `
 
 const ResultAction = ({ student }) => {
+  const totalScore = student.map((item) => item.score).reduce((acc, cur) => acc + cur, 0)
   const scoreArr = student.map((item) => item.score)
     .reduce((acc, cur, i, arr) => {
       if (arr.indexOf(cur) === i) acc.push(cur)
@@ -95,6 +106,7 @@ const ResultAction = ({ student }) => {
       :
       <ScoreBoard>
         <ScoreMsg>점수판</ScoreMsg>
+        {quizMode === "cooperation" && <TotalScore>총점: {totalScore}점</TotalScore>}
         <ScoreList>
           {scoreArr.map((item, index) => {
             return <ScoreItem key={index}>
