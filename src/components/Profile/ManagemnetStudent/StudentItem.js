@@ -3,9 +3,7 @@ import { faUser } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { fadeIn } from '../../../animation/fade';
 import { processUserLevel } from '../../../sharedFn';
-import LevelStep from '../../LevelStep';
 import StudentEditting from './StudentEditting';
 
 const SStudentItem = styled.div`
@@ -21,8 +19,6 @@ const SStudentItem = styled.div`
     background-color: rgb(200, 200, 200, 0.2);
   }
 `
-
-
 
 const StudentNum = styled.div`
   font-weight: 600;

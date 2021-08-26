@@ -25,6 +25,7 @@ const SEE_PROFILE_QUERY = gql`
       caption
       personalPage
       score
+      quizScore
       isMe
       isFollow
       totalFollow
@@ -44,6 +45,7 @@ const SEE_PROFILE_QUERY = gql`
         username
         avatarURL
         score
+        quizScore
       }
     }
   }

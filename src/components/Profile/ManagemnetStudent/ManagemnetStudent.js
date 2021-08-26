@@ -20,7 +20,7 @@ const Title = styled.div`
   font-weight: 600;
 `
 
-const ManagemnetStudent = ({ students, id }) => {
+const ManagemnetStudent = ({ students, id, quizScore: teacherQuizScore }) => {
   return (<Container>
     <Wrapper>
       <Title>학생 목록</Title>
@@ -28,7 +28,7 @@ const ManagemnetStudent = ({ students, id }) => {
     </Wrapper>
     {students.length !== 0 && <Wrapper>
       <Title>퀴즈 점수</Title>
-      <StudentQuizScore students={students} id={id} />
+      <StudentQuizScore students={students} id={id} teacherQuizScore={teacherQuizScore} />
     </Wrapper>}
   </Container>);
 }

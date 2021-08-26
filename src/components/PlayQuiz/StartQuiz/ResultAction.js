@@ -112,6 +112,7 @@ const ResultAction = ({ student }) => {
       localStorage.removeItem("startQuiz")
       localStorage.removeItem("joinStudent")
       localStorage.removeItem("questionNum")
+      window.location.reload()
     }
   }
 
