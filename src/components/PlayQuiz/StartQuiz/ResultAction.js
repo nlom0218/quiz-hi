@@ -99,7 +99,7 @@ const ResultAction = ({ student }) => {
     .sort((a, b) => b - a)
   const quizMode = localStorage.getItem("selectMode")
   const onClickEndBtn = () => {
-    if (window.confirm("퀴즈를 종료하시겠습니까?")) {
+    if (window.confirm("퀴즈를 종료합니다.")) {
       localStorage.removeItem("startQuiz")
       localStorage.removeItem("joinStudent")
       localStorage.removeItem("questionNum")
@@ -128,6 +128,9 @@ const ResultAction = ({ student }) => {
   const onClickSaveResult = () => {
     if (loading) {
       return
+    }
+    if (quizMode === "goldenBell") {
+      window.prompt("점수를 입력하세요.")
     }
     const quizId = localStorage.getItem("selectQuiz")
     const resultArr = student.map((item) => {
