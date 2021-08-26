@@ -9,6 +9,7 @@ const AnswerAction = ({ question, questionNum, totalNum, setQuestionNum, setActi
   const [markingStudent, setMarkingStudent] = useState(false)
   const [passStudentArr, setPassStudentArr] = useState(JSON.parse(localStorage.getItem("joinStudent")).filter((item) => item.pass === true).map((item) => item.id))
   const [failStudentArr, setFailStudentArr] = useState(JSON.parse(localStorage.getItem("joinStudent")).filter((item) => item.pass === false).map((item) => item.id))
+  const quizMode = localStorage.getItem("selectMode")
   const processAnswer = () => {
     if (question.type === "tf") {
       if (question.answer === "false") {
@@ -56,6 +57,15 @@ const AnswerAction = ({ question, questionNum, totalNum, setQuestionNum, setActi
     setMarkingStudent(prev => !prev)
   }
   const onClickResultBtn = () => {
+    if (quizMode === "nomal") {
+      if (window.confirm("퀴즈를 종료하시겠습니까?")) {
+        localStorage.removeItem("startQuiz")
+        localStorage.removeItem("joinStudent")
+        localStorage.removeItem("questionNum")
+        window.location.reload()
+      }
+      return
+    }
     setAction("result")
     if (localStorage.getItem("selectMode") === "goldenBell") {
       const newStudent = student.map((item) => {
@@ -99,7 +109,7 @@ const AnswerAction = ({ question, questionNum, totalNum, setQuestionNum, setActi
       {questionNum !== totalNum ?
         <div onClick={onClickNextBtn}>다음 문제</div>
         :
-        <div onClick={onClickResultBtn}>결과 보기</div>
+        <div onClick={onClickResultBtn}>{quizMode === "nomal" ? "퀴즈 종료하기" : "결과 보기"}</div>
       }
     </NextStep>
     <BottomLine></BottomLine>

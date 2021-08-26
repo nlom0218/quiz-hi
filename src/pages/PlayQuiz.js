@@ -90,7 +90,7 @@ const PlayQuiz = () => {
               </OptionBox>
               <OptionBox>
                 <OptionTitle>모드 선택하기</OptionTitle>
-                <OptionContent><SelectMode quizMode={quizMode} setQuizMode={setQuizMode} /></OptionContent>
+                <OptionContent><SelectMode quizMode={quizMode} setQuizMode={setQuizMode} setType={setType} /></OptionContent>
               </OptionBox>
               <OptionBox>
                 <OptionTitle>문제, 정답 미리보기</OptionTitle>
@@ -98,7 +98,7 @@ const PlayQuiz = () => {
               </OptionBox>
               {questionSetting() && <OptionBox>
                 <OptionTitle>진행하기 / 내보내기</OptionTitle>
-                <OptionContent><CallSendQuiz students={students} setStduents={setStduents} type={type} setType={setType} /></OptionContent>
+                <OptionContent><CallSendQuiz students={students} setStduents={setStduents} type={type} setType={setType} quizMode={quizMode} /></OptionContent>
               </OptionBox>}
               <OptionBox>
                 <OptionTitle>퀴즈 진행하기</OptionTitle>

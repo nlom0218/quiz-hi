@@ -33,7 +33,7 @@ const TypeInfo = styled.div`
   transition: background-color 0.6s ease;
 `
 
-const CallSendQuiz = ({ setStduents, students, type, setType }) => {
+const CallSendQuiz = ({ setStduents, students, type, setType, quizMode }) => {
   const onClickTypeBtn = (type) => {
     setStduents([])
     setType(type)
@@ -48,10 +48,10 @@ const CallSendQuiz = ({ setStduents, students, type, setType }) => {
         <FontAwesomeIcon icon={type === "call" ? faCheckCircle : faCircle} onClick={() => onClickTypeBtn("call")} />
         <TypeInfo selected={type === "call"}>학생들과 함께 퀴즈 진행하기: 학생을 선택하여 퀴즈를 진행합니다.</TypeInfo>
       </TypeWrapper>
-      <TypeWrapper>
+      {quizMode !== "goldenBell" && <TypeWrapper>
         <FontAwesomeIcon icon={type === "send" ? faCheckCircle : faCircle} onClick={() => onClickTypeBtn("send")} />
         <TypeInfo selected={type === "send"}>학생들에게 퀴즈 보내기: 학생 계정으로 퀴즈를 보냅니다.</TypeInfo>
-      </TypeWrapper>
+      </TypeWrapper>}
     </SetType>
     {type === "call" && <SelectStudents msg="퀴즈에 참여하는 학생을 선택해 주세요." students={students} setStduents={setStduents} />}
     {type === "send" && <SelectStudents msg="퀴즈를 보낼 학생을 선택해 주세요." students={students} setStduents={setStduents} />}

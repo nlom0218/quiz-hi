@@ -76,12 +76,29 @@ const Answer = styled.div``
 
 const QuestionBox = ({ setQuestionNum, questionNum, quizList, totalNum, student, setStduent }) => {
   const [action, setAction] = useState(null)
+  const quizMode = localStorage.getItem("selectMode")
   const question = quizList.filter((item) => parseInt(item.order) === questionNum)[0]
+  const goldenBellConsolation = () => {
+    if (quizMode !== "goldenBell") {
+      return false
+    }
+    if (question.consolation) {
+      return true
+    } else {
+      return false
+    }
+  }
+  const processScore = () => {
+    if (quizMode === "score" || quizMode === "cooperation") {
+      return true
+    }
+    return false
+  }
   return (
     <Container>
       <StatusBar questionNum={questionNum} totalNum={totalNum} action={action} />
       <SQuestionBox opacity={action === null ? 1 : 0.2}>
-        {question.consolation && <ConsolationQuestion>
+        {goldenBellConsolation() && <ConsolationQuestion>
           <Wrapper style={{ color: "tomato" }}>
             <FontAwesomeIcon icon={faHandRock} />
             <Question>패자부활전 문제</Question>
@@ -90,7 +107,7 @@ const QuestionBox = ({ setQuestionNum, questionNum, quizList, totalNum, student,
         <Wrapper>
           <FontAwesomeIcon icon={faFile} />
           <Question>{question.question}</Question>
-          {question.score && <Score>{question.score}점</Score>}
+          {processScore() && <Score>{question.score}점</Score>}
         </Wrapper>
         {question.type === "obj" &&
           <Wrapper>
