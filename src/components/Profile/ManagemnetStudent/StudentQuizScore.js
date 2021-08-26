@@ -54,7 +54,7 @@ const TotalStudentNum = styled.div`
   }
 `
 
-const StudentList = ({ students, id }) => {
+const StudentQuizScore = ({ students, id }) => {
   const [createStudents, setCreateStudents] = useState(false)
   const onClickCreateStudents = () => {
     setCreateStudents(prev => !prev)
@@ -92,4 +92,4 @@ const StudentList = ({ students, id }) => {
   </React.Fragment>);
 }
 
-export default StudentList;
+export default StudentQuizScore;

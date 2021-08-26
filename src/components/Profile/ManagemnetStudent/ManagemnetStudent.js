@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import StudentList from './StudentList';
+import StudentQuizScore from './StudentQuizScore';
 
 const Container = styled.div`
   margin-top: 20px;
@@ -25,6 +26,10 @@ const ManagemnetStudent = ({ students, id }) => {
       <Title>학생 목록</Title>
       <StudentList students={students} id={id} />
     </Wrapper>
+    {students.length !== 0 && <Wrapper>
+      <Title>퀴즈 점수</Title>
+      <StudentQuizScore students={students} id={id} />
+    </Wrapper>}
   </Container>);
 }
 
