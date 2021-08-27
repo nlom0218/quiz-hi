@@ -62,8 +62,18 @@ const StudentQuizScore = ({ students, id, teacherQuizScore }) => {
           return <StudentItem key={index}>
             <div className="student_num">{index + 1}번</div>
             <div className="student_nickname blue_color">{item.nickname.length > 8 ? `${item.nickname.substring(0, 8)}...` : item.nickname}</div>
-            {JSON.parse(item.quizScore).sort(compare("order")).map((item, index) => {
-              return <div className="quiz_title" key={index}>{item.score}점</div>
+            {teacherQuizScoreArr.map((teacher, index) => {
+              return <div className="quiz_title" key={index}>
+                {JSON.parse(item.quizScore)
+                  .filter((student) => student.order === teacher.order)
+                  .length === 1
+                  ?
+                  `${JSON.parse(item.quizScore)
+                    .filter((student) => student.order === teacher.order)[0].score} 점`
+                  :
+                  "x"
+                }
+              </div>
             })}
           </StudentItem>
         })}
