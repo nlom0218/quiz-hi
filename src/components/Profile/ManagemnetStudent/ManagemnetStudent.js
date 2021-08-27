@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import DeleteAccount from '../Edit/DeleteAccount';
 import StudentList from './StudentList';
 import StudentQuizScore from './StudentQuizScore';
 
@@ -13,6 +14,9 @@ const Container = styled.div`
 const Wrapper = styled.div`
   display: grid;
   grid-template-columns: 180px 1fr;
+  .delAccount {
+    color: tomato;
+  }
 `
 
 const Title = styled.div`
@@ -39,6 +43,11 @@ const ManagemnetStudent = ({ students, id, quizScore: teacherQuizScore }) => {
         <Wrapper>
           <Title>퀴즈 점수</Title>
           <StudentQuizScore students={students} id={id} teacherQuizScore={teacherQuizScore} />
+        </Wrapper>
+        <DivisionLine></DivisionLine>
+        <Wrapper>
+          <Title className="delAccount">계정 삭제</Title>
+          <DeleteAccount />
         </Wrapper>
       </React.Fragment>
     }
