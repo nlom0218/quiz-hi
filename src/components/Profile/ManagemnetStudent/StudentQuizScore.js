@@ -1,4 +1,5 @@
 import React from 'react';
+import { useHistory } from 'react-router';
 import styled from 'styled-components';
 import { compare } from '../../../sharedFn';
 import EditProfileBox from '../Edit/EditProfileBox';
@@ -26,6 +27,10 @@ const SStudentList = styled.div`
     color: ${props => props.theme.blueColor};
     transition: color 1s ease;
   }
+  .quiz_detail {
+    cursor: pointer;
+    position: relative;
+  }
 `
 
 const StudentInfo = styled.div`
@@ -44,8 +49,11 @@ const StudentItem = styled.div`
 `
 
 const StudentQuizScore = ({ students, id, teacherQuizScore }) => {
+  const history = useHistory()
   const teacherQuizScoreArr = JSON.parse(teacherQuizScore).sort(compare("order"))
-  console.log(students);
+  const onClickQuizTitle = (quizId) => {
+    history.push(`/detail/quiz/${quizId}`)
+  }
   return (
     <EditProfileBox>
       <SStudentList>
@@ -53,7 +61,7 @@ const StudentQuizScore = ({ students, id, teacherQuizScore }) => {
           <div className="student_num">번호</div>
           <div className="student_nickname">이름(닉네임)</div>
           {teacherQuizScoreArr.map((item, index) => {
-            return <div className="quiz_title" key={index}>
+            return <div className="quiz_title quiz_detail" key={index} onClick={() => onClickQuizTitle(item.quizId)}>
               {item.quizTitle.length > 10 ? `${item.quizTitle.substring(0, 10)}...` : item.quizTitle}
             </div>
           })}
