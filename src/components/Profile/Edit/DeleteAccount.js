@@ -1,6 +1,10 @@
-import React from 'react';
+import { useMutation } from '@apollo/client';
+import gql from 'graphql-tag';
+import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import styled from 'styled-components';
+import { fadeIn } from '../../../animation/fade';
+import useUser from '../../../hooks/useUser';
 import EditInput from './EditInput';
 import EditProfileBox from './EditProfileBox';
 
@@ -33,24 +37,65 @@ const DelBtn = styled.input`
   cursor: pointer;
 `
 
+const ErrMsg = styled.div`
+  justify-self: center;
+  color: tomato;
+  animation: ${fadeIn} 0.6s ease;
+`
+
+const DELETE_ACCOUNT_MUTATION = gql`
+  mutation deleteAccount($username: String!, $password: String!) {
+    deleteAccount(username: $username, password: $password) {
+      ok
+      error
+    }
+  }
+`
+
 const DeleteAccount = () => {
-  const { register, formState: { isValid } } = useForm({
+  const user = useUser()
+  const [errMsg, setErrMsg] = useState(undefined)
+  const { register, formState: { isValid }, handleSubmit } = useForm({
     mode: "onChange"
   })
+  const onCompleted = (result) => {
+    const { deleteAccount: { ok, error } } = result
+    if (ok) {
+
+    } else {
+      setErrMsg(error)
+    }
+  }
+  const [deleteAccount, { loading }] = useMutation(DELETE_ACCOUNT_MUTATION, {
+    onCompleted
+  })
+  const onSubmit = (data) => {
+    if (loading) {
+      return
+    }
+    const { password } = data
+    deleteAccount({
+      variables: {
+        username: user.username,
+        password
+      }
+    })
+  }
   return (<EditProfileBox>
-    <EditPageForm>
+    <EditPageForm onSubmit={handleSubmit(onSubmit)}>
       <DeleteMsg>
         <div className="delMsg">∙ 탈퇴한 계정은 다시 복구되지 않습니다.</div>
         <div className="delMsg">∙ 퀴즈, 문제, 게시물, 댓글 등 모두 삭제됩니다.</div>
       </DeleteMsg>
       <EditPageItem>
-        <div>현재 비밀번호</div>
+        <div>비밀번호</div>
         <EditInput
           type="password"
           {...register("password", { required: true })}
           autoComplete="off"
         />
       </EditPageItem>
+      {errMsg && <ErrMsg>{errMsg}</ErrMsg>}
       <DelBtn type="submit" value="탈퇴하기" disabled={!isValid} />
     </EditPageForm>
   </EditProfileBox>);
