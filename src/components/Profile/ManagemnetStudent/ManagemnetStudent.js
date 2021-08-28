@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import DeleteAccount from '../Edit/DeleteAccount';
+import DeleteAllStudentAccount from './DeleteAllStudentAccount';
 import StudentList from './StudentList';
 import StudentQuizScore from './StudentQuizScore';
 
@@ -47,7 +47,7 @@ const ManagemnetStudent = ({ students, id, quizScore: teacherQuizScore }) => {
         <DivisionLine></DivisionLine>
         <Wrapper>
           <Title className="delAccount">계정 삭제</Title>
-          <DeleteAccount />
+          <DeleteAllStudentAccount />
         </Wrapper>
       </React.Fragment>
     }
