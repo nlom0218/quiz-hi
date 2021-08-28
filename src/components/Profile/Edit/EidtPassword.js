@@ -95,8 +95,8 @@ const EidtPassword = () => {
           autoComplete="off"
         />
       </EditPageItem>
-      <SaveBtn type="submit" value="저장하기" disabled={!isValid} />
       {msg && <Msg>{msg}</Msg>}
+      <SaveBtn type="submit" value="저장하기" disabled={!isValid} />
     </EditPageForm>
   </EditProfileBox>);
 }

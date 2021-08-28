@@ -225,8 +225,8 @@ const EditBasicInfo = ({ nickname, caption, avatarURL, id }) => {
           onChange={onChangeImage}
         />
       </ProfileImage>
-      <SaveBtn type="submit" value={loading ? "저장중..." : "저장하기"} disabled={!isValid} />
       {saveMsg && <SaveMsg>{saveMsg}</SaveMsg>}
+      <SaveBtn type="submit" value={loading ? "저장중..." : "저장하기"} disabled={!isValid} />
     </EditForm>
   </EditProfileBox>);
 }

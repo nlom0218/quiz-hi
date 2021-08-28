@@ -240,8 +240,8 @@ const EditPrivatePage = ({ personalPage, id }) => {
           autoComplete="off"
         />
       </EditPageItem>
-      <SaveBtn type="submit" value={loading ? "저장중..." : "저장하기"} disabled={!isValid} />
       {saveMsg && <SaveMsg>{saveMsg}</SaveMsg>}
+      <SaveBtn type="submit" value={loading ? "저장중..." : "저장하기"} disabled={!isValid} />
     </EditPageForm>
   </EditProfileBox>);
 }
