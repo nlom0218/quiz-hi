@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import DeleteAccount from '../Edit/DeleteAccount';
 import EditBasicInfo from '../Edit/EditBasicInfo';
 import EditPrivatePage from '../Edit/EditPrivatePage';
 import EidtPassword from '../Edit/EidtPassword';
+import EditBasicSetting from './EditBasicSetting';
 
 const Container = styled.div`
   margin-top: 20px;
@@ -27,19 +28,14 @@ const DivisionLine = styled.div`
   transition: background-color 1s ease;
 `
 
-const QuizHiSetting = ({ nickname, caption, avatarURL, id, personalPage }) => {
+const QuizHiSetting = ({ homeSetting }) => {
+  const [homeSettingArr, setHomeSettingArr] = useState(JSON.parse(homeSetting))
   return (<Container>
-    <Title>기본정보 수정</Title>
-    <EditBasicInfo nickname={nickname} caption={caption} avatarURL={avatarURL} id={id} />
+    <Title>QUIZ HI 기본 설정</Title>
+    <EditBasicSetting homeSettingArr={homeSettingArr} setHomeSettingArr={setHomeSettingArr} />
     <DivisionLine></DivisionLine>
-    <Title>개인 홈페이지 수정</Title>
-    <EditPrivatePage personalPage={personalPage} id={id} />
-    <DivisionLine></DivisionLine>
-    <Title>비밀번호 수정</Title>
-    <EidtPassword />
-    <DivisionLine></DivisionLine>
-    <Title className="delAccount">계정 삭제</Title>
-    <DeleteAccount />
+    <Title>골든벨, 협동 모드 점수 설정</Title>
+    {/* <EditBasicSetting /> */}
   </Container>);
 }
 

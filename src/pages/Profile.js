@@ -1,6 +1,6 @@
 import { useQuery } from '@apollo/client';
 import gql from 'graphql-tag';
-import React, { useState } from 'react';
+import React from 'react';
 import { useParams } from 'react-router';
 import BasicContainer from '../components/BasicContainer';
 import Header from '../components/Header';
@@ -27,6 +27,7 @@ const SEE_PROFILE_QUERY = gql`
       personalPage
       score
       quizScore
+      homeSetting
       isMe
       isFollow
       totalFollow
