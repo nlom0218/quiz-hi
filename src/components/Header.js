@@ -73,8 +73,8 @@ const Header = () => {
     }
   }
   const onClickAccount = () => {
-    logOutUser()
     history.push("/")
+    logOutUser()
   }
   const profileIcon = () => {
     if (!isLoggedIn) {
@@ -89,6 +89,11 @@ const Header = () => {
     localStorage.removeItem("startQuiz")
     localStorage.removeItem("joinStudent")
     localStorage.removeItem("questionNum")
+    localStorage.removeItem("selectMode")
+    localStorage.removeItem("selectQuizTitle")
+    localStorage.removeItem("selectQuiz")
+    localStorage.removeItem("quizList")
+    window.location.reload()
   }
   return (<SHeader className="headerContainer">
     <HeaderContainerGsap />

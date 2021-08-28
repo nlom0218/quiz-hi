@@ -114,7 +114,7 @@ const ErrMsg = styled.div`
 
 const CreateStudents = ({ id, addAccount }) => {
   const [studentNum, setStudentNum] = useState(["s"])
-  const [visible, setVisible] = useState(false)
+  const [visible, setVisible] = useState(true)
   const [errMsg, setErrMsg] = useState(undefined)
   const { register, handleSubmit, formState: { isValid }, getValues } = useForm({
     mode: "onChange"

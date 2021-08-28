@@ -46,7 +46,7 @@ const ManagemnetStudent = ({ students, id, quizScore: teacherQuizScore }) => {
         </Wrapper>
         <DivisionLine></DivisionLine>
         <Wrapper>
-          <Title className="delAccount">계정 삭제</Title>
+          <Title className="delAccount">학생 계정 삭제</Title>
           <DeleteAllStudentAccount />
         </Wrapper>
       </React.Fragment>
