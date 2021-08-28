@@ -1,6 +1,7 @@
 import { ApolloClient, InMemoryCache, makeVar } from "@apollo/client";
 import { setContext } from "@apollo/client/link/context";
 import { createUploadLink } from 'apollo-upload-client'
+import { useHistory } from "react-router";
 
 const DARK = "dark"
 const TOKEN = "token"

@@ -73,8 +73,8 @@ const Header = () => {
     }
   }
   const onClickAccount = () => {
-    history.push("/")
     logOutUser()
+    history.push("/")
   }
   const profileIcon = () => {
     if (!isLoggedIn) {

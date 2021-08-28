@@ -2,8 +2,10 @@ import { useMutation } from '@apollo/client';
 import gql from 'graphql-tag';
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { useHistory } from 'react-router';
 import styled from 'styled-components';
 import { fadeIn } from '../../../animation/fade';
+import { logOutUser } from '../../../apollo';
 import useUser from '../../../hooks/useUser';
 import EditInput from './EditInput';
 import EditProfileBox from './EditProfileBox';
@@ -53,6 +55,7 @@ const DELETE_ACCOUNT_MUTATION = gql`
 `
 
 const DeleteAccount = () => {
+  const history = useHistory()
   const user = useUser()
   const [errMsg, setErrMsg] = useState(undefined)
   const { register, formState: { isValid }, handleSubmit } = useForm({
@@ -61,7 +64,8 @@ const DeleteAccount = () => {
   const onCompleted = (result) => {
     const { deleteAccount: { ok, error } } = result
     if (ok) {
-
+      history.push("/")
+      logOutUser()
     } else {
       setErrMsg(error)
     }
@@ -86,6 +90,7 @@ const DeleteAccount = () => {
       <DeleteMsg>
         <div className="delMsg">∙ 탈퇴한 계정은 다시 복구되지 않습니다.</div>
         <div className="delMsg">∙ 퀴즈, 문제, 게시물, 댓글 등 모두 삭제됩니다.</div>
+        <div className="delMsg">∙ 생성된 학생 계정 모두 삭제됩니다.</div>
       </DeleteMsg>
       <EditPageItem>
         <div>비밀번호</div>
