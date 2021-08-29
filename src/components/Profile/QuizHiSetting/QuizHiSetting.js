@@ -1,10 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import DeleteAccount from '../Edit/DeleteAccount';
-import EditBasicInfo from '../Edit/EditBasicInfo';
-import EditPrivatePage from '../Edit/EditPrivatePage';
-import EidtPassword from '../Edit/EidtPassword';
-import EditBasicSetting from './EditBasicSetting';
+import EditFirstPage from './EditFirstPage';
+import EditFont from './EditFont';
 
 const Container = styled.div`
   margin-top: 20px;
@@ -28,11 +25,17 @@ const DivisionLine = styled.div`
   transition: background-color 1s ease;
 `
 
-const QuizHiSetting = ({ homeSetting }) => {
-  const [homeSettingArr, setHomeSettingArr] = useState(JSON.parse(homeSetting))
+const QuizHiSetting = ({ firstPage, fontFamily, goldenbellScore, cooperationScore, username, id }) => {
+  const [firstPageW, setFirstPage] = useState(firstPage)
+  const [fontFamilyW, setFontFamily] = useState(fontFamily)
+  const [goldenbellScoreW, setGoldenbellScore] = useState(goldenbellScore)
+  const [cooperationScoreW, setCooperationScore] = useState(cooperationScore)
   return (<Container>
-    <Title>QUIZ HI 기본 설정</Title>
-    <EditBasicSetting homeSettingArr={homeSettingArr} setHomeSettingArr={setHomeSettingArr} />
+    <Title>QUIZ HI 첫 페이지 설정</Title>
+    <EditFirstPage firstPage={firstPageW} setFirstPage={setFirstPage} />
+    <DivisionLine></DivisionLine>
+    <Title>QUIZ HI 폰트 설정</Title>
+    <EditFont fontFamily={fontFamilyW} setFontFamily={setFontFamily} username={username} id={id} />
     <DivisionLine></DivisionLine>
     <Title>골든벨, 협동 모드 점수 설정</Title>
     {/* <EditBasicSetting /> */}

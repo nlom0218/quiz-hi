@@ -27,7 +27,10 @@ const SEE_PROFILE_QUERY = gql`
       personalPage
       score
       quizScore
-      homeSetting
+      firstPage
+      fontFamily
+      goldenbellScore
+      cooperationScore
       isMe
       isFollow
       totalFollow

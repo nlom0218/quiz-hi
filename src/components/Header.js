@@ -86,7 +86,6 @@ const Header = () => {
     return false
   }
   const onCLickPalyQuiz = () => {
-    window.location.reload()
     localStorage.removeItem("startQuiz")
     localStorage.removeItem("joinStudent")
     localStorage.removeItem("questionNum")
