@@ -46,6 +46,12 @@ const FontList = styled.div`
   transition: background-color 1s ease;
 `
 
+const Font = styled.div`
+  display: grid;
+  grid-template-columns: auto 1fr;
+  column-gap: 20px;
+`
+
 const EditBasicSetting = ({ homeSettingArr }) => {
   console.log(homeSettingArr);
   return (<EditProfileBox>
@@ -64,12 +70,26 @@ const EditBasicSetting = ({ homeSettingArr }) => {
       <Wrapper>
         <div className="edit_title">QUIZ HI 폰트 설정</div>
         <FontList>
-          <div><FontAwesomeIcon icon={faCircle} />홈</div>
-          <div><FontAwesomeIcon icon={faCircle} />피드</div>
-          <div><FontAwesomeIcon icon={faCircle} />게시판</div>
-          <div><FontAwesomeIcon icon={faCircle} />퀴즈 만들기</div>
-          <div><FontAwesomeIcon icon={faCircle} />퀴즈 진행하기</div>
-          <div><FontAwesomeIcon icon={faCircle} />프로필</div>
+          <Font style={{ fontFamily: "'Noto Sans KR', sans-serif" }}>
+            <div><FontAwesomeIcon icon={faCircle} />기본</div>
+            <div>가나다라마바사아자차카타파하123456ABCDEabcde</div>
+          </Font>
+          <Font style={{ fontFamily: "'Nanum Myeongjo', serif" }}>
+            <div><FontAwesomeIcon icon={faCircle} />명조</div>
+            <div>가나다라마바사아자차카타파하123456ABCDEabcde</div>
+          </Font>
+          <Font style={{ fontFamily: "'Nanum Gothic', sans-serif" }}>
+            <div><FontAwesomeIcon icon={faCircle} />고딕</div>
+            <div>가나다라마바사아자차카타파하123456ABCDEabcde</div>
+          </Font>
+          <Font style={{ fontFamily: "'Gowun Batang', serif" }}>
+            <div><FontAwesomeIcon icon={faCircle} />바탕</div>
+            <div>가나다라마바사아자차카타파하123456ABCDEabcde</div>
+          </Font>
+          <Font style={{ fontFamily: "'Hahmlet', serif" }}>
+            <div><FontAwesomeIcon icon={faCircle} />햄릿</div>
+            <div>가나다라마바사아자차카타파하123456ABCDEabcde</div>
+          </Font>
         </FontList>
       </Wrapper>
       <SaveBtn type="submit" value={"저장하기"} />

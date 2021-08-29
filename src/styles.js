@@ -4,6 +4,14 @@ import reset from "styled-reset";
 // / color: rgb(255, 165, 0, 0.8); orange /
 //   / color: rgb(42, 140, 0) green; /
 
+// const processFont = () => {
+//   if () {
+//     return "'Nanum Myeongjo', serif;"
+//   } else if {
+//     return 
+//   }
+// }
+
 const color = {
   black: "#3f3f3f",
   white: "#efefef"
@@ -41,13 +49,13 @@ export const GlobalStyle = createGlobalStyle`
     color: ${props => props.theme.fontColor};
     background-color: ${props => props.theme.bgColor};
     transition: color 1s ease, background-color 1s ease;
-    font-family: 'Nanum Myeongjo', serif;
+    font-family: 'Gowun Batang', serif;
   }
   * {
     box-sizing: border-box;
     user-select: none;
     letter-spacing: 2px;
-    font-family: 'Nanum Myeongjo', serif;
+    font-family: 'Gowun Batang', serif;
     
   }
   #root {
@@ -62,7 +70,7 @@ export const GlobalStyle = createGlobalStyle`
   }
   button {
     border: none;
-    font-family: 'Nanum Myeongjo', serif;
+    font-family: 'Gowun Batang', serif;
     font-size: 16px;
   }
 `
