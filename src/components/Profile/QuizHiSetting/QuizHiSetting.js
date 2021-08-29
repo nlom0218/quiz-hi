@@ -32,7 +32,7 @@ const QuizHiSetting = ({ firstPage, fontFamily, goldenbellScore, cooperationScor
   const [cooperationScoreW, setCooperationScore] = useState(cooperationScore)
   return (<Container>
     <Title>QUIZ HI 첫 페이지 설정</Title>
-    <EditFirstPage firstPage={firstPageW} setFirstPage={setFirstPage} />
+    <EditFirstPage firstPage={firstPageW} setFirstPage={setFirstPage} username={username} id={id} />
     <DivisionLine></DivisionLine>
     <Title>QUIZ HI 폰트 설정</Title>
     <EditFont fontFamily={fontFamilyW} setFontFamily={setFontFamily} username={username} id={id} />
