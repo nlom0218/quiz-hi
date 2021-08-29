@@ -1,4 +1,4 @@
-import { useMutation, useReactiveVar } from '@apollo/client';
+import { useLazyQuery, useMutation, useQuery, useReactiveVar } from '@apollo/client';
 import { faCircle, faEye, faEyeSlash, faQuestionCircle } from '@fortawesome/free-regular-svg-icons';
 import { faCheckCircle, faHome, faMoon, faSun } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -54,6 +54,16 @@ const LOGIN_MUTATION = gql`
   }
 `
 
+const SEE_PROFILE_QUERY = gql`
+  query seeProfile($username: String!) {
+    seeProfile(username: $username) {
+      id
+      username
+      firstPage
+    }
+  }
+`
+
 const Login = () => {
   const darkMode = useReactiveVar(darkModeVar)
   const history = useHistory()
@@ -61,7 +71,7 @@ const Login = () => {
   const [visible, setVisible] = useState(false)
   const [error, setError] = useState(undefined)
   const [questionMode, setQuestionMode] = useState(false)
-  const { register, handleSubmit, formState: { isValid } } = useForm({
+  const { register, handleSubmit, formState: { isValid }, getValues } = useForm({
     mode: "onChange"
   })
   const onCompleted = (data) => {
@@ -71,11 +81,20 @@ const Login = () => {
     }
     if (ok) {
       logInUser(token)
-      history.push("/")
+      refetch()
+      if (!profileLoading) {
+        history.push(profileData?.seeProfile?.firstPage)
+      }
     }
   }
   const [login, { loading }] = useMutation(LOGIN_MUTATION, {
     onCompleted
+  })
+  const { data: profileData, loading: profileLoading, refetch } = useQuery(SEE_PROFILE_QUERY, {
+    variables: {
+      username: getValues("username")
+    },
+    skip: Boolean(!getValues("username"))
   })
   const onClickType = (type) => {
     setType(type)
