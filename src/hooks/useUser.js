@@ -11,6 +11,10 @@ const ME_QUERY = gql`
       email
       type
       avatarURL
+      firstPage
+      fontFamily
+      goldenbellScore
+      cooperationScore
       tags {
         id
         name

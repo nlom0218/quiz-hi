@@ -49,13 +49,13 @@ export const GlobalStyle = createGlobalStyle`
     color: ${props => props.theme.fontColor};
     background-color: ${props => props.theme.bgColor};
     transition: color 1s ease, background-color 1s ease;
-    font-family: 'Gowun Batang', serif;
+    font-family: ${props => props.fontFamily};
   }
   * {
     box-sizing: border-box;
     user-select: none;
     letter-spacing: 2px;
-    font-family: 'Gowun Batang', serif;
+    font-family: ${props => props.fontFamily};
     
   }
   #root {
@@ -70,7 +70,7 @@ export const GlobalStyle = createGlobalStyle`
   }
   button {
     border: none;
-    font-family: 'Gowun Batang', serif;
+    font-family: ${props => props.fontFamily};
     font-size: 16px;
   }
 `

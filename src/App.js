@@ -27,7 +27,7 @@ function App() {
   const user = useUser()
   return (
     <ThemeProvider theme={darkMode ? darkTheme : lightTheme} >
-      <GlobalStyle />
+      <GlobalStyle fontFamily={user?.fontFamily} />
       <Router>
         <ScrollToTop />
         <Switch>
