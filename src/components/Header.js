@@ -86,6 +86,7 @@ const Header = () => {
     return false
   }
   const onCLickPalyQuiz = () => {
+    window.location.reload()
     localStorage.removeItem("startQuiz")
     localStorage.removeItem("joinStudent")
     localStorage.removeItem("questionNum")
@@ -93,7 +94,6 @@ const Header = () => {
     localStorage.removeItem("selectQuizTitle")
     localStorage.removeItem("selectQuiz")
     localStorage.removeItem("quizList")
-    window.location.reload()
   }
   return (<SHeader className="headerContainer">
     <HeaderContainerGsap />

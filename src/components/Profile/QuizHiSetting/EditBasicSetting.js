@@ -17,21 +17,33 @@ const Wrapper = styled.div`
   row-gap: 20px;
   svg {
     margin-right: 10px;
+    cursor: pointer;
+  }
+  .edit_title {
+    font-weight: 600;
   }
 `
 
 const PageList = styled.div`
+  background-color: ${props => props.theme.bgColor};
+  padding: 20px;
+  border-radius: 5px;
   grid-column: 1 / -1;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   row-gap: 20px;
+  transition: background-color 1s ease;
 `
 
 const FontList = styled.div`
+  background-color: ${props => props.theme.bgColor};
+  padding: 20px;
+  border-radius: 5px;
   grid-column: 1 / -1;
   display: grid;
   grid-template-columns: 1fr;
   row-gap: 20px;
+  transition: background-color 1s ease;
 `
 
 const EditBasicSetting = ({ homeSettingArr }) => {
@@ -39,7 +51,7 @@ const EditBasicSetting = ({ homeSettingArr }) => {
   return (<EditProfileBox>
     <EditForm>
       <Wrapper>
-        <div>QUIZ HI 첫 페이지 설정</div>
+        <div className="edit_title">QUIZ HI 첫 페이지 설정</div>
         <PageList>
           <div><FontAwesomeIcon icon={faCircle} />홈</div>
           <div><FontAwesomeIcon icon={faCircle} />피드</div>
@@ -50,7 +62,7 @@ const EditBasicSetting = ({ homeSettingArr }) => {
         </PageList>
       </Wrapper>
       <Wrapper>
-        <div>QUIZ HI 폰트 설정</div>
+        <div className="edit_title">QUIZ HI 폰트 설정</div>
         <FontList>
           <div><FontAwesomeIcon icon={faCircle} />홈</div>
           <div><FontAwesomeIcon icon={faCircle} />피드</div>

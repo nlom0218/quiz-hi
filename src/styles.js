@@ -48,6 +48,7 @@ export const GlobalStyle = createGlobalStyle`
     user-select: none;
     letter-spacing: 2px;
     font-family: 'Nanum Myeongjo', serif;
+    
   }
   #root {
   }
