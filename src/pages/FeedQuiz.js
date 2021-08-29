@@ -63,7 +63,6 @@ const FeedQuiz = () => {
   useEffect(() => {
     return () => setPutQuiz(false)
   }, [])
-  console.log(data?.detailQuiz);
   return (
     <React.Fragment>
       <Header />

@@ -27,7 +27,7 @@ function App() {
   const user = useUser()
   return (
     <ThemeProvider theme={darkMode ? darkTheme : lightTheme} >
-      <GlobalStyle fontFamily={user?.fontFamily} />
+      <GlobalStyle fontFamily={user ? user?.fontFamily : "'Noto Sans KR', sans-serif"} />
       <Router>
         <ScrollToTop />
         <Switch>

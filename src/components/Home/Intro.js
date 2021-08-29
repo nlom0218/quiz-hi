@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import typingAni from '../../animation/typingAni';
 import introImg from "../../images/Home/intro.jpg"
 
 const SIntro = styled.div`
@@ -37,10 +36,6 @@ const IntroMsg = styled.div`
   font-size: 18px;
   margin-top: 20px;
   position:relative;
-  display: inline-block;
-  height: 17px;
-  overflow: hidden;
-  animation: ${typingAni} 4s steps(30, end) 1;
   font-weight: 600;
 `
 
