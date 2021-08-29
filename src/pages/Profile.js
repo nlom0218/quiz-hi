@@ -62,22 +62,24 @@ const Profile = () => {
   const { data, loading } = useQuery(SEE_PROFILE_QUERY, { variables: { username } })
   return (<React.Fragment>
     <Header />
-    {loading ? <div>loading...</div> :
-      <BasicContainer>
-        <TopProfile data={{ ...data }} />
-        {mode === "info" && <BottomProfile><BasicProfile data={{ ...data }} /></BottomProfile>}
-        {mode === "quizQuestion" && <BottomProfile><UserQuizQuestion data={{ ...data }} /></BottomProfile>}
-        {mode === "edit" && <BottomProfile>
-          {user.username === username && <EditProfile {...data?.seeProfile} />}
-        </BottomProfile>}
-        {mode === "setting" && <BottomProfile>
-          {user.username === username && <QuizHiSetting {...data?.seeProfile} />}
-        </BottomProfile>}
-        {mode === "student" && <BottomProfile>
-          {user.username === username && <ManagemnetStudent {...data?.seeProfile} />}
-        </BottomProfile>}
-      </BasicContainer>
-    }
+    <BasicContainer>
+      {loading ? <div>loading...</div> :
+        <React.Fragment>
+          <TopProfile data={{ ...data }} />
+          {mode === "info" && <BottomProfile><BasicProfile data={{ ...data }} /></BottomProfile>}
+          {mode === "quizQuestion" && <BottomProfile><UserQuizQuestion data={{ ...data }} /></BottomProfile>}
+          {mode === "edit" && <BottomProfile>
+            {user.username === username && <EditProfile {...data?.seeProfile} />}
+          </BottomProfile>}
+          {mode === "setting" && <BottomProfile>
+            {user.username === username && <QuizHiSetting {...data?.seeProfile} />}
+          </BottomProfile>}
+          {mode === "student" && <BottomProfile>
+            {user.username === username && <ManagemnetStudent {...data?.seeProfile} />}
+          </BottomProfile>}
+        </React.Fragment>
+      }
+    </BasicContainer>
     <NavBtn />
   </React.Fragment>);
 }

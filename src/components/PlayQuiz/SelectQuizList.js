@@ -112,9 +112,10 @@ const SelectQuizList = ({ setQuizId, setQuizTitle }) => {
   }
   const { data, loading } = useQuery(SEE_FOLLOW_QUIZ_QUERY, {
     variables: {
-      id: user.id,
+      id: user?.id,
       page
     },
+    skip: Boolean(!user),
     onCompleted
   })
   const onClickPageBtn = (btn) => {

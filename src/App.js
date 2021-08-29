@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom"
 import Home from './pages/Home';
 import { ThemeProvider } from 'styled-components';
 import { useReactiveVar } from '@apollo/client';
-import { darkModeVar } from './apollo';
+import { darkModeVar, isLoggedInVar } from './apollo';
 import Login from './pages/Login';
 import PlayQuiz from "./pages/PlayQuiz"
 import CreateAccount from './pages/CreateAccount';
@@ -23,6 +23,7 @@ import Library from './pages/Library';
 
 function App() {
   const darkMode = useReactiveVar(darkModeVar)
+  const isLoggedIn = useReactiveVar(isLoggedInVar)
   const user = useUser()
   return (
     <ThemeProvider theme={darkMode ? darkTheme : lightTheme} >
@@ -31,19 +32,19 @@ function App() {
         <ScrollToTop />
         <Switch>
           <Route exact path="/"><Home /></Route>
-          <Route path="/feed/:type/:seeType/:sort/:page"><Feed /></Route>
-          <Route path="/detail/quiz/:id"><FeedQuiz /></Route>
-          <Route path="/detail/question/:id"><FeedQuestion /></Route>
-          <Route path="/detail/tag/:id/:type/:sort/:page"><FeedTag /></Route>
-          <Route path="/make-quiz">{user ? <MakeQuiz /> : <NotFound />}</Route>
-          <Route exact path="/play-quiz">{user ? <PlayQuiz /> : <NotFound />}</Route>
-          <Route path="/library">{user ? <Library /> : <NotFound />}</Route>
-          <Route path="/profile/:username/:mode/:state/:type/:page">{user ? <Profile /> : <NotFound />}</Route>
-          <Route path="/profile/:username/:mode">{user ? <Profile /> : <NotFound />}</Route>
-          <Route path="/login"><Login /></Route>
-          <Route path="/create-account"><CreateAccount /></Route>
-          <Route path="/edit/:type/:id"><Edit /></Route>
-          <Route path="/delete/:type/:id"><Delete /></Route>
+          <Route exact path="/feed/:type/:seeType/:sort/:page">{isLoggedIn ? <Feed /> : <NotFound />}</Route>
+          <Route exact path="/detail/quiz/:id">{isLoggedIn ? <FeedQuiz /> : <NotFound />}</Route>
+          <Route exact path="/detail/question/:id">{isLoggedIn ? <FeedQuestion /> : <NotFound />}</Route>
+          <Route exact path="/detail/tag/:id/:type/:sort/:page">{isLoggedIn ? <FeedTag /> : <NotFound />}</Route>
+          <Route exact path="/make-quiz">{isLoggedIn ? <MakeQuiz /> : <NotFound />}</Route>
+          <Route exact path="/play-quiz">{isLoggedIn ? <PlayQuiz /> : <NotFound />}</Route>
+          <Route exact path="/library">{isLoggedIn ? <Library /> : <NotFound />}</Route>
+          <Route exact path="/profile/:username/:mode/:state/:type/:page">{isLoggedIn ? <Profile /> : <NotFound />}</Route>
+          <Route exact path="/profile/:username/:mode">{isLoggedIn ? <Profile /> : <NotFound />}</Route>
+          <Route exact path="/edit/:type/:id">{isLoggedIn ? <Edit /> : <NotFound />}</Route>
+          <Route exact path="/delete/:type/:id">{isLoggedIn ? <Delete /> : <NotFound />}</Route>
+          <Route exact path="/login">{!isLoggedIn ? <Login /> : <NotFound />}</Route>
+          <Route exact path="/create-account">{!isLoggedIn ? <CreateAccount /> : <NotFound />}</Route>
           <Route><NotFound /></Route>
         </Switch>
       </Router>
