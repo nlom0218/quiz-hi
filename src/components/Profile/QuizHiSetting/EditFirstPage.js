@@ -103,23 +103,23 @@ const EditFirstPage = ({ firstPage, setFirstPage, username, id }) => {
         <div className="sub_msg">로그인 후 첫 페이지를 설정합니다.</div>
         <PageList>
           <div><FontAwesomeIcon
-            onClick={() => onClickpage("home")}
-            icon={processFirstpage("home") ? faCheckCircle : faCircle} />홈</div>
+            onClick={() => onClickpage("/")}
+            icon={processFirstpage("/") ? faCheckCircle : faCircle} />홈</div>
           <div><FontAwesomeIcon
-            onClick={() => onClickpage("feed")}
-            icon={processFirstpage("feed") ? faCheckCircle : faCircle} />피드</div>
+            onClick={() => onClickpage("/feed/quiz/all/recent/1")}
+            icon={processFirstpage("/feed/quiz/all/recent/1") ? faCheckCircle : faCircle} />피드</div>
           <div><FontAwesomeIcon
-            onClick={() => onClickpage("library")}
-            icon={processFirstpage("library") ? faCheckCircle : faCircle} />라이브러리</div>
+            onClick={() => onClickpage("/library")}
+            icon={processFirstpage("/library") ? faCheckCircle : faCircle} />라이브러리</div>
           <div><FontAwesomeIcon
-            onClick={() => onClickpage("make")}
-            icon={processFirstpage("make") ? faCheckCircle : faCircle} />퀴즈 만들기</div>
+            onClick={() => onClickpage("/make-quiz")}
+            icon={processFirstpage("/make-quiz") ? faCheckCircle : faCircle} />퀴즈 만들기</div>
           <div><FontAwesomeIcon
-            onClick={() => onClickpage("play")}
-            icon={processFirstpage("play") ? faCheckCircle : faCircle} />퀴즈 진행하기</div>
+            onClick={() => onClickpage("/play-quiz")}
+            icon={processFirstpage("/play-quiz") ? faCheckCircle : faCircle} />퀴즈 진행하기</div>
           <div><FontAwesomeIcon
-            onClick={() => onClickpage("profile")}
-            icon={processFirstpage("profile") ? faCheckCircle : faCircle} />프로필</div>
+            onClick={() => onClickpage(`/profile/${username}/info`)}
+            icon={processFirstpage(`/profile/${username}/info`) ? faCheckCircle : faCircle} />프로필</div>
         </PageList>
       </Wrapper>
       {saveMsg && <SaveMsg>{saveMsg}</SaveMsg>}

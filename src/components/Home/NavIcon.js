@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faMoon, faPencilAlt, faPlay, faSearch, faSignInAlt, faSignOutAlt, faSun, faUser } from '@fortawesome/free-solid-svg-icons';
+import { faBookReader, faMoon, faPencilAlt, faPlay, faSearch, faSignInAlt, faSignOutAlt, faSun, faUser } from '@fortawesome/free-solid-svg-icons';
 import { faClipboard, faListAlt, faQuestionCircle } from '@fortawesome/free-regular-svg-icons';
 import { useHistory } from 'react-router';
 import { darkModeVar, disableDarkMode, enableDarkMode } from '../../apollo';
@@ -90,11 +90,11 @@ const NavIcon = () => {
         </Icon>
         <Description>피드</Description>
       </Wapper>
-      <Wapper onClick={() => onClinkNavBtn("notice-board")}>
+      <Wapper onClick={() => onClinkNavBtn("library")}>
         <Icon>
-          <FontAwesomeIcon icon={faListAlt} />
+          <FontAwesomeIcon icon={faBookReader} />
         </Icon>
-        <Description>게시판</Description>
+        <Description>라이브러리</Description>
       </Wapper>
       <Wapper onClick={() => onClinkNavBtn("make-quiz")}>
         <Icon>

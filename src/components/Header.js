@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { faSearch, faMoon, faPencilAlt, faPlay, faUser, faSignOutAlt, faSun, faSignInAlt } from '@fortawesome/free-solid-svg-icons';
+import { faSearch, faMoon, faPencilAlt, faPlay, faUser, faSignOutAlt, faSun, faSignInAlt, faBookReader } from '@fortawesome/free-solid-svg-icons';
 import { faClipboard, faListAlt } from "@fortawesome/free-regular-svg-icons"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import headerNav from "../animation/headerNav"
@@ -106,7 +106,7 @@ const Header = () => {
       </Nav>
       <Nav><FontAwesomeIcon icon={faSearch} /></Nav>
       <Nav><Link to="/feed/quiz/all/recent/1"><FontAwesomeIcon icon={faClipboard} /></Link></Nav>
-      <Nav><Link to="/notice-board"><FontAwesomeIcon icon={faListAlt} /></Link></Nav>
+      <Nav><Link to="/library"><FontAwesomeIcon icon={faBookReader} /></Link></Nav>
       <SiteName>
         <SiteNameText><Link to="/">quiz Hi</Link></SiteNameText>
       </SiteName>

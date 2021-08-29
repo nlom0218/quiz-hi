@@ -11,7 +11,6 @@ import CreateAccount from './pages/CreateAccount';
 import ScrollToTop from './hooks/ScrollToTop';
 import Feed from './pages/Feed';
 import MakeQuiz from './pages/MakeQuiz';
-import NoticeBoard from './pages/NoticeBoard';
 import Profile from './pages/Profile';
 import useUser from './hooks/useUser';
 import NotFound from './pages/NotFound';
@@ -36,7 +35,6 @@ function App() {
           <Route path="/detail/quiz/:id"><FeedQuiz /></Route>
           <Route path="/detail/question/:id"><FeedQuestion /></Route>
           <Route path="/detail/tag/:id/:type/:sort/:page"><FeedTag /></Route>
-          <Route path="/notice-board"><NoticeBoard /></Route>
           <Route path="/make-quiz">{user ? <MakeQuiz /> : <NotFound />}</Route>
           <Route exact path="/play-quiz">{user ? <PlayQuiz /> : <NotFound />}</Route>
           <Route path="/library">{user ? <Library /> : <NotFound />}</Route>
