@@ -70,7 +70,7 @@ const EditScore = ({ goldenbellScore, setGoldenbellScore, cooperationScore, setC
           cooperationScore() { return cooperationScore }
         }
       })
-      setSaveMsg("QUIZ HI 폰트가 수정 되었습니다.")
+      setSaveMsg("골든벨, 협동 모드 점수가 수정 되었습니다.")
     }
   }
   const [editHomeSetting, { loading }] = useMutation(EDIT_HOME_SETTING_MUTATION, {
