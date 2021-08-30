@@ -1,8 +1,11 @@
+import { useMutation } from '@apollo/client';
 import { faCheckCircle, faCircle } from '@fortawesome/free-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import React from 'react';
+import gql from 'graphql-tag';
+import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import styled from 'styled-components';
+import { fadeIn } from '../../../animation/fade';
 import EditProfileBox from '../Edit/EditProfileBox';
 import SaveBtn from '../Edit/SaveBtn';
 
@@ -38,10 +41,54 @@ const ScoreList = styled.div`
 
 const Score = styled.div``
 
+const SaveMsg = styled.div`
+  justify-self: center;
+  color: tomato;
+  font-weight: 600;
+  animation: ${fadeIn} 0.4s linear;
+`
+
+const EDIT_HOME_SETTING_MUTATION = gql`
+  mutation EditHomeSettingMutation($goldenbellScore: Int, $cooperationScore: Int $username: String!, $type: String!) {
+    editHomeSetting(goldenbellScore: $goldenbellScore, cooperationScore: $cooperationScore, username: $username, type: $type) {
+      ok
+      error
+    }
+  }
+`
+
 const EditScore = ({ goldenbellScore, setGoldenbellScore, cooperationScore, setCooperationScore, username, id }) => {
+  const [saveMsg, setSaveMsg] = useState(undefined)
+  const update = (cache, result) => {
+    const { data: { editHomeSetting: { ok } } } = result
+    if (ok) {
+      const UserId = `User:${id}`
+      cache.modify({
+        id: UserId,
+        fields: {
+          goldenbellScore() { return goldenbellScore },
+          cooperationScore() { return cooperationScore }
+        }
+      })
+      setSaveMsg("QUIZ HI 폰트가 수정 되었습니다.")
+    }
+  }
+  const [editHomeSetting, { loading }] = useMutation(EDIT_HOME_SETTING_MUTATION, {
+    update
+  })
   const { handleSubmit } = useForm()
   const onSubmit = () => {
-
+    if (loading) {
+      return
+    }
+    editHomeSetting({
+      variables: {
+        username,
+        type: "score",
+        goldenbellScore,
+        cooperationScore
+      }
+    })
   }
   const processGoldenBellScore = (score) => {
     if (score === goldenbellScore) {
@@ -93,8 +140,9 @@ const EditScore = ({ goldenbellScore, setGoldenbellScore, cooperationScore, setC
           })}
         </ScoreList>
       </Wrapper>
+      {saveMsg && <SaveMsg>{saveMsg}</SaveMsg>}
       <SaveBtn type="submit"
-      // value={loading ? "저장중..." : "저장하기"}
+        value={loading ? "저장중..." : "저장하기"}
       />
     </EditForm>
   </EditProfileBox>);
