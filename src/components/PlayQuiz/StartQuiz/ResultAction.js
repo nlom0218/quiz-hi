@@ -98,6 +98,8 @@ const ResultAction = ({ student }) => {
     }, [])
     .sort((a, b) => b - a)
   const quizMode = localStorage.getItem("selectMode")
+  console.log(user.goldenbellScore, quizMode);
+  console.log(student[0].pass);
   const onClickEndBtn = () => {
     if (window.confirm("퀴즈를 종료합니다.")) {
       localStorage.removeItem("startQuiz")
@@ -132,9 +134,16 @@ const ResultAction = ({ student }) => {
     }
     const quizId = localStorage.getItem("selectQuiz")
     const quizTitle = localStorage.getItem("selectQuizTitle")
-    const resultArr = student.map((item) => {
-      return { id: item.id, score: item.score }
-    })
+    let resultArr = undefined
+    if (quizMode === "goldenBell") {
+      resultArr = student.map((item) => {
+        return { id: item.id, score: item.pass ? user.goldenbellScore : 0 }
+      })
+    } else if (quizMode === "score") {
+      resultArr = student.map((item) => {
+        return { id: item.id, score: item.score }
+      })
+    }
     updateQuizScore({
       variables: {
         teacherId: user.id,

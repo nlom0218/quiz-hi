@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import gql from 'graphql-tag';
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import { compare } from '../../../sharedFn';
 import QuestionBox from './QuestionBox';
 
 const Container = styled.div`
@@ -33,7 +34,7 @@ const StartQuiz = () => {
   const quizList = JSON.parse(localStorage.getItem("quizList"))
   const totalNum = quizList.length
   const [questionNum, setQuestionNum] = useState(parseInt(localStorage.getItem("questionNum")) || 1)
-  const [student, setStduent] = useState(JSON.parse(localStorage.getItem("joinStudent")))
+  const [student, setStduent] = useState(JSON.parse(localStorage.getItem("joinStudent")).sort(compare("id")))
   const { data, loading } = useQuery(DETATIL_QUIZ_QUERY, {
     variables: {
       id: parseInt(localStorage.getItem("selectQuiz"))
