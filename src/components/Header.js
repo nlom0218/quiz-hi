@@ -93,6 +93,7 @@ const Header = () => {
     localStorage.removeItem("selectQuizTitle")
     localStorage.removeItem("selectQuiz")
     localStorage.removeItem("quizList")
+    localStorage.removeItem("targetScore")
   }
   return (<SHeader className="headerContainer">
     <HeaderContainerGsap />

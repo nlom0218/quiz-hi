@@ -67,6 +67,7 @@ const PlayQuiz = () => {
     setQuizList(null)
     setStduents([])
     setType(undefined)
+    localStorage.removeItem("targetScore")
   }
   const questionSetting = () => {
     if (!quizMode) {
