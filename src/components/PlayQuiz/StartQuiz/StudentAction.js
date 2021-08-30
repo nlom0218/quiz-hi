@@ -54,6 +54,17 @@ const ScoreMsg = styled.div`
   align-self: flex-end;
 `
 
+const CooperationScore = styled.div`
+  display: grid;
+  grid-template-columns: auto auto;
+  column-gap: 20px;
+  align-items: center;
+`
+
+const TargetScore = styled.div`
+
+`
+
 const TotalScore = styled.div`
   font-size: 20px;
   background-color: tomato;
@@ -82,6 +93,7 @@ const StudentScore = styled.div`
 const StudentAction = ({ question, setAction, student }) => {
   const totalScore = student.map((item) => item.score).reduce((acc, cur) => acc + cur, 0)
   const quizMode = localStorage.getItem("selectMode")
+  const targetScore = localStorage.getItem("targetScore")
   const onCLickLeaveBtn = () => {
     setAction(null)
   }
@@ -111,7 +123,10 @@ const StudentAction = ({ question, setAction, student }) => {
       :
       <ScoreBoard>
         <ScoreMsg>점수판</ScoreMsg>
-        {quizMode === "cooperation" && <TotalScore>총점: {totalScore}점</TotalScore>}
+        {quizMode === "cooperation" && <CooperationScore>
+          <TargetScore>목표 점수: {targetScore}점</TargetScore>
+          <TotalScore>총점: {totalScore}점</TotalScore>
+        </CooperationScore>}
         <StudentScore>
           {student.sort(compareDesc("score")).map((item, index) => {
             if (!item.pass) { return }

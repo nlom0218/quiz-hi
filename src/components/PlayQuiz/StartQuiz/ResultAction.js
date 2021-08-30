@@ -69,12 +69,28 @@ const ScoreMsg = styled.div`
   align-self: flex-end;
 `
 
+const CooperationScore = styled.div`
+  display: grid;
+  grid-template-columns: auto auto;
+  column-gap: 20px;
+  align-items: center;
+`
+
+const TargetScore = styled.div`
+
+`
+
 const TotalScore = styled.div`
-  font-size: 20px;
+  font-size: 24px;
   background-color: tomato;
   font-weight: 600;
   padding: 10px 20px;
   border-radius: 5px;
+`
+
+const CooperationResult = styled.div`
+  grid-column: 1 / -1;
+  font-size: 20px;
 `
 
 const UPDATE_QUIZ_SCORE_MUTATION = gql`
@@ -90,6 +106,7 @@ const ResultAction = ({ student }) => {
   const history = useHistory()
   const user = useUser()
   const [save, setSave] = useState(false)
+  const targetScore = localStorage.getItem("targetScore")
   const totalScore = student.map((item) => item.score).reduce((acc, cur) => acc + cur, 0)
   const scoreArr = student.map((item) => item.score)
     .reduce((acc, cur, i, arr) => {
@@ -98,10 +115,8 @@ const ResultAction = ({ student }) => {
     }, [])
     .sort((a, b) => b - a)
   const quizMode = localStorage.getItem("selectMode")
-  console.log(user.goldenbellScore, quizMode);
-  console.log(student[0].pass);
   const onClickEndBtn = () => {
-    if (window.confirm("퀴즈를 종료합니다.")) {
+    if (window.confirm("퀴즈를 종료합니다. 퀴즈를 종료하기 전 결과 저장을 원하는 경우 결과 저장하기 버튼을 눌러주세요.")) {
       localStorage.removeItem("startQuiz")
       localStorage.removeItem("joinStudent")
       localStorage.removeItem("questionNum")
@@ -143,6 +158,16 @@ const ResultAction = ({ student }) => {
       resultArr = student.map((item) => {
         return { id: item.id, score: item.score }
       })
+    } else if (quizMode === "cooperation") {
+      if (parseInt(targetScore) <= totalScore) {
+        resultArr = student.map((item) => {
+          return { id: item.id, score: item.score + user.cooperationScore }
+        })
+      } else {
+        resultArr = student.map((item) => {
+          return { id: item.id, score: item.score }
+        })
+      }
     }
     updateQuizScore({
       variables: {
@@ -153,6 +178,7 @@ const ResultAction = ({ student }) => {
       }
     })
   }
+  console.log(parseInt(targetScore) <= totalScore);
   return (<ActionBox>
     <LeaveBtn></LeaveBtn>
     {quizMode === "goldenBell" ?
@@ -168,7 +194,15 @@ const ResultAction = ({ student }) => {
       :
       <ScoreBoard>
         <ScoreMsg>점수판</ScoreMsg>
-        {quizMode === "cooperation" && <TotalScore>총점: {totalScore}점</TotalScore>}
+        {quizMode === "cooperation" && <CooperationScore>
+          <TargetScore>목표 점수: {targetScore}점</TargetScore>
+          <TotalScore>총점: {totalScore}점</TotalScore>
+        </CooperationScore>}
+        {quizMode === "cooperation" && <CooperationResult>
+          {parseInt(targetScore) <= totalScore ? `축하합니다. 목표 점수에 도달했습니다. 개인 점수에 ${user?.cooperationScore}점이 추가 부여 됩니다.` :
+            "아쉽지만 목표 점수에 도달하지 못하였습니다. 개인 점수만 결과에 저장됩니다."
+          }
+        </CooperationResult>}
         <ScoreList>
           {scoreArr.map((item, index) => {
             return <ScoreItem key={index}>
