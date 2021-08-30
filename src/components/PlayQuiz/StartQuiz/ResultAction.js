@@ -20,6 +20,9 @@ const StudentList = styled.div`
     display: flex;
     flex-wrap: wrap;
     line-height: 36px;
+    padding: 20px;
+    border: 2px solid rgb(200, 200, 200, 0.8);
+    border-radius: 5px;
   }
   .goldenBell_student {
     margin-right: 30px;
@@ -27,6 +30,10 @@ const StudentList = styled.div`
 `
 
 const StudentMsg = styled.div`
+
+`
+
+const GoldenBellResult = styled.div`
 
 `
 
@@ -185,6 +192,7 @@ const ResultAction = ({ student }) => {
     <LeaveBtn></LeaveBtn>
     {quizMode === "goldenBell" ?
       <StudentList>
+        <GoldenBellResult>축하합니다. 골든벨을 울린 학생들은 {user.goldenbellScore}점이 부여됩니다.</GoldenBellResult>
         <StudentMsg>골든벨을 울린 학생</StudentMsg>
         <div className="goldenBell_students">
           {student.map((item, index) => {
