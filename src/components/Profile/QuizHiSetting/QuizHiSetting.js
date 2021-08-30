@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import EditFirstPage from './EditFirstPage';
 import EditFont from './EditFont';
+import EditScore from './EditScore';
 
 const Container = styled.div`
   margin-top: 20px;
@@ -38,7 +39,13 @@ const QuizHiSetting = ({ firstPage, fontFamily, goldenbellScore, cooperationScor
     <EditFont fontFamily={fontFamilyW} setFontFamily={setFontFamily} username={username} id={id} />
     <DivisionLine></DivisionLine>
     <Title>골든벨, 협동 모드 점수 설정</Title>
-    {/* <EditBasicSetting /> */}
+    <EditScore
+      goldenbellScore={goldenbellScoreW}
+      setGoldenbellScore={setGoldenbellScore}
+      cooperationScore={cooperationScoreW}
+      setCooperationScore={setCooperationScore}
+      username={username} id={id}
+    />
   </Container>);
 }
 

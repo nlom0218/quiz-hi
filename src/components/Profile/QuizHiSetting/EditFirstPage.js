@@ -47,7 +47,7 @@ const SaveMsg = styled.div`
 `
 
 const EDIT_HOME_SETTING_MUTATION = gql`
-  mutation EditHomeSettingMutation($homeSetting: String!, $username: String!, $type: String!) {
+  mutation EditHomeSettingMutation($homeSetting: String, $username: String!, $type: String!) {
     editHomeSetting(homeSetting: $homeSetting, username: $username, type: $type) {
       ok
       error
