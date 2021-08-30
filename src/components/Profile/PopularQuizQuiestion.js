@@ -30,6 +30,10 @@ const PopularContainer = styled.div`
   margin-top: 20px;
 `
 
+const EmtpyMsg = styled.div`
+  margin-top: 20px;
+`
+
 const Wrapper = styled.div`
   display: grid;
   grid-template-rows: auto 1fr;
@@ -71,12 +75,19 @@ const SEE_POPULAR_QUESTION = gql`
   }
 `
 
-const PopularQuizQuiestion = ({ userId }) => {
+const PopularQuizQuiestion = ({ userId, totalPublicQuiz, totalPublicQuestion }) => {
+  const processPopular = () => {
+    if (totalPublicQuiz === 0 && totalPublicQuestion === 0) {
+      return false
+    } else {
+      return true
+    }
+  }
   const { data: quizData, loading: quizLoading } = useQuery(SEE_POPULAR_QUIZ, { variables: { userId } })
   const { data: questionData, loading: questionLoading } = useQuery(SEE_POPULAR_QUESTION, { variables: { userId } })
   return (<DetailInfoLayout>
     <Title><div><FontAwesomeIcon icon={faFire} /> 인기 퀴즈 & 문제</div></Title>
-    <PopularContainer>
+    {processPopular() ? <PopularContainer>
       <Wrapper>
         <SubTitle><FontAwesomeIcon icon={faBook} /> TOP3 퀴즈</SubTitle>
         {!quizLoading && <ContentList>
@@ -94,7 +105,9 @@ const PopularQuizQuiestion = ({ userId }) => {
           })}
         </ContentList>}
       </Wrapper>
-    </PopularContainer>
+    </PopularContainer> :
+      <EmtpyMsg>생성된 퀴즈, 문제가 없습니다.</EmtpyMsg>
+    }
   </DetailInfoLayout>);
 
 }

@@ -1,7 +1,7 @@
 import { faFacebook, faGithub, faInstagram, faTwitter, faYoutube } from '@fortawesome/free-brands-svg-icons';
-import { faBlog, faHouseUser, faIcons, faInfoCircle, faTags } from '@fortawesome/free-solid-svg-icons';
+import { faBlog, faHouseUser, faIcons, faInfoCircle, faPortrait, faTags } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { processNextLevelScore, processUserLevel, getCreatedDay } from '../../sharedFn';
@@ -12,8 +12,22 @@ const Container = styled.div`
   margin-top: 20px;
   display: grid;
   grid-template-columns: 1fr 2fr;
-  grid-template-rows: auto 1fr;
-  grid-gap: 20px;
+  column-gap: 20px;
+  align-items: flex-start;
+`
+
+const RigthContents = styled.div`
+  grid-column: 1 / 2;
+  display: grid;
+  grid-template-columns: 1fr;
+  row-gap: 20px;
+`
+
+const LeftContents = styled.div`
+  grid-column: 2 / 3;
+  display: grid;
+  grid-template-columns: 1fr;
+  row-gap: 20px;
 `
 
 const Title = styled.div`
@@ -26,8 +40,7 @@ const Title = styled.div`
 
 const BasicInfo = styled.div`
   align-self: flex-start;
-  grid-column: 1 / 2;
-  grid-row: 1 / 2;
+  grid-column: 1 / -1;
   padding: 20px;
   display: grid;
   grid-template-columns: 1fr;
@@ -53,8 +66,7 @@ const Wrapper = styled.div`
 
 const DetailInto = styled.div`
   align-self: flex-start;
-  grid-column: 2 / 3;
-  grid-row: 1 / -1;
+  grid-column: 1 / -1;
   display: grid;
   grid-template-columns: 1fr;
   grid-gap: 20px;
@@ -118,6 +130,10 @@ const TagList = styled.div`
   font-size: 14px;
 `
 
+const EmtpyMsg = styled.div`
+
+`
+
 const Tag = styled.div`
   margin-bottom: 5px;
   margin-right: 5px;
@@ -126,10 +142,9 @@ const Tag = styled.div`
   border-radius: 5px;
 `
 
-const UserSite = styled.div`
+const RigthContentLayout = styled.div`
   align-self: flex-start;
   grid-column: 1 / 2;
-  grid-row: 2 / 3;
   padding: 20px;
   border: 1px solid rgb(200, 200, 200, 0.6);
   background-color: ${props => props.theme.boxColor};
@@ -146,7 +161,30 @@ const PageList = styled.div`
   }
 `
 
+const UserCaption = styled.textarea`
+  margin-top: 16px;
+  line-height: 24px;
+  width: 100%;
+  height: ${props => props.txtHeight}px;
+  resize: none;
+  border: none;
+  font-size: 16px;
+  padding: 0px;
+  background-color: ${props => props.theme.boxColor};
+  transition: background-color 1s ease, color 1s ease;
+  :focus {
+    outline: none;
+  }
+`
+
 const BasicProfile = ({ data }) => {
+  const textarea = useRef()
+  const [txtHeight, setTxtHeight] = useState(null)
+  useEffect(() => {
+    if (caption) {
+      setTxtHeight(textarea.current.scrollHeight)
+    }
+  }, [])
   const { seeProfile: {
     id,
     nickname,
@@ -159,8 +197,10 @@ const BasicProfile = ({ data }) => {
     score,
     createdAt,
     tags,
-    personalPage
+    personalPage,
+    caption
   } } = data
+  console.log(caption);
   const personalPageArr = personalPage ?
     personalPage
       .split("!@#")
@@ -174,13 +214,6 @@ const BasicProfile = ({ data }) => {
     :
     []
   const level = processUserLevel(score)
-  const processPopular = () => {
-    if (totalPublicQuiz === 0 && totalPublicQuestion === 0) {
-      return false
-    } else {
-      return true
-    }
-  }
   const processPageIcon = (page) => {
     if (page === "인스타그램") {
       return <FontAwesomeIcon icon={faInstagram} />
@@ -199,82 +232,99 @@ const BasicProfile = ({ data }) => {
     }
   }
   return (<Container>
-    <BasicInfo>
-      <Title><div><FontAwesomeIcon icon={faInfoCircle} /> 기본정보</div></Title>
-      <Wrapper>
-        <div className="input">닉네임</div>
-        <div className="value">{nickname.length > 10 ? `${nickname.substring(0, 10)}...` : nickname}</div>
-      </Wrapper>
-      {type === "teacher" && <Wrapper>
-        <div className="input">이메일</div>
-        <div className="value">{email.length > 20 ? `${email.substring(0, 20)}...` : email}</div>
-      </Wrapper>}
-      <Wrapper>
-        <div className="input">가입일</div>
-        <div className="value">{getCreatedDay(createdAt)}</div>
-      </Wrapper>
-      <Wrapper>
-        <div className="input">팔로워</div>
-        <div className="value">{totalFollow}</div>
-      </Wrapper>
-      <Wrapper>
-        <div className="input">팔로잉</div>
-        <div className="value">{totalFollowing}</div>
-      </Wrapper>
-      {type === "teacher" && <Wrapper>
-        <div className="input">공유한 퀴즈</div>
-        <div className="value">{totalPublicQuiz}</div>
-      </Wrapper>}
-      {type === "teacher" && <Wrapper>
-        <div className="input">공유한 문제</div>
-        <div className="value">{totalPublicQuestion}</div>
-      </Wrapper>}
-    </BasicInfo>
-    <DetailInto>
-      <DetailInfoLayout>
-        <Title>Lv 레벨</Title>
-        <LevelContainer>
-          <Level>
-            <LevelStep level={level} />
-          </Level>
-          <LevelScore>
-            <div>현재 점수: {score}점</div>
-            <div className="nextLevel">
-              {level === 10 ? "최고레벨입니다." : `다음 레벨까지 ${processNextLevelScore(level, score)}점 남았습니다.`}
-            </div>
-          </LevelScore>
-          <LevelRule>
-            레벨에 대해 알아보기
+    <RigthContents>
+      <BasicInfo>
+        <Title><div><FontAwesomeIcon icon={faInfoCircle} /> 기본정보</div></Title>
+        <Wrapper>
+          <div className="input">닉네임</div>
+          <div className="value">{nickname.length > 10 ? `${nickname.substring(0, 10)}...` : nickname}</div>
+        </Wrapper>
+        {type === "teacher" && <Wrapper>
+          <div className="input">이메일</div>
+          <div className="value">{email.length > 20 ? `${email.substring(0, 20)}...` : email}</div>
+        </Wrapper>}
+        <Wrapper>
+          <div className="input">가입일</div>
+          <div className="value">{getCreatedDay(createdAt)}</div>
+        </Wrapper>
+        <Wrapper>
+          <div className="input">팔로워</div>
+          <div className="value">{totalFollow}</div>
+        </Wrapper>
+        <Wrapper>
+          <div className="input">팔로잉</div>
+          <div className="value">{totalFollowing}</div>
+        </Wrapper>
+        {type === "teacher" && <Wrapper>
+          <div className="input">공유한 퀴즈</div>
+          <div className="value">{totalPublicQuiz}</div>
+        </Wrapper>}
+        {type === "teacher" && <Wrapper>
+          <div className="input">공유한 문제</div>
+          <div className="value">{totalPublicQuestion}</div>
+        </Wrapper>}
+      </BasicInfo>
+      {caption && <RigthContentLayout>
+        <Title><div><FontAwesomeIcon icon={faPortrait} /> 자기소개</div></Title>
+        <UserCaption
+          value={caption}
+          readOnly="readOnly"
+          rows={1}
+          txtHeight={txtHeight}
+          ref={textarea}
+        ></UserCaption>
+      </RigthContentLayout>}
+      {personalPage && <RigthContentLayout>
+        <Title><div><FontAwesomeIcon icon={faHouseUser} /> 개인 홈페이지</div></Title>
+        <PageList>
+          {personalPageArr.map((item, index) => {
+            return <a href={`${item.url}`} target="_blank" key={index}>
+              {processPageIcon(item.page)}
+            </a>
+          })}
+        </PageList>
+      </RigthContentLayout>}
+    </RigthContents>
+    <LeftContents>
+      <DetailInto>
+        <DetailInfoLayout>
+          <Title>Lv 레벨</Title>
+          <LevelContainer>
+            <Level>
+              <LevelStep level={level} />
+            </Level>
+            <LevelScore>
+              <div>현재 점수: {score}점</div>
+              <div className="nextLevel">
+                {level === 10 ? "최고레벨입니다." : `다음 레벨까지 ${processNextLevelScore(level, score)}점 남았습니다.`}
+              </div>
+            </LevelScore>
+            <LevelRule>
+              레벨에 대해 알아보기
           </LevelRule>
-        </LevelContainer>
-      </DetailInfoLayout>
-      {tags.length !== 0 && <DetailInfoLayout>
-        <Title>
-          <div><FontAwesomeIcon icon={faTags} /> 팔로우 태그</div>
-          <TagsNum>{tags.length}개의 팔로우 태그</TagsNum>
-        </Title>
-        <TagContainer>
-          <TagList>
-            {tags.map((item, index) => {
-              return <React.Fragment key={index}>
-                <Link to={`/detail/tag/${item.id}/quiz/recent/1`}><Tag>{item.name}</Tag></Link>
-              </React.Fragment>
-            })}
-          </TagList>
-        </TagContainer>
-      </DetailInfoLayout>}
-      {processPopular() && <PopularQuizQuiestion userId={id} />}
-    </DetailInto>
-    {personalPage && <UserSite>
-      <Title><div><FontAwesomeIcon icon={faHouseUser} /> 개인 홈페이지</div></Title>
-      <PageList>
-        {personalPageArr.map((item, index) => {
-          return <a href={`${item.url}`} target="_blank" key={index}>
-            {processPageIcon(item.page)}
-          </a>
-        })}
-      </PageList>
-    </UserSite>}
+          </LevelContainer>
+        </DetailInfoLayout>
+        <DetailInfoLayout>
+          <Title>
+            <div><FontAwesomeIcon icon={faTags} /> 팔로우 태그</div>
+            <TagsNum>{tags.length}개의 팔로우 태그</TagsNum>
+          </Title>
+          <TagContainer>
+            {tags.length !== 0 ? <TagList>
+              {tags.map((item, index) => {
+                return <React.Fragment key={index}>
+                  <Link to={`/detail/tag/${item.id}/quiz/recent/1`}><Tag>{item.name}</Tag></Link>
+                </React.Fragment>
+              })}
+            </TagList>
+              :
+              <EmtpyMsg>팔로우 태그가 없습니다.</EmtpyMsg>}
+          </TagContainer>
+        </DetailInfoLayout>
+        <PopularQuizQuiestion userId={id} totalPublicQuiz={totalPublicQuiz} totalPublicQuestion={totalPublicQuestion} />
+      </DetailInto>
+    </LeftContents>
+
   </Container>);
 }
 
