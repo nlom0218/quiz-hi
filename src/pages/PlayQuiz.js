@@ -54,6 +54,7 @@ const PlayQuiz = () => {
   const [quizMode, setQuizMode] = useState(localStorage.getItem("selectMode") || null)
   const [quizList, setQuizList] = useState(JSON.parse(localStorage.getItem("quizList")) || null)
   const [students, setStduents] = useState([])
+  const [targetScore, setTargetScore] = useState(undefined)
   const [type, setType] = useState(undefined)
   const onClickResetBtn = () => {
     localStorage.removeItem("selectQuiz")
@@ -93,19 +94,19 @@ const PlayQuiz = () => {
               </OptionBox>
               <OptionBox>
                 <OptionTitle>모드 선택하기</OptionTitle>
-                <OptionContent><SelectMode quizMode={quizMode} setQuizMode={setQuizMode} setType={setType} /></OptionContent>
+                <OptionContent><SelectMode quizMode={quizMode} setQuizMode={setQuizMode} setType={setType} setStduents={setStduents} /></OptionContent>
               </OptionBox>
               <OptionBox>
                 <OptionTitle>문제, 정답 미리보기</OptionTitle>
-                <OptionContent><Preview quizMode={quizMode} quizId={quizId} quizList={quizList} setQuizList={setQuizList} setChange={setChange} /></OptionContent>
+                <OptionContent><Preview quizMode={quizMode} quizId={quizId} quizList={quizList} setQuizList={setQuizList} setChange={setChange} students={students} /></OptionContent>
               </OptionBox>
               {questionSetting() && <OptionBox>
                 <OptionTitle>진행하기 / 내보내기</OptionTitle>
-                <OptionContent><CallSendQuiz students={students} setStduents={setStduents} type={type} setType={setType} quizMode={quizMode} /></OptionContent>
+                <OptionContent><CallSendQuiz students={students} setStduents={setStduents} type={type} setType={setType} quizMode={quizMode} quizList={quizList} targetScore={targetScore} setTargetScore={setTargetScore} /></OptionContent>
               </OptionBox>}
               <OptionBox>
                 <OptionTitle>퀴즈 진행하기</OptionTitle>
-                <OptionContent><CompleteSetting quizId={quizId} quizMode={quizMode} students={students} type={type} quizList={quizList} setStartQuiz={setStartQuiz} /></OptionContent>
+                <OptionContent><CompleteSetting quizId={quizId} quizMode={quizMode} students={students} type={type} quizList={quizList} setStartQuiz={setStartQuiz} targetScore={targetScore} /></OptionContent>
               </OptionBox>
             </PlayQuizLayout>
           </BasicContainer>

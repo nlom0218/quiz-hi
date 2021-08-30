@@ -1,5 +1,5 @@
 import { gql, useQuery } from '@apollo/client';
-import { faBook, faBookOpen, faCog, faGamepad, faShare, faUserFriends } from '@fortawesome/free-solid-svg-icons';
+import { faBook, faBookOpen, faBullseye, faCog, faGamepad, faShare, faUserFriends } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useState } from 'react';
 import styled from 'styled-components';
@@ -55,7 +55,7 @@ const DETATIL_QUIZ_QUERY = gql`
   }
 `
 
-const CompleteSetting = ({ quizId, quizMode, type, quizList, students, setStartQuiz }) => {
+const CompleteSetting = ({ quizId, quizMode, type, quizList, students, setStartQuiz, targetScore }) => {
   const { data, loading } = useQuery(DETATIL_QUIZ_QUERY, {
     variables: { id: parseInt(quizId) },
     skip: !quizId
@@ -123,6 +123,16 @@ const CompleteSetting = ({ quizId, quizMode, type, quizList, students, setStartQ
       return `개인이 얻을 수 있는 최고점은 ${totalScore}점입니다.`
     }
   }
+  const processTargetScore = () => {
+    if (!quizList) {
+      return
+    }
+    if (targetScore) {
+      return `목표점수가 ${targetScore}점으로 설정되었습니다.`
+    } else {
+      return <span>목표 점수를 설정해 주세요.</span>
+    }
+  }
   const joinStudents = () => {
     if (!type) {
       return false
@@ -158,6 +168,9 @@ const CompleteSetting = ({ quizId, quizMode, type, quizList, students, setStartQ
     if (quizMode === "cooperation" && quizList.map((item) => item.score).includes(undefined)) {
       return false
     }
+    if (quizMode === "cooperation" && !targetScore) {
+      return false
+    }
     if (type !== "nomal" && students.length === 0) {
       return false
     }
@@ -173,6 +186,7 @@ const CompleteSetting = ({ quizId, quizMode, type, quizList, students, setStartQ
     } else {
       localStorage.setItem("joinStudent", JSON.stringify(students))
       localStorage.setItem("startQuiz", true)
+      localStorage.setItem("targetScore", targetScore)
       setStartQuiz(true)
     }
   }
@@ -192,6 +206,10 @@ const CompleteSetting = ({ quizId, quizMode, type, quizList, students, setStartQ
     {questionSetting() && <Wrapper>
       <div className="leftContent"><FontAwesomeIcon icon={faCog} />설정</div>
       <div className="rightContent">{quizMode === "goldenBell" ? processConsolationQuestion() : processScoreQuestion()}</div>
+    </Wrapper>}
+    {quizMode === "cooperation" && <Wrapper>
+      <div className="leftContent"><FontAwesomeIcon icon={faBullseye} />목표</div>
+      <div className="rightContent">{processTargetScore()}</div>
     </Wrapper>}
     {questionSetting() &&
       <React.Fragment>

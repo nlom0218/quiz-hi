@@ -32,6 +32,9 @@ const Wrapper = styled.div`
 const ConsolationQuestion = styled.div`
   justify-self: center;
   color: tomato;
+  display: grid;
+  row-gap: 20px;
+  justify-items: center;
 `
 
 const DETATIL_QUIZ_QUERY = gql`
@@ -55,7 +58,7 @@ const DETATIL_QUIZ_QUERY = gql`
   }
 `
 
-const Preview = ({ quizMode, quizId, quizList, setQuizList, setChange }) => {
+const Preview = ({ quizMode, quizId, quizList, setQuizList, setChange, students }) => {
   const onCompleted = () => {
     const quizList = data.detailQuiz.questions.map((item, index) => {
       return {
@@ -116,6 +119,21 @@ const Preview = ({ quizMode, quizId, quizList, setQuizList, setChange }) => {
       return `점수 설정이 완료되었습니다. 개인이 얻을 수 있는 최고점은 ${totalScore}점입니다.`
     }
   }
+  const processCooperationQuestion = () => {
+    if (!quizList) {
+      return
+    }
+    if (students.length === 0) {
+      return `학생들을 선택하면 총점이 계산됩니다.`
+    }
+    const scoreArr = quizList.map((item) => item.score)
+    if (scoreArr.includes(undefined)) {
+      return
+    } else {
+      const totalScore = scoreArr.reduce((acc, cur) => acc + cur) * students.length
+      return `목표 점수의 최고점은 ${totalScore}점입니다.`
+    }
+  }
   const unityScore = () => {
     if (!quizList) {
       return
@@ -143,7 +161,10 @@ const Preview = ({ quizMode, quizId, quizList, setQuizList, setChange }) => {
     {quizList && <PreviewList quizList={quizList} quizMode={quizMode} setQuizList={setQuizList} setChange={setChange} />}
     {quizMode === "goldenBell" && <ConsolationQuestion>{processConsolationQuestion()}</ConsolationQuestion>}
     {quizMode === "score" && <ConsolationQuestion>{processScoreQuestion()}</ConsolationQuestion>}
-    {quizMode === "cooperation" && <ConsolationQuestion>{processScoreQuestion()}</ConsolationQuestion>}
+    {quizMode === "cooperation" && <ConsolationQuestion>
+      <div>{processScoreQuestion()}</div>
+      <div>{processCooperationQuestion()}</div>
+    </ConsolationQuestion>}
   </Container >);
 }
 

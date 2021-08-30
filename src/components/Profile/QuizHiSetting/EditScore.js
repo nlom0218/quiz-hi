@@ -128,7 +128,8 @@ const EditScore = ({ goldenbellScore, setGoldenbellScore, cooperationScore, setC
       </Wrapper>
       <Wrapper>
         <div className="edit_title">협동 모드 점수 설정</div>
-        <div>협동 모드에서 학생들이 목표 점수를 넘기면 부여하는 점수를 설정합니다.</div>
+        <div>협동 모드에서 목표 점수를 넘기면 부여하는 점수를 설정합니다.</div>
+        <div>학생 개인의 최종 점수: 개인 점수 + 협동 모드 점수</div>
         <ScoreList>
           {[20, 40, 60, 80, 100, 120, 140, 160, 180, 200].map((item, index) => {
             return <Score key={index}>

@@ -44,11 +44,12 @@ const ExplainMode = styled.div`
   line-height: 20px;
 `
 
-const SelectMode = ({ quizMode, setQuizMode, setType }) => {
+const SelectMode = ({ quizMode, setQuizMode, setType, setStduents }) => {
   const onClickModeBtn = (mode) => {
     localStorage.setItem("selectMode", mode)
     setQuizMode(mode)
     setType(undefined)
+    setStduents([])
   }
   const processQuizMode = () => {
     if (quizMode === "nomal") {
