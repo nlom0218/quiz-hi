@@ -115,8 +115,11 @@ const QuizFeedContainer = ({ children, feedType, sort, page, lastPage, tagsArr, 
       return "조회순"
     }
   }
-  const onClickSortBtn = () => {
-    setSeeSortList(prev => !prev)
+  const onMouseOver = () => {
+    setSeeSortList(true)
+  }
+  const onMouseLeave = () => {
+    setSeeSortList(false)
   }
   const onClickSortItem = (sort) => {
     history.push(`/feed/${feedType}/${seeType}/${sort}/1${location.search}`)
@@ -147,10 +150,10 @@ const QuizFeedContainer = ({ children, feedType, sort, page, lastPage, tagsArr, 
         </form>
       </SearchBar>
       {checkPageBar() ? <PageBar lastPage={lastPage} /> : null}
-      <SortBar onClick={onClickSortBtn}>
+      <SortBar onMouseOver={onMouseOver} onMouseLeave={onMouseLeave}>
         <Sort>{processSort(sort)}</Sort>
         <SortBtn>
-          <FontAwesomeIcon icon={seeSortList ? faChevronUp : faChevronDown} />
+          <FontAwesomeIcon icon={faChevronDown} />
         </SortBtn>
         {seeSortList && <SortList>
           <SortItem onClick={() => onClickSortItem("recent")}>최신순

@@ -69,13 +69,13 @@ const Profile = () => {
           {mode === "info" && <BottomProfile><BasicProfile data={{ ...data }} /></BottomProfile>}
           {mode === "quizQuestion" && <BottomProfile><UserQuizQuestion data={{ ...data }} /></BottomProfile>}
           {mode === "edit" && <BottomProfile>
-            {user.username === username && <EditProfile {...data?.seeProfile} />}
+            {user?.username === username && <EditProfile {...data?.seeProfile} />}
           </BottomProfile>}
           {mode === "setting" && <BottomProfile>
-            {user.username === username && <QuizHiSetting {...data?.seeProfile} />}
+            {user?.username === username && <QuizHiSetting {...data?.seeProfile} />}
           </BottomProfile>}
           {mode === "student" && <BottomProfile>
-            {user.username === username && <ManagemnetStudent {...data?.seeProfile} />}
+            {user?.username === username && <ManagemnetStudent {...data?.seeProfile} />}
           </BottomProfile>}
         </React.Fragment>
       }
