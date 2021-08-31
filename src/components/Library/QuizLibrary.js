@@ -70,7 +70,7 @@ const QuizLibrary = () => {
     onCompleted
   })
   return (
-    <LibraryContainer loading={loading} totalNum={data?.seeFollowQuiz?.totalNum} lastPage={lastPage}>
+    <LibraryContainer loading={loading} totalNum={data?.seeFollowQuiz?.totalNum} lastPage={lastPage} quiz={true}>
       <QuizList>
         {
           data?.seeFollowQuiz?.quiz.map((item, index) => {

@@ -1,11 +1,12 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
 import styled from 'styled-components';
-import { faBook } from '@fortawesome/free-solid-svg-icons';
+import { faBook, faBookOpen } from '@fortawesome/free-solid-svg-icons';
 import { useHistory, useParams } from 'react-router';
 import { ScrollTrigger } from "gsap/ScrollTrigger"
 import { gsap } from "gsap"
 import { LibraryFeedBottomContainerGsap } from '../../hooks/Gsap';
+import LibraryLeftContent from './LibraryLeftContent';
 gsap.registerPlugin(ScrollTrigger)
 
 const SLibraryContainer = styled.div`
@@ -57,7 +58,7 @@ const PageBarBtn = styled.div`
   }
 `
 
-const LibarayContainer = ({ children, loading, totalNum, lastPage }) => {
+const LibarayContainer = ({ children, loading, totalNum, lastPage, quiz }) => {
   const { page, type } = useParams()
   const history = useHistory()
   const onClickPageBtn = (btn) => {
@@ -82,14 +83,15 @@ const LibarayContainer = ({ children, loading, totalNum, lastPage }) => {
         <React.Fragment>
           <TopBar>
             <ContentsNum>
-              <FontAwesomeIcon icon={faBook} />{totalNum}개의 퀴즈
-      </ContentsNum>
+              <FontAwesomeIcon icon={quiz ? faBook : faBookOpen} />{totalNum}개의 퀴즈
+            </ContentsNum>
             <PageBar>
               <PageBarBtn firstPage={parseInt(page) === 1 ? true : false} onClick={() => onClickPageBtn("pre")}>이전</PageBarBtn>
               <PageBarBtn lastPage={lastPage === parseInt(page)} onClick={() => onClickPageBtn("next")}>다음</PageBarBtn>
             </PageBar>
           </TopBar>
           {children}
+          <LibraryLeftContent/>
         </React.Fragment>
       }
     </SLibraryContainer>
