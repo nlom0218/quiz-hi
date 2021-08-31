@@ -24,7 +24,7 @@ const MakeQuiz = () => {
   const [makeQuiz, setMakeQuiz] = useState(false)
   const [questionNum, setQuestionNum] = useState(["q"])
   useEffect(() => {
-    if (user.type === "nomal") {
+    if (user?.type === "nomal") {
       setState("private")
     }
   }, [])
