@@ -171,6 +171,7 @@ const UserCaption = styled.textarea`
   font-size: 16px;
   padding: 0px;
   background-color: ${props => props.theme.boxColor};
+  color: ${props => props.theme.fontColor};
   transition: background-color 1s ease, color 1s ease;
   :focus {
     outline: none;

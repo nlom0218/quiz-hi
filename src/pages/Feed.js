@@ -1,7 +1,5 @@
-import { faBook, faTags } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import React, { useEffect, useState } from 'react';
-import styled from 'styled-components';
+import React from 'react';
 import BasicContainer from '../components/BasicContainer';
 import Header from '../components/Header';
 import PageTitle from '../components/PageTitle';
