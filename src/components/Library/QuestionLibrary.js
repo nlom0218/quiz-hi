@@ -71,7 +71,7 @@ const QuestionLibrary = () => {
     onCompleted
   })
   return (
-    <LibraryContainer loading={loading} totalNum={data?.seeFollowQuestion?.totalNum} lastPage={lastPage} quiz={false}>
+    <LibraryContainer loading={loading} totalNum={data?.seeFollowQuestion?.totalNum} lastPage={lastPage} quiz={false} setPutQuiz={setPutQuiz}>
       <QuizList>
         {
           data?.seeFollowQuestion?.question.map((item, index) => {

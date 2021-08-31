@@ -1,8 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import { faTrashAlt } from '@fortawesome/free-regular-svg-icons';
 import { onClickResetBasket, removeBasketItem } from './basketFn';
-import { faPlay, faRedo, faShare, faShoppingCart } from '@fortawesome/free-solid-svg-icons';
+import { faMinusCircle, faRedo, faShare, faShoppingCart } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { fadeIn } from '../../animation/fade';
 import gql from 'graphql-tag';
@@ -96,7 +95,7 @@ const QuizQuestionBasket = ({ setPutQuiz }) => {
     onCompleted: (result) => {
       if (result.followQuiz.ok) {
         if (window.confirm("퀴즈가 라이브러리에 저장이 되었습니다.\n라이브러리로 이동하시겠습니까?")) {
-          history.push("/play-quiz")
+          history.push("/library/quiz/1")
           window.location.reload()
         }
         localStorage.removeItem("quizBasket")
@@ -110,7 +109,7 @@ const QuizQuestionBasket = ({ setPutQuiz }) => {
     onCompleted: (result) => {
       if (result.followQuestion.ok) {
         if (window.confirm("문제가 라이브러리에 저장이 되었습니다.\n라이브러리로 이동하시겠습니까?")) {
-          history.push("/play-quiz")
+          history.push("/library/question/1")
           window.location.reload()
         }
         localStorage.removeItem("questionBasket")
@@ -181,7 +180,7 @@ const QuizQuestionBasket = ({ setPutQuiz }) => {
                   removeBasketItem("quiz", item.id)
                   setPutQuiz(prev => !prev)
                 }}
-              ><FontAwesomeIcon icon={faTrashAlt} /></ItemRemoveBtn>
+              ><FontAwesomeIcon icon={faMinusCircle} /></ItemRemoveBtn>
             </BasketItem>
           })}
         </BasketList>}
@@ -206,7 +205,7 @@ const QuizQuestionBasket = ({ setPutQuiz }) => {
                   removeBasketItem("question", item.id)
                   setPutQuiz(prev => !prev)
                 }}
-              ><FontAwesomeIcon icon={faTrashAlt} /></ItemRemoveBtn>
+              ><FontAwesomeIcon icon={faMinusCircle} /></ItemRemoveBtn>
             </BasketItem>
           })}
         </BasketList>}

@@ -55,3 +55,25 @@ export const checkLibraryQuestionBasket = (id) => {
     return false
   }
 }
+
+export const removeLibraryBasketItem = (type, id) => {
+  if (type === "quiz") {
+    const libraryQuizBasket = JSON.parse(localStorage.getItem("libraryQuizBasket"))
+    const newLibraryQuizBasket = libraryQuizBasket.filter((item) => item.id !== id)
+    localStorage.setItem("libraryQuizBasket", JSON.stringify(newLibraryQuizBasket))
+  } else if (type === "question") {
+    if (type === "question") {
+      const libraryQuestionBasket = JSON.parse(localStorage.getItem("libraryQuestionBasket"))
+      const newLibraryQuestionBasket = libraryQuestionBasket.filter((item) => item.id !== id)
+      localStorage.setItem("libraryQuestionBasket", JSON.stringify(newLibraryQuestionBasket))
+    }
+  }
+}
+
+export const onClickResetLibraryBasket = (type) => {
+  if (type === "quiz") {
+    localStorage.removeItem("libraryQuizBasket")
+  } else if (type === "question") {
+    localStorage.removeItem("libraryQuestionBasket")
+  }
+}

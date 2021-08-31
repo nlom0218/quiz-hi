@@ -58,7 +58,7 @@ const PageBarBtn = styled.div`
   }
 `
 
-const LibarayContainer = ({ children, loading, totalNum, lastPage, quiz }) => {
+const LibarayContainer = ({ children, loading, totalNum, lastPage, quiz, setPutQuiz }) => {
   const { page, type } = useParams()
   const history = useHistory()
   const onClickPageBtn = (btn) => {
@@ -78,7 +78,7 @@ const LibarayContainer = ({ children, loading, totalNum, lastPage, quiz }) => {
   }
   return (
     <SLibraryContainer className="libraryContainer">
-      <LibraryFeedBottomContainerGsap/>
+      <LibraryFeedBottomContainerGsap />
       {loading ? "loading..." :
         <React.Fragment>
           <TopBar>
@@ -91,7 +91,7 @@ const LibarayContainer = ({ children, loading, totalNum, lastPage, quiz }) => {
             </PageBar>
           </TopBar>
           {children}
-          <LibraryLeftContent/>
+          <LibraryLeftContent setPutQuiz={setPutQuiz} />
         </React.Fragment>
       }
     </SLibraryContainer>
