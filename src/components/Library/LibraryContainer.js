@@ -3,6 +3,10 @@ import React from 'react';
 import styled from 'styled-components';
 import { faBook } from '@fortawesome/free-solid-svg-icons';
 import { useHistory, useParams } from 'react-router';
+import { ScrollTrigger } from "gsap/ScrollTrigger"
+import { gsap } from "gsap"
+import { LibraryFeedBottomContainerGsap } from '../../hooks/Gsap';
+gsap.registerPlugin(ScrollTrigger)
 
 const SLibraryContainer = styled.div`
   grid-column: 2 / -2;
@@ -72,7 +76,8 @@ const LibarayContainer = ({ children, loading, totalNum, lastPage }) => {
     }
   }
   return (
-    <SLibraryContainer>
+    <SLibraryContainer className="libraryContainer">
+      <LibraryFeedBottomContainerGsap/>
       {loading ? "loading..." :
         <React.Fragment>
           <TopBar>

@@ -201,7 +201,6 @@ const BasicProfile = ({ data }) => {
     personalPage,
     caption
   } } = data
-  console.log(caption);
   const personalPageArr = personalPage ?
     personalPage
       .split("!@#")
