@@ -1,12 +1,11 @@
-import { useMutation, useQuery } from '@apollo/client';
-import { faBook } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { useQuery } from '@apollo/client';
 import gql from 'graphql-tag';
 import React, { useState } from 'react';
-import { useHistory, useParams } from 'react-router';
+import { useParams } from 'react-router';
 import styled from 'styled-components';
 import useUser from '../../hooks/useUser';
 import QuizItem from "./QuizItem"
+import LibraryContainer from "./LibraryContainer"
 
 const SEE_FOLLOW_QUIZ_QUERY = gql`
   query seeFollowQuiz($id: Int!, $page: Int!) {
@@ -34,55 +33,6 @@ const SEE_FOLLOW_QUIZ_QUERY = gql`
   }
 `
 
-const LibraryContainer = styled.div`
-  grid-column: 2 / -2;
-  display: grid;
-  grid-template-columns: 4fr 1fr;
-  gap: 30px;
-`
-
-const TopBar = styled.div`
-  margin-top: 30px;
-  grid-column: 1 / -1;
-  display: grid;
-  grid-template-columns: 3fr 1fr 1fr;
-  gap: 30px;
-`
-
-const ContentsNum = styled.div`
-  grid-column: 1 / 2;
-  align-self: flex-end;
-  svg {
-    margin-right: 10px;
-  }
-`
-
-const PageBar = styled.div`
-  justify-self: flex-end;
-  align-self: flex-end;
-  border: 1px solid rgb(200, 200, 200, 0.6);
-  border-radius: 5px;
-  display: flex;
-  position: relative;
-`
-
-const PageBarBtn = styled.div`
-  padding: 8px 20px;
-  transition: background-color 0.2s linear;
-  :hover {
-    background-color: rgb(200, 200, 200, 0.2);
-  }
-  :first-child {
-    border-right: 1px solid rgb(200, 200, 200, 0.6);
-    opacity: ${props => props.firstPage ? "0.4" : "1"};
-    cursor: ${props => props.firstPage ? "not-allowd" : "pointer"};
-  }
-  :nth-child(2) {
-    opacity: ${props => props.lastPage ? "0.4" : "1"};
-    cursor: ${props => props.lastPage ? "not-allowd" : "pointer"};
-  }
-`
-
 const QuizList = styled.div`
   grid-column: 1 / 2;
   align-self: flex-start;
@@ -96,9 +46,8 @@ const QuizList = styled.div`
 `
 
 const QuizLibrary = () => {
-  const history = useHistory()
   const user = useUser()
-  const { page, type } = useParams()
+  const { page } = useParams()
   const [lastPage, setLastPage] = useState(null)
   const onCompleted = (data) => {
     if (data.seeFollowQuiz.totalNum === 0) {
@@ -120,43 +69,15 @@ const QuizLibrary = () => {
     skip: Boolean(!user),
     onCompleted
   })
-  const onClickPageBtn = (btn) => {
-    if (btn === "pre") {
-      if (parseInt(page) === 1) {
-        return
-      } else {
-        history.push(`/library/${type}/${parseInt(page) - 1}`)
-      }
-    } else if (btn === "next") {
-      if (lastPage === parseInt(page)) {
-        return
-      } else {
-        history.push(`/library/${type}/${parseInt(page) + 1}`)
-      }
-    }
-  }
   return (
-    <LibraryContainer>
-      {loading ? "loading..." :
-        <React.Fragment>
-          <TopBar>
-            <ContentsNum>
-              <FontAwesomeIcon icon={faBook} />{data?.seeFollowQuiz?.totalNum}개의 퀴즈
-        </ContentsNum>
-            <PageBar>
-              <PageBarBtn firstPage={parseInt(page) === 1 ? true : false} onClick={() => onClickPageBtn("pre")}>이전</PageBarBtn>
-              <PageBarBtn lastPage={lastPage === parseInt(page)} onClick={() => onClickPageBtn("next")}>다음</PageBarBtn>
-            </PageBar>
-          </TopBar>
-          <QuizList>
-            {
-              data?.seeFollowQuiz?.quiz.map((item, index) => {
-                return <QuizItem key={index} {...item} />
-              })
-            }
-          </QuizList>
-        </React.Fragment>
-      }
+    <LibraryContainer loading={loading} totalNum={data?.seeFollowQuiz?.totalNum} lastPage={lastPage}>
+      <QuizList>
+        {
+          data?.seeFollowQuiz?.quiz.map((item, index) => {
+            return <QuizItem key={index} {...item} />
+          })
+        }
+      </QuizList>
     </LibraryContainer>);
 }
 
