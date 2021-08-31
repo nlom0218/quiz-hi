@@ -16,7 +16,7 @@ const Feed = () => {
     <Header />
     <BasicContainer>
       <PageTitle><FontAwesomeIcon icon={faClipboard} /> 퀴즈 피드</PageTitle>
-      <FeedType feedType={type} />
+      <FeedType feedType={type} feed={true} />
       {type === "quiz" && <SeeQuiz feedType={type} />}
       {type === "question" && <SeeQuestion feedType={type} />}
     </BasicContainer>

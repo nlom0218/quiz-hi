@@ -38,7 +38,7 @@ function App() {
           <Route exact path="/detail/tag/:id/:type/:sort/:page">{isLoggedIn ? <FeedTag /> : <NotFound />}</Route>
           <Route exact path="/make-quiz">{isLoggedIn ? <MakeQuiz /> : <NotFound />}</Route>
           <Route exact path="/play-quiz">{isLoggedIn ? <PlayQuiz /> : <NotFound />}</Route>
-          <Route exact path="/library">{isLoggedIn ? <Library /> : <NotFound />}</Route>
+          <Route exact path="/library/:type/:page">{isLoggedIn ? <Library /> : <NotFound />}</Route>
           <Route exact path="/profile/:username/:mode/:state/:type/:page">{isLoggedIn ? <Profile /> : <NotFound />}</Route>
           <Route exact path="/profile/:username/:mode">{isLoggedIn ? <Profile /> : <NotFound />}</Route>
           <Route exact path="/edit/:type/:id">{isLoggedIn ? <Edit /> : <NotFound />}</Route>

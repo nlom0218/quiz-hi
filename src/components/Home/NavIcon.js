@@ -90,7 +90,7 @@ const NavIcon = () => {
         </Icon>
         <Description>피드</Description>
       </Wapper>
-      <Wapper onClick={() => onClinkNavBtn("library")}>
+      <Wapper onClick={() => onClinkNavBtn("library/quiz/1")}>
         <Icon>
           <FontAwesomeIcon icon={faBookReader} />
         </Icon>

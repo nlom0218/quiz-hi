@@ -18,10 +18,16 @@ const SFeedType = styled.div`
   transition: background-color 0.5s linear;
 `
 
-const FeedType = ({ feedType }) => {
+const FeedType = ({ feedType, feed }) => {
   return (<FeedTypeWrapper>
-    <Link to="/feed/quiz/all/recent/1"><SFeedType selected={feedType === "quiz"}>퀴즈</SFeedType></Link>
-    <Link to="/feed/question/all/recent/1"><SFeedType selected={feedType === "question"}>문제</SFeedType></Link>
+    <Link
+      to={feed ? "/feed/quiz/all/recent/1" : "/library/quiz/1"}
+    >
+      <SFeedType selected={feedType === "quiz"}>퀴즈</SFeedType></Link>
+    <Link
+      to={feed ? "/feed/question/all/recent/1" : "/library/question/1"}
+    >
+      <SFeedType selected={feedType === "question"}>문제</SFeedType></Link>
   </FeedTypeWrapper>);
 }
 
