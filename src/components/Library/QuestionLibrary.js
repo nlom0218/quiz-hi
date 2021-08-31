@@ -49,6 +49,7 @@ const QuestionLibrary = () => {
   const user = useUser()
   const { page } = useParams()
   const [lastPage, setLastPage] = useState(null)
+  const [putQuiz, setPutQuiz] = useState(false)
   const onCompleted = (data) => {
     if (data.seeFollowQuestion.totalNum === 0) {
       setLastPage(1)
@@ -74,7 +75,7 @@ const QuestionLibrary = () => {
       <QuizList>
         {
           data?.seeFollowQuestion?.question.map((item, index) => {
-            return <QuestionItem key={index} {...item} />
+            return <QuestionItem key={index} {...item} setPutQuiz={setPutQuiz} />
           })
         }
       </QuizList>

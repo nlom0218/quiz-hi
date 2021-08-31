@@ -8,6 +8,7 @@ import { useHistory } from 'react-router';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { getCreatedDay } from '../../sharedFn';
+import { checkLibraryQuizBasket, onClickLibraryQuizBasketBtn } from './libraryBasketFn';
 
 const SQuizItem = styled.div`
   padding: 20px;
@@ -106,6 +107,10 @@ const QuizTag = styled.div`
   border-radius: 5px;
 `
 
+const QuizBasketBtn = styled.div`
+  cursor: pointer;
+`
+
 const UPDATE_HIT_MUTATION = gql`
   mutation updateHit($id: Int!, $type: String!) {
     updateHit(id: $id, type: $type) {
@@ -153,6 +158,12 @@ const QuizItem = ({ id, title, user: { nickname, avatarURL, username, id: userId
     <QuizTitle onClick={updateHit}>
       {title.length > 40 ? `${title.substring(0, 40)}...` : title}
     </QuizTitle>
+    <QuizBasketBtn onClick={() => {
+      onClickLibraryQuizBasketBtn(title, id)
+      setPutQuiz(prev => !prev)
+    }}>
+      <FontAwesomeIcon icon={checkLibraryQuizBasket(id) ? faCheckSquare : faSquare} />
+    </QuizBasketBtn>
     <QuizInfo>
       <Wrapper>
         <Username onClick={onClickUsername}>
