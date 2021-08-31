@@ -109,8 +109,8 @@ const EditFirstPage = ({ firstPage, setFirstPage, username, id }) => {
             onClick={() => onClickpage("/feed/quiz/all/recent/1")}
             icon={processFirstpage("/feed/quiz/all/recent/1") ? faCheckCircle : faCircle} />피드</div>
           <div><FontAwesomeIcon
-            onClick={() => onClickpage("/library")}
-            icon={processFirstpage("/library") ? faCheckCircle : faCircle} />라이브러리</div>
+            onClick={() => onClickpage("/library/quiz/1")}
+            icon={processFirstpage("/library/quiz/1") ? faCheckCircle : faCircle} />라이브러리</div>
           <div><FontAwesomeIcon
             onClick={() => onClickpage("/make-quiz")}
             icon={processFirstpage("/make-quiz") ? faCheckCircle : faCircle} />퀴즈 만들기</div>
