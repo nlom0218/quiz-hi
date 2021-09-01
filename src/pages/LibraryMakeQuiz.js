@@ -21,6 +21,8 @@ const SEE_NEW_MAKE_QUESTION_ID = gql`
     seeNewMakeQuestion(id: $id, questionId: $questionId) {
       question
       id 
+      distractor
+      answer
     }
   }
 `

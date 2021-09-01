@@ -1,6 +1,6 @@
 import { useQuery } from '@apollo/client';
-import { faCheckSquare, faFile, faSquare } from '@fortawesome/free-regular-svg-icons';
-import { faRedoAlt } from '@fortawesome/free-solid-svg-icons';
+import { faBell, faCheckSquare, faFile, faSquare } from '@fortawesome/free-regular-svg-icons';
+import { faListOl, faRedoAlt } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import gql from 'graphql-tag';
 import React, { useState } from 'react';
@@ -12,6 +12,11 @@ const Container = styled.div`
   display: grid;
   grid-template-columns: 1fr;
   row-gap: 60px;
+`
+
+const DivdieLine = styled.div`
+  height: 1px;
+  background-color: rgb(200, 200, 200, 0.8);
 `
 
 const Wrapper = styled.div`
@@ -69,9 +74,50 @@ const CheckBox = styled.div`
 
 const QuestionOrder = styled.div``
 
+const PreviewList = styled.div`
+  display: grid;
+  grid-template-columns: 1fr;
+  row-gap: 30px;
+  line-height: 24px;
+`
+
+const PreviewItem = styled.div`
+  display: grid;
+  grid-template-columns: 1fr auto;
+  row-gap: 30px;
+  border: 1px solid rgb(200, 200, 200, 0.8);
+  padding: 30px 20px;
+  align-items: flex-start;
+  .quizContent {
+    display: grid;
+    grid-template-columns: 1fr;
+    row-gap: 30px;
+  }
+`
+
+const PreviewWrapper = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 5fr;
+`
+
+const DisTractorItem = styled.li`
+  display: grid;
+  grid-template-columns: auto 1fr;
+  .num {
+    margin-right: 10px;
+    align-self: flex-start;
+  }
+`
+
+const DistractorContent = styled.div`
+  align-self: flex-start;
+  justify-self: flex-start;
+  line-height: 24px;
+  color: ${props => props.answer ? "tomato" : props.theme.fontColor};
+`
+
 const SetQuestionOrder = ({ dataQuestions }) => {
   const [questions, setQuestions] = useState(dataQuestions)
-
   const onClickOrderCheckBox = (id) => {
     const orderArr = (questions.map((item) => {
       if (item.order) {
@@ -104,6 +150,15 @@ const SetQuestionOrder = ({ dataQuestions }) => {
     })
     setQuestions(newQuestions)
   }
+  const processAnswer = (answer) => {
+    if (answer === "true") {
+      return "○"
+    } else if (answer === "false") {
+      return "✕"
+    } else {
+      return answer
+    }
+  }
 
   return (<Container>
     <Wrapper>
@@ -123,9 +178,38 @@ const SetQuestionOrder = ({ dataQuestions }) => {
         })}
       </SetOrder>
     </Wrapper>
+    <DivdieLine></DivdieLine>
     <Wrapper>
       <Title>문제, 정답 미리보기</Title>
-      ㅇㄴㄹㄴㅇㄹ
+      <PreviewList>
+        {questions.filter((item) => item.order).sort(compare("order")).map((item, index) => {
+          return <PreviewItem key={index}>
+            <div className="quizContent">
+              <PreviewWrapper>
+                <Title><FontAwesomeIcon icon={faFile} /> 문제 {item.order}</Title>
+                <Content>{item.question}</Content>
+              </PreviewWrapper>
+              {item.distractor && <PreviewWrapper>
+                <Title><FontAwesomeIcon icon={faListOl} /> 선택지</Title>
+                <Content>
+                  {item.distractor.split("//!@#").map((distractor, index) => {
+                    return <DisTractorItem key={index}>
+                      <div className="num">{`${index + 1}번`}</div>
+                      <DistractorContent
+                        answer={parseInt(item.answer) === index + 1 ? true : false}
+                      >{distractor}</DistractorContent>
+                    </DisTractorItem>
+                  })}
+                </Content>
+              </PreviewWrapper>}
+              <PreviewWrapper>
+                <Title><FontAwesomeIcon icon={faBell} /> 정답</Title>
+                <Content>{processAnswer(item.answer)}</Content>
+              </PreviewWrapper>
+            </div>
+          </PreviewItem>
+        })}
+      </PreviewList>
     </Wrapper>
   </Container>);
 }
