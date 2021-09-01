@@ -20,6 +20,7 @@ import FeedTag from './pages/FeedTag';
 import Edit from './pages/Edit';
 import Delete from './pages/Delete';
 import Library from './pages/Library';
+import LibraryMakeQuiz from './pages/LibraryMakeQuiz';
 
 function App() {
   const darkMode = useReactiveVar(darkModeVar)
@@ -39,6 +40,7 @@ function App() {
           <Route exact path="/make-quiz">{isLoggedIn ? <MakeQuiz /> : <NotFound />}</Route>
           <Route exact path="/play-quiz">{isLoggedIn ? <PlayQuiz /> : <NotFound />}</Route>
           <Route exact path="/library/:type/:page">{isLoggedIn ? <Library /> : <NotFound />}</Route>
+          <Route exact path="/library/make-quiz">{isLoggedIn ? <LibraryMakeQuiz /> : <NotFound />}</Route>
           <Route exact path="/profile/:username/:mode/:state/:type/:page">{isLoggedIn ? <Profile /> : <NotFound />}</Route>
           <Route exact path="/profile/:username/:mode">{isLoggedIn ? <Profile /> : <NotFound />}</Route>
           <Route exact path="/edit/:type/:id">{isLoggedIn ? <Edit /> : <NotFound />}</Route>

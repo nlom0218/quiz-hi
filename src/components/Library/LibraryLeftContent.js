@@ -224,6 +224,9 @@ const LibraryLeftContent = ({ setPutQuiz }) => {
       })
     }
   }
+  const onClickMakeNewQuiz = () => {
+    history.push("/library/make-quiz")
+  }
   return (<Container>
     <Wrapper>
       <Title>선택된 퀴즈<FontAwesomeIcon icon={faHandPointer} /></Title>
@@ -276,7 +279,7 @@ const LibraryLeftContent = ({ setPutQuiz }) => {
             onClickResetLibraryBasket("question")
             setPutQuiz(prev => !prev)
           }} />
-          {processLibraryBasket("question") && <MakeNewQuiz>퀴즈 만들기</MakeNewQuiz>}
+          {processLibraryBasket("question") && <MakeNewQuiz onClick={onClickMakeNewQuiz}>퀴즈 만들기</MakeNewQuiz>}
         </BasketBtn>
       </Box>
     </Wrapper>
