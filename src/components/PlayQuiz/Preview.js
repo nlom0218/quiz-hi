@@ -42,6 +42,7 @@ const DETATIL_QUIZ_QUERY = gql`
     detailQuiz(id: $id) {
       id
       title
+      order
       questions {
         id
         type
@@ -60,9 +61,14 @@ const DETATIL_QUIZ_QUERY = gql`
 
 const Preview = ({ quizMode, quizId, quizList, setQuizList, setChange, students }) => {
   const onCompleted = () => {
+    const orderArr = JSON.parse(data.detailQuiz.order)
+    console.log(orderArr);
     const quizList = data.detailQuiz.questions.map((item, index) => {
       return {
-        order: index + 1,
+        order: (orderArr ?
+          orderArr.findIndex(id => id === item.id) + 1
+          :
+          index + 1),
         type: item.type,
         question: item.question,
         answer: item.answer,
