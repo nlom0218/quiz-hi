@@ -9,6 +9,7 @@ import Header from '../components/Header';
 import SetQuestionOrder from '../components/Library/MakeNewQuiz/SetQuestionOrder';
 import QuestionLibrary from '../components/Library/QuestionLibrary';
 import QuizLibrary from '../components/Library/QuizLibrary';
+import CompletionQuiz from '../components/MakeQuiz/CompletionQuiz';
 import MakeQuizForm from '../components/MakeQuiz/MakeQuizForm';
 import QuizFormLayout from '../components/MakeQuiz/QuizFormLayout';
 import Step from '../components/MakeQuiz/Step';
@@ -74,10 +75,26 @@ const LibraryMakeQuiz = () => {
         {makeQuestion &&
           <Step step={2} msg="라이브러리에서 선택한 문제의 순서를 정하세요.">
             <QuizFormLayout>
-              <SetQuestionOrder dataQuestions={data?.seeNewMakeQuestion} />
+              <SetQuestionOrder
+                dataQuestions={data?.seeNewMakeQuestion}
+                setMakeQuiz={setMakeQuiz}
+                makeQuiz={makeQuiz}
+                setQuestionIdArr={setQuestionIdArr}
+              />
             </QuizFormLayout>
           </Step>
         }
+        {makeQuiz && <Step step={3} msg="아래 내용을 확인 후 퀴즈 만들기 버튼을 눌러 퀴즈를 완성하세요.">
+          <QuizFormLayout>
+            <CompletionQuiz
+              quizTags={quizTags}
+              quizTitle={quizTitle}
+              quizCaption={quizCaption}
+              state={state}
+              questionIdArr={questionIdArr}
+            />
+          </QuizFormLayout>
+        </Step>}
       </BasicContainer>
     </React.Fragment>
   );

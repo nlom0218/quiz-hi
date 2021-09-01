@@ -3,10 +3,11 @@ import { faBell, faCheckSquare, faFile, faSquare } from '@fortawesome/free-regul
 import { faListOl, faRedoAlt } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import gql from 'graphql-tag';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import useUser from '../../../hooks/useUser';
 import { compare, compareDesc } from '../../../sharedFn';
+import InputBtn from '../../InputBtn';
 
 const Container = styled.div`
   display: grid;
@@ -116,8 +117,30 @@ const DistractorContent = styled.div`
   color: ${props => props.answer ? "tomato" : props.theme.fontColor};
 `
 
-const SetQuestionOrder = ({ dataQuestions }) => {
+const SetOrderMsg = styled.div`
+  text-align: center;
+  color: tomato;
+`
+
+const NextBtn = styled.div`
+  /* width: 100%; */
+  background-color: rgb(200, 200, 200, 0.6);
+  opacity: ${props => props.disabled ? 0.4 : 1};
+  text-align: center;
+  font-weight: 600;
+  padding: 10px 0px;
+  /* margin-top: 10px; */
+  border-radius: 5px;
+  transition: opacity 0.6s linear;
+  cursor: pointer;
+`
+
+const SetQuestionOrder = ({ dataQuestions, makeQuiz, setMakeQuiz, setQuestionIdArr }) => {
   const [questions, setQuestions] = useState(dataQuestions)
+  useEffect(() => {
+    const questionIdArr = questions.map((item) => item.id)
+    setQuestionIdArr(questionIdArr)
+  }, [])
   const onClickOrderCheckBox = (id) => {
     const orderArr = (questions.map((item) => {
       if (item.order) {
@@ -158,6 +181,23 @@ const SetQuestionOrder = ({ dataQuestions }) => {
     } else {
       return answer
     }
+  }
+  const disabledNextStep = () => {
+    const checkOrder = questions.map((item) => {
+      if (!item.order) {
+        return undefined
+      } else {
+        return item
+      }
+    })
+    if (checkOrder.includes(undefined)) {
+      return true
+    } else {
+      return false
+    }
+  }
+  const onClickNextBtn = () => {
+    setMakeQuiz(true)
   }
 
   return (<Container>
@@ -211,6 +251,10 @@ const SetQuestionOrder = ({ dataQuestions }) => {
         })}
       </PreviewList>
     </Wrapper>
+    <SetOrderMsg>
+      {!disabledNextStep() ? "순서 설정이 완료 되었습니다." : "순서 설정이 완료 되지 않았습니다."}
+    </SetOrderMsg>
+    <NextBtn disabled={disabledNextStep() || makeQuiz} onClick={onClickNextBtn}>3단계 진행하기</NextBtn>
   </Container>);
 }
 
