@@ -60,7 +60,7 @@ const AvatarImage = styled.img`
   border-radius: 50%;
 `
 
-const QuestionNum = styled.div`
+const QuestionType = styled.div`
   margin-right: 10px;
 `
 
@@ -154,6 +154,15 @@ const QuestionItem = ({ id, question, user: { nickname, avatarURL, username, id:
   const onClickUsername = () => {
     history.push(`/profile/${username}/info`)
   }
+  const processType = (type) => {
+    if (type === "sub") {
+      return "주관식"
+    } else if (type === "obj") {
+      return "객관식"
+    } else if (type === "tf") {
+      return "○ / ✕"
+    }
+  }
   return (<SQuizItem>
     <QuizTitle onClick={updateHit}>
       {question.length > 40 ? `${question.substring(0, 40)}...` : question}
@@ -175,6 +184,7 @@ const QuestionItem = ({ id, question, user: { nickname, avatarURL, username, id:
           }
           {nickname}
         </Username>
+        <QuestionType>{processType(type)}</QuestionType>
         <QuizLike isLiked={isLiked}>
           <FontAwesomeIcon icon={isLiked ? faHeart : faHeartRegular} />
           {likes}
