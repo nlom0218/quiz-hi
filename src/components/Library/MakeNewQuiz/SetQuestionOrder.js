@@ -135,7 +135,7 @@ const NextBtn = styled.div`
   cursor: pointer;
 `
 
-const SetQuestionOrder = ({ dataQuestions, makeQuiz, setMakeQuiz, setQuestionIdArr }) => {
+const SetQuestionOrder = ({ dataQuestions, makeQuiz, setMakeQuiz, setQuestionIdArr, setOrderArr }) => {
   const [questions, setQuestions] = useState(dataQuestions)
   useEffect(() => {
     const questionIdArr = questions.map((item) => item.id)
@@ -198,6 +198,11 @@ const SetQuestionOrder = ({ dataQuestions, makeQuiz, setMakeQuiz, setQuestionIdA
   }
   const onClickNextBtn = () => {
     setMakeQuiz(true)
+    const questionOrderArr = questions.map((item) => {
+      return { id: item.id, order: item.order }
+    }).sort(compare("order"))
+    const orderArr = questionOrderArr.map((item) => item.id)
+    setOrderArr(orderArr)
   }
 
   return (<Container>

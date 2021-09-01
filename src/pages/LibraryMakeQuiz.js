@@ -37,7 +37,7 @@ const LibraryMakeQuiz = () => {
   const [questionIdArr, setQuestionIdArr] = useState([])
   const [makeQuestion, setMakeQuestion] = useState(false)
   const [makeQuiz, setMakeQuiz] = useState(false)
-  const [questionNum, setQuestionNum] = useState(["q"])
+  const [orderArr, setOrderArr] = useState([])
   useEffect(() => {
     if (user?.type === "nomal") {
       setState("private")
@@ -80,6 +80,7 @@ const LibraryMakeQuiz = () => {
                 setMakeQuiz={setMakeQuiz}
                 makeQuiz={makeQuiz}
                 setQuestionIdArr={setQuestionIdArr}
+                setOrderArr={setOrderArr}
               />
             </QuizFormLayout>
           </Step>
@@ -92,6 +93,7 @@ const LibraryMakeQuiz = () => {
               quizCaption={quizCaption}
               state={state}
               questionIdArr={questionIdArr}
+              orderArr={orderArr}
             />
           </QuizFormLayout>
         </Step>}

@@ -99,14 +99,16 @@ const CREATE_QUIZ_MUTATION = gql`
       $title: String!,
       $state: String!
       $tags: String,
-      $caption: String
+      $caption: String,
+      $order: String,
       ) {
         createQuiz(
         questions: $questions,
         title: $title,
         state: $state
         tags: $tags,
-        caption: $caption
+        caption: $caption,
+        order: $order
       ) {
       ok
       error
@@ -114,7 +116,7 @@ const CREATE_QUIZ_MUTATION = gql`
   }
 `
 
-const CompletionQuiz = ({ quizTags, quizTitle, state, questionIdArr, quizCaption }) => {
+const CompletionQuiz = ({ quizTags, quizTitle, state, questionIdArr, quizCaption, orderArr }) => {
   const user = useUser()
   const history = useHistory()
   const num = questionIdArr.length
@@ -159,7 +161,8 @@ const CompletionQuiz = ({ quizTags, quizTitle, state, questionIdArr, quizCaption
         state,
         tags,
         questions: questionString,
-        caption: quizCaption
+        caption: quizCaption,
+        ...(orderArr && { order: JSON.stringify(orderArr) })
       }
     })
   }

@@ -71,7 +71,6 @@ const QuizLibrary = () => {
     skip: Boolean(!user),
     onCompleted
   })
-  console.log(data?.seeFollowQuiz?.quiz.length);
   return (
     <LibraryContainer loading={loading} totalNum={data?.seeFollowQuiz?.totalNum} lastPage={lastPage} quiz={true} setPutQuiz={setPutQuiz}>
       {data?.seeFollowQuiz?.quiz.length === 0 ?
