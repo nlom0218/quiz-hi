@@ -6,6 +6,7 @@ import React from 'react';
 import { useHistory } from 'react-router';
 import styled from 'styled-components';
 import { fadeIn } from '../../animation/fade';
+import useUser from '../../hooks/useUser';
 import { removeLibraryBasketItem, onClickResetLibraryBasket } from './libraryBasketFn';
 
 const Container = styled.div`
@@ -26,9 +27,14 @@ const Wrapper = styled.div`
 `
 
 const RemoveAllBtn = styled.div`
-  display: grid;
-  grid-template-columns: 1fr;
-  row-gap: 10px;
+  text-align: center;
+  grid-column: 1 / -1;
+  cursor: pointer;
+  background-color: tomato;
+  color: #f4f4f4;
+  padding: 10px 20px;
+  border-radius: 5px;
+  animation: ${fadeIn} 0.4s ease;
 `
 
 const Title = styled.div`
@@ -98,9 +104,18 @@ const UNFOLLOW_QUESTION_MUTATION = gql`
   }
 `
 
+const UNFOLLOW_ALL_QUIZ_QUESTION_MUTATION = gql`
+  mutation unfollowAllQuizQuestion($id: Int!) {
+    unfollowAllQuizQuestion(id: $id) {
+      ok
+    }
+  }
+`
+
 const LibraryLeftContent = ({ setPutQuiz }) => {
+  const user = useUser()
   const history = useHistory()
-  const [unfollowQuiz] = useMutation(UNFOLLOW_QUIZ_MUTATION, {
+  const [unfollowQuiz, { loading: quizLoading }] = useMutation(UNFOLLOW_QUIZ_MUTATION, {
     onCompleted: (result) => {
       if (result.unfollowQuiz.ok) {
         history.push("/library/quiz/1")
@@ -112,11 +127,24 @@ const LibraryLeftContent = ({ setPutQuiz }) => {
       }
     }
   })
-  const [unfollowQuestion] = useMutation(UNFOLLOW_QUESTION_MUTATION, {
+  const [unfollowQuestion, { loading: questionLoading }] = useMutation(UNFOLLOW_QUESTION_MUTATION, {
     onCompleted: (result) => {
       if (result.unfollowQuestion.ok) {
         history.push("/library/question/1")
         window.location.reload()
+        localStorage.removeItem("libraryQuestionBasket")
+        setPutQuiz(prev => !prev)
+      } else {
+        window.alert("이벤트가 정상적으로 작동되지 않았습니다.\n다시 로그인하여 시도해주세요.\n계속 될 경우 관리자에게 문의해주세요.")
+      }
+    }
+  })
+  const [unfollowAllQuizQuestion, { loading: allLoading }] = useMutation(UNFOLLOW_ALL_QUIZ_QUESTION_MUTATION, {
+    onCompleted: (result) => {
+      if (result.unfollowAllQuizQuestion.ok) {
+        history.push("/library/quiz/1")
+        window.location.reload()
+        localStorage.removeItem("libraryQuizBasket")
         localStorage.removeItem("libraryQuestionBasket")
         setPutQuiz(prev => !prev)
       } else {
@@ -148,6 +176,9 @@ const LibraryLeftContent = ({ setPutQuiz }) => {
   }
   const onClickUnfollowBtn = (type) => {
     if (type === "quiz") {
+      if (quizLoading) {
+        return
+      }
       const quizArr = JSON.parse(localStorage.getItem("libraryQuizBasket"))
       if (!quizArr || quizArr.length === 0) {
         return
@@ -163,6 +194,9 @@ const LibraryLeftContent = ({ setPutQuiz }) => {
       }
     }
     if (type === "question") {
+      if (questionLoading) {
+        return
+      }
       const questionArr = JSON.parse(localStorage.getItem("libraryQuestionBasket"))
       if (!questionArr || questionArr.length === 0) {
         return
@@ -176,6 +210,18 @@ const LibraryLeftContent = ({ setPutQuiz }) => {
           return
         }
       }
+    }
+  }
+  const onClickRemoveAll = () => {
+    if (allLoading) {
+      return
+    }
+    if (window.confirm("라이브러리에 저장된 모든 퀴즈와 문제를 삭제하시겠습니끼?")) {
+      unfollowAllQuizQuestion({
+        variables: {
+          id: user.id
+        }
+      })
     }
   }
   return (<Container>
@@ -234,8 +280,7 @@ const LibraryLeftContent = ({ setPutQuiz }) => {
         </BasketBtn>
       </Box>
     </Wrapper>
-    <RemoveAllBtn>
-    </RemoveAllBtn>
+    <RemoveAllBtn onClick={onClickRemoveAll}>전체 삭제 <FontAwesomeIcon icon={faTrashAlt} /></RemoveAllBtn>
   </Container>);
 }
 
