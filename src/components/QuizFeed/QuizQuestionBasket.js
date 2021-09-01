@@ -91,7 +91,7 @@ const FOLLOW_QUESTION_MUTATION = gql`
 
 const QuizQuestionBasket = ({ setPutQuiz }) => {
   const history = useHistory()
-  const [followQuiz] = useMutation(FOLLOW_QUIZ_MUTATION, {
+  const [followQuiz, { loading: quizLoading }] = useMutation(FOLLOW_QUIZ_MUTATION, {
     onCompleted: (result) => {
       if (result.followQuiz.ok) {
         if (window.confirm("퀴즈가 라이브러리에 저장이 되었습니다.\n라이브러리로 이동하시겠습니까?")) {
@@ -105,7 +105,7 @@ const QuizQuestionBasket = ({ setPutQuiz }) => {
       }
     }
   })
-  const [followQuestion] = useMutation(FOLLOW_QUESTION_MUTATION, {
+  const [followQuestion, { loading: questionLoading }] = useMutation(FOLLOW_QUESTION_MUTATION, {
     onCompleted: (result) => {
       if (result.followQuestion.ok) {
         if (window.confirm("문제가 라이브러리에 저장이 되었습니다.\n라이브러리로 이동하시겠습니까?")) {
@@ -122,6 +122,9 @@ const QuizQuestionBasket = ({ setPutQuiz }) => {
 
   const onClickFollowBtn = (type) => {
     if (type === "quiz") {
+      if (quizLoading) {
+        return
+      }
       const quizArr = JSON.parse(localStorage.getItem("quizBasket"))
       if (!quizArr || quizArr.length === 0) {
         return
@@ -133,6 +136,9 @@ const QuizQuestionBasket = ({ setPutQuiz }) => {
       }
     }
     if (type === "question") {
+      if (questionLoading) {
+        return
+      }
       const questionArr = JSON.parse(localStorage.getItem("questionBasket"))
       if (!questionArr || questionArr.length === 0) {
         return
