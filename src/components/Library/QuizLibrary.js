@@ -6,6 +6,7 @@ import styled from 'styled-components';
 import useUser from '../../hooks/useUser';
 import QuizItem from "./QuizItem"
 import LibraryContainer from "./LibraryContainer"
+import NoDataMsg from './NoDataMsg';
 
 const SEE_FOLLOW_QUIZ_QUERY = gql`
   query seeFollowQuiz($id: Int!, $page: Int!) {
@@ -70,15 +71,19 @@ const QuizLibrary = () => {
     skip: Boolean(!user),
     onCompleted
   })
+  console.log(data?.seeFollowQuiz?.quiz.length);
   return (
     <LibraryContainer loading={loading} totalNum={data?.seeFollowQuiz?.totalNum} lastPage={lastPage} quiz={true} setPutQuiz={setPutQuiz}>
-      <QuizList>
-        {
-          data?.seeFollowQuiz?.quiz.map((item, index) => {
-            return <QuizItem key={index} {...item} setPutQuiz={setPutQuiz} />
-          })
-        }
-      </QuizList>
+      {data?.seeFollowQuiz?.quiz.length === 0 ?
+        <NoDataMsg content="quiz" />
+        :
+        <QuizList>
+          {
+            data?.seeFollowQuiz?.quiz.map((item, index) => {
+              return <QuizItem key={index} {...item} setPutQuiz={setPutQuiz} />
+            })
+          }
+        </QuizList>}
     </LibraryContainer>);
 }
 
