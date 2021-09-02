@@ -74,7 +74,7 @@ const QuizLibrary = () => {
   return (
     <LibraryContainer loading={loading} totalNum={data?.seeFollowQuiz?.totalNum} lastPage={lastPage} quiz={true} setPutQuiz={setPutQuiz}>
       {data?.seeFollowQuiz?.quiz.length === 0 ?
-        <NoDataMsg content="quiz" />
+        <NoDataMsg content="퀴즈" />
         :
         <QuizList>
           {

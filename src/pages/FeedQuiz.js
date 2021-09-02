@@ -18,6 +18,7 @@ const DETAIL_QUIZ_QUERY = gql`
       title
       createdAt
       caption
+      order
       updateInfo
       likes
       isLiked

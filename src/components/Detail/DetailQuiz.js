@@ -51,7 +51,8 @@ const QuestionList = styled.div`
 `
 
 
-const DetailQuiz = ({ caption, questions, setPutQuiz, tags }) => {
+const DetailQuiz = ({ caption, questions, setPutQuiz, tags, order }) => {
+  const orderArr = JSON.parse(order)
   const textarea = useRef()
   const [txtHeight, setTxtHeight] = useState(null)
   const questionIdTitle = questions.map((item) => {
@@ -60,6 +61,9 @@ const DetailQuiz = ({ caption, questions, setPutQuiz, tags }) => {
   useEffect(() => {
     setTxtHeight(textarea.current.scrollHeight)
   }, [])
+  const question = (id) => {
+    return questions.filter((item) => item.id === id)[0]
+  }
   return (<React.Fragment>
     {caption && <QuizCaption
       tags={tags.length !== 0 ? true : false}
@@ -86,8 +90,8 @@ const DetailQuiz = ({ caption, questions, setPutQuiz, tags }) => {
           />
         </Basket>
         <QuestionList>
-          {questions.map((item, index) => {
-            return <QuestionItem key={index} {...item} setPutQuiz={setPutQuiz} edit={true} />
+          {orderArr.map((item, index) => {
+            return <QuestionItem key={index} {...question(item)} setPutQuiz={setPutQuiz} edit={true} />
           })}
         </QuestionList>
       </React.Fragment>

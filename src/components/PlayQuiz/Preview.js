@@ -62,7 +62,6 @@ const DETATIL_QUIZ_QUERY = gql`
 const Preview = ({ quizMode, quizId, quizList, setQuizList, setChange, students }) => {
   const onCompleted = () => {
     const orderArr = JSON.parse(data.detailQuiz.order)
-    console.log(orderArr);
     const quizList = data.detailQuiz.questions.map((item, index) => {
       return {
         order: (orderArr ?
