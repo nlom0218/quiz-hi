@@ -129,14 +129,16 @@ const TopProfile = ({ data }) => {
       history.push(`/profile/${username}/${mode}`)
     }
   }
-  const studentMode = () => {
+  const needLoginMode = () => {
     if (!isMe) {
       return false
     }
     if (type === "teacher") {
-      return true
-    } else {
-      return false
+      return "teacher"
+    } else if (type === "student") {
+      return "student"
+    } else if (type === "nomal") {
+      return "nomal"
     }
   }
   return (<Container>
@@ -163,18 +165,22 @@ const TopProfile = ({ data }) => {
       <NavBtn
         onClick={() => onClickNavBtn("info")}
         seleted={mode === "basic" ? true : false}>프로필</NavBtn>
-      <NavBtn
+      {type !== "student" && <NavBtn
         onClick={() => onClickNavBtn("quizQuestion")}
-        seleted={mode === "quizQuestion" ? true : false}>퀴즈 & 문제</NavBtn>
+        seleted={mode === "quizQuestion" ? true : false}>퀴즈 & 문제</NavBtn>}
       {isMe &&
         <NavBtn onClick={() => onClickNavBtn("edit")}
           seleted={mode === "edit" ? true : false}>프로필 수정</NavBtn>}
       {isMe && <NavBtn
         onClick={() => onClickNavBtn("setting")}
         seleted={mode === "setting" ? true : false}>QUIZ HI 설정</NavBtn>}
-      {studentMode() && <NavBtn
+      {needLoginMode() === "teacehr" && <NavBtn
         onClick={() => onClickNavBtn("student")}
         seleted={mode === "student" ? true : false}>학생 관리</NavBtn>}
+      {needLoginMode() === "student" && <NavBtn
+        onClick={() => onClickNavBtn("homework")}
+        seleted={mode === "homework" ? true : false}>숙제</NavBtn>}
+
     </ProfileNav>
 
   </Container>);

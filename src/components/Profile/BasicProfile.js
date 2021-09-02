@@ -239,10 +239,11 @@ const BasicProfile = ({ data }) => {
           <div className="input">닉네임</div>
           <div className="value">{nickname.length > 10 ? `${nickname.substring(0, 10)}...` : nickname}</div>
         </Wrapper>
-        {type === "teacher" && <Wrapper>
-          <div className="input">이메일</div>
-          <div className="value">{email.length > 20 ? `${email.substring(0, 20)}...` : email}</div>
-        </Wrapper>}
+        {type === "teacher" &&
+          <Wrapper>
+            <div className="input">이메일</div>
+            <div className="value">{email.length > 20 ? `${email.substring(0, 20)}...` : email}</div>
+          </Wrapper>}
         <Wrapper>
           <div className="input">가입일</div>
           <div className="value">{getCreatedDay(createdAt)}</div>
@@ -255,14 +256,16 @@ const BasicProfile = ({ data }) => {
           <div className="input">팔로잉</div>
           <div className="value">{totalFollowing}</div>
         </Wrapper>
-        {type === "teacher" && <Wrapper>
-          <div className="input">공유한 퀴즈</div>
-          <div className="value">{totalPublicQuiz}</div>
-        </Wrapper>}
-        {type === "teacher" && <Wrapper>
-          <div className="input">공유한 문제</div>
-          <div className="value">{totalPublicQuestion}</div>
-        </Wrapper>}
+        {type === "teacher" && <React.Fragment>
+          <Wrapper>
+            <div className="input">공유한 퀴즈</div>
+            <div className="value">{totalPublicQuiz}</div>
+          </Wrapper>
+          <Wrapper>
+            <div className="input">공유한 문제</div>
+            <div className="value">{totalPublicQuestion}</div>
+          </Wrapper>
+        </React.Fragment>}
       </BasicInfo>
       {caption && <RigthContentLayout>
         <Title><div><FontAwesomeIcon icon={faPortrait} /> 자기소개</div></Title>
@@ -304,7 +307,7 @@ const BasicProfile = ({ data }) => {
           </LevelRule>
           </LevelContainer>
         </DetailInfoLayout>
-        <DetailInfoLayout>
+        {type === "teacher" && <DetailInfoLayout>
           <Title>
             <div><FontAwesomeIcon icon={faTags} /> 팔로우 태그</div>
             <TagsNum>{tags.length}개의 팔로우 태그</TagsNum>
@@ -320,8 +323,8 @@ const BasicProfile = ({ data }) => {
               :
               <EmtpyMsg>팔로우 태그가 없습니다.</EmtpyMsg>}
           </TagContainer>
-        </DetailInfoLayout>
-        <PopularQuizQuiestion userId={id} totalPublicQuiz={totalPublicQuiz} totalPublicQuestion={totalPublicQuestion} />
+        </DetailInfoLayout>}
+        {type === "teacher" && <PopularQuizQuiestion userId={id} totalPublicQuiz={totalPublicQuiz} totalPublicQuestion={totalPublicQuestion} />}
       </DetailInto>
     </LeftContents>
 

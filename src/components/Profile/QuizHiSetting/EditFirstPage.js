@@ -55,7 +55,7 @@ const EDIT_HOME_SETTING_MUTATION = gql`
   }
 `
 
-const EditFirstPage = ({ firstPage, setFirstPage, username, id }) => {
+const EditFirstPage = ({ firstPage, setFirstPage, username, id, type }) => {
   const [saveMsg, setSaveMsg] = useState(undefined)
   const update = (cache, result) => {
     const { data: { editHomeSetting: { ok } } } = result
@@ -105,12 +105,14 @@ const EditFirstPage = ({ firstPage, setFirstPage, username, id }) => {
           <div><FontAwesomeIcon
             onClick={() => onClickpage("/")}
             icon={processFirstpage("/") ? faCheckCircle : faCircle} />홈</div>
-          <div><FontAwesomeIcon
-            onClick={() => onClickpage("/feed/quiz/all/recent/1")}
-            icon={processFirstpage("/feed/quiz/all/recent/1") ? faCheckCircle : faCircle} />피드</div>
-          <div><FontAwesomeIcon
-            onClick={() => onClickpage("/library/quiz/1")}
-            icon={processFirstpage("/library/quiz/1") ? faCheckCircle : faCircle} />라이브러리</div>
+          {type === "teacher" && <React.Fragment>
+            <div><FontAwesomeIcon
+              onClick={() => onClickpage("/feed/quiz/all/recent/1")}
+              icon={processFirstpage("/feed/quiz/all/recent/1") ? faCheckCircle : faCircle} />피드</div>
+            <div><FontAwesomeIcon
+              onClick={() => onClickpage("/library/quiz/1")}
+              icon={processFirstpage("/library/quiz/1") ? faCheckCircle : faCircle} />라이브러리</div>
+          </React.Fragment>}
           <div><FontAwesomeIcon
             onClick={() => onClickpage("/make-quiz")}
             icon={processFirstpage("/make-quiz") ? faCheckCircle : faCircle} />퀴즈 만들기</div>

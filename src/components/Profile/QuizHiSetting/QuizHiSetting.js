@@ -26,27 +26,31 @@ const DivisionLine = styled.div`
   transition: background-color 1s ease;
 `
 
-const QuizHiSetting = ({ firstPage, fontFamily, goldenbellScore, cooperationScore, username, id }) => {
+const QuizHiSetting = ({ firstPage, fontFamily, goldenbellScore, cooperationScore, username, id, type }) => {
   const [firstPageW, setFirstPage] = useState(firstPage)
   const [fontFamilyW, setFontFamily] = useState(fontFamily)
   const [goldenbellScoreW, setGoldenbellScore] = useState(goldenbellScore)
   const [cooperationScoreW, setCooperationScore] = useState(cooperationScore)
   return (<Container>
-    <Title>QUIZ HI 첫 페이지 설정</Title>
-    <EditFirstPage firstPage={firstPageW} setFirstPage={setFirstPage} username={username} id={id} />
-    <DivisionLine></DivisionLine>
+    {type !== "student" && <React.Fragment>
+      <Title>QUIZ HI 첫 페이지 설정</Title>
+      <EditFirstPage firstPage={firstPageW} setFirstPage={setFirstPage} username={username} id={id} />
+      <DivisionLine></DivisionLine>
+    </React.Fragment>}
     <Title>QUIZ HI 폰트 설정</Title>
     <EditFont fontFamily={fontFamilyW} setFontFamily={setFontFamily} username={username} id={id} />
-    <DivisionLine></DivisionLine>
-    <Title>골든벨, 협동 모드 점수 설정</Title>
-    <EditScore
-      goldenbellScore={goldenbellScoreW}
-      setGoldenbellScore={setGoldenbellScore}
-      cooperationScore={cooperationScoreW}
-      setCooperationScore={setCooperationScore}
-      username={username} id={id}
-    />
-  </Container>);
+    {type === "teacher" && <React.Fragment>
+      <DivisionLine></DivisionLine>
+      <Title>골든벨, 협동 모드 점수 설정</Title>
+      <EditScore
+        goldenbellScore={goldenbellScoreW}
+        setGoldenbellScore={setGoldenbellScore}
+        cooperationScore={cooperationScoreW}
+        setCooperationScore={setCooperationScore}
+        username={username} id={id}
+      />
+    </React.Fragment>}
+  </Container >);
 }
 
 export default QuizHiSetting;
