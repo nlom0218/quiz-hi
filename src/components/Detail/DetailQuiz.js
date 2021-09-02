@@ -90,9 +90,14 @@ const DetailQuiz = ({ caption, questions, setPutQuiz, tags, order }) => {
           />
         </Basket>
         <QuestionList>
-          {orderArr.map((item, index) => {
+          {order ? orderArr.map((item, index) => {
             return <QuestionItem key={index} {...question(item)} setPutQuiz={setPutQuiz} edit={true} />
-          })}
+          })
+            :
+            questions.map((item, index) => {
+              return <QuestionItem key={index} {...item} setPutQuiz={setPutQuiz} edit={true} />
+            })
+          }
         </QuestionList>
       </React.Fragment>
     }
