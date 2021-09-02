@@ -55,7 +55,6 @@ const PrivateQuiz = ({ totalNum, userId, setLastPage, setPutQuiz }) => {
       setPutQuiz={setPutQuiz}
       loading={loading}
       seeQuiz={{ quiz: data.seeUserPrivateQuiz }}
-      edit={true}
     />}
   </React.Fragment>);
 }

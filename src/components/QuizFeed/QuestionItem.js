@@ -134,7 +134,7 @@ const UPDATE_HIT_MUTATION = gql`
 `
 
 const QuestionItem = (
-  { id, question, user: { nickname, avatarURL, username, id: userId }, type, tags, isLiked, likes, createdAt, hits, setPutQuiz, edit }) => {
+  { id, question, user: { nickname, avatarURL, username, id: userId }, type, tags, isLiked, likes, createdAt, hits, setPutQuiz }) => {
   const user = useUser()
   const history = useHistory()
   const onClickUsername = () => {
@@ -193,9 +193,6 @@ const QuestionItem = (
   }
   const editMode = () => {
     if (!user) {
-      return false
-    }
-    if (!edit) {
       return false
     }
     if (user.id !== userId) {

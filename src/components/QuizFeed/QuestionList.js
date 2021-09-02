@@ -23,7 +23,7 @@ const NotFoundData = styled.div`
   color: tomato;
 `
 
-const QuestionList = ({ seeQuestion, loading, setPutQuiz, edit }) => {
+const QuestionList = ({ seeQuestion, loading, setPutQuiz }) => {
   const noData = () => {
     if (!seeQuestion || seeQuestion.question.length === 0) {
       return true
@@ -34,7 +34,7 @@ const QuestionList = ({ seeQuestion, loading, setPutQuiz, edit }) => {
       <Container>
         {loading ? <div>loading...</div> : <SQuestionList>
           {seeQuestion?.question?.map((item, index) => {
-            return <QuestionItem key={index} {...item} setPutQuiz={setPutQuiz} edit={edit} />
+            return <QuestionItem key={index} {...item} setPutQuiz={setPutQuiz} />
           })}
         </SQuestionList>}
       </Container>

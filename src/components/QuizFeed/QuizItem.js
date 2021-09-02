@@ -134,7 +134,7 @@ const UPDATE_HIT_MUTATION = gql`
 `
 
 const QuizItem = (
-  { id, title, user: { nickname, avatarURL, username, id: userId }, tags, questionNum, isLiked, likes, createdAt, hits, setPutQuiz, edit }) => {
+  { id, title, user: { nickname, avatarURL, username, id: userId }, tags, questionNum, isLiked, likes, createdAt, hits, setPutQuiz }) => {
   const history = useHistory()
   const user = useUser()
   const onCompleted = (result) => {
@@ -175,12 +175,22 @@ const QuizItem = (
       history.push(`/edit/quiz/${id}`)
     }
   }
+  const editMode = () => {
+    if (!user) {
+      return false
+    }
+    if (user.id !== userId) {
+      return false
+    } else {
+      return true
+    }
+  }
   return (<SQuizItem tags={tags.length !== 0 ? true : false}>
     <QuizTitle onClick={updateHit}>
       {title.length > 40 ? `${title.substring(0, 40)}...` : title}
     </QuizTitle>
     <EditBasketBtn>
-      {edit && <EditBtn onClick={onClickEditBtn}>
+      {editMode() && <EditBtn onClick={onClickEditBtn}>
         <FontAwesomeIcon icon={faEdit} />
       </EditBtn>}
       <QuizBasketBtn onClick={() => {

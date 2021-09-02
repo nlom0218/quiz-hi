@@ -16,6 +16,7 @@ const SEE_QUIZ_QUERY = gql`
       id
       title
       user {
+        id
         nickname
         avatarURL
         username

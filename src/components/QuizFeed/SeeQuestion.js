@@ -15,6 +15,7 @@ const SEE_QUESTION_QUERY = gql`
         id
         question
         user {
+          id
           nickname
           avatarURL
           username
