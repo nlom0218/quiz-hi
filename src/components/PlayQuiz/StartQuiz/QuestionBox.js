@@ -11,7 +11,7 @@ const Container = styled.div`
   background-color: ${props => props.theme.boxColor};
   display: grid;
   grid-template-columns: 1000px 1fr;
-  grid-template-rows: auto auto;
+  grid-template-rows: auto auto auto;
   box-shadow: ${props => props.theme.boxShadow};
   column-gap: 40px;
   row-gap: 40px;
@@ -73,6 +73,11 @@ const Distractor = styled.div`
 
 const Answer = styled.div``
 
+const Author = styled.div`
+  align-self: flex-end;
+  opacity: ${props => props.opacity};
+`
+
 
 const QuestionBox = ({ setQuestionNum, questionNum, quizList, totalNum, student, setStduent }) => {
   const [action, setAction] = useState(null)
@@ -123,6 +128,7 @@ const QuestionBox = ({ setQuestionNum, questionNum, quizList, totalNum, student,
           </Wrapper>
         }
       </SQuestionBox>
+      <Author opacity={action === null ? 1 : 0.2}>만든이: {question.author}</Author>
       <OptionBox
         questionNum={questionNum}
         totalNum={totalNum}
