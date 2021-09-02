@@ -91,7 +91,9 @@ const DetailQuiz = ({ caption, questions, setPutQuiz, tags, order }) => {
         </Basket>
         <QuestionList>
           {order ? orderArr.map((item, index) => {
-            return <QuestionItem key={index} {...question(item)} setPutQuiz={setPutQuiz} edit={true} />
+            if (question(item)) {
+              return <QuestionItem key={index} {...question(item)} setPutQuiz={setPutQuiz} edit={true} />
+            }
           })
             :
             questions.map((item, index) => {

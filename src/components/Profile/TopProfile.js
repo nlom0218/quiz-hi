@@ -174,7 +174,7 @@ const TopProfile = ({ data }) => {
       {isMe && <NavBtn
         onClick={() => onClickNavBtn("setting")}
         seleted={mode === "setting" ? true : false}>QUIZ HI 설정</NavBtn>}
-      {needLoginMode() === "teacehr" && <NavBtn
+      {needLoginMode() === "teacher" && <NavBtn
         onClick={() => onClickNavBtn("student")}
         seleted={mode === "student" ? true : false}>학생 관리</NavBtn>}
       {needLoginMode() === "student" && <NavBtn
