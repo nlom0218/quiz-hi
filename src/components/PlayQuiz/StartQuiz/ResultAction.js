@@ -123,7 +123,7 @@ const ResultAction = ({ student }) => {
     .sort((a, b) => b - a)
   const quizMode = localStorage.getItem("selectMode")
   const onClickEndBtn = () => {
-    if (window.confirm("퀴즈를 종료합니다. 퀴즈를 종료하기 전 결과 저장을 원하는 경우 결과 저장하기 버튼을 눌러주세요.")) {
+    if (window.confirm("확인 버튼 클릭 시 퀴즈를 종료합니다. \n퀴즈를 종료하기 전 결과 저장을 원하는 경우 결과 저장하기 버튼을 눌러주세요.")) {
       localStorage.removeItem("startQuiz")
       localStorage.removeItem("joinStudent")
       localStorage.removeItem("questionNum")
