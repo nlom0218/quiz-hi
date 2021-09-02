@@ -166,9 +166,6 @@ const TopProfile = ({ data }) => {
       <NavBtn
         onClick={() => onClickNavBtn("quizQuestion")}
         seleted={mode === "quizQuestion" ? true : false}>퀴즈 & 문제</NavBtn>
-      <NavBtn
-        onClick={() => onClickNavBtn("board")}
-        seleted={mode === "board" ? true : false}>게시물</NavBtn>
       {isMe &&
         <NavBtn onClick={() => onClickNavBtn("edit")}
           seleted={mode === "edit" ? true : false}>프로필 수정</NavBtn>}

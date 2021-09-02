@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Header from '../components/Header';
 import Intro from '../components/Home/Intro';
 import NavIcon from '../components/Home/NavIcon';
@@ -10,6 +10,8 @@ import styled from 'styled-components';
 import { ScrollTrigger } from "gsap/ScrollTrigger"
 import { gsap } from "gsap"
 import { BasicContainerGsap, HomeContainerGsap } from '../hooks/Gsap';
+import useUser from '../hooks/useUser';
+import { useHistory } from 'react-router';
 gsap.registerPlugin(ScrollTrigger)
 
 const HomeContainer = styled.div`

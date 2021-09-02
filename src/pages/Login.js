@@ -60,6 +60,7 @@ const SEE_PROFILE_QUERY = gql`
       id
       username
       firstPage
+      type
     }
   }
 `
@@ -83,6 +84,10 @@ const Login = () => {
       logInUser(token)
       refetch()
       if (!profileLoading) {
+        if (profileData?.seeProfile?.type === "student") {
+          history.push(`/profile/${profileData?.seeProfile?.username}/info`)
+          return
+        }
         history.push(profileData?.seeProfile?.firstPage)
       }
     }
