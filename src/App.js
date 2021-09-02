@@ -21,6 +21,7 @@ import Edit from './pages/Edit';
 import Delete from './pages/Delete';
 import Library from './pages/Library';
 import LibraryMakeQuiz from './pages/LibraryMakeQuiz';
+import StudentNotFound from './pages/StudentNotFound';
 
 function App() {
   const darkMode = useReactiveVar(darkModeVar)
@@ -31,7 +32,7 @@ function App() {
       <GlobalStyle fontFamily={user ? user?.fontFamily : "'Noto Sans KR', sans-serif"} />
       <Router>
         <ScrollToTop />
-        <Switch>
+        {user?.type !== "student" ? <Switch>
           <Route exact path="/"><Home /></Route>
           <Route exact path="/feed/:type/:seeType/:sort/:page">{isLoggedIn ? <Feed /> : <NotFound />}</Route>
           <Route exact path="/detail/quiz/:id">{isLoggedIn ? <FeedQuiz /> : <NotFound />}</Route>
@@ -49,6 +50,12 @@ function App() {
           <Route exact path="/create-account">{!isLoggedIn ? <CreateAccount /> : <NotFound />}</Route>
           <Route><NotFound /></Route>
         </Switch>
+          :
+          <Switch>
+            <Route exact path="/profile/:username/:mode">{isLoggedIn ? <Profile /> : <NotFound />}</Route>
+            <Route><StudentNotFound /></Route>
+          </Switch>
+        }
       </Router>
     </ThemeProvider >
   );

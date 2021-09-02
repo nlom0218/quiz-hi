@@ -12,6 +12,7 @@ import ManagemnetStudent from '../components/Profile/ManagemnetStudent/Managemne
 import QuizHiSetting from '../components/Profile/QuizHiSetting/QuizHiSetting';
 import TopProfile from '../components/Profile/TopProfile';
 import UserQuizQuestion from '../components/Profile/UserQuizQuestion/UserQuizQuestion';
+import StudentHeader from '../components/StudentHeader';
 import useUser from '../hooks/useUser';
 
 const SEE_PROFILE_QUERY = gql`
@@ -61,7 +62,7 @@ const Profile = () => {
   const user = useUser()
   const { data, loading } = useQuery(SEE_PROFILE_QUERY, { variables: { username } })
   return (<React.Fragment>
-    <Header />
+    {user?.type !== "student" ? <Header /> : <StudentHeader />}
     <BasicContainer>
       {loading ? <div>loading...</div> :
         <React.Fragment>

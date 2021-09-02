@@ -1,5 +1,5 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import React from 'react';
+import React, { useEffect } from 'react';
 import BasicContainer from '../components/BasicContainer';
 import Header from '../components/Header';
 import PageTitle from '../components/PageTitle';
@@ -7,8 +7,9 @@ import FeedType from '../components/QuizFeed/FeedType';
 import SeeQuestion from '../components/QuizFeed/SeeQuestion';
 import SeeQuiz from '../components/QuizFeed/SeeQuiz';
 import NavBtn from '../components/NavBtn';
-import { useParams } from 'react-router';
+import { useHistory, useParams } from 'react-router';
 import { faClipboard } from '@fortawesome/free-regular-svg-icons';
+import useUser from '../hooks/useUser';
 
 const Feed = () => {
   const { type } = useParams()

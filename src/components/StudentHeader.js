@@ -19,12 +19,12 @@ const List = styled.ul`
   margin: 0 auto;
   padding-top: 40px;
   display: grid;
-  grid-template-columns: repeat(10, 1fr);
+  grid-template-columns: 8fr 1fr 1fr;
 `
 
 const Nav = styled.li`
   display: flex;
-  justify-content: center;
+  justify-content: flex-end;
   align-items: center;
   svg {
     font-size: 16px;
@@ -39,7 +39,7 @@ const Nav = styled.li`
 `
 
 const SiteName = styled.li`
-  grid-column: 5 / span 2;
+  justify-self: flex-start;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -60,7 +60,7 @@ const AvatarImage = styled.img`
   object-fit: fill;
 `
 
-const Header = () => {
+const StudentHeader = () => {
   const history = useHistory()
   const darkMode = useReactiveVar(darkModeVar)
   const isLoggedIn = useReactiveVar(isLoggedInVar)
@@ -76,51 +76,18 @@ const Header = () => {
     history.push("/")
     logOutUser()
   }
-  const profileIcon = () => {
-    if (!isLoggedIn) {
-      return true
-    }
-    if (user?.avatarURL === null) {
-      return true
-    }
-    return false
-  }
-  const onCLickPalyQuiz = () => {
-    localStorage.removeItem("startQuiz")
-    localStorage.removeItem("joinStudent")
-    localStorage.removeItem("questionNum")
-    localStorage.removeItem("selectMode")
-    localStorage.removeItem("selectQuizTitle")
-    localStorage.removeItem("selectQuiz")
-    localStorage.removeItem("quizList")
-    localStorage.removeItem("targetScore")
-  }
   return (<SHeader className="headerContainer">
     <HeaderContainerGsap />
     <List>
+      <SiteName type={user?.type}>
+        <SiteNameText><Link to={`/profile/${user?.username}/info`}>quiz Hi</Link></SiteNameText>
+      </SiteName>
       <Nav>
         <FontAwesomeIcon
           icon={darkMode ? faSun : faMoon}
           onClick={onCLickDarkMode}
           style={{ color: `${darkMode ? "#ff765e" : "#212121"}` }}
         />
-      </Nav>
-      <Nav><FontAwesomeIcon icon={faSearch} /></Nav>
-      <Nav><Link to="/feed/quiz/all/recent/1"><FontAwesomeIcon icon={faClipboard} /></Link></Nav>
-      <Nav><Link to="/library/quiz/1"><FontAwesomeIcon icon={faBookReader} /></Link></Nav>
-      <SiteName type={user?.type}>
-        <SiteNameText><Link to="/">quiz Hi</Link></SiteNameText>
-      </SiteName>
-      <Nav><Link to="/make-quiz"><FontAwesomeIcon icon={faPencilAlt} /></Link></Nav>
-      <Nav><Link to="/play-quiz" onClick={onCLickPalyQuiz}><FontAwesomeIcon icon={faPlay} /></Link></Nav>
-      <Nav>
-        <Link to={`/profile/${user?.username}/info`}>
-          {profileIcon() ?
-            <FontAwesomeIcon icon={faUser} />
-            :
-            <AvatarImage src={user?.avatarURL} />
-          }
-        </Link>
       </Nav>
       <Nav>
         {isLoggedIn ?
@@ -133,4 +100,4 @@ const Header = () => {
   </SHeader >);
 }
 
-export default Header;
+export default StudentHeader;

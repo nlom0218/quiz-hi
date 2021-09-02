@@ -1,3 +1,5 @@
+import { faBars } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
 import { useHistory, useLocation, useParams } from 'react-router';
 import styled from 'styled-components';
@@ -72,10 +74,11 @@ const PageBar = ({ lastPage }) => {
       }
     }
   }
-  return (<SPageBar>
-    <PageBarBtn firstPage={page === 1 ? true : false} onClick={() => onClickPageBtn("pre")}>이전</PageBarBtn>
-    <PageBarBtn lastPage={lastPage === page} onClick={() => onClickPageBtn("next")}>다음</PageBarBtn>
-  </SPageBar>);
+  return (
+    <SPageBar>
+      <PageBarBtn firstPage={page === 1 ? true : false} onClick={() => onClickPageBtn("pre")}>이전</PageBarBtn>
+      <PageBarBtn lastPage={lastPage === page} onClick={() => onClickPageBtn("next")}>다음</PageBarBtn>
+    </SPageBar>);
 }
 
 export default PageBar;
