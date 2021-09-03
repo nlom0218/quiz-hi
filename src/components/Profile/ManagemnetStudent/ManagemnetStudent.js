@@ -32,7 +32,7 @@ const DivisionLine = styled.div`
   transition: background-color 1s ease;
 `
 
-const ManagemnetStudent = ({ students, id, quizScore: teacherQuizScore }) => {
+const ManagemnetStudent = ({ students, id, quizScore: teacherQuizScore, type }) => {
   return (<Container>
     <Wrapper>
       <Title>학생 목록</Title>
@@ -48,7 +48,7 @@ const ManagemnetStudent = ({ students, id, quizScore: teacherQuizScore }) => {
         <DivisionLine></DivisionLine>
         <Wrapper>
           <Title>숙제</Title>
-          <Homework students={students} id={id} teacherQuizScore={teacherQuizScore} />
+          <Homework students={students} id={id} type={type} />
         </Wrapper>
         <DivisionLine></DivisionLine>
         <Wrapper>
