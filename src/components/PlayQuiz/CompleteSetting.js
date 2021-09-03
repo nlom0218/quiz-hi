@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { fadeIn } from '../../animation/fade';
+import PlayQuizBtn from './PlayQuizBtn';
 
 const Container = styled.div`
   display: grid;
@@ -34,16 +35,6 @@ const Wrapper = styled.div`
       color: tomato;
     }
   }
-`
-
-const PlayQuizBtn = styled.div`
-  text-align: center;
-  background-color: rgb(255, 165, 0, 0.4);
-  padding: 10px;
-  border-radius: 5px;
-  opacity: ${props => props.able ? "1" : "0.6"};
-  cursor: ${props => props.able ? "pointer" : "not-allowed"};
-  transition: opacity 0.6s ease;
 `
 
 const DETATIL_QUIZ_QUERY = gql`
@@ -149,47 +140,7 @@ const CompleteSetting = ({ quizId, quizMode, type, quizList, students, setStartQ
       return `${students.length}명의 학생이 퀴즈에 참여합니다.`
     }
   }
-  const ablePalyQuiz = () => {
-    if (!quizList) {
-      return false
-    }
-    if (!quizId && !quizList && !quizMode) {
-      return false
-    }
-    if (quizMode === "nomal") {
-      return true
-    }
-    if (quizMode === "goldenBell" && quizList.filter((item) => item.consolation).length === 0) {
-      return false
-    }
-    if (quizMode === "score" && quizList.map((item) => item.score).includes(undefined)) {
-      return false
-    }
-    if (quizMode === "cooperation" && quizList.map((item) => item.score).includes(undefined)) {
-      return false
-    }
-    if (quizMode === "cooperation" && !targetScore) {
-      return false
-    }
-    if (type !== "nomal" && students.length === 0) {
-      return false
-    }
-    return true
-  }
 
-  const onClickPalyQuiz = () => {
-    if (!ablePalyQuiz()) {
-      return
-    }
-    if (type === "send") {
-      console.log("내보내기");
-    } else {
-      localStorage.setItem("joinStudent", JSON.stringify(students))
-      localStorage.setItem("startQuiz", true)
-      localStorage.setItem("targetScore", targetScore)
-      setStartQuiz(true)
-    }
-  }
   return (<Container>
     <Wrapper>
       <div className="leftContent"><FontAwesomeIcon icon={faBook} />퀴즈</div>
@@ -223,9 +174,7 @@ const CompleteSetting = ({ quizId, quizMode, type, quizList, students, setStartQ
         </Wrapper>}
       </React.Fragment>
     }
-    <PlayQuizBtn able={ablePalyQuiz()} onClick={onClickPalyQuiz}>
-      {type === "send" ? "퀴즈 내보내기" : "퀴즈 진행하기"}
-    </PlayQuizBtn>
+    <PlayQuizBtn quizId={quizId} quizList={quizList} quizMode={quizMode} type={type} students={students} setStartQuiz={setStartQuiz} targetScore={targetScore} />
   </Container>);
 }
 
