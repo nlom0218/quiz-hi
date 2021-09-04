@@ -53,6 +53,7 @@ const SEE_HOMEWORK_QUERY = gql`
       mode
       order
       quizId
+      score
     }
   }
 `

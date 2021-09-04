@@ -33,7 +33,6 @@ const DivisionLine = styled.div`
 `
 
 const StudentHomework = ({ students, id, quizScore: teacherQuizScore, type, quizId }) => {
-  console.log(quizId);
   return (<Container>
     <Wrapper>
       <Title>숙제 목록</Title>

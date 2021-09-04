@@ -75,7 +75,7 @@ const PreviewList = ({ quizList, quizMode, setQuizList, setChange }) => {
       return <PreviewItem key={index}>
         <div className="quizContent">
           <Wrapper>
-            <Title><FontAwesomeIcon icon={faFile} /> 문제 {item.order}</Title>
+            <Title><FontAwesomeIcon icon={faFile} /> 문제 {index + 1}</Title>
             <Content>{item.question}</Content>
           </Wrapper>
           {item.distractor && <Wrapper>

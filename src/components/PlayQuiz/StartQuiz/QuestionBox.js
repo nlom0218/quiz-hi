@@ -82,7 +82,7 @@ const Author = styled.div`
 const QuestionBox = ({ setQuestionNum, questionNum, quizList, totalNum, student, setStduent }) => {
   const [action, setAction] = useState(null)
   const quizMode = localStorage.getItem("selectMode")
-  const question = quizList.filter((item) => parseInt(item.order) === questionNum)[0]
+  const question = quizList.filter((item, index) => index + 1 === questionNum)[0]
   const goldenBellConsolation = () => {
     if (quizMode !== "goldenBell") {
       return false
