@@ -73,6 +73,8 @@ const Header = () => {
     }
   }
   const onClickAccount = () => {
+    localStorage.removeItem("homeworkQuiz")
+    localStorage.removeItem("homeworkScore")
     history.push("/")
     logOutUser()
   }

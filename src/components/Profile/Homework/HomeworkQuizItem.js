@@ -92,6 +92,7 @@ const HomeworkQuizItem = ({ question, index, setChange }) => {
     const newQuestionObj = { ...questionObj, answer: data.answer }
     const newHomeworkSocre = [...existQuestion, newQuestionObj]
     localStorage.setItem("homeworkScore", JSON.stringify(newHomeworkSocre))
+    setChange(prev => !prev)
   }
   return (<Container>
     <QuestionNum>
