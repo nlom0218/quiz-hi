@@ -36,7 +36,7 @@ const FinishBtn = styled.div`
 `
 
 
-const HomeworkItem = ({ createdAt, title, mode, type, quizId, score }) => {
+const HomeworkItem = ({ createdAt, title, mode, type, quizId, score, order }) => {
   const history = useHistory()
   const user = useUser()
   const processMode = (mode) => {
@@ -51,6 +51,8 @@ const HomeworkItem = ({ createdAt, title, mode, type, quizId, score }) => {
       return
     }
     localStorage.setItem("homeworkScore", score)
+    localStorage.setItem("homeworkQuizId", quizId)
+    localStorage.setItem("homeworkOrder", order)
     history.push(`/profile/${user?.username}/homework/${quizId}`)
   }
   return (<SHomeworkItem>
