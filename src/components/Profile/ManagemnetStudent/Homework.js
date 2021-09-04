@@ -13,6 +13,10 @@ const Container = styled.div`
   transition: background-color 1s ease;
 `
 
+const Msg = styled.div`
+  color: tomato;
+`
+
 const HomeworkLayout = styled.div`
   display: grid;
 `
@@ -61,7 +65,7 @@ const Homework = ({ id, type, students }) => {
     skip: !type || !id
   })
   return (<Container>
-    {loading ? "loading..." : (data?.seeHomework.length === 0 ? "숙제가 없습니다." :
+    {loading ? "loading..." : (data?.seeHomework.length === 0 ? <Msg>내보낸 숙제가 없습니다.</Msg> :
       <HomeworkLayout>
         <Wrapper>
           <Date style={{ fontWeight: "600" }}>숙제 시작 일</Date>
