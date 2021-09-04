@@ -2,16 +2,15 @@ import { faInfoCircle } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import { fadeIn } from '../../../animation/fade';
 import { getCreatedDay } from "../../../sharedFn"
 
-const Wrapper = styled.div`
+const SHomeworkItem = styled.div`
   display: grid;
-  grid-template-columns: 180px 1fr auto;
+  grid-template-columns: 180px 360px 80px 100px;
   row-gap: 20px;
   padding: 20px;
-  svg {
-    cursor: pointer;
-  }
+  align-items: center;
   :nth-child(odd) {
     background-color: rgb(200, 200, 200, 0.2);
   }
@@ -21,23 +20,32 @@ const Date = styled.div``
 
 const Title = styled.div``
 
-const SetHomework = styled.div`
-  grid-column: 2 / -1;
+const Mode = styled.div``
+
+const FinishBtn = styled.div`
+  justify-self: flex-end;
+  background-color: tomato;
+  color: #F4F4F4;
+  padding: 5px 20px;
+  border-radius: 5px;
+  cursor: pointer;
 `
 
-const HomeworkItem = ({ createdAt, title }) => {
-  const [setMode, setSetMode] = useState(false)
-  const onClickSettingBtn = () => {
-    setSetMode(prev => !prev)
+
+const HomeworkItem = ({ createdAt, title, mode, students, order }) => {
+  const processMode = (mode) => {
+    if (mode === "score") {
+      return "포인트"
+    } else if (mode === "cooperation") {
+      return "협동"
+    }
   }
-  return (<Wrapper>
+  return (<SHomeworkItem>
     <Date>{getCreatedDay(createdAt)}</Date>
     <Title>{title}</Title>
-    <FontAwesomeIcon icon={faInfoCircle} onClick={onClickSettingBtn} />
-    {setMode && <SetHomework>
-      sdds
-    </SetHomework>}
-  </Wrapper>);
+    <Mode>{processMode(mode)}</Mode>
+    <FinishBtn>종료</FinishBtn>
+  </SHomeworkItem>);
 }
 
 export default HomeworkItem;

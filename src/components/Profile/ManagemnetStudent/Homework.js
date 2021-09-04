@@ -24,8 +24,8 @@ const HomeworkList = styled.div`
 
 const Wrapper = styled.div`
   display: grid;
-  grid-template-columns: 180px 1fr auto;
-  padding: 0px 20px;
+  grid-template-columns: 180px 360px 80px 100px;
+  padding: 0px 20px; 
   margin-bottom: 20px;
 `
 
@@ -46,11 +46,13 @@ const SEE_HOMEWORK_QUERY = gql`
       id
       createdAt
       title
+      mode
+      order
     }
   }
 `
 
-const Homework = ({ id, type }) => {
+const Homework = ({ id, type, students }) => {
   const { data, loading } = useQuery(SEE_HOMEWORK_QUERY, {
     variables: {
       userId: id,
@@ -58,19 +60,19 @@ const Homework = ({ id, type }) => {
     },
     skip: !type || !id
   })
-  console.log(data?.seeHomework?.createdAt);
   return (<Container>
     {loading ? "loading..." : (data?.seeHomework.length === 0 ? "숙제가 없습니다." :
       <HomeworkLayout>
         <Wrapper>
           <Date style={{ fontWeight: "600" }}>숙제 시작 일</Date>
           <Title style={{ fontWeight: "600" }}>퀴즈 제목</Title>
-          <div style={{ fontWeight: "600" }}>세부 정보</div>
+          <Title style={{ fontWeight: "600" }}>퀴즈 모드</Title>
+          <div style={{ fontWeight: "600", justifySelf: "flex-end", paddingRight: "20px" }}>종료</div>
         </Wrapper>
         <DivisionLine></DivisionLine>
         <HomeworkList>
           {data?.seeHomework.map((item, index) => {
-            return <HomeworkItem {...item} key={index} />
+            return <HomeworkItem {...item} key={index} students={students} />
           })}
         </HomeworkList>
       </HomeworkLayout>)
