@@ -68,9 +68,6 @@ const SolveHomework = ({ quizId }) => {
         score: scoreArr.filter((scoreArrItem) => scoreArrItem.id === item.id)[0].score
       }
     }).sort(compare("order"))
-    // .map((item, index) => {
-    //   return { ...item, score: scoreArr[index] }
-    // })
     localStorage.setItem("homeworkQuiz", JSON.stringify(quizList))
     setHomeworkQuiz(quizList)
   }

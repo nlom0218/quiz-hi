@@ -2,6 +2,7 @@ import { faBell, faFile, faImage } from '@fortawesome/free-regular-svg-icons';
 import { faListOl, faMagic } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
+import { useForm } from 'react-hook-form';
 import styled from 'styled-components';
 import HomeworkAnswer from './HomeworkAnswer';
 
@@ -48,6 +49,13 @@ const Wrapper = styled.div`
   }
 `
 
+const WrapperForm = styled.form`
+  grid-column: 1 / 2;
+  display: grid;
+  grid-template-columns: 100px 1fr;
+  line-height: 20px;
+`
+
 
 const DisTractorList = styled.ol`
   display: grid;
@@ -70,6 +78,7 @@ const Distractor = styled.div`
 `
 
 const HomeworkQuizItem = ({ question, index }) => {
+  const { register } = useForm()
   return (<Container>
     <QuestionNum>
       {index + 1}번 문제
@@ -100,10 +109,10 @@ const HomeworkQuizItem = ({ question, index }) => {
         <div><FontAwesomeIcon icon={faMagic} /> 힌트</div>
         <div>{question.hint}</div>
       </Wrapper>}
-      <Wrapper>
+      <WrapperForm>
         <div><FontAwesomeIcon icon={faBell} /> 정답</div>
-        <HomeworkAnswer type={question.type} />
-      </Wrapper>
+        <HomeworkAnswer type={question.type} questionNum={index + 1} register={register} />
+      </WrapperForm>
       <QuestionScore>{question.score} 점</QuestionScore>
     </QeustionBox>
   </Container>);
