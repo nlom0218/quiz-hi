@@ -31,6 +31,7 @@ const HomeworkSubmitBtn = ({ setSaveMsg }) => {
     const { createHomeworkResult: { ok } } = result
     if (ok) {
       window.alert("숙제가 제출되었습니다.")
+      localStorage.clear()
       history.push(`/profile/${user.username}/homework`)
     }
   }

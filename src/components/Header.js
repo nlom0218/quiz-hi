@@ -73,8 +73,6 @@ const Header = () => {
     }
   }
   const onClickAccount = () => {
-    localStorage.removeItem("homeworkQuiz")
-    localStorage.removeItem("homeworkScore")
     history.push("/")
     logOutUser()
   }
@@ -96,6 +94,7 @@ const Header = () => {
     localStorage.removeItem("selectQuiz")
     localStorage.removeItem("quizList")
     localStorage.removeItem("targetScore")
+    window.location.reload()
   }
   return (<SHeader className="headerContainer">
     <HeaderContainerGsap />
