@@ -128,9 +128,6 @@ const TopProfile = ({ data }) => {
     } else {
       history.push(`/profile/${username}/${mode}`)
     }
-    if (mode === "homework") {
-      localStorage.clear()
-    }
   }
   const needLoginMode = () => {
     if (!isMe) {

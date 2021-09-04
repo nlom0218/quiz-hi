@@ -73,6 +73,7 @@ const Header = () => {
     }
   }
   const onClickAccount = () => {
+    localStorage.clear()
     history.push("/")
     logOutUser()
   }
