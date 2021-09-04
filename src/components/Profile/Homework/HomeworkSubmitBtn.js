@@ -14,12 +14,31 @@ const SHomeworkSubmitBtn = styled.div`
 
 const HomeworkSubmitBtn = ({ setSaveMsg }) => {
   const onClickHomeworkSubmit = () => {
+    const homeworkQuiz = JSON.parse(localStorage.getItem("homeworkQuiz"))
     const homeworkScore = JSON.parse(localStorage.getItem("homeworkScore"))
     const answerArr = homeworkScore.map((item) => item.answer)
     if (answerArr.includes(undefined)) {
       setSaveMsg("정답을 입력하지 않은 문제가 있습니다.")
     } else {
-      console.log("save");
+      const resultArr = homeworkQuiz.map((item) => {
+        const studentAnswer = homeworkScore[homeworkScore.findIndex(homeworkScoreItem => homeworkScoreItem.id === item.id)].answer
+        let result = undefined
+        let studentAnswerStr = undefined
+        if (item.type === "obj") {
+          const quizAnswerStr = item.answer.split(",").sort().join(",")
+          studentAnswerStr = studentAnswer.sort().join(",")
+          result = quizAnswerStr === studentAnswerStr
+        } else if (item.type === "tf") {
+          studentAnswerStr = "" + studentAnswer
+          result = item.answer === studentAnswerStr
+        } else if (item.type === "sub") {
+          const quizAnswerStr = item.answer.replace(/(\s*)/g, "").toLowerCase()
+          studentAnswerStr = studentAnswer.replace(/(\s*)/g, "").toLowerCase()
+          result = quizAnswerStr === studentAnswerStr
+        }
+        return { id: item.id, score: item.score, result, studentAnswer: studentAnswerStr }
+      })
+      const totalScore = resultArr.filter((item) => item.result === true).map((item) => item.score).reduce((acc, cur) => acc + cur, 0)
     }
   }
   return (<SHomeworkSubmitBtn onClick={onClickHomeworkSubmit}>제출하기</SHomeworkSubmitBtn>);
