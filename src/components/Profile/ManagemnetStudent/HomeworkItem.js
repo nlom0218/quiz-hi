@@ -1,8 +1,8 @@
 import { faInfoCircle } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import React, { useState } from 'react';
+import React from 'react';
+import { useHistory } from 'react-router';
 import styled from 'styled-components';
-import { fadeIn } from '../../../animation/fade';
+import useUser from '../../../hooks/useUser';
 import { getCreatedDay } from "../../../sharedFn"
 
 const SHomeworkItem = styled.div`
@@ -27,15 +27,18 @@ const Mode = styled.div``
 
 const FinishBtn = styled.div`
   justify-self: flex-end;
-  background-color: tomato;
-  color: #F4F4F4;
+  background-color: ${props => props.type === "teacher" ? "tomato" : props.theme.blueColor};
+  color: ${props => props.type === "teacher" ? "#F4F4F4" : props.theme.bgColor};
   padding: 5px 20px;
   border-radius: 5px;
   cursor: pointer;
+  transition: background-color 1s ease, color 1s ease;
 `
 
 
-const HomeworkItem = ({ createdAt, title, mode, students, order }) => {
+const HomeworkItem = ({ createdAt, title, mode, type, quizId }) => {
+  const history = useHistory()
+  const user = useUser()
   const processMode = (mode) => {
     if (mode === "score") {
       return "포인트"
@@ -43,11 +46,21 @@ const HomeworkItem = ({ createdAt, title, mode, students, order }) => {
       return "협동"
     }
   }
+  const onClickSolveBtn = (quizId) => {
+    if (type === "teacher") {
+      return
+    }
+    history.push(`/profile/${user?.username}/homework/${quizId}`)
+  }
   return (<SHomeworkItem>
     <Date>{getCreatedDay(createdAt)}</Date>
     <Title>{title}</Title>
     <Mode>{processMode(mode)}</Mode>
-    <FinishBtn>종료</FinishBtn>
+    {type === "teacher" ?
+      <FinishBtn type={type}>종료</FinishBtn>
+      :
+      <FinishBtn type={type} onClick={() => onClickSolveBtn(quizId)} >풀기</FinishBtn>
+    }
   </SHomeworkItem>);
 }
 

@@ -35,7 +35,8 @@ const UserQuizQuestion = ({ data }) => {
     totalPublicQuiz,
     totalPublicQuestion,
     totalPrivateQuiz,
-    totalPrivateQuestion
+    totalPrivateQuestion,
+    type: userType
   } } = data
   const user = useUser()
   const onClickState = (state) => {

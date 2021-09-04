@@ -8,6 +8,7 @@ import NavBtn from '../components/NavBtn';
 import BasicProfile from '../components/Profile/BasicProfile';
 import BottomProfile from '../components/Profile/BottomProfile';
 import EditProfile from '../components/Profile/Edit/EditProfile';
+import StudentHomework from '../components/Profile/Homework/StudentHomework';
 import ManagemnetStudent from '../components/Profile/ManagemnetStudent/ManagemnetStudent';
 import QuizHiSetting from '../components/Profile/QuizHiSetting/QuizHiSetting';
 import TopProfile from '../components/Profile/TopProfile';
@@ -58,7 +59,7 @@ const SEE_PROFILE_QUERY = gql`
 `
 
 const Profile = () => {
-  const { username, mode } = useParams()
+  const { username, mode, quizId } = useParams()
   const user = useUser()
   const { data, loading } = useQuery(SEE_PROFILE_QUERY, { variables: { username } })
   return (<React.Fragment>
@@ -77,6 +78,9 @@ const Profile = () => {
           </BottomProfile>}
           {mode === "student" && <BottomProfile>
             {user?.username === username && <ManagemnetStudent {...data?.seeProfile} />}
+          </BottomProfile>}
+          {mode === "homework" && <BottomProfile>
+            {user?.username === username && <StudentHomework {...data?.seeProfile} quizId={quizId} />}
           </BottomProfile>}
         </React.Fragment>
       }

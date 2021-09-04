@@ -52,6 +52,7 @@ const SEE_HOMEWORK_QUERY = gql`
       title
       mode
       order
+      quizId
     }
   }
 `
@@ -65,18 +66,20 @@ const Homework = ({ id, type, students }) => {
     skip: !type || !id
   })
   return (<Container>
-    {loading ? "loading..." : (data?.seeHomework.length === 0 ? <Msg>내보낸 숙제가 없습니다.</Msg> :
+    {loading ? "loading..." : (data?.seeHomework.length === 0 ? <Msg>{type === "teacher" ? "내보낸 숙제가 없습니다." : "숙제가 없습니다."}</Msg> :
       <HomeworkLayout>
         <Wrapper>
           <Date style={{ fontWeight: "600" }}>숙제 시작 일</Date>
           <Title style={{ fontWeight: "600" }}>퀴즈 제목</Title>
           <Title style={{ fontWeight: "600" }}>퀴즈 모드</Title>
-          <div style={{ fontWeight: "600", justifySelf: "flex-end", paddingRight: "20px" }}>종료</div>
+          <div style={{ fontWeight: "600", justifySelf: "flex-end", paddingRight: "20px" }}>
+            {type === "teacher" ? "종료" : "결과"}
+          </div>
         </Wrapper>
         <DivisionLine></DivisionLine>
         <HomeworkList>
           {data?.seeHomework.map((item, index) => {
-            return <HomeworkItem {...item} key={index} students={students} />
+            return <HomeworkItem {...item} key={index} students={students} type={type} />
           })}
         </HomeworkList>
       </HomeworkLayout>)
