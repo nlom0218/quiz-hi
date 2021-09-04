@@ -3,6 +3,7 @@ import gql from 'graphql-tag';
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import styled from 'styled-components';
+import { fadeIn } from '../../../animation/fade';
 import { compare } from '../../../sharedFn';
 import HomeworkQuizItem from './HomeworkQuizItem';
 import HomeworkSubmitBtn from './HomeworkSubmitBtn';
@@ -23,6 +24,13 @@ const HomeworkQuizList = styled.div`
   display: grid;
   grid-template-columns: 1fr;
   row-gap: 60px;
+`
+
+const Savemsg = styled.div`
+  margin-left: 180px;
+  color: tomato;
+  text-align: center;
+  animation: ${fadeIn} 0.6s ease;
 `
 
 const DETATIL_QUIZ_QUERY = gql`
@@ -48,6 +56,8 @@ const DETATIL_QUIZ_QUERY = gql`
 `
 
 const SolveHomework = ({ quizId }) => {
+  const [change, setChange] = useState(false)
+  const [saveMsg, setSaveMsg] = useState(undefined)
   const [homeworkQuiz, setHomeworkQuiz] = useState(JSON.parse(localStorage.getItem("homeworkQuiz")) || [])
   const onCompleted = () => {
     const orderArr = JSON.parse(data.detailQuiz.order)
@@ -77,18 +87,15 @@ const SolveHomework = ({ quizId }) => {
     skip: !quizId,
     onCompleted
   })
-
-  const onSubmit = (data) => {
-    console.log(data);
-  }
   return (<Container>
     {loading ? "loading..." : <React.Fragment>
       <QuizTitle>{data?.detailQuiz?.title}</QuizTitle>
       <HomeworkQuizList>
         {homeworkQuiz.map((item, index) => {
-          return <HomeworkQuizItem question={item} key={index} index={index} />
+          return <HomeworkQuizItem question={item} key={index} index={index} setChange={setChange} />
         })}
-        <HomeworkSubmitBtn />
+        {saveMsg && <Savemsg>{saveMsg}</Savemsg>}
+        <HomeworkSubmitBtn setSaveMsg={setSaveMsg} />
       </HomeworkQuizList>
     </React.Fragment>
     }

@@ -60,8 +60,7 @@ const SubmitBtn = styled.input`
   cursor: pointer;
 `
 
-const HomeworkAnswer = ({ type, register, id, isValid }) => {
-  const [change, setChange] = useState(false)
+const HomeworkAnswer = ({ type, register, id, isValid, setChange }) => {
   const onClickAnswer = (id, answer) => {
     const homeworkScore = JSON.parse(localStorage.getItem("homeworkScore"))
     const questionObj = homeworkScore.filter((item) => item.id === id)[0]

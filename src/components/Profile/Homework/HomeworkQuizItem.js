@@ -76,12 +76,12 @@ const Distractor = styled.div`
   justify-self: flex-start;
 `
 
-const HomeworkQuizItem = ({ question, index }) => {
+const HomeworkQuizItem = ({ question, index, setChange }) => {
   const { register, formState: { isValid }, handleSubmit } = useForm({
     mode: "onChange",
     defaultValues: {
-      ...(JSON.parse(localStorage.getItem("homeworkScore")).filter((item) => item.id === question.id)[0].answer &&
-        { answer: JSON.parse(localStorage.getItem("homeworkScore")).filter((item) => item.id === question.id)[0].answer }
+      ...(JSON.parse(localStorage.getItem("homeworkScore")).filter((item) => item.id === question.id)[0].answer ?
+        { answer: JSON.parse(localStorage.getItem("homeworkScore")).filter((item) => item.id === question.id)[0].answer } : ""
       )
     }
   })
@@ -125,7 +125,7 @@ const HomeworkQuizItem = ({ question, index }) => {
       </Wrapper>}
       <FormWrapper onSubmit={handleSubmit(onSubmit)}>
         <div><FontAwesomeIcon icon={faBell} /> 정답</div>
-        <HomeworkAnswer type={question.type} questionNum={index + 1} register={register} id={question.id} isValid={isValid} />
+        <HomeworkAnswer type={question.type} questionNum={index + 1} register={register} id={question.id} isValid={isValid} setChange={setChange} />
       </FormWrapper>
       <QuestionScore>{question.score} 점</QuestionScore>
     </QeustionBox>
