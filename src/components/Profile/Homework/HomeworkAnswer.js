@@ -33,13 +33,34 @@ const TFAnswerList = styled.div`
   transition: background-color 0.6s ease;
 `
 
+const Wrapper = styled.div`
+  display: grid;
+  grid-template-columns: 3fr 1fr;
+  column-gap: 20px;
+`
+
 const SubAnswerInput = styled.input`
   background-color: rgb(200, 200, 200, 0.2);
   padding: 10px 20px;
   border-radius: 5px;
+  ::placeholder {
+    color: ${props => props.theme.fontColor};
+    opacity: 0.6;
+  }
 `
 
-const HomeworkAnswer = ({ type, register, id }) => {
+const SubmitBtn = styled.input`
+  background-color: ${props => props.theme.blueColor};
+  padding: 10px;
+  color: ${props => props.theme.bgColor};
+  text-align: center;
+  border-radius: 5px;
+  opacity: ${props => props.disabled ? "0.6" : "1"};
+  transition: opacity 0.6s ease, background-color 1s ease, color 1s ease;
+  cursor: pointer;
+`
+
+const HomeworkAnswer = ({ type, register, id, isValid }) => {
   const [change, setChange] = useState(false)
   const onClickAnswer = (id, answer) => {
     const homeworkScore = JSON.parse(localStorage.getItem("homeworkScore"))
@@ -71,6 +92,13 @@ const HomeworkAnswer = ({ type, register, id }) => {
   const processAnswer = (id, answer) => {
     const homeworkScore = JSON.parse(localStorage.getItem("homeworkScore"))
     const questionObj = homeworkScore.filter((item) => item.id === id)[0]
+    if (type === "sub") {
+      if (questionObj.answer) {
+        return true
+      } else {
+        return false
+      }
+    }
     if (type === "obj") {
       if (!questionObj.answer) {
         return false
@@ -118,10 +146,19 @@ const HomeworkAnswer = ({ type, register, id }) => {
       <TFAnswerList onClick={() => onClickAnswer(id, false)} check={processAnswer(id, false)} >✕</TFAnswerList>
     </TFAnswerInput>}
     {type === "sub" &&
-      <SubAnswerInput
-        {...register(`answer${id}`, { required: true })}
-        type="text"
-      />
+      <Wrapper>
+        <SubAnswerInput
+          {...register(`answer`, { required: true })}
+          type="text"
+          autoComplete="off"
+          placeholder="정답을 입력해 주세요."
+        />
+        <SubmitBtn
+          value={processAnswer(id) ? "저장됨" : "저장"}
+          type="submit"
+          disabled={!isValid}
+        />
+      </Wrapper>
     }
   </React.Fragment>);
 }

@@ -5,6 +5,7 @@ import { useForm } from 'react-hook-form';
 import styled from 'styled-components';
 import { compare } from '../../../sharedFn';
 import HomeworkQuizItem from './HomeworkQuizItem';
+import HomeworkSubmitBtn from './HomeworkSubmitBtn';
 
 const Container = styled.div`
   display: grid;
@@ -18,7 +19,7 @@ const QuizTitle = styled.div`
   font-weight: 600;
 `
 
-const HomeworkQuizList = styled.form`
+const HomeworkQuizList = styled.div`
   display: grid;
   grid-template-columns: 1fr;
   row-gap: 60px;
@@ -47,7 +48,6 @@ const DETATIL_QUIZ_QUERY = gql`
 `
 
 const SolveHomework = ({ quizId }) => {
-  const { register } = useForm()
   const [homeworkQuiz, setHomeworkQuiz] = useState(JSON.parse(localStorage.getItem("homeworkQuiz")) || [])
   const onCompleted = () => {
     const orderArr = JSON.parse(data.detailQuiz.order)
@@ -77,13 +77,18 @@ const SolveHomework = ({ quizId }) => {
     skip: !quizId,
     onCompleted
   })
+
+  const onSubmit = (data) => {
+    console.log(data);
+  }
   return (<Container>
     {loading ? "loading..." : <React.Fragment>
       <QuizTitle>{data?.detailQuiz?.title}</QuizTitle>
       <HomeworkQuizList>
         {homeworkQuiz.map((item, index) => {
-          return <HomeworkQuizItem question={item} key={index} index={index} register={register} />
+          return <HomeworkQuizItem question={item} key={index} index={index} />
         })}
+        <HomeworkSubmitBtn />
       </HomeworkQuizList>
     </React.Fragment>
     }

@@ -49,6 +49,13 @@ const Wrapper = styled.div`
   }
 `
 
+const FormWrapper = styled.form`
+  grid-column: 1 / 2;
+  display: grid;
+  grid-template-columns: 100px 1fr;
+  line-height: 20px;
+`
+
 const DisTractorList = styled.ol`
   display: grid;
   grid-template-columns: 1fr;
@@ -69,7 +76,23 @@ const Distractor = styled.div`
   justify-self: flex-start;
 `
 
-const HomeworkQuizItem = ({ question, index, register }) => {
+const HomeworkQuizItem = ({ question, index }) => {
+  const { register, formState: { isValid }, handleSubmit } = useForm({
+    mode: "onChange",
+    defaultValues: {
+      ...(JSON.parse(localStorage.getItem("homeworkScore")).filter((item) => item.id === question.id)[0].answer &&
+        { answer: JSON.parse(localStorage.getItem("homeworkScore")).filter((item) => item.id === question.id)[0].answer }
+      )
+    }
+  })
+  const onSubmit = (data) => {
+    const homeworkScore = JSON.parse(localStorage.getItem("homeworkScore"))
+    const questionObj = homeworkScore.filter((item) => item.id === question.id)[0]
+    const existQuestion = homeworkScore.filter((item) => item.id !== question.id)
+    const newQuestionObj = { ...questionObj, answer: data.answer }
+    const newHomeworkSocre = [...existQuestion, newQuestionObj]
+    localStorage.setItem("homeworkScore", JSON.stringify(newHomeworkSocre))
+  }
   return (<Container>
     <QuestionNum>
       {index + 1}번 문제
@@ -100,10 +123,10 @@ const HomeworkQuizItem = ({ question, index, register }) => {
         <div><FontAwesomeIcon icon={faMagic} /> 힌트</div>
         <div>{question.hint}</div>
       </Wrapper>}
-      <Wrapper>
+      <FormWrapper onSubmit={handleSubmit(onSubmit)}>
         <div><FontAwesomeIcon icon={faBell} /> 정답</div>
-        <HomeworkAnswer type={question.type} questionNum={index + 1} register={register} id={question.id} />
-      </Wrapper>
+        <HomeworkAnswer type={question.type} questionNum={index + 1} register={register} id={question.id} isValid={isValid} />
+      </FormWrapper>
       <QuestionScore>{question.score} 점</QuestionScore>
     </QeustionBox>
   </Container>);
