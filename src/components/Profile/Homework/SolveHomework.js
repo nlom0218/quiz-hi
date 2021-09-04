@@ -20,7 +20,7 @@ const QuizTitle = styled.div`
 const HomeworkQuizList = styled.div`
   display: grid;
   grid-template-columns: 1fr;
-  row-gap: 40px;
+  row-gap: 60px;
 `
 
 const DETATIL_QUIZ_QUERY = gql`
@@ -50,7 +50,6 @@ const SolveHomework = ({ quizId }) => {
   const onCompleted = () => {
     const orderArr = JSON.parse(data.detailQuiz.order)
     const scoreArr = JSON.parse(localStorage.getItem("homeworkScore")).map((item) => parseInt(item))
-    console.log(scoreArr);
     const quizList = data.detailQuiz.questions.map((item, index) => {
       return {
         order: (orderArr ?

@@ -1,8 +1,9 @@
-import { faFile } from '@fortawesome/free-regular-svg-icons';
-import { faListOl } from '@fortawesome/free-solid-svg-icons';
+import { faBell, faFile, faImage } from '@fortawesome/free-regular-svg-icons';
+import { faListOl, faMagic } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
 import styled from 'styled-components';
+import HomeworkAnswer from './HomeworkAnswer';
 
 const Container = styled.div`
   display: grid;
@@ -19,12 +20,12 @@ const QuestionNum = styled.div`
 
 const QeustionBox = styled.div`
   background-color: ${props => props.theme.boxColor};
-  padding: 20px;
+  padding: 30px;
   border-radius: 5px;
   box-shadow: ${props => props.theme.boxShadow};
   display: grid;
-  grid-template-columns: 1fr 60px;
-  row-gap: 20px;
+  grid-template-columns: 1fr 100px;
+  row-gap: 40px;
   transition: background-color 1s ease;
 `
 
@@ -40,8 +41,11 @@ const QuestionScore = styled.div`
 const Wrapper = styled.div`
   grid-column: 1 / 2;
   display: grid;
-  grid-template-columns: 50px 1fr;
+  grid-template-columns: 100px 1fr;
   line-height: 20px;
+  .imgBox {
+    width: 100%;
+  }
 `
 
 
@@ -65,18 +69,23 @@ const Distractor = styled.div`
   justify-self: flex-start;
 `
 
-const HomeworkQuizItem = ({ question, index, }) => {
+const HomeworkQuizItem = ({ question, index }) => {
   return (<Container>
     <QuestionNum>
       {index + 1}번 문제
     </QuestionNum>
     <QeustionBox>
       <Wrapper>
-        <FontAwesomeIcon icon={faFile} /> {question.question}
+        <div><FontAwesomeIcon icon={faFile} /> 문제</div>
+        <div>{question.question}</div>
       </Wrapper>
+      {question.image && <Wrapper>
+        <div><FontAwesomeIcon icon={faImage} /> 이미지</div>
+        <img className="imgBox" src={question.image} />
+      </Wrapper>}
       {question.type === "obj" &&
         <Wrapper>
-          <FontAwesomeIcon icon={faListOl} />
+          <div><FontAwesomeIcon icon={faListOl} /> 선택지</div>
           <DisTractorList>
             {question.distractor.split("//!@#").map((item, index) => {
               return <DisTractorItem key={index}>
@@ -87,6 +96,14 @@ const HomeworkQuizItem = ({ question, index, }) => {
           </DisTractorList>
         </Wrapper>
       }
+      {question.hint && <Wrapper>
+        <div><FontAwesomeIcon icon={faMagic} /> 힌트</div>
+        <div>{question.hint}</div>
+      </Wrapper>}
+      <Wrapper>
+        <div><FontAwesomeIcon icon={faBell} /> 정답</div>
+        <HomeworkAnswer type={question.type} />
+      </Wrapper>
       <QuestionScore>{question.score} 점</QuestionScore>
     </QeustionBox>
   </Container>);

@@ -76,12 +76,12 @@ const PlayQuizBtn = ({ quizList, quizId, quizMode, type, targetScore, students, 
         return
       }
       const studentId = students.map((item) => item.id).join(",")
-      const score = quizList.map((item) => item.score).join(",")
+      const score = quizList.map((item) => { return { id: parseInt(item.id), score: parseInt(item.score) } })
       createHomework({
         variables: {
           quizId: parseInt(quizId),
           studentId,
-          score,
+          score: JSON.stringify(score),
           mode: quizMode,
           ...(targetScore && { targetScore: parseInt(targetScore) })
         }

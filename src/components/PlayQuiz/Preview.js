@@ -64,6 +64,7 @@ const Preview = ({ quizMode, quizId, quizList, setQuizList, setChange, students 
     const orderArr = JSON.parse(data.detailQuiz.order)
     const quizList = data.detailQuiz.questions.map((item, index) => {
       return {
+        id: item.id,
         order: (orderArr ?
           orderArr.findIndex(id => id === item.id) + 1
           :
