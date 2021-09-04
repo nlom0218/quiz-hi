@@ -9,8 +9,9 @@ const SHomeworkItem = styled.div`
   display: grid;
   grid-template-columns: 180px 360px 80px 100px;
   row-gap: 20px;
-  padding: 20px;
+  padding: 10px 20px;
   align-items: center;
+  line-height: 20px;
   :nth-child(odd) {
     background-color: rgb(200, 200, 200, 0.2);
   }
@@ -18,7 +19,9 @@ const SHomeworkItem = styled.div`
 
 const Date = styled.div``
 
-const Title = styled.div``
+const Title = styled.div`
+  padding-right: 20px;
+`
 
 const Mode = styled.div``
 
