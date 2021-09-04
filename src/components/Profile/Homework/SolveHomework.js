@@ -1,6 +1,7 @@
 import { useQuery } from '@apollo/client';
 import gql from 'graphql-tag';
 import React, { useState } from 'react';
+import { useForm } from 'react-hook-form';
 import styled from 'styled-components';
 import { compare } from '../../../sharedFn';
 import HomeworkQuizItem from './HomeworkQuizItem';
@@ -17,7 +18,7 @@ const QuizTitle = styled.div`
   font-weight: 600;
 `
 
-const HomeworkQuizList = styled.div`
+const HomeworkQuizList = styled.form`
   display: grid;
   grid-template-columns: 1fr;
   row-gap: 60px;
@@ -46,11 +47,11 @@ const DETATIL_QUIZ_QUERY = gql`
 `
 
 const SolveHomework = ({ quizId }) => {
+  const { register } = useForm()
   const [homeworkQuiz, setHomeworkQuiz] = useState(JSON.parse(localStorage.getItem("homeworkQuiz")) || [])
   const onCompleted = () => {
     const orderArr = JSON.parse(data.detailQuiz.order)
     const scoreArr = JSON.parse(localStorage.getItem("homeworkScore"))
-    console.log(scoreArr);
     const quizList = data.detailQuiz.questions.map((item, index) => {
       return {
         id: item.id,
@@ -81,7 +82,7 @@ const SolveHomework = ({ quizId }) => {
       <QuizTitle>{data?.detailQuiz?.title}</QuizTitle>
       <HomeworkQuizList>
         {homeworkQuiz.map((item, index) => {
-          return <HomeworkQuizItem question={item} key={index} index={index} />
+          return <HomeworkQuizItem question={item} key={index} index={index} register={register} />
         })}
       </HomeworkQuizList>
     </React.Fragment>

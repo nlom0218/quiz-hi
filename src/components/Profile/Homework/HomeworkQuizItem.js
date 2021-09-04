@@ -49,14 +49,6 @@ const Wrapper = styled.div`
   }
 `
 
-const WrapperForm = styled.form`
-  grid-column: 1 / 2;
-  display: grid;
-  grid-template-columns: 100px 1fr;
-  line-height: 20px;
-`
-
-
 const DisTractorList = styled.ol`
   display: grid;
   grid-template-columns: 1fr;
@@ -77,8 +69,7 @@ const Distractor = styled.div`
   justify-self: flex-start;
 `
 
-const HomeworkQuizItem = ({ question, index }) => {
-  const { register } = useForm()
+const HomeworkQuizItem = ({ question, index, register }) => {
   return (<Container>
     <QuestionNum>
       {index + 1}번 문제
@@ -109,10 +100,10 @@ const HomeworkQuizItem = ({ question, index }) => {
         <div><FontAwesomeIcon icon={faMagic} /> 힌트</div>
         <div>{question.hint}</div>
       </Wrapper>}
-      <WrapperForm>
+      <Wrapper>
         <div><FontAwesomeIcon icon={faBell} /> 정답</div>
-        <HomeworkAnswer type={question.type} questionNum={index + 1} register={register} />
-      </WrapperForm>
+        <HomeworkAnswer type={question.type} questionNum={index + 1} register={register} id={question.id} />
+      </Wrapper>
       <QuestionScore>{question.score} 점</QuestionScore>
     </QeustionBox>
   </Container>);
