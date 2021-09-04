@@ -49,9 +49,11 @@ const SolveHomework = ({ quizId }) => {
   const [homeworkQuiz, setHomeworkQuiz] = useState(JSON.parse(localStorage.getItem("homeworkQuiz")) || [])
   const onCompleted = () => {
     const orderArr = JSON.parse(data.detailQuiz.order)
-    const scoreArr = JSON.parse(localStorage.getItem("homeworkScore")).map((item) => parseInt(item))
+    const scoreArr = JSON.parse(localStorage.getItem("homeworkScore"))
+    console.log(scoreArr);
     const quizList = data.detailQuiz.questions.map((item, index) => {
       return {
+        id: item.id,
         order: (orderArr ?
           orderArr.findIndex(id => id === item.id) + 1
           :
@@ -62,11 +64,13 @@ const SolveHomework = ({ quizId }) => {
         distractor: item.distractor,
         hint: item.hint,
         image: item.image,
-        author: item.user.nickname
+        author: item.user.nickname,
+        score: scoreArr.filter((scoreArrItem) => scoreArrItem.id === item.id)[0].score
       }
-    }).sort(compare("order")).map((item, index) => {
-      return { ...item, score: scoreArr[index] }
-    })
+    }).sort(compare("order"))
+    // .map((item, index) => {
+    //   return { ...item, score: scoreArr[index] }
+    // })
     localStorage.setItem("homeworkQuiz", JSON.stringify(quizList))
     setHomeworkQuiz(quizList)
   }
