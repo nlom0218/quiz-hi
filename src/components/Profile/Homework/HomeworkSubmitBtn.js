@@ -1,8 +1,9 @@
-import { useMutation } from '@apollo/client';
+import { useMutation, useReactiveVar } from '@apollo/client';
 import gql from 'graphql-tag';
 import React from 'react';
 import { useHistory } from 'react-router';
 import styled from 'styled-components';
+import { setHomeworkQuizId } from '../../../apollo';
 import useUser from '../../../hooks/useUser';
 
 const SHomeworkSubmitBtn = styled.div`
@@ -24,7 +25,7 @@ const CREATE_HOMEWORK_RESULT__MUTATION = gql`
   }
 `
 
-const HomeworkSubmitBtn = ({ setSaveMsg, setQuizId }) => {
+const HomeworkSubmitBtn = ({ setSaveMsg }) => {
   const history = useHistory()
   const user = useUser()
   const onCompleted = (result) => {
@@ -35,7 +36,7 @@ const HomeworkSubmitBtn = ({ setSaveMsg, setQuizId }) => {
       localStorage.removeItem("homeworkOrder")
       localStorage.removeItem("homeworkQuizId")
       localStorage.removeItem("homeworkQuiz")
-      setQuizId(null)
+      setHomeworkQuizId(null)
       history.push(`/profile/${user.username}/homework`)
       window.location.reload()
     }

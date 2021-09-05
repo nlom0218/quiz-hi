@@ -1,9 +1,10 @@
-import { useQuery } from '@apollo/client';
+import { useQuery, useReactiveVar } from '@apollo/client';
 import { faInfoCircle } from '@fortawesome/free-solid-svg-icons';
 import gql from 'graphql-tag';
 import React from 'react';
 import { useHistory } from 'react-router';
 import styled from 'styled-components';
+import { homeworkQuizIdVar, setHomeworkQuizId } from '../../../apollo';
 import useUser from '../../../hooks/useUser';
 import { getCreatedDay } from "../../../sharedFn"
 
@@ -57,7 +58,7 @@ const SEE_HOMEWORKRESULT_QUERY = gql`
 `
 
 
-const HomeworkItem = ({ createdAt, title, mode, type, quizId, score, order, setQuizId, setComplete }) => {
+const HomeworkItem = ({ createdAt, title, mode, type, quizId, score, order, setComplete }) => {
   const history = useHistory()
   const user = useUser()
   const { data, loading } = useQuery(SEE_HOMEWORKRESULT_QUERY, {
@@ -84,7 +85,7 @@ const HomeworkItem = ({ createdAt, title, mode, type, quizId, score, order, setQ
     localStorage.setItem("homeworkOrder", order)
     localStorage.setItem("homeworkQuizId", quizId)
     localStorage.removeItem("homeworkResult")
-    setQuizId(quizId)
+    setHomeworkQuizId(quizId)
     setComplete(false)
   }
   const onClickResultBtn = (quizId) => {
@@ -101,7 +102,7 @@ const HomeworkItem = ({ createdAt, title, mode, type, quizId, score, order, setQ
     localStorage.setItem("homeworkResult", result)
     localStorage.setItem("homeworkScore", score)
     localStorage.setItem("homeworkQuizId", quizId)
-    setQuizId(quizId)
+    setHomeworkQuizId(quizId)
     setComplete(false)
   }
   const totalScore = () => {

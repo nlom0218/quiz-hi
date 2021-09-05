@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
 import { useHistory, useParams } from 'react-router';
 import styled from 'styled-components';
+import { setHomeworkQuizId } from '../../apollo';
 import { processUserLevel } from '../../sharedFn';
 import LevelStep from '../LevelStep';
 import FollowBtn from './FollowBtn';
@@ -127,6 +128,13 @@ const TopProfile = ({ data }) => {
       history.push(`/profile/${username}/${mode}/public/quiz/1`)
     } else {
       history.push(`/profile/${username}/${mode}`)
+    }
+    if (mode === "homework") {
+      localStorage.removeItem("homeworkResult")
+      localStorage.removeItem("homeworkScore")
+      localStorage.removeItem("homeworkQuizId")
+      localStorage.removeItem("homeworkQuiz")
+      setHomeworkQuizId(null)
     }
   }
   const needLoginMode = () => {

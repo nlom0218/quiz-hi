@@ -7,6 +7,11 @@ const DARK = "dark"
 const TOKEN = "token"
 const QUIZBASKET = "quizBasket"
 
+export const homeworkQuizIdVar = makeVar(localStorage.getItem("homeworkQuizId") || null)
+export const setHomeworkQuizId = (id) => {
+  homeworkQuizIdVar(id)
+}
+
 export const darkModeVar = makeVar(Boolean(localStorage.getItem(DARK)))
 export const enableDarkMode = () => {
   localStorage.setItem(DARK, "true")

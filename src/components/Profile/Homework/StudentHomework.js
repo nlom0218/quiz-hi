@@ -1,6 +1,8 @@
+import { useReactiveVar } from '@apollo/client';
 import React, { useEffect, useState } from 'react';
 import { useHistory, useParams } from 'react-router';
 import styled from 'styled-components';
+import { homeworkQuizIdVar } from '../../../apollo';
 import Homework from '../ManagemnetStudent/Homework';
 import ResultHomework from './ResultHomework';
 import SolveHomework from './SolveHomework';
@@ -34,7 +36,7 @@ const DivisionLine = styled.div`
 
 const StudentHomework = ({ students, id, type, username }) => {
   const history = useHistory()
-  const [quizId, setQuizId] = useState(localStorage.getItem("homeworkQuizId") || null)
+  const homeworkQuizId = useReactiveVar(homeworkQuizIdVar)
   const [complete, setComplete] = useState(false)
   // complete(false) => 퀴즈가 안띄어짐. complete(true) => 퀴즈가 띄어짐
   // quizId를 받은 후 퀴즈 목록들을 localstorage에 저장 한 후 complete(true)로 변경
@@ -50,14 +52,14 @@ const StudentHomework = ({ students, id, type, username }) => {
   return (<Container>
     <Wrapper>
       <Title>숙제 목록</Title>
-      <Homework students={students} id={id} type={type} setQuizId={setQuizId} setComplete={setComplete} />
+      <Homework students={students} id={id} type={type} setComplete={setComplete} />
     </Wrapper>
-    {quizId && <React.Fragment>
+    {homeworkQuizId && <React.Fragment>
       <DivisionLine></DivisionLine>
       {!resultArr ?
-        <SolveHomework quizId={quizId} setComplete={setComplete} complete={complete} setQuizId={setQuizId} />
+        <SolveHomework quizId={homeworkQuizId} setComplete={setComplete} complete={complete} />
         :
-        <ResultHomework quizId={quizId} setComplete={setComplete} complete={complete} resultArr={resultArr} />
+        <ResultHomework quizId={homeworkQuizId} setComplete={setComplete} complete={complete} resultArr={resultArr} />
       }
     </React.Fragment>}
   </Container>);

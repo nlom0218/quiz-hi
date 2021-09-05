@@ -58,7 +58,7 @@ const SEE_HOMEWORK_QUERY = gql`
   }
 `
 
-const Homework = ({ id, type, students, setQuizId, setComplete }) => {
+const Homework = ({ id, type, students, setComplete }) => {
   const { data, loading } = useQuery(SEE_HOMEWORK_QUERY, {
     variables: {
       userId: id,
@@ -80,7 +80,7 @@ const Homework = ({ id, type, students, setQuizId, setComplete }) => {
         <DivisionLine></DivisionLine>
         <HomeworkList>
           {data?.seeHomework.map((item, index) => {
-            return <HomeworkItem {...item} key={index} students={students} type={type} setQuizId={setQuizId} setComplete={setComplete} />
+            return <HomeworkItem {...item} key={index} students={students} type={type} setComplete={setComplete} />
           })}
         </HomeworkList>
       </HomeworkLayout>)

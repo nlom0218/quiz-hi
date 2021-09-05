@@ -59,7 +59,7 @@ const DETATIL_QUIZ_QUERY = gql`
   }
 `
 
-const SolveHomework = ({ quizId, complete, setComplete, setQuizId }) => {
+const SolveHomework = ({ quizId, complete, setComplete }) => {
   useEffect(() => {
     if (complete === false) {
       refetch()
@@ -108,7 +108,7 @@ const SolveHomework = ({ quizId, complete, setComplete, setQuizId }) => {
           return <HomeworkQuizItem question={item} key={index} index={index} setChange={setChange} />
         })}
         {saveMsg && <Savemsg>{saveMsg}</Savemsg>}
-        <HomeworkSubmitBtn setSaveMsg={setSaveMsg} setQuizId={setQuizId} />
+        <HomeworkSubmitBtn setSaveMsg={setSaveMsg} />
       </HomeworkQuizList>
     </React.Fragment>
     }
