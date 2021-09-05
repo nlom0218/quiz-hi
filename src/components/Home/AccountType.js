@@ -61,8 +61,8 @@ const AccountType = () => {
         <Wapper>
           <Icon><FontAwesomeIcon icon={faChild} />학생</Icon>
           <Description>
-            선생님이 보낸 퀴즈를 풀 수 있습니다. 같은 반 학생들끼리 함께 퀴즈를 고민하고
-            어려운 문제는 함께 해결 할 수 있습니다.
+            학생 계정은 선생님 계정을 통해서 생성할 수 있습니다.
+            학생들은 선생님이 봬는 퀴즈를 풀 수 있으며 얻은 점수로 레벨을 올릴 수 있습니다.
           </Description>
         </Wapper>
         <Wapper>
@@ -70,7 +70,6 @@ const AccountType = () => {
           <Description>
             일반인 계정은 일부 컨텐츠가 제한이 되며 학생 계정을 생성할 수 없습니다.
             프로필에서 이메일을 인증하면 선생님 계정으로 변경 가능합니다.
-            (제한되는 컨텐츠: 퀴즈 공유, 게시글 작성, 댓글 등등)
           </Description>
         </Wapper>
       </Box>
