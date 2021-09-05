@@ -39,22 +39,25 @@ const QuizScore = styled.div`
 
 const StudentScoreList = ({ quizScore }) => {
   const quizScoreArr = JSON.parse(quizScore).sort(compare("order"))
+  console.log(quizScoreArr);
   return (<DetailInfoLayout>
     <Title>
       <div><FontAwesomeIcon icon={faBook} /> 퀴즈 점수</div>
       <ContentNum>{quizScoreArr.length}개의 퀴즈에 참여</ContentNum>
     </Title>
     <ScoreContainer>
-      {quizScoreArr !== 0 ? <ScoreList>
-        {quizScoreArr.map((item, index) => {
-          return <ScoreItem key={index}>
-            <QuizTitle>{item.quizTitle}</QuizTitle>
-            <QuizScore>{item.score}점</QuizScore>
-          </ScoreItem>
-        })}
-      </ScoreList>
+      {quizScoreArr.length !== 0 ?
+        <ScoreList>
+          {quizScoreArr.map((item, index) => {
+            return <ScoreItem key={index}>
+              <QuizTitle>{item.quizTitle}</QuizTitle>
+              <QuizScore>{item.score}점</QuizScore>
+            </ScoreItem>
+          })}
+        </ScoreList>
         :
-        <div>팔로우 태그가 없습니다.</div>}
+        <div style={{ marginTop: "20px" }}>참여한 퀴즈가 없습니다.</div>
+      }
     </ScoreContainer>
   </DetailInfoLayout>);
 }
