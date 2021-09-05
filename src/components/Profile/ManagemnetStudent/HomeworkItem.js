@@ -39,6 +39,8 @@ const FinishBtn = styled.div`
 
 const ResultBtn = styled.div`
   justify-self: flex-end;
+  text-decoration: underline;
+  cursor: pointer;
 `
 
 const SEE_HOMEWORKRESULT_QUERY = gql`
@@ -55,7 +57,7 @@ const SEE_HOMEWORKRESULT_QUERY = gql`
 `
 
 
-const HomeworkItem = ({ createdAt, title, mode, type, quizId, score, order }) => {
+const HomeworkItem = ({ createdAt, title, mode, type, quizId, score, order, setQuizId, setComplete }) => {
   const history = useHistory()
   const user = useUser()
   const { data, loading } = useQuery(SEE_HOMEWORKRESULT_QUERY, {
@@ -72,22 +74,19 @@ const HomeworkItem = ({ createdAt, title, mode, type, quizId, score, order }) =>
     }
   }
   const onClickSolveBtn = (quizId) => {
-    if (loading) {
-      return
-    }
     if (type === "teacher") {
       return
     }
     if (data?.seeHomeworkResult) {
-      localStorage.setItem("homeworkResult", data?.seeHomeworkResult?.result)
       localStorage.setItem("homeworkScore", data?.seeHomeworkResult?.score)
-      history.push(`/profile/${user?.username}/homework/${quizId}/result`)
     } else {
       localStorage.setItem("homeworkScore", score)
-      localStorage.setItem("homeworkQuizId", quizId)
-      localStorage.setItem("homeworkOrder", order)
-      history.push(`/profile/${user?.username}/homework/${quizId}/solve`)
     }
+    localStorage.setItem("homeworkResult", data?.seeHomeworkResult?.result)
+    localStorage.setItem("homeworkOrder", order)
+    localStorage.setItem("homeworkQuizId", quizId)
+    setQuizId(quizId)
+    setComplete(false)
   }
   const totalScore = () => {
     return JSON.parse(score).map((item) => parseInt(item.score)).reduce((acc, cur) => acc + cur, 0)

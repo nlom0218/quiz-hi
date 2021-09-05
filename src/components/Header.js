@@ -95,6 +95,7 @@ const Header = () => {
     localStorage.removeItem("selectQuiz")
     localStorage.removeItem("quizList")
     localStorage.removeItem("targetScore")
+    history.push("/play-quiz")
     window.location.reload()
   }
   return (<SHeader className="headerContainer">

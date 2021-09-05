@@ -1,9 +1,7 @@
-import React, { useEffect } from 'react';
-import { useHistory } from 'react-router';
+import React, { useEffect, useState } from 'react';
+import { useHistory, useParams } from 'react-router';
 import styled from 'styled-components';
 import Homework from '../ManagemnetStudent/Homework';
-import StudentList from '../ManagemnetStudent/StudentList';
-import StudentQuizScore from '../ManagemnetStudent/StudentQuizScore';
 import SolveHomework from './SolveHomework';
 
 const Container = styled.div`
@@ -33,25 +31,27 @@ const DivisionLine = styled.div`
   transition: background-color 1s ease;
 `
 
-const StudentHomework = ({ students, id, type, quizId, username, state }) => {
+const StudentHomework = ({ students, id, type, username }) => {
   const history = useHistory()
+  const [quizId, setQuizId] = useState(localStorage.getItem("homeworkQuizId") || null)
+  const [complete, setComplete] = useState(false)
+  // complete(false) => 퀴즈가 안띄어짐. complete(true) => 퀴즈가 띄어짐
+  // quizId를 받은 후 퀴즈 목록들을 localstorage에 저장 한 후 complete(true)로 변경
+  // 숙제를 선택하게 될 때 에러를 방지하기 위해 complete(false)로 바꾸기
+  // 에러가 나는 이유는 homeworkScore 와 homeworkQuiz가 충돌하게 된다.
   useEffect(() => {
     if (type !== "student") {
       history.push(`/profile/${username}/info`)
     }
-  })
+  }, [])
   return (<Container>
     <Wrapper>
       <Title>숙제 목록</Title>
-      <Homework students={students} id={id} type={type} />
+      <Homework students={students} id={id} type={type} setQuizId={setQuizId} setComplete={setComplete} />
     </Wrapper>
-    {state === "solve" &&
-      <React.Fragment>
-        <DivisionLine></DivisionLine>
-        <SolveHomework quizId={quizId} />
-      </React.Fragment>}
-    {state === "result" && <React.Fragment>
+    {quizId && <React.Fragment>
       <DivisionLine></DivisionLine>
+      <SolveHomework quizId={quizId} setComplete={setComplete} complete={complete} />
     </React.Fragment>}
   </Container>);
 }

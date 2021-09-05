@@ -53,7 +53,6 @@ function App() {
           :
           <Switch>
             <Route exact path="/profile/:username/:mode">{isLoggedIn ? <Profile /> : <NotFound />}</Route>
-            <Route exact path="/profile/:username/:mode/:quizId/:state">{isLoggedIn ? <Profile /> : <NotFound />}</Route>
             <Route><StudentNotFound /></Route>
           </Switch>
         }

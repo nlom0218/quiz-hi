@@ -1,6 +1,8 @@
 import { useQuery } from '@apollo/client';
+import { faBook } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import gql from 'graphql-tag';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import styled from 'styled-components';
 import { fadeIn } from '../../../animation/fade';
@@ -18,6 +20,8 @@ const QuizTitle = styled.div`
   font-size: 20px;
   line-height: 24px;
   font-weight: 600;
+  display: grid;
+  grid-template-columns: 30px 1fr;
 `
 
 const HomeworkQuizList = styled.div`
@@ -55,13 +59,14 @@ const DETATIL_QUIZ_QUERY = gql`
   }
 `
 
-const SolveHomework = ({ quizId }) => {
+const SolveHomework = ({ quizId, complete, setComplete }) => {
   const [change, setChange] = useState(false)
   const [saveMsg, setSaveMsg] = useState(undefined)
   const [homeworkQuiz, setHomeworkQuiz] = useState(JSON.parse(localStorage.getItem("homeworkQuiz")) || [])
   const onCompleted = () => {
     const orderArr = JSON.parse(data.detailQuiz.order)
     const scoreArr = JSON.parse(localStorage.getItem("homeworkScore"))
+    const resultArr = JSON.parse(localStorage.getItem("homeworkReuslt"))
     const quizList = data.detailQuiz.questions.map((item, index) => {
       return {
         id: item.id,
@@ -81,6 +86,7 @@ const SolveHomework = ({ quizId }) => {
     }).sort(compare("order"))
     localStorage.setItem("homeworkQuiz", JSON.stringify(quizList))
     setHomeworkQuiz(quizList)
+    setComplete(true)
   }
   const { data, loading } = useQuery(DETATIL_QUIZ_QUERY, {
     variables: { id: parseInt(quizId) },
@@ -88,8 +94,11 @@ const SolveHomework = ({ quizId }) => {
     onCompleted
   })
   return (<Container>
-    {loading ? "loading..." : <React.Fragment>
-      <QuizTitle>{data?.detailQuiz?.title}</QuizTitle>
+    {complete && <React.Fragment>
+      <QuizTitle>
+        <FontAwesomeIcon icon={faBook} />
+        <div>{data?.detailQuiz?.title}</div>
+      </QuizTitle>
       <HomeworkQuizList>
         {homeworkQuiz.map((item, index) => {
           return <HomeworkQuizItem question={item} key={index} index={index} setChange={setChange} />
