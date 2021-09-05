@@ -7,6 +7,8 @@ import styled from 'styled-components';
 import { processNextLevelScore, processUserLevel, getCreatedDay } from '../../sharedFn';
 import LevelStep from '../LevelStep';
 import PopularQuizQuiestion from './PopularQuizQuiestion';
+import { ContentNum, DetailInfoLayout, Title } from './sharedCss';
+import StudentScoreList from './StudentScoreList';
 
 const Container = styled.div`
   margin-top: 20px;
@@ -28,14 +30,6 @@ const LeftContents = styled.div`
   display: grid;
   grid-template-columns: 1fr;
   row-gap: 20px;
-`
-
-const Title = styled.div`
-  padding-bottom: 20px;
-  border-bottom: 1px solid rgb(200, 200, 200, 0.6);
-  font-weight: 600;
-  display: flex;
-  justify-content: space-between;
 `
 
 const BasicInfo = styled.div`
@@ -71,13 +65,6 @@ const DetailInto = styled.div`
   grid-template-columns: 1fr;
   grid-gap: 20px;
   align-items: flex-start;
-`
-
-const DetailInfoLayout = styled.div`
-  padding: 20px;
-  border: 1px solid rgb(200, 200, 200, 0.6);
-  background-color: ${props => props.theme.boxColor};
-  transition: background-color 1s ease;
 `
 
 const LevelContainer = styled.div`
@@ -118,10 +105,6 @@ const TagContainer = styled.div`
   grid-template-columns: 1fr;
   grid-template-rows: auto;
   margin-top: 20px;
-`
-
-const TagsNum = styled.div`
-  font-weight: 400;
 `
 
 const TagList = styled.div`
@@ -199,7 +182,8 @@ const BasicProfile = ({ data }) => {
     createdAt,
     tags,
     personalPage,
-    caption
+    caption,
+    quizScore
   } } = data
   const personalPageArr = personalPage ?
     personalPage
@@ -310,7 +294,7 @@ const BasicProfile = ({ data }) => {
         {type === "teacher" && <DetailInfoLayout>
           <Title>
             <div><FontAwesomeIcon icon={faTags} /> 팔로우 태그</div>
-            <TagsNum>{tags.length}개의 팔로우 태그</TagsNum>
+            <ContentNum>{tags.length}개의 팔로우 태그</ContentNum>
           </Title>
           <TagContainer>
             {tags.length !== 0 ? <TagList>
@@ -325,6 +309,7 @@ const BasicProfile = ({ data }) => {
           </TagContainer>
         </DetailInfoLayout>}
         {type === "teacher" && <PopularQuizQuiestion userId={id} totalPublicQuiz={totalPublicQuiz} totalPublicQuestion={totalPublicQuestion} />}
+        {type === "student" && <StudentScoreList quizScore={quizScore} />}
       </DetailInto>
     </LeftContents>
 
