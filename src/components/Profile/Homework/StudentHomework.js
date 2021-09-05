@@ -55,7 +55,7 @@ const StudentHomework = ({ students, id, type, username }) => {
     {quizId && <React.Fragment>
       <DivisionLine></DivisionLine>
       {!resultArr ?
-        <SolveHomework quizId={quizId} setComplete={setComplete} complete={complete} />
+        <SolveHomework quizId={quizId} setComplete={setComplete} complete={complete} setQuizId={setQuizId} />
         :
         <ResultHomework quizId={quizId} setComplete={setComplete} complete={complete} resultArr={resultArr} />
       }

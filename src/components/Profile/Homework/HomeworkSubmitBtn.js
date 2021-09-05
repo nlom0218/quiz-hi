@@ -24,15 +24,20 @@ const CREATE_HOMEWORK_RESULT__MUTATION = gql`
   }
 `
 
-const HomeworkSubmitBtn = ({ setSaveMsg }) => {
+const HomeworkSubmitBtn = ({ setSaveMsg, setQuizId }) => {
   const history = useHistory()
   const user = useUser()
   const onCompleted = (result) => {
     const { createHomeworkResult: { ok } } = result
     if (ok) {
       window.alert("숙제가 제출되었습니다.")
-      localStorage.clear()
+      localStorage.removeItem("homeworkScore")
+      localStorage.removeItem("homeworkOrder")
+      localStorage.removeItem("homeworkQuizId")
+      localStorage.removeItem("homeworkQuiz")
+      setQuizId(null)
       history.push(`/profile/${user.username}/homework`)
+      window.location.reload()
     }
   }
   const [createHomeworkResult, { loading }] = useMutation(CREATE_HOMEWORK_RESULT__MUTATION, {
