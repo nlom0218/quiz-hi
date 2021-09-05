@@ -28,7 +28,7 @@ const HomeworkList = styled.div`
 
 const Wrapper = styled.div`
   display: grid;
-  grid-template-columns: 180px 360px 80px 100px;
+  grid-template-columns: 140px 360px 80px 1fr;
   padding: 0px 20px; 
   margin-bottom: 20px;
 `
@@ -73,7 +73,7 @@ const Homework = ({ id, type, students }) => {
           <Date style={{ fontWeight: "600" }}>숙제 시작 일</Date>
           <Title style={{ fontWeight: "600" }}>퀴즈 제목</Title>
           <Title style={{ fontWeight: "600" }}>퀴즈 모드</Title>
-          <div style={{ fontWeight: "600", justifySelf: "flex-end", paddingRight: "20px" }}>
+          <div style={{ fontWeight: "600", justifySelf: "flex-end" }}>
             {type === "teacher" ? "종료" : "결과"}
           </div>
         </Wrapper>

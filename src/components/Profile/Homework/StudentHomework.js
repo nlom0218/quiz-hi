@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useHistory } from 'react-router';
 import styled from 'styled-components';
 import Homework from '../ManagemnetStudent/Homework';
 import StudentList from '../ManagemnetStudent/StudentList';
@@ -32,17 +33,26 @@ const DivisionLine = styled.div`
   transition: background-color 1s ease;
 `
 
-const StudentHomework = ({ students, id, quizScore: teacherQuizScore, type, quizId }) => {
+const StudentHomework = ({ students, id, type, quizId, username, state }) => {
+  const history = useHistory()
+  useEffect(() => {
+    if (type !== "student") {
+      history.push(`/profile/${username}/info`)
+    }
+  })
   return (<Container>
     <Wrapper>
       <Title>숙제 목록</Title>
       <Homework students={students} id={id} type={type} />
     </Wrapper>
-    {quizId &&
+    {state === "solve" &&
       <React.Fragment>
         <DivisionLine></DivisionLine>
         <SolveHomework quizId={quizId} />
       </React.Fragment>}
+    {state === "result" && <React.Fragment>
+      <DivisionLine></DivisionLine>
+    </React.Fragment>}
   </Container>);
 }
 

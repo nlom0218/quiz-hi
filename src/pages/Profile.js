@@ -59,7 +59,7 @@ const SEE_PROFILE_QUERY = gql`
 `
 
 const Profile = () => {
-  const { username, mode, quizId } = useParams()
+  const { username, mode, quizId, state } = useParams()
   const user = useUser()
   const { data, loading } = useQuery(SEE_PROFILE_QUERY, { variables: { username } })
   return (<React.Fragment>
@@ -80,7 +80,7 @@ const Profile = () => {
             {user?.username === username && <ManagemnetStudent {...data?.seeProfile} />}
           </BottomProfile>}
           {mode === "homework" && <BottomProfile>
-            {user?.username === username && <StudentHomework {...data?.seeProfile} quizId={quizId} />}
+            {user?.username === username && <StudentHomework {...data?.seeProfile} quizId={quizId} state={state} />}
           </BottomProfile>}
         </React.Fragment>
       }

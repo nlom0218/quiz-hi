@@ -1,4 +1,6 @@
+import { useQuery } from '@apollo/client';
 import { faInfoCircle } from '@fortawesome/free-solid-svg-icons';
+import gql from 'graphql-tag';
 import React from 'react';
 import { useHistory } from 'react-router';
 import styled from 'styled-components';
@@ -7,7 +9,7 @@ import { getCreatedDay } from "../../../sharedFn"
 
 const SHomeworkItem = styled.div`
   display: grid;
-  grid-template-columns: 180px 360px 80px 100px;
+  grid-template-columns: 140px 360px 80px 1fr;
   row-gap: 20px;
   padding: 10px 20px;
   align-items: center;
@@ -35,10 +37,33 @@ const FinishBtn = styled.div`
   transition: background-color 1s ease, color 1s ease;
 `
 
+const ResultBtn = styled.div`
+  justify-self: flex-end;
+`
+
+const SEE_HOMEWORKRESULT_QUERY = gql`
+  query seeHomeworkResult($userId: Int!, $quizId: Int!) {
+    seeHomeworkResult(userId: $userId, quizId: $quizId) {
+      id
+      result
+      score
+      quiz {
+        title
+      }
+    }
+  }
+`
+
 
 const HomeworkItem = ({ createdAt, title, mode, type, quizId, score, order }) => {
   const history = useHistory()
   const user = useUser()
+  const { data, loading } = useQuery(SEE_HOMEWORKRESULT_QUERY, {
+    variables: {
+      userId: user.id,
+      quizId
+    }
+  })
   const processMode = (mode) => {
     if (mode === "score") {
       return "포인트"
@@ -47,13 +72,25 @@ const HomeworkItem = ({ createdAt, title, mode, type, quizId, score, order }) =>
     }
   }
   const onClickSolveBtn = (quizId) => {
+    if (loading) {
+      return
+    }
     if (type === "teacher") {
       return
     }
-    localStorage.setItem("homeworkScore", score)
-    localStorage.setItem("homeworkQuizId", quizId)
-    localStorage.setItem("homeworkOrder", order)
-    history.push(`/profile/${user?.username}/homework/${quizId}`)
+    if (data?.seeHomeworkResult) {
+      localStorage.setItem("homeworkResult", data?.seeHomeworkResult?.result)
+      localStorage.setItem("homeworkScore", data?.seeHomeworkResult?.score)
+      history.push(`/profile/${user?.username}/homework/${quizId}/result`)
+    } else {
+      localStorage.setItem("homeworkScore", score)
+      localStorage.setItem("homeworkQuizId", quizId)
+      localStorage.setItem("homeworkOrder", order)
+      history.push(`/profile/${user?.username}/homework/${quizId}/solve`)
+    }
+  }
+  const totalScore = () => {
+    return JSON.parse(score).map((item) => parseInt(item.score)).reduce((acc, cur) => acc + cur, 0)
   }
   return (<SHomeworkItem>
     <Date>{getCreatedDay(createdAt)}</Date>
@@ -62,7 +99,13 @@ const HomeworkItem = ({ createdAt, title, mode, type, quizId, score, order }) =>
     {type === "teacher" ?
       <FinishBtn type={type}>종료</FinishBtn>
       :
-      <FinishBtn type={type} onClick={() => onClickSolveBtn(quizId)} >풀기</FinishBtn>
+      (!data?.seeHomeworkResult ?
+        <FinishBtn type={type} onClick={() => onClickSolveBtn(quizId)} >풀기</FinishBtn>
+        :
+        <ResultBtn type={type} onClick={() => onClickSolveBtn(quizId)} >
+          {data?.seeHomeworkResult?.score}점/{totalScore()}점
+        </ResultBtn>
+      )
     }
   </SHomeworkItem>);
 }

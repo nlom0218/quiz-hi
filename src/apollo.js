@@ -23,7 +23,7 @@ export const logInUser = (token) => {
   isLoggedInVar(true)
 }
 export const logOutUser = () => {
-  localStorage.removeItem(TOKEN)
+  localStorage.clear()
   window.location.reload()
   isLoggedInVar(false)
 }
