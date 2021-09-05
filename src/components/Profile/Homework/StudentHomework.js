@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useHistory, useParams } from 'react-router';
 import styled from 'styled-components';
 import Homework from '../ManagemnetStudent/Homework';
+import ResultHomework from './ResultHomework';
 import SolveHomework from './SolveHomework';
 
 const Container = styled.div`
@@ -39,6 +40,8 @@ const StudentHomework = ({ students, id, type, username }) => {
   // quizId를 받은 후 퀴즈 목록들을 localstorage에 저장 한 후 complete(true)로 변경
   // 숙제를 선택하게 될 때 에러를 방지하기 위해 complete(false)로 바꾸기
   // 에러가 나는 이유는 homeworkScore 와 homeworkQuiz가 충돌하게 된다.
+  // homeworkscore는 바로 업데이트 되는데 비해 homeworkQuiz는 데이터를 불러오기 때문에 약간의 시간이 필요하다.
+  const resultArr = JSON.parse(localStorage.getItem("homeworkResult"))
   useEffect(() => {
     if (type !== "student") {
       history.push(`/profile/${username}/info`)
@@ -51,7 +54,11 @@ const StudentHomework = ({ students, id, type, username }) => {
     </Wrapper>
     {quizId && <React.Fragment>
       <DivisionLine></DivisionLine>
-      <SolveHomework quizId={quizId} setComplete={setComplete} complete={complete} />
+      {!resultArr ?
+        <SolveHomework quizId={quizId} setComplete={setComplete} complete={complete} />
+        :
+        <ResultHomework quizId={quizId} setComplete={setComplete} complete={complete} resultArr={resultArr} />
+      }
     </React.Fragment>}
   </Container>);
 }

@@ -74,16 +74,32 @@ const HomeworkItem = ({ createdAt, title, mode, type, quizId, score, order, setQ
     }
   }
   const onClickSolveBtn = (quizId) => {
+    if (quizId === parseInt(localStorage.getItem("homeworkQuizId"))) {
+      return
+    }
     if (type === "teacher") {
       return
     }
-    if (data?.seeHomeworkResult) {
-      localStorage.setItem("homeworkScore", data?.seeHomeworkResult?.score)
-    } else {
-      localStorage.setItem("homeworkScore", score)
-    }
-    localStorage.setItem("homeworkResult", data?.seeHomeworkResult?.result)
+    localStorage.setItem("homeworkScore", score)
     localStorage.setItem("homeworkOrder", order)
+    localStorage.setItem("homeworkQuizId", quizId)
+    localStorage.removeItem("homeworkResult")
+    setQuizId(quizId)
+    setComplete(false)
+  }
+  const onClickResultBtn = (quizId) => {
+    if (quizId === parseInt(localStorage.getItem("homeworkQuizId"))) {
+      return
+    }
+    if (loading) {
+      return
+    }
+    if (type === "teacher") {
+      return
+    }
+    const { seeHomeworkResult: { result, score } } = data
+    localStorage.setItem("homeworkResult", result)
+    localStorage.setItem("homeworkScore", score)
     localStorage.setItem("homeworkQuizId", quizId)
     setQuizId(quizId)
     setComplete(false)
@@ -101,7 +117,7 @@ const HomeworkItem = ({ createdAt, title, mode, type, quizId, score, order, setQ
       (!data?.seeHomeworkResult ?
         <FinishBtn type={type} onClick={() => onClickSolveBtn(quizId)} >풀기</FinishBtn>
         :
-        <ResultBtn type={type} onClick={() => onClickSolveBtn(quizId)} >
+        <ResultBtn type={type} onClick={() => onClickResultBtn(quizId)} >
           {data?.seeHomeworkResult?.score}점/{totalScore()}점
         </ResultBtn>
       )

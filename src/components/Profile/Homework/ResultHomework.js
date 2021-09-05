@@ -59,18 +59,12 @@ const DETATIL_QUIZ_QUERY = gql`
   }
 `
 
-const SolveHomework = ({ quizId, complete, setComplete }) => {
-  useEffect(() => {
-    if (complete === false) {
-      refetch()
-    }
-  }, [])
+const ResultHomework = ({ quizId, complete, setComplete, resultArr }) => {
   const [change, setChange] = useState(false)
   const [saveMsg, setSaveMsg] = useState(undefined)
   const [homeworkQuiz, setHomeworkQuiz] = useState(JSON.parse(localStorage.getItem("homeworkQuiz")) || [])
   const onCompleted = () => {
     const orderArr = JSON.parse(data.detailQuiz.order)
-    const scoreArr = JSON.parse(localStorage.getItem("homeworkScore"))
     const quizList = data.detailQuiz.questions.map((item, index) => {
       return {
         id: item.id,
@@ -85,14 +79,17 @@ const SolveHomework = ({ quizId, complete, setComplete }) => {
         hint: item.hint,
         image: item.image,
         author: item.user.nickname,
-        score: scoreArr.filter((scoreArrItem) => scoreArrItem.id === item.id)[0].score
+        score: resultArr.filter((scoreArrItem) => scoreArrItem.id === item.id)[0].score,
+        result: resultArr.filter((resultArrItem) => resultArrItem.id === item.id)[0].result,
+        studentAnswer: resultArr.filter((resultArrItem) => resultArrItem.id === item.id)[0].studentAnswer
+
       }
     }).sort(compare("order"))
     localStorage.setItem("homeworkQuiz", JSON.stringify(quizList))
     setHomeworkQuiz(quizList)
     setComplete(true)
   }
-  const { data, loading, refetch } = useQuery(DETATIL_QUIZ_QUERY, {
+  const { data, loading } = useQuery(DETATIL_QUIZ_QUERY, {
     variables: { id: parseInt(quizId) },
     skip: !quizId,
     onCompleted
@@ -105,7 +102,7 @@ const SolveHomework = ({ quizId, complete, setComplete }) => {
       </QuizTitle>
       <HomeworkQuizList>
         {homeworkQuiz.map((item, index) => {
-          return <HomeworkQuizItem question={item} key={index} index={index} setChange={setChange} />
+          return <HomeworkQuizItem question={item} key={index} index={index} setChange={setChange} resultArr={resultArr} />
         })}
         {saveMsg && <Savemsg>{saveMsg}</Savemsg>}
         <HomeworkSubmitBtn setSaveMsg={setSaveMsg} />
@@ -115,4 +112,4 @@ const SolveHomework = ({ quizId, complete, setComplete }) => {
   </Container>);
 }
 
-export default SolveHomework;
+export default ResultHomework;
