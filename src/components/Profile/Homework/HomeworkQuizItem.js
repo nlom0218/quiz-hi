@@ -5,6 +5,7 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import styled from 'styled-components';
 import HomeworkAnswer from './HomeworkAnswer';
+import HomeworkAnswerResult from './HomeworkAnswerResult';
 
 const Container = styled.div`
   display: grid;
@@ -14,9 +15,16 @@ const Container = styled.div`
 const QuestionNum = styled.div`
   align-self: flex-start;
   display: grid;
+  row-gap: 20px;
   svg {
     margin-right: 10px;
   }
+`
+
+const AnswerResult = styled.div`
+  font-size: 20px;
+  font-weight: 600;
+  color: tomato;
 `
 
 const QeustionBox = styled.div`
@@ -74,6 +82,12 @@ const DisTractorItem = styled.li`
 const Distractor = styled.div`
   align-self: flex-start;
   justify-self: flex-start;
+  color: ${props => props.checkAnswer ? "tomato" : props.theme.fontColor};
+`
+
+const StudentAnswer = styled.div`
+  color: ${props => props.theme.blueColor};
+  transition: color 1s ease;
 `
 
 const HomeworkQuizItem = ({ question, index, setChange, resultArr }) => {
@@ -96,9 +110,46 @@ const HomeworkQuizItem = ({ question, index, setChange, resultArr }) => {
     localStorage.setItem("homeworkScore", JSON.stringify(newHomeworkSocre))
     setChange(prev => !prev)
   }
+  const processMyAnswer = () => {
+    const homeworkQuiz = JSON.parse(localStorage.getItem("homeworkQuiz"))
+    const questionObj = homeworkQuiz.filter((item) => item.id === question.id)[0]
+    if (question.type == "tf") {
+      if (questionObj.studentAnswer === "true") {
+        return "○"
+      } else {
+        return "✕"
+      }
+    }
+    return questionObj.studentAnswer
+  }
+  const checkAnswer = (num) => {
+    if (!resultArr) {
+      return false
+    }
+    const homeworkQuiz = JSON.parse(localStorage.getItem("homeworkQuiz"))
+    const questionObj = homeworkQuiz.filter((item) => item.id === question.id)[0]
+    const answerArr = questionObj.answer.split(",")
+    if (answerArr.includes("" + num)) {
+      return true
+    } else {
+      return false
+    }
+  }
+  const processAnswerResult = () => {
+    const homeworkQuiz = JSON.parse(localStorage.getItem("homeworkQuiz"))
+    const questionObj = homeworkQuiz.filter((item) => item.id === question.id)[0]
+    if (questionObj.result === false) {
+      return "오답"
+    } else if (questionObj.result === true) {
+      return "정답"
+    }
+  }
   return (<Container>
     <QuestionNum>
-      {index + 1}번 문제
+      <div>{index + 1}번 문제</div>
+      {resultArr &&
+        <AnswerResult>{processAnswerResult()}</AnswerResult>
+      }
     </QuestionNum>
     <QeustionBox>
       <Wrapper>
@@ -116,7 +167,7 @@ const HomeworkQuizItem = ({ question, index, setChange, resultArr }) => {
             {question.distractor.split("//!@#").map((item, index) => {
               return <DisTractorItem key={index}>
                 <div className="num">{`${index + 1}번`}</div>
-                <Distractor>{item}</Distractor>
+                <Distractor checkAnswer={checkAnswer(index + 1)}>{item}</Distractor>
               </DisTractorItem>
             })}
           </DisTractorList>
@@ -129,7 +180,12 @@ const HomeworkQuizItem = ({ question, index, setChange, resultArr }) => {
       <FormWrapper onSubmit={handleSubmit(onSubmit)}>
         <div><FontAwesomeIcon icon={faBell} /> 정답</div>
         {!resultArr && <HomeworkAnswer type={question.type} questionNum={index + 1} register={register} id={question.id} isValid={isValid} setChange={setChange} />}
+        {resultArr && <HomeworkAnswerResult resultArr={resultArr} type={question.type} id={question.id} />}
       </FormWrapper>
+      {resultArr && <Wrapper>
+        <div>나의 정답</div>
+        <StudentAnswer>{processMyAnswer()}</StudentAnswer>
+      </Wrapper>}
       <QuestionScore>{question.score} 점</QuestionScore>
     </QeustionBox>
   </Container>);

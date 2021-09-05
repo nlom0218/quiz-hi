@@ -105,7 +105,7 @@ const ResultHomework = ({ quizId, complete, setComplete, resultArr }) => {
           return <HomeworkQuizItem question={item} key={index} index={index} setChange={setChange} resultArr={resultArr} />
         })}
         {saveMsg && <Savemsg>{saveMsg}</Savemsg>}
-        <HomeworkSubmitBtn setSaveMsg={setSaveMsg} />
+        {!resultArr && <HomeworkSubmitBtn setSaveMsg={setSaveMsg} />}
       </HomeworkQuizList>
     </React.Fragment>
     }
