@@ -54,6 +54,12 @@ const SEE_HOMEWORK_QUERY = gql`
       order
       quizId
       score
+      finish
+      targetScore
+      user {
+        nickname
+        quizScore
+      }
     }
   }
 `
@@ -74,7 +80,7 @@ const Homework = ({ id, type, students, setComplete }) => {
           <Title style={{ fontWeight: "600" }}>퀴즈 제목</Title>
           <Title style={{ fontWeight: "600" }}>퀴즈 모드</Title>
           <div style={{ fontWeight: "600", justifySelf: "flex-end" }}>
-            {type === "teacher" ? "종료" : "결과"}
+            {type === "teacher" ? "정보" : "결과"}
           </div>
         </Wrapper>
         <DivisionLine></DivisionLine>
