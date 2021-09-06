@@ -59,11 +59,16 @@ const DETATIL_QUIZ_QUERY = gql`
   }
 `
 
-const ResultHomework = ({ quizId, complete, setComplete, resultArr }) => {
+const ResultHomework = ({ quizId, complete, setComplete, resultArr, setNoQuiz }) => {
   const [change, setChange] = useState(false)
   const [saveMsg, setSaveMsg] = useState(undefined)
   const [homeworkQuiz, setHomeworkQuiz] = useState(JSON.parse(localStorage.getItem("homeworkQuiz")) || [])
   const onCompleted = () => {
+    if (data.detailQuiz === null) {
+      setNoQuiz(true)
+      return
+    }
+    setNoQuiz(false)
     const orderArr = JSON.parse(data.detailQuiz.order)
     const quizList = data.detailQuiz.questions.map((item, index) => {
       return {

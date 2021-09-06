@@ -14,6 +14,11 @@ const Container = styled.div`
   row-gap: 60px;
 `
 
+const DelQuizMsg = styled.div`
+  justify-self: flex-end;
+  color: tomato;
+`
+
 const Wrapper = styled.div`
   display: grid;
   grid-template-columns: 180px 1fr;
@@ -37,6 +42,7 @@ const DivisionLine = styled.div`
 const StudentHomework = ({ students, id, type, username }) => {
   const history = useHistory()
   const homeworkQuizId = useReactiveVar(homeworkQuizIdVar)
+  const [noQuiz, setNoQuiz] = useState(false)
   const [complete, setComplete] = useState(false)
   // complete(false) => 퀴즈가 안띄어짐. complete(true) => 퀴즈가 띄어짐
   // quizId를 받은 후 퀴즈 목록들을 localstorage에 저장 한 후 complete(true)로 변경
@@ -57,11 +63,13 @@ const StudentHomework = ({ students, id, type, username }) => {
     {homeworkQuizId && <React.Fragment>
       <DivisionLine></DivisionLine>
       {!resultArr ?
-        <SolveHomework quizId={homeworkQuizId} setComplete={setComplete} complete={complete} />
+        <SolveHomework quizId={homeworkQuizId} setComplete={setComplete} complete={complete} setNoQuiz={setNoQuiz} />
         :
-        <ResultHomework quizId={homeworkQuizId} setComplete={setComplete} complete={complete} resultArr={resultArr} />
+        <ResultHomework quizId={homeworkQuizId} setComplete={setComplete} complete={complete} resultArr={resultArr} setNoQuiz={setNoQuiz} />
       }
-    </React.Fragment>}
+    </React.Fragment>
+    }
+    {noQuiz && <DelQuizMsg>작성자에 의해 삭제된 퀴즈입니다.</DelQuizMsg>}
   </Container>);
 }
 

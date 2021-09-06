@@ -59,7 +59,7 @@ const DETATIL_QUIZ_QUERY = gql`
   }
 `
 
-const SolveHomework = ({ quizId, complete, setComplete }) => {
+const SolveHomework = ({ quizId, complete, setComplete, setNoQuiz }) => {
   useEffect(() => {
     if (complete === false) {
       refetch()
@@ -69,6 +69,11 @@ const SolveHomework = ({ quizId, complete, setComplete }) => {
   const [saveMsg, setSaveMsg] = useState(undefined)
   const [homeworkQuiz, setHomeworkQuiz] = useState(JSON.parse(localStorage.getItem("homeworkQuiz")) || [])
   const onCompleted = () => {
+    if (data.detailQuiz === null) {
+      setNoQuiz(true)
+      return
+    }
+    setNoQuiz(false)
     const orderArr = JSON.parse(data.detailQuiz.order)
     const scoreArr = JSON.parse(localStorage.getItem("homeworkScore"))
     const quizList = data.detailQuiz.questions.map((item, index) => {
