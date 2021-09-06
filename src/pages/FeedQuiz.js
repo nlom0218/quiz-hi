@@ -2,6 +2,7 @@ import { useQuery } from '@apollo/client';
 import gql from 'graphql-tag';
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router';
+import styled from 'styled-components';
 import BasicContainer from '../components/BasicContainer';
 import DetailContainer from '../components/Detail/DetailContainer';
 import DetailLayout from '../components/Detail/DetailLayout';
@@ -10,6 +11,10 @@ import DetailTitle from '../components/Detail/DetailTitle';
 import Header from '../components/Header';
 import NavBtn from '../components/NavBtn';
 import QuizQuestionBasket from '../components/QuizFeed/QuizQuestionBasket';
+
+const DelQuizMsg = styled.div`
+  color: tomato;
+`
 
 const DETAIL_QUIZ_QUERY = gql`
   query detailQuiz($id: Int!) {
@@ -71,9 +76,12 @@ const FeedQuiz = () => {
         {loading ? <div>loading...</div> :
           <DetailContainer>
             <DetailTitle title="퀴즈" />
-            <DetailLayout {...data?.detailQuiz} setPutQuiz={setPutQuiz}>
-              <DetailQuiz {...data?.detailQuiz} setPutQuiz={setPutQuiz} />
-            </DetailLayout>
+            {data?.detailQuiz === null ?
+              <DelQuizMsg>작성자에 의해 삭제된 퀴즈입니다.</DelQuizMsg>
+              :
+              <DetailLayout {...data?.detailQuiz} setPutQuiz={setPutQuiz}>
+                <DetailQuiz {...data?.detailQuiz} setPutQuiz={setPutQuiz} />
+              </DetailLayout>}
             <QuizQuestionBasket setPutQuiz={setPutQuiz} />
           </DetailContainer>
         }
