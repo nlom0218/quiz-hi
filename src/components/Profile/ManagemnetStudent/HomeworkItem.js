@@ -50,6 +50,9 @@ const ResultBtn = styled.div`
 const InfoBtn = styled.div`
   justify-self: flex-end;
   cursor: pointer;
+  svg {
+    margin-right: 10px;
+  }
 `
 
 const SEE_HOMEWORKRESULT_QUERY = gql`

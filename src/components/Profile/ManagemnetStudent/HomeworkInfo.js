@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import { fadeIn } from '../../../animation/fade';
 
 const SHomeworkInfo = styled.div`
-  border-top: 1px solid rgb(200, 200, 200, 0.8);
+  /* border-top: 1px solid rgb(200, 200, 200, 0.8); */
   animation: ${fadeIn} 0.6s ease;
   grid-column: 1 / -1;
   padding: 10px;
@@ -52,8 +52,8 @@ const FinishMsg = styled.div`
 `
 
 const FINSIH_HOMEWORK_MUTATION = gql`
-  mutation finishHomework($homeworkId: Int!) {
-    finishHomework(homeworkId: $homeworkId) {
+  mutation finishHomework($homeworkId: Int!, $totalScore: Int) {
+    finishHomework(homeworkId: $homeworkId, totalScore: $totalScore) {
       ok
     }
   }
@@ -84,7 +84,12 @@ const HomeworkInfo = ({ score, student, targetScore, order, homeworkId, finish }
     })
     return Boolean(exist.length === 0)
   })
-  const onCompleted = (result) => { }
+  const onCompleted = (result) => {
+    const { finishHomework: { ok } } = result
+    if (ok) {
+      window.location.reload()
+    }
+  }
   const [finishHomework, { loading }] = useMutation(FINSIH_HOMEWORK_MUTATION, {
     onCompleted
   })
@@ -92,29 +97,33 @@ const HomeworkInfo = ({ score, student, targetScore, order, homeworkId, finish }
     if (loading) {
       return
     }
-    if (window.confirm("숙제를 종료하시겠습니끼? \n종료하게 되면 미 완료한 학생들은 숙제를 더 이상 할 수 없습니다.")) {
-      // finishHomework({
-      //   variables: {
-      //     homeworkId
-      //   }
-      // })
+    if (window.confirm("숙제를 종료하시겠습니끼? \n종료하게 되면 미 완료한 학생들은 숙제를 제출 할 수 없습니다.")) {
+      finishHomework({
+        variables: {
+          homeworkId,
+          totalScore: curScore()
+        }
+      })
     }
   }
   return (<SHomeworkInfo>
-    <InfoMsg>퀴즈에서 얻을 수 있는 최대 점수는 <span style={{ color: "tomato", fontSize: "20px" }}>{maxScore}점</span>입니다.</InfoMsg>
-    {targetScore &&
-      <InfoMsg>
-        협동 모드의 목표 점수는  <span style={{ color: "tomato", fontSize: "20px" }}>{targetScore}점</span>이며,
-      학생들이 획득한 점수는 <span style={{ color: "tomato", fontSize: "20px" }}>{curScore()}점</span>입니다.
-    </InfoMsg>}
-    <Wrapper>
-      <Title>완료한 학생</Title>
-      <List>{completeStduent.map((item, index) => { return <Student key={index}>{item.nickname}</Student> })}</List>
-    </Wrapper>
-    <Wrapper>
-      <Title>미 완료한 학생</Title>
-      <List>{disCompleteStudnet.map((item, index) => { return <Student key={index}>{item.nickname}</Student> })}</List>
-    </Wrapper>
+    {!finish &&
+      <React.Fragment>
+        <InfoMsg>퀴즈에서 얻을 수 있는 최대 점수는 <span style={{ color: "tomato", fontSize: "20px" }}>{maxScore}점</span>입니다.</InfoMsg>
+        {targetScore &&
+          <InfoMsg>
+            협동 모드의 목표 점수는  <span style={{ color: "tomato", fontSize: "20px" }}>{targetScore}점</span>이며,
+            학생들이 획득한 점수는 <span style={{ color: "tomato", fontSize: "20px" }}>{curScore()}점</span>입니다.
+          </InfoMsg>}
+        <Wrapper>
+          <Title>완료한 학생</Title>
+          <List>{completeStduent.map((item, index) => { return <Student key={index}>{item.nickname}</Student> })}</List>
+        </Wrapper>
+        <Wrapper>
+          <Title>미 완료한 학생</Title>
+          <List>{disCompleteStudnet.map((item, index) => { return <Student key={index}>{item.nickname}</Student> })}</List>
+        </Wrapper>
+      </React.Fragment>}
     {finish ? <FinishMsg>종료된 퀴즈 입니다.</FinishMsg> : <FinishBtn onClick={onClickFinishBtn}>종료하기</FinishBtn>}
   </SHomeworkInfo>);
 }
