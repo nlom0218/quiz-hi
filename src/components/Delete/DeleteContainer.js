@@ -129,6 +129,7 @@ const DeleteContainer = () => {
     <DeleteMsg>
       <div className="delMsg">∙ 삭제된 퀴즈 / 문제는 다시 복구되지 않습니다.</div>
       <div className="delMsg">∙ 퀴즈를 삭제 할 경우 퀴즈의 문제는 삭제되지 않습니다.</div>
+      <div className="delMsg">∙ 해당 퀴즈를 숙제로 활용한 경우 학생들은 퀴즈의 정답과 오답을 확인할 수 없습니다.</div>
       <div className="delMsg">∙ 공유한 퀴즈 / 문제인 경우 이를 공유한 사용자들은 더 이상 해당 퀴즈 / 문제를 사용할 수 없습니다.</div>
       <div className="delMsg">∙ 퀴즈 / 문제의 좋아요, 댓글, 조희수가 모두 삭제되며 이는 사용자 레벨에 영향을 미칩니다.</div>
     </DeleteMsg>
