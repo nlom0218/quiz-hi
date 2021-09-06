@@ -1,6 +1,7 @@
 import { useQuery, useReactiveVar } from '@apollo/client';
 import { faInfoCircle } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { logDOM } from '@testing-library/react';
 import gql from 'graphql-tag';
 import React, { useState } from 'react';
 import { useHistory } from 'react-router';
@@ -15,7 +16,7 @@ const SHomeworkItem = styled.div`
   display: grid;
   grid-template-columns: 140px 360px 80px 1fr;
   row-gap: 10px;
-  padding: 10px 20px;
+  padding: 15px 20px;
   align-items: center;
   line-height: 20px;
   :nth-child(odd) {
@@ -61,9 +62,6 @@ const SEE_HOMEWORKRESULT_QUERY = gql`
       id
       result
       score
-      quiz {
-        title
-      }
     }
   }
 `

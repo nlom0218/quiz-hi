@@ -113,7 +113,7 @@ const SolveHomework = ({ quizId, complete, setComplete, setNoQuiz }) => {
           return <HomeworkQuizItem question={item} key={index} index={index} setChange={setChange} />
         })}
         {saveMsg && <Savemsg>{saveMsg}</Savemsg>}
-        <HomeworkSubmitBtn setSaveMsg={setSaveMsg} />
+        <HomeworkSubmitBtn setSaveMsg={setSaveMsg} quizTitle={data?.detailQuiz?.title} />
       </HomeworkQuizList>
     </React.Fragment>
     }
