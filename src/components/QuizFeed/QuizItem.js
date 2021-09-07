@@ -217,10 +217,6 @@ const QuizItem = (
           {likes}
         </QuizLike>
         <QuizComment>
-          <FontAwesomeIcon icon={faComment} />
-          3
-      </QuizComment>
-        <QuizComment>
           조회수 {hits}
         </QuizComment>
       </Wrapper>

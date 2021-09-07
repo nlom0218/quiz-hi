@@ -181,10 +181,6 @@ const QuizItem = ({ id, title, user: { nickname, avatarURL, username, id: userId
           {likes}
         </QuizLike>
         <QuizComment>
-          <FontAwesomeIcon icon={faComment} />
-          3
-      </QuizComment>
-        <QuizComment>
           조회수 {hits}
         </QuizComment>
       </Wrapper>
