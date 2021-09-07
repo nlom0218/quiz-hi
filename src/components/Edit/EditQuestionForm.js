@@ -223,7 +223,7 @@ const EditQuestionForm = ({ tags, user: { id: ownerId }, type, image, question, 
         })}
       ></textarea>
     </EditInputLayout>
-    <InputBtn disabled={!isValid} value="수정하기" />
+    <InputBtn disabled={!isValid} value={loading ? "수정중..." ? "수정하기"} />
   </SEditForm >);
 }
 
