@@ -16,11 +16,18 @@ const Container = styled.div`
   position: relative;
 `
 
+const Empty = styled.div`
+  height: 50px;
+`
+
 const BasicContainer = ({ children }) => {
-  return (<Container className="basicContainer">
-    <BasicContainerGsap />
-    {children}
-  </Container>);
+  return (<React.Fragment>
+    <Container className="basicContainer">
+      <BasicContainerGsap />
+      {children}
+    </Container>
+    <Empty></Empty>
+  </React.Fragment>);
 }
 
 export default BasicContainer;
