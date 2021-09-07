@@ -159,7 +159,7 @@ const EditQuizForm = ({ title, caption, tags, updateInfo, user: { id: ownerId } 
       ></textarea>
     </EditInputLayout>
     {editMsg && <EidtMsg>{editMsg}</EidtMsg>}
-    <InputBtn disabled={!isValid} value="수정하기" />
+    <InputBtn disabled={!isValid} value={loading ? "수정중..." : "수정하기"} />
   </SEditForm>);
 }
 

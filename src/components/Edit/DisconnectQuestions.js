@@ -212,7 +212,7 @@ const DisconnectQuestions = ({ questions }) => {
               <ActionBtn>
                 <DelBtn
                   type="submit"
-                  value="삭제하기"
+                  value={loading ? "삭제중..." : "삭제하기"}
                   disabled={delQuestions.length === 0} />
                 <AllCkeckBtn>
                   모두 선택하기
