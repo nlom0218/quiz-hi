@@ -44,6 +44,7 @@ const CREATE_QUESTION_MUTATION = gql`
 
 const SubQuestion = ({ quizTags, quizType, setQuestionIdArr, questionIdArr, setNextMode, nextMode, imageId, state, updateQuestion, quizId, nickname, avatarURL }) => {
   const [questionTags, setQuestionTags] = useState([])
+  console.log(quizId);
   const [image, setImage] = useState(undefined)
   const [option, setOption] = useState(false)
   const [previewImg, setPreviewImg] = useState(undefined)

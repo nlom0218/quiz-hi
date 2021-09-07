@@ -35,7 +35,7 @@ export const logOutUser = () => {
 
 const httpLink = createUploadLink({
   uri: process.env.NODE_ENV === "production"
-    ? "https://khd-nomadcoffee-backend.herokuapp.com/graphql"
+    ? "https://quiz-hi-backend.herokuapp.com/graphql"
     : "http://localhost:4000/graphql",
 })
 
