@@ -35,7 +35,6 @@ const InputBtn = styled.button`
 `
 
 const EmailConfirm = ({ confirmNum, setDoneConfirm, setError }) => {
-  console.log(confirmNum);
   const [confirm, setConfirm] = useState("init")
   const { register, handleSubmit, formState: { isValid } } = useForm({
     mode: "onChange"

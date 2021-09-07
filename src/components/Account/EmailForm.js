@@ -75,23 +75,22 @@ const EmailForm = ({ setDoneConfirm, setError, setEmail }) => {
     const randomNum = Math.floor(Math.random() * 1000000)
     setConfirmNum(randomNum)
     setSending(true)
-    // emailjs.send(
-    //   "service_y3st5zf",
-    //   "template_9ibugnm",
-    //   {
-    //     email,
-    //     confirmNum: randomNum
-    //   },
-    //   "user_sJAAszXnKTFqusb3xguHm")
-    //   .then((result) => {
-    //    밑에 4줄을 여기에다!!  
-    //   }, (error) => {
-    //     console.log(error.text);
-    //   })
-    setSendEmail(true)
-    setSending(false)
-    setEmail(email)
-    setPlatForm(email.split("@").reverse()[0])
+    emailjs.send(
+      "service_y3st5zf",
+      "template_9ibugnm",
+      {
+        email,
+        confirmNum: randomNum
+      },
+      "user_sJAAszXnKTFqusb3xguHm")
+      .then((result) => {
+        setSendEmail(true)
+        setSending(false)
+        setEmail(email)
+        setPlatForm(email.split("@").reverse()[0])
+      }, (error) => {
+        console.log(error.text);
+      })
   }
   const onClinkAgainBtn = () => {
     setSendEmail(false)
