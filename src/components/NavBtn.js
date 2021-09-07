@@ -1,7 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faArrowUp, faBars } from '@fortawesome/free-solid-svg-icons';
+import { faArrowUp, faBars, faMoon, faSun } from '@fortawesome/free-solid-svg-icons';
+import { useReactiveVar } from '@apollo/client';
+import { darkModeVar, disableDarkMode, enableDarkMode } from '../apollo';
 
 const Wrapper = styled.div`
   position: fixed;
@@ -26,9 +28,15 @@ const Wrapper = styled.div`
   }
 `
 
-const BarBtn = styled.div`
+const Nav = styled.li`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  svg {
+    font-size: 16px;
+    cursor: pointer;
+  }
   margin-right: 20px;
-  cursor: pointer;
 `
 
 const SToTopBtn = styled.div`
@@ -36,18 +44,29 @@ const SToTopBtn = styled.div`
 `
 
 const NavBtn = () => {
+  const darkMode = useReactiveVar(darkModeVar)
   const onClinkToTopBtn = () => {
     window.scrollTo({
       behavior: "smooth",
       top: 0
     })
   }
+  const onCLickDarkMode = () => {
+    if (darkMode === true) {
+      disableDarkMode()
+    } else if (darkMode === false) {
+      enableDarkMode()
+    }
+  }
 
   return (
     <Wrapper>
-      <BarBtn>
-        <FontAwesomeIcon icon={faBars} />
-      </BarBtn>
+      <Nav>
+        <FontAwesomeIcon
+          icon={darkMode ? faSun : faMoon}
+          onClick={onCLickDarkMode}
+        />
+      </Nav>
       <SToTopBtn onClick={onClinkToTopBtn}>
         <FontAwesomeIcon icon={faArrowUp} />
       </SToTopBtn>
