@@ -9,6 +9,11 @@ const Container = styled.div`
   transition: background-color 1s ease;
 `
 
+const Loading = styled.div`
+  background-color: ${props => props.theme.bgColor};
+  transition: background-color 1s ease;
+`
+
 const SQuizList = styled.div`
   display: grid;
   grid-template-columns: 1fr;
@@ -25,6 +30,9 @@ const NotFoundData = styled.div`
 
 const QuizList = ({ setPutQuiz, loading, seeQuiz }) => {
   const noData = () => {
+    if (loading) {
+      return false
+    }
     if (!seeQuiz || seeQuiz.quiz.length === 0) {
       return true
     }
@@ -32,7 +40,7 @@ const QuizList = ({ setPutQuiz, loading, seeQuiz }) => {
   return (
     <React.Fragment>
       <Container>
-        {loading ? <div>loading...</div> :
+        {loading ? <Loading>loading...</Loading> :
           <SQuizList>
             {
               seeQuiz?.quiz.map((item, index) => {
