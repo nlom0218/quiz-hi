@@ -39,7 +39,6 @@ const QuizScore = styled.div`
 
 const StudentScoreList = ({ quizScore }) => {
   const quizScoreArr = JSON.parse(quizScore).sort(compare("order"))
-  console.log(quizScoreArr);
   return (<DetailInfoLayout>
     <Title>
       <div><FontAwesomeIcon icon={faBook} /> 퀴즈 점수</div>

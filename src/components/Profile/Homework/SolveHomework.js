@@ -77,6 +77,7 @@ const SolveHomework = ({ quizId, complete, setComplete, setNoQuiz }) => {
     const orderArr = JSON.parse(data.detailQuiz.order)
     const scoreArr = JSON.parse(localStorage.getItem("homeworkScore"))
     const quizList = data.detailQuiz.questions.map((item, index) => {
+      const questionScore = scoreArr.filter((scoreArrItem) => scoreArrItem.id === item.id)[0] || null
       return {
         id: item.id,
         order: (orderArr ?
@@ -90,7 +91,7 @@ const SolveHomework = ({ quizId, complete, setComplete, setNoQuiz }) => {
         hint: item.hint,
         image: item.image,
         author: item.user.nickname,
-        score: scoreArr.filter((scoreArrItem) => scoreArrItem.id === item.id)[0].score
+        ...(questionScore && { score: questionScore.score })
       }
     }).sort(compare("order"))
     localStorage.setItem("homeworkQuiz", JSON.stringify(quizList))
@@ -109,7 +110,7 @@ const SolveHomework = ({ quizId, complete, setComplete, setNoQuiz }) => {
         <div>{data?.detailQuiz?.title}</div>
       </QuizTitle>
       <HomeworkQuizList>
-        {homeworkQuiz.map((item, index) => {
+        {homeworkQuiz.filter((item) => item.score).map((item, index) => {
           return <HomeworkQuizItem question={item} key={index} index={index} setChange={setChange} />
         })}
         {saveMsg && <Savemsg>{saveMsg}</Savemsg>}

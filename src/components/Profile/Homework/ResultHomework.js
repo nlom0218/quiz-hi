@@ -71,6 +71,7 @@ const ResultHomework = ({ quizId, complete, setComplete, resultArr, setNoQuiz })
     setNoQuiz(false)
     const orderArr = JSON.parse(data.detailQuiz.order)
     const quizList = data.detailQuiz.questions.map((item, index) => {
+      const questionResult = resultArr.filter((scoreArrItem) => scoreArrItem.id === item.id)[0] || null
       return {
         id: item.id,
         order: (orderArr ?
@@ -84,10 +85,9 @@ const ResultHomework = ({ quizId, complete, setComplete, resultArr, setNoQuiz })
         hint: item.hint,
         image: item.image,
         author: item.user.nickname,
-        score: resultArr.filter((scoreArrItem) => scoreArrItem.id === item.id)[0].score,
-        result: resultArr.filter((resultArrItem) => resultArrItem.id === item.id)[0].result,
-        studentAnswer: resultArr.filter((resultArrItem) => resultArrItem.id === item.id)[0].studentAnswer
-
+        ...(questionResult && { score: questionResult.score }),
+        ...(questionResult && { result: questionResult.result }),
+        ...(questionResult && { studentAnswer: questionResult.studentAnswer }),
       }
     }).sort(compare("order"))
     localStorage.setItem("homeworkQuiz", JSON.stringify(quizList))
@@ -106,7 +106,7 @@ const ResultHomework = ({ quizId, complete, setComplete, resultArr, setNoQuiz })
         <div>{data?.detailQuiz?.title}</div>
       </QuizTitle>
       <HomeworkQuizList>
-        {homeworkQuiz.map((item, index) => {
+        {homeworkQuiz.filter((item) => item.score).map((item, index) => {
           return <HomeworkQuizItem question={item} key={index} index={index} setChange={setChange} resultArr={resultArr} />
         })}
         {saveMsg && <Savemsg>{saveMsg}</Savemsg>}
