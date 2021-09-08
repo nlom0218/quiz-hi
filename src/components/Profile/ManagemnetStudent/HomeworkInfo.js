@@ -46,14 +46,37 @@ const FinishBtn = styled.div`
   cursor: pointer;
 `
 
+const Finish = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 120px;
+  align-items: center;
+`
+
 const FinishMsg = styled.div`
-  text-align: center;
   color: tomato;
+  justify-self: center;
+`
+
+const DeleteBtn = styled.div`
+  background-color: tomato;
+  color: #F4F4F4;
+  text-align: center;
+  padding: 7px;
+  border-radius: 5px;
+  cursor: pointer;
 `
 
 const FINSIH_HOMEWORK_MUTATION = gql`
   mutation finishHomework($homeworkId: Int!, $totalScore: Int) {
     finishHomework(homeworkId: $homeworkId, totalScore: $totalScore) {
+      ok
+    }
+  }
+`
+
+const DELETE_HOMEWORK_MUTATION = gql`
+  mutation deleteHomework($homeworkId: Int!) {
+    deleteHomework(homeworkId: $homeworkId) {
       ok
     }
   }
@@ -100,6 +123,26 @@ const HomeworkInfo = ({ score, student, targetScore, order, homeworkId, finish }
     if (window.confirm("숙제를 종료하시겠습니끼? \n종료하게 되면 미 완료한 학생들은 숙제를 제출 할 수 없습니다.")) {
       finishHomework({
         variables: {
+          homeworkId
+        }
+      })
+    }
+  }
+  const [deleteHomework, { loading: deleteLoading }] = useMutation(DELETE_HOMEWORK_MUTATION, {
+    onCompleted: (result) => {
+      const { deleteHomework: { ok } } = result
+      if (ok) {
+        window.location.reload()
+      }
+    }
+  })
+  const onClickDeleteBtn = () => {
+    if (deleteLoading) {
+      return
+    }
+    if (window.confirm("숙제를 삭제하시겠습니끼? \n삭제하게 되면 학생들은 제출한 숙제 결과(정답&오답)를 볼 수 없습니다.")) {
+      deleteHomework({
+        variables: {
           homeworkId,
           totalScore: curScore()
         }
@@ -124,7 +167,13 @@ const HomeworkInfo = ({ score, student, targetScore, order, homeworkId, finish }
           <List>{disCompleteStudnet.map((item, index) => { return <Student key={index}>{item.nickname}</Student> })}</List>
         </Wrapper>
       </React.Fragment>}
-    {finish ? <FinishMsg>종료된 퀴즈 입니다.</FinishMsg> : <FinishBtn onClick={onClickFinishBtn}>종료하기</FinishBtn>}
+    {finish ?
+      <Finish>
+        <FinishMsg>종료된 퀴즈 입니다.</FinishMsg>
+        <DeleteBtn onClick={onClickDeleteBtn}>삭제하기</DeleteBtn>
+      </Finish>
+      :
+      <FinishBtn onClick={onClickFinishBtn}>종료하기</FinishBtn>}
   </SHomeworkInfo>);
 }
 
