@@ -96,7 +96,7 @@ const PlayQuizBtn = ({ quizList, quizId, quizMode, type, targetScore, students, 
     }
   }
   return (<SPlayQuizBtn able={ablePalyQuiz()} onClick={onClickPalyQuiz}>
-    {type === "send" ? "퀴즈 내보내기" : "퀴즈 진행하기"}
+    {type === "send" ? (loading ? "보내는 중..." : "퀴즈 내보내기") : "퀴즈 진행하기"}
   </SPlayQuizBtn>);
 }
 
