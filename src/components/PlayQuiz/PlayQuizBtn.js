@@ -24,9 +24,9 @@ const CREATE_HOMEWORK_MUTATION = gql`
   }
 `
 
-const PlayQuizBtn = ({ quizList, quizId, quizMode, type, targetScore, students, setStartQuiz }) => {
+const PlayQuizBtn = ({ quizList, quizId, quizMode, type, targetScore, students, setStartQuiz, setErrMsg }) => {
   const onCompleted = (result) => {
-    const { createHomework: { ok } } = result
+    const { createHomework: { ok, error } } = result
     if (ok) {
       window.alert("선택된 학생들에게 퀴즈가 보내졌습니다. 숙제관리는 프로필 > 학생 관리에서 할 수 있습니다.")
       localStorage.removeItem("selectQuiz")
@@ -35,6 +35,8 @@ const PlayQuizBtn = ({ quizList, quizId, quizMode, type, targetScore, students, 
       localStorage.removeItem("quizList")
       localStorage.removeItem("targetScore")
       window.location.reload()
+    } else {
+      setErrMsg(error)
     }
   }
   const [createHomework, { loading }] = useMutation(CREATE_HOMEWORK_MUTATION, {

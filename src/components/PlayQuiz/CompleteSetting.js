@@ -37,6 +37,12 @@ const Wrapper = styled.div`
   }
 `
 
+const ErrMsg = styled.div`
+  text-align: center;
+  color: tomato;
+  line-height: 24px;
+`
+
 const DETATIL_QUIZ_QUERY = gql`
   query detailQuiz($id: Int!) {
     detailQuiz(id: $id) {
@@ -47,6 +53,7 @@ const DETATIL_QUIZ_QUERY = gql`
 `
 
 const CompleteSetting = ({ quizId, quizMode, type, quizList, students, setStartQuiz, targetScore }) => {
+  const [errMsg, setErrMsg] = useState(null)
   const { data, loading } = useQuery(DETATIL_QUIZ_QUERY, {
     variables: { id: parseInt(quizId) },
     skip: !quizId
@@ -174,7 +181,8 @@ const CompleteSetting = ({ quizId, quizMode, type, quizList, students, setStartQ
         </Wrapper>}
       </React.Fragment>
     }
-    <PlayQuizBtn quizId={quizId} quizList={quizList} quizMode={quizMode} type={type} students={students} setStartQuiz={setStartQuiz} targetScore={targetScore} />
+    <PlayQuizBtn quizId={quizId} quizList={quizList} quizMode={quizMode} type={type} students={students} setStartQuiz={setStartQuiz} targetScore={targetScore} setErrMsg={setErrMsg} />
+    {errMsg && <ErrMsg>{errMsg}</ErrMsg>}
   </Container>);
 }
 
