@@ -58,6 +58,7 @@ const DistractorContent = styled.div`
   justify-self: flex-start;
   line-height: 24px;
   color: ${props => props.answer ? "tomato" : props.theme.fontColor};
+  transition: color 1s ease;
 `
 
 const PreviewList = ({ quizList, quizMode, setQuizList, setChange }) => {

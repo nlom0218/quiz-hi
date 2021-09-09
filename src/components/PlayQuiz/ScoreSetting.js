@@ -12,15 +12,16 @@ const ScoreBar = styled.div`
 `
 
 const ScoreItem = styled.div`
-  background-color: ${props => props.selected ? "rgb(200, 200, 200, 0.2)" : props.theme.boxColor};
+  background-color: ${props => props.selected ? "rgb(255, 165, 0, 0.6)" : props.theme.boxColor};
   text-align: center;
   padding: 5px 10px;
-  border: 1px solid rgb(200, 200, 200, 0.8);
+  border: 1px solid ${props => props.selected ? "rgb(255, 165, 0, 0.6)" : "rgb(200, 200, 200, 0.8)"};
   border-radius: 5px;
   cursor: pointer;
-  transition: background-color 0.2s linear;
+  transition: background-color 1s ease, border 1s ease;
   :hover {
-    background-color: rgb(200, 200, 200, 0.2);
+    background-color: rgb(255, 165, 0, 0.6);
+    border: 1px solid rgb(255, 165, 0, 0.6);
   }
 `
 
