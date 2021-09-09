@@ -224,11 +224,11 @@ const CreateStudents = ({ id, addAccount }) => {
       </SetPassword>
     </StudentNameList>
     {!addAccount && <SetPasswordMsg>
-      "학생 아이디는 선생님 <span>아이디_s학생번호</span>이며 비밀번호는 입력한 <span>비밀번호^^학생번호</span>입니다.
+      "학생 아이디는 <span>선생님 아이디_s학생번호</span>이며 비밀번호는 <span> 입력한 비밀번호^^학생번호</span>입니다.
       학생들의 비밀번호는 동일한 패턴이기 때문에 계정 생성이후 비밀번호 변경을 권장합니다."
     </SetPasswordMsg>}
     {addAccount && <SetPasswordMsg>
-      "아이디의 중복을 방지하고자 추가로 생성하는 학생 아이디는 입력한 <span>아이디_s입력순서</span>이며 비밀번호는 입력한 <span>비밀번호^^입력순서</span>입니다.
+      "아이디의 중복을 방지하고자 추가로 생성하는 학생 아이디는 <span>입력한 아이디_s입력순서</span>이며 비밀번호는 <span>입력한 비밀번호^^입력순서</span>입니다.
       학생들의 비밀번호는 동일한 패턴이기 때문에 계정 생성이후 비밀번호 변경을 권장합니다."
     </SetPasswordMsg>}
     <SaveBtn type="submit" value="학생 계정 생성하기" disabled={!isValid} />
