@@ -62,6 +62,7 @@ const DistractorContent = styled.div`
 `
 
 const PreviewList = ({ quizList, quizMode, setQuizList, setChange }) => {
+  console.log((quizList[0].answer).split(",").map((item) => parseInt(item)));
   const processAnswer = (answer) => {
     if (answer === "true") {
       return "○"
@@ -86,7 +87,7 @@ const PreviewList = ({ quizList, quizMode, setQuizList, setChange }) => {
                 return <DisTractorItem key={index}>
                   <div className="num">{`${index + 1}번`}</div>
                   <DistractorContent
-                    answer={parseInt(item.answer) === index + 1 ? true : false}
+                    answer={item.answer.split(",").map((item) => parseInt(item)).includes(index + 1) ? true : false}
                   >{distractor}</DistractorContent>
                 </DisTractorItem>
               })}
