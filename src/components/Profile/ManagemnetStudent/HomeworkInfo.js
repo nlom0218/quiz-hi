@@ -123,7 +123,8 @@ const HomeworkInfo = ({ score, student, targetScore, order, homeworkId, finish }
     if (window.confirm("숙제를 종료하시겠습니끼? \n종료하게 되면 미 완료한 학생들은 숙제를 제출 할 수 없습니다.")) {
       finishHomework({
         variables: {
-          homeworkId
+          homeworkId,
+          totalScore: curScore()
         }
       })
     }
@@ -144,7 +145,6 @@ const HomeworkInfo = ({ score, student, targetScore, order, homeworkId, finish }
       deleteHomework({
         variables: {
           homeworkId,
-          totalScore: curScore()
         }
       })
     }
