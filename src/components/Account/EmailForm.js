@@ -89,7 +89,6 @@ const EmailForm = ({ setDoneConfirm, setError, setEmail }) => {
   const [platform, setPlatForm] = useState("")
   const [sending, setSending] = useState(false)
   const [errMsg, setErrMsg] = useState(null)
-  console.log(errMsg);
   const { register, handleSubmit, formState: { isValid }, setValue, getValues } = useForm({
     mode: "onChange"
   })
@@ -154,6 +153,7 @@ const EmailForm = ({ setDoneConfirm, setError, setEmail }) => {
           })}
           type="text"
           autoComplete="off"
+          readOnly={errMsg ? "readOnly" : ""}
         />
         <EmailBtn type="submit" disabled={!isValid || sendEmail} >
           {sending ? <FontAwesomeIcon icon={faSpinner} /> : <FontAwesomeIcon icon={faPaperPlane} />}
