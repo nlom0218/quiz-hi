@@ -58,10 +58,10 @@ const StudentEdit = styled.div`
   }
 `
 
-const StudentItem = ({ nickname, avatarURL, index, username, score, id, teacherId }) => {
+const StudentItem = ({ nickname, avatarURL, index, username, score, id, teacherId, type }) => {
   const history = useHistory()
   const [editMode, setEditMode] = useState(false)
-  const level = processUserLevel(score)
+  const level = processUserLevel("student", score)
   const onClickStudent = (username) => {
     history.push(`/profile/${username}/info`)
   }

@@ -197,7 +197,7 @@ const BasicProfile = ({ data }) => {
       })
     :
     []
-  const level = processUserLevel(score)
+  const level = processUserLevel(type, score)
   const processPageIcon = (page) => {
     if (page === "인스타그램") {
       return <FontAwesomeIcon icon={faInstagram} />
@@ -283,7 +283,7 @@ const BasicProfile = ({ data }) => {
             <LevelScore>
               <div>현재 점수: {score}점</div>
               <div className="nextLevel">
-                {level === 10 ? "최고레벨입니다." : `다음 레벨까지 ${processNextLevelScore(level, score)}점 남았습니다.`}
+                {level === 10 ? "최고레벨입니다." : `다음 레벨까지 ${processNextLevelScore(type, level, score)}점 남았습니다.`}
               </div>
             </LevelScore>
             <LevelRule>
