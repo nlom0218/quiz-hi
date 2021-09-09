@@ -59,7 +59,7 @@ const StudentList = ({ students, id }) => {
   const onClickCreateStudents = () => {
     setCreateStudents(prev => !prev)
   }
-  return (<React.Fragment>
+  return (
     <EditProfileBox>
       {students.length === 0 ?
         <Wrapper>
@@ -88,8 +88,7 @@ const StudentList = ({ students, id }) => {
           </Wrapper>
         </React.Fragment>
       }
-    </EditProfileBox>
-  </React.Fragment>);
+    </EditProfileBox>);
 }
 
 export default StudentList;

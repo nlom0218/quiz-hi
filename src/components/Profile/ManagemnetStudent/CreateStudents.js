@@ -80,6 +80,7 @@ const Wrapper = styled.div`
 `
 
 const SetPassword = styled.div`
+  /* grid-column: 1 / -1; */
   display: grid;
   grid-template-columns: 100px 1fr;
   column-gap: 30px;

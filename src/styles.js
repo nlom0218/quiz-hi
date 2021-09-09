@@ -56,7 +56,6 @@ export const GlobalStyle = createGlobalStyle`
     user-select: none;
     letter-spacing: 2px;
     font-family: ${props => props.fontFamily};
-    
   }
   #root {
   }
