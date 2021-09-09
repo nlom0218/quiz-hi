@@ -30,6 +30,11 @@ export const ActionContent = styled.div`
   font-size: 36px;
   max-height: 340px;
   overflow-y: scroll;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  ::-webkit-scrollbar {
+    display: none;
+  }
 `
 
 export const NextStep = styled.div`
