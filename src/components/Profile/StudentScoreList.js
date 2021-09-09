@@ -2,7 +2,7 @@ import { faBook } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
 import styled from 'styled-components';
-import { compare } from '../../sharedFn';
+import { compare, compareDesc } from '../../sharedFn';
 import { ContentNum, DetailInfoLayout, Title } from './sharedCss';
 
 const ScoreContainer = styled.div`
@@ -47,7 +47,7 @@ const StudentScoreList = ({ quizScore }) => {
     <ScoreContainer>
       {quizScoreArr.length !== 0 ?
         <ScoreList>
-          {quizScoreArr.map((item, index) => {
+          {quizScoreArr.sort(compareDesc("order")).map((item, index) => {
             return <ScoreItem key={index}>
               <QuizTitle>{item.quizTitle}</QuizTitle>
               <QuizScore>{item.score}점</QuizScore>
