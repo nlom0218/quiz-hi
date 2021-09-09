@@ -49,7 +49,7 @@ const MovePageBtn = styled.div`
   margin-top: 10px;
   width: 100%;
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   column-gap: 30px;
   justify-items: center;
   row-gap: 20px;
@@ -170,7 +170,6 @@ const CompletionQuiz = ({ quizTags, quizTitle, state, questionIdArr, quizCaption
     history.push(page)
     window.location.reload()
   }
-  console.log(quizTags);
   return (<SCompletionQuizForm onSubmit={handleSubmit(onSubmit)}>
     <InputLayout>
       <span className="inputTitle">퀴즈 제목</span>
@@ -229,14 +228,9 @@ const CompletionQuiz = ({ quizTags, quizTitle, state, questionIdArr, quizCaption
                 퀴즈 피드
             </SNavBtn>
             </div>
-            <div onClick={() => onClickPageBtn("/paly-quiz")}>
-              <SNavBtn>
-                퀴즈 진행하기
-            </SNavBtn>
-            </div>
             <div onClick={() => onClickPageBtn(`/profile/${user?.username}/quizQuestion/${state}/quiz/1`)}>
               <SNavBtn>
-                퀴즈 확인하기
+                프로필
             </SNavBtn>
             </div>
           </MovePageBtn>
