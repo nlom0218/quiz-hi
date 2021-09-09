@@ -37,9 +37,10 @@ const TypeInfo = styled.div`
 
 const TargetScore = styled.div`
   border-top: rgb(200, 200, 200, 0.6) 1px solid;
+  line-height: 24px;
   padding-top: 30px;
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr;
   row-gap: 20px;
   .target_score_msg {
     grid-column: 1 / -1;
@@ -47,10 +48,9 @@ const TargetScore = styled.div`
 `
 
 const TargetScoreSet = styled.div`
-  grid-column: 1 / 2;
   form {
     display: grid;
-    grid-template-columns: 2fr 1fr;
+    grid-template-columns: 1fr 1fr;
     column-gap: 20px;
   }
 `
@@ -62,6 +62,7 @@ const ScoreInput = styled.input`
 `
 
 const ScoreSubmitBtn = styled.input`
+  justify-self: flex-start;
   background-color: rgb(255, 165, 0, 0.4);
   padding: 10px;
   border-radius: 5px;
