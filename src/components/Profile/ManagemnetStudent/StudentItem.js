@@ -2,6 +2,7 @@ import { faEdit } from '@fortawesome/free-regular-svg-icons';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useState } from 'react';
+import { useHistory } from 'react-router';
 import styled from 'styled-components';
 import { processUserLevel } from '../../../sharedFn';
 import StudentEditting from './StudentEditting';
@@ -58,12 +59,16 @@ const StudentEdit = styled.div`
 `
 
 const StudentItem = ({ nickname, avatarURL, index, username, score, id, teacherId }) => {
+  const history = useHistory()
   const [editMode, setEditMode] = useState(false)
   const level = processUserLevel(score)
+  const onClickStudent = (username) => {
+    history.push(`/profile/${username}/info`)
+  }
   return (<SStudentItem>
     <StudentNum>{index + 1}번</StudentNum>
     <StudentId>{username}</StudentId>
-    <StudentNickname>
+    <StudentNickname onClick={() => onClickStudent(username)}>
       {avatarURL ?
         <AvatarImage src={avatarURL} /> :
         <div>
