@@ -5,6 +5,8 @@ import emailjs from 'emailjs-com';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPaperPlane, faRedoAlt, faSpinner } from '@fortawesome/free-solid-svg-icons';
 import EmailConfirm from './EmailConfirm';
+import gql from 'graphql-tag';
+import { useMutation } from '@apollo/client';
 
 const Wrapper = styled.div``
 
@@ -62,39 +64,84 @@ const PlatForm = styled.div`
   }
 `
 
+const ErrMsg = styled.div`
+  text-align: center;
+  color: tomato;
+  margin-bottom: 30px;
+  span {
+    text-decoration: underline;
+    cursor: pointer;
+  }
+`
+
+const CONFIRM_EMAIL_MUTATION = gql`
+  mutation confirmEmail($email: String!) {
+    confirmEmail(email: $email) {
+      ok
+      error
+    }
+  }
+`
+
 const EmailForm = ({ setDoneConfirm, setError, setEmail }) => {
   const [confirmNum, setConfirmNum] = useState("")
   const [sendEmail, setSendEmail] = useState(false)
   const [platform, setPlatForm] = useState("")
   const [sending, setSending] = useState(false)
-  const { register, handleSubmit, formState: { isValid }, setValue } = useForm({
+  const [errMsg, setErrMsg] = useState(null)
+  console.log(errMsg);
+  const { register, handleSubmit, formState: { isValid }, setValue, getValues } = useForm({
     mode: "onChange"
+  })
+  const onCompleted = (result) => {
+    const email = getValues("email")
+    const { confirmEmail: { ok, error } } = result
+    if (ok) {
+      const randomNum = Math.floor(Math.random() * 1000000)
+      setConfirmNum(randomNum)
+      emailjs.send(
+        "service_y3st5zf",
+        "template_9ibugnm",
+        {
+          email,
+          confirmNum: randomNum
+        },
+        "user_sJAAszXnKTFqusb3xguHm")
+        .then((result) => {
+          setSendEmail(true)
+          setSending(false)
+          setEmail(email)
+          setPlatForm(email.split("@").reverse()[0])
+        }, (error) => {
+          console.log(error.text);
+        })
+    } else {
+      setErrMsg(error)
+    }
+  }
+  const [confirmEmail, { loading }] = useMutation(CONFIRM_EMAIL_MUTATION, {
+    onCompleted
   })
   const onSubmit = (data) => {
     const { email } = data
-    const randomNum = Math.floor(Math.random() * 1000000)
-    setConfirmNum(randomNum)
     setSending(true)
-    emailjs.send(
-      "service_y3st5zf",
-      "template_9ibugnm",
-      {
-        email,
-        confirmNum: randomNum
-      },
-      "user_sJAAszXnKTFqusb3xguHm")
-      .then((result) => {
-        setSendEmail(true)
-        setSending(false)
-        setEmail(email)
-        setPlatForm(email.split("@").reverse()[0])
-      }, (error) => {
-        console.log(error.text);
-      })
+    if (loading) {
+      return
+    }
+    confirmEmail({
+      variables: {
+        email
+      }
+    })
   }
   const onClinkAgainBtn = () => {
     setSendEmail(false)
     setValue("email", "")
+  }
+  const onClickRetry = () => {
+    setSending(false)
+    setValue("email", "")
+    setErrMsg(null)
   }
   return (
     <Wrapper>
@@ -112,6 +159,7 @@ const EmailForm = ({ setDoneConfirm, setError, setEmail }) => {
           {sending ? <FontAwesomeIcon icon={faSpinner} /> : <FontAwesomeIcon icon={faPaperPlane} />}
         </EmailBtn>
       </Form>
+      {errMsg && <ErrMsg>{errMsg} <span onClick={onClickRetry}>재시도</span></ErrMsg>}
       {sendEmail &&
         <React.Fragment>
           <EmailConfirm confirmNum={confirmNum} setDoneConfirm={setDoneConfirm} setError={setError} />
