@@ -6,6 +6,7 @@ import Marking from './Marking';
 import { ActionBox, ActionContent, BottomLine, LeaveBtn, NextStep } from './sharedStyles';
 
 const AnswerAction = ({ question, questionNum, totalNum, setQuestionNum, setAction, student, setStduent }) => {
+  console.log(student);
   const [markingStudent, setMarkingStudent] = useState(false)
   const [passStudentArr, setPassStudentArr] = useState(JSON.parse(localStorage.getItem("joinStudent")).filter((item) => item.pass === true).map((item) => item.id))
   const [failStudentArr, setFailStudentArr] = useState(JSON.parse(localStorage.getItem("joinStudent")).filter((item) => item.pass === false).map((item) => item.id))
@@ -57,7 +58,7 @@ const AnswerAction = ({ question, questionNum, totalNum, setQuestionNum, setActi
     setMarkingStudent(prev => !prev)
   }
   const onClickResultBtn = () => {
-    if (quizMode === "nomal") {
+    if (lastQuestionBtn() === true) {
       if (window.confirm("퀴즈를 종료하시겠습니까?")) {
         localStorage.removeItem("startQuiz")
         localStorage.removeItem("joinStudent")
@@ -89,6 +90,15 @@ const AnswerAction = ({ question, questionNum, totalNum, setQuestionNum, setActi
       setStduent(newStudent)
     }
   }
+  const lastQuestionBtn = () => {
+    if (quizMode === "nomal") {
+      return true
+    } else if (student.length === 0) {
+      return true
+    } else {
+      return false
+    }
+  }
   return (<ActionBox>
     <LeaveBtn><FontAwesomeIcon icon={faTimes} onClick={onCLickLeaveBtn} /></LeaveBtn>
     {!markingStudent && <ActionContent>{processAnswer()}</ActionContent>}
@@ -109,7 +119,7 @@ const AnswerAction = ({ question, questionNum, totalNum, setQuestionNum, setActi
       {questionNum !== totalNum ?
         <div onClick={onClickNextBtn}>다음 문제</div>
         :
-        <div onClick={onClickResultBtn}>{quizMode === "nomal" ? "퀴즈 종료하기" : "결과 보기"}</div>
+        <div onClick={onClickResultBtn}>{lastQuestionBtn() ? "퀴즈 종료하기" : "결과 보기"}</div>
       }
     </NextStep>
     <BottomLine></BottomLine>
