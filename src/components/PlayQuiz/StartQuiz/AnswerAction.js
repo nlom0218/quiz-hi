@@ -115,7 +115,14 @@ const AnswerAction = ({ question, questionNum, totalNum, setQuestionNum, setActi
       />
     }
     <NextStep>
-      {student.length !== 0 && <div onClick={onClickStudentBtn}>{markingStudent ? "정답 보기" : "맞춘 학생"}</div>}
+      {student.length !== 0 &&
+        <div>
+          {markingStudent ?
+            <div onClick={onClickStudentBtn}>정답 보기</div> :
+            <div onClick={onClickStudentBtn}><span>다음 문제로 넘어가기 전 맞춘 학생을 꼭 선택하세요.</span>맞춘 학생</div>
+          }
+        </div>
+      }
       {questionNum !== totalNum ?
         <div onClick={onClickNextBtn}>다음 문제</div>
         :

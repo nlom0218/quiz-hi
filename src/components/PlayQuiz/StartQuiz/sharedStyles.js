@@ -42,6 +42,10 @@ export const NextStep = styled.div`
   div {
     cursor: pointer;
   }
+  span {
+    margin-right: 10px;
+    font-size: 16px;
+  }
 `
 
 export const BottomLine = styled.div`
