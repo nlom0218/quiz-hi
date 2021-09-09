@@ -13,6 +13,11 @@ const SMarking = styled.div`
   display: grid;
   grid-template-columns: 1fr auto;
   row-gap: 20px;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  ::-webkit-scrollbar {
+    display: none;
+  }
 `
 
 const MarkingMsg = styled.div`

@@ -6,7 +6,6 @@ import Marking from './Marking';
 import { ActionBox, ActionContent, BottomLine, LeaveBtn, NextStep } from './sharedStyles';
 
 const AnswerAction = ({ question, questionNum, totalNum, setQuestionNum, setAction, student, setStduent }) => {
-  console.log(student);
   const [markingStudent, setMarkingStudent] = useState(false)
   const [passStudentArr, setPassStudentArr] = useState(JSON.parse(localStorage.getItem("joinStudent")).filter((item) => item.pass === true).map((item) => item.id))
   const [failStudentArr, setFailStudentArr] = useState(JSON.parse(localStorage.getItem("joinStudent")).filter((item) => item.pass === false).map((item) => item.id))

@@ -16,6 +16,11 @@ const StudentList = styled.div`
   grid-template-columns: 1fr;
   row-gap: 40px;
   align-self: flex-start;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  ::-webkit-scrollbar {
+    display: none;
+  }
   .goldenBell_students {
     display: flex;
     flex-wrap: wrap;
@@ -46,6 +51,11 @@ const ScoreBoard = styled.div`
   grid-template-columns: 1fr auto;
   row-gap: 20px;
   align-self: flex-start;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  ::-webkit-scrollbar {
+    display: none;
+  }
 `
 
 const ScoreList = styled.ul`
@@ -187,7 +197,6 @@ const ResultAction = ({ student }) => {
       }
     })
   }
-  console.log(parseInt(targetScore) <= totalScore);
   return (<ActionBox>
     <LeaveBtn></LeaveBtn>
     {quizMode === "goldenBell" ?

@@ -15,6 +15,11 @@ const StudentList = styled.div`
   grid-template-columns: 1fr 1fr;
   column-gap: 40px;
   align-items: flex-start;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  ::-webkit-scrollbar {
+    display: none;
+  }
   .studentType {
     display: grid;
     grid-template-columns: 1fr;
@@ -42,12 +47,17 @@ const StudentMsg = styled.div`
 const ScoreBoard = styled.div`
   margin: 0px 40px;
   max-height: 380px;
-  overflow-y: scroll;
   font-size: 20px;
   display: grid;
   grid-template-columns: 1fr auto;
   row-gap: 20px;
   align-self: flex-start;
+  overflow-y: scroll;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  ::-webkit-scrollbar {
+    display: none;
+  }
 `
 
 const ScoreMsg = styled.div`
