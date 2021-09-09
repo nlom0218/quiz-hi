@@ -56,6 +56,7 @@ const EDIT_HOME_SETTING_MUTATION = gql`
 `
 
 const EditFirstPage = ({ firstPage, setFirstPage, username, id, type }) => {
+  console.log(type);
   const [saveMsg, setSaveMsg] = useState(undefined)
   const update = (cache, result) => {
     const { data: { editHomeSetting: { ok } } } = result

@@ -27,6 +27,7 @@ const DivisionLine = styled.div`
 `
 
 const QuizHiSetting = ({ firstPage, fontFamily, goldenbellScore, cooperationScore, username, id, type }) => {
+  console.log(type);
   const [firstPageW, setFirstPage] = useState(firstPage)
   const [fontFamilyW, setFontFamily] = useState(fontFamily)
   const [goldenbellScoreW, setGoldenbellScore] = useState(goldenbellScore)
@@ -34,7 +35,7 @@ const QuizHiSetting = ({ firstPage, fontFamily, goldenbellScore, cooperationScor
   return (<Container>
     {type !== "student" && <React.Fragment>
       <Title>QUIZ HI 첫 페이지 설정</Title>
-      <EditFirstPage firstPage={firstPageW} setFirstPage={setFirstPage} username={username} id={id} />
+      <EditFirstPage firstPage={firstPageW} setFirstPage={setFirstPage} username={username} id={id} type={type} />
       <DivisionLine></DivisionLine>
     </React.Fragment>}
     <Title>QUIZ HI 폰트 설정</Title>
