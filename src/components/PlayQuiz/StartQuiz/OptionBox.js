@@ -1,6 +1,6 @@
 import { useReactiveVar } from '@apollo/client';
-import { faHandRock } from '@fortawesome/free-regular-svg-icons';
-import { faHome, faImage, faMagic, faBell, faUserFriends, faSun, faMoon, faRedoAlt } from '@fortawesome/free-solid-svg-icons';
+import { faHandRock, faMinusSquare, faPlusSquare } from '@fortawesome/free-regular-svg-icons';
+import { faHome, faImage, faMagic, faBell, faUserFriends, faSun, faMoon, faRedoAlt, faPlus, faMinus } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useState } from 'react';
 import { useHistory } from 'react-router';
@@ -14,7 +14,7 @@ import StudentAction from './StudentAction';
 
 const Container = styled.div`
   display: grid;
-  grid-template-columns: repeat(7, auto) 1fr;
+  grid-template-columns: repeat(9, auto) 1fr;
   column-gap: 40px;
   align-items: flex-end;
   font-size: 24px;
@@ -54,6 +54,7 @@ const Wrapper = styled.div`
 `
 
 const Question = styled.div``
+
 
 const OptionBox = ({ questionNum, setQuestionNum, action, setAction, question, totalNum, student, setStduent }) => {
   const history = useHistory()
@@ -133,6 +134,12 @@ const OptionBox = ({ questionNum, setQuestionNum, action, setAction, question, t
         onClick={onCLickDarkMode}
         style={{ color: `${darkMode ? "#ff765e" : "#212121"}` }}
       />
+    </ActionBtn>
+    <ActionBtn>
+      <FontAwesomeIcon icon={faPlusSquare} />
+    </ActionBtn>
+    <ActionBtn>
+      <FontAwesomeIcon icon={faMinusSquare} />
     </ActionBtn>
     {goldenBellConsolation() && <ConsolationQuestion>
       <Wrapper style={{ color: "tomato" }}>
