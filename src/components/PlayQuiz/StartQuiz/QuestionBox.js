@@ -34,10 +34,10 @@ const SQuestionBox = styled.div`
 const Wrapper = styled.div`
   grid-column: 1 / 2;
   display: grid;
-  grid-template-columns: 60px 1fr;
-  font-size: 26px;
+  grid-template-columns: auto 1fr;
+  font-size: ${props => `${props.fontSize}px`};
   font-weight: 600;
-  line-height: 32px;
+  line-height: 120%;
   column-gap: 40px;
 `
 
@@ -52,7 +52,6 @@ const DisTractorList = styled.ol`
 const DisTractorItem = styled.li`
   display: grid;
   grid-template-columns: auto 1fr;
-  line-height: 32px;
   .num {
     margin-right: 26px;
     align-self: flex-start;
@@ -60,7 +59,6 @@ const DisTractorItem = styled.li`
 `
 
 const Distractor = styled.div`
-  font-size: 26px;
   font-weight: 600;
   align-self: flex-start;
   justify-self: flex-start;
@@ -76,6 +74,7 @@ const Author = styled.div`
 
 const QuestionBox = ({ setQuestionNum, questionNum, quizList, totalNum, student, setStduent }) => {
   const [action, setAction] = useState(null)
+  const [fontSize, setFontSize] = useState(26)
   const quizMode = localStorage.getItem("selectMode")
   const question = quizList.filter((item, index) => index + 1 === questionNum)[0]
   return (
@@ -89,16 +88,18 @@ const QuestionBox = ({ setQuestionNum, questionNum, quizList, totalNum, student,
         question={question}
         student={student}
         setStduent={setStduent}
+        setFontSize={setFontSize}
+        fontSize={fontSize}
       />
       <Container>
         <StatusBar questionNum={questionNum} totalNum={totalNum} action={action} />
         <SQuestionBox opacity={action === null ? 1 : 0.1}>
-          <Wrapper>
+          <Wrapper fontSize={fontSize}>
             <FontAwesomeIcon icon={faFile} />
             <Question>{question.question}</Question>
           </Wrapper>
           {question.type === "obj" &&
-            <Wrapper>
+            <Wrapper fontSize={fontSize}>
               <FontAwesomeIcon icon={faListOl} />
               <DisTractorList>
                 {question.distractor.split("//!@#").map((item, index) => {

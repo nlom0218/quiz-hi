@@ -27,35 +27,35 @@ export const LeaveBtn = styled.div`
 export const ActionContent = styled.div`
   margin: 20px 40px;
   justify-self: center;
-  font-size: 36px;
+  font-size: ${props => `${props.fontSize + 50}px`};
   max-height: 340px;
   overflow-y: scroll;
   -ms-overflow-style: none;
   scrollbar-width: none;
   ::-webkit-scrollbar {
-    display: none;
-  }
+  display: none;
+}
 `
 
 export const NextStep = styled.div`
-  font-size: 20px;
-  margin-right: 40px;
-  justify-self: flex-end;
-  display: grid;
-  grid-template-columns: auto auto;
-  column-gap: 40px;
-  div {
-    cursor: pointer;
-  }
-  span {
-    margin-right: 10px;
-    font-size: 16px;
-  }
+font-size: 20px;
+margin-right: 40px;
+justify-self: flex-end;
+display: grid;
+grid-template-columns: auto auto;
+column-gap: 40px;
+div {
+  cursor: pointer;
+}
+span {
+  margin-right: 10px;
+  font-size: 16px;
+}
 `
 
 export const BottomLine = styled.div`
-  background-color: rgb(158, 81, 26);
-  height: 20px;
-  border-bottom-left-radius: 5px;
-  border-bottom-right-radius: 5px;
+background-color: rgb(158, 81, 26);
+height: 20px;
+border-bottom-left-radius: 5px;
+border-bottom-right-radius: 5px;
 `

@@ -56,7 +56,7 @@ const Wrapper = styled.div`
 const Question = styled.div``
 
 
-const OptionBox = ({ questionNum, setQuestionNum, action, setAction, question, totalNum, student, setStduent }) => {
+const OptionBox = ({ questionNum, setQuestionNum, action, setAction, question, totalNum, student, setStduent, setFontSize, fontSize }) => {
   const history = useHistory()
   const quizMode = localStorage.getItem("selectMode")
   const darkMode = useReactiveVar(darkModeVar)
@@ -113,6 +113,16 @@ const OptionBox = ({ questionNum, setQuestionNum, action, setAction, question, t
       return false
     }
   }
+  const onClickSetFontSizeBtn = (action) => {
+    if (action === "plus") {
+      setFontSize(prev => prev + 4)
+    } else if (action === "minus") {
+      if (fontSize === 26) {
+        return
+      }
+      setFontSize(prev => prev - 4)
+    }
+  }
   return (<Container>
     <ActionBtn><FontAwesomeIcon icon={faHome} onClick={onClickHomeBtn} /></ActionBtn>
     <ActionBtn><FontAwesomeIcon icon={faRedoAlt} onClick={onClickResetBtn} /></ActionBtn>
@@ -136,10 +146,10 @@ const OptionBox = ({ questionNum, setQuestionNum, action, setAction, question, t
       />
     </ActionBtn>
     <ActionBtn>
-      <FontAwesomeIcon icon={faPlusSquare} />
+      <FontAwesomeIcon icon={faPlusSquare} onClick={() => onClickSetFontSizeBtn("plus")} />
     </ActionBtn>
     <ActionBtn>
-      <FontAwesomeIcon icon={faMinusSquare} />
+      <FontAwesomeIcon icon={faMinusSquare} onClick={() => onClickSetFontSizeBtn("minus")} />
     </ActionBtn>
     {goldenBellConsolation() && <ConsolationQuestion>
       <Wrapper style={{ color: "tomato" }}>
@@ -157,9 +167,10 @@ const OptionBox = ({ questionNum, setQuestionNum, action, setAction, question, t
         setAction={setAction}
         student={student}
         setStduent={setStduent}
+        fontSize={fontSize}
       />
     }
-    {action === "hint" && <HintAction question={question} setAction={setAction} />}
+    {action === "hint" && <HintAction question={question} setAction={setAction} fontSize={fontSize} />}
     {action === "image" && <ImageAction question={question} setAction={setAction} />}
     {action === "student" && <StudentAction question={question} setAction={setAction} student={student} />}
     {action === "result" && <ResultAction question={question} setAction={setAction} student={student} />}

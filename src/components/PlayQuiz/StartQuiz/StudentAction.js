@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
 import styled from 'styled-components';
 import { compare, compareDesc } from '../../../sharedFn';
-import { ActionBox, ActionContent, BottomLine, LeaveBtn, NextStep } from './sharedStyles';
+import { ActionBox, BottomLine, LeaveBtn, NextStep } from './sharedStyles';
 
 const StudentList = styled.div`
   grid-column: 1 / -1;

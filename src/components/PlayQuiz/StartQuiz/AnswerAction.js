@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import Marking from './Marking';
 import { ActionBox, ActionContent, BottomLine, LeaveBtn, NextStep } from './sharedStyles';
 
-const AnswerAction = ({ question, questionNum, totalNum, setQuestionNum, setAction, student, setStduent }) => {
+const AnswerAction = ({ question, questionNum, totalNum, setQuestionNum, setAction, student, setStduent, fontSize }) => {
   const [markingStudent, setMarkingStudent] = useState(false)
   const [passStudentArr, setPassStudentArr] = useState(JSON.parse(localStorage.getItem("joinStudent")).filter((item) => item.pass === true).map((item) => item.id))
   const [failStudentArr, setFailStudentArr] = useState(JSON.parse(localStorage.getItem("joinStudent")).filter((item) => item.pass === false).map((item) => item.id))
@@ -100,7 +100,7 @@ const AnswerAction = ({ question, questionNum, totalNum, setQuestionNum, setActi
   }
   return (<ActionBox>
     <LeaveBtn><FontAwesomeIcon icon={faTimes} onClick={onCLickLeaveBtn} /></LeaveBtn>
-    {!markingStudent && <ActionContent>{processAnswer()}</ActionContent>}
+    {!markingStudent && <ActionContent fontSize={fontSize}>{processAnswer()}</ActionContent>}
     {markingStudent &&
       <Marking
         student={student}
