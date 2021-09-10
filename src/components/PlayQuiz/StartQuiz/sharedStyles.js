@@ -6,14 +6,15 @@ export const ActionBox = styled.div`
   position: absolute;
   background-color: rgb(42, 140, 0);
   top: 40px;
-  width: 1000px;
-  height: 510px;
+  width: 1200px;
+  height: 520px;
   border-radius: 5px;
   color: #ffffff;
   display: grid;
   grid-template-columns: 1fr;
   grid-template-rows: auto 1fr auto auto;
   row-gap: 20px;
+  z-index: 1;
 `
 
 export const LeaveBtn = styled.div`

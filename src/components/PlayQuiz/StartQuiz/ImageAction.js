@@ -6,14 +6,14 @@ import { fadeIn } from '../../../animation/fade';
 
 const ImageBox = styled.div`
   position: absolute;
-  top: -80px;
-  right: 50px;
-  height: 510px;
+  top: 40px;
+  height: 520px;
   animation: ${fadeIn} 0.6s ease;
+  z-index: 1;
 `
 
 const ImageContent = styled.img`
-  height: 510px;
+  height: 520px;
   position: relative;
   border-radius: 5px;
 `

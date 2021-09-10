@@ -102,7 +102,7 @@ const QuestionBox = ({ setQuestionNum, questionNum, quizList, totalNum, student,
       />
       <Container>
         <StatusBar questionNum={questionNum} totalNum={totalNum} action={action} />
-        <SQuestionBox opacity={action === null ? 1 : 0.2}>
+        <SQuestionBox opacity={action === null ? 1 : 0.1}>
           {goldenBellConsolation() && <ConsolationQuestion>
             <Wrapper style={{ color: "tomato" }}>
               <FontAwesomeIcon icon={faHandRock} />

@@ -116,7 +116,7 @@ const StudentAction = ({ question, setAction, student }) => {
           <div className="studentList">
             {student.map((item, index) => {
               if (!item.pass) { return }
-              return <div key={index} className="studentItem">{item.order}번 {item.nickname.length > 5 ? `${item.nickname.substring(0, 5)}...` : item.nickname}</div>
+              return <div key={index} className="studentItem">{item.order}번 {item.nickname.length > 10 ? `${item.nickname.substring(0, 10)}...` : item.nickname}</div>
             })}
           </div>
         </div>
@@ -125,7 +125,7 @@ const StudentAction = ({ question, setAction, student }) => {
           <div className="studentList">
             {student.map((item, index) => {
               if (item.pass) { return }
-              return <div key={index} className="studentItem">{item.order}번 {item.nickname.length > 5 ? `${item.nickname.substring(0, 5)}...` : item.nickname}</div>
+              return <div key={index} className="studentItem">{item.order}번 {item.nickname.length > 10 ? `${item.nickname.substring(0, 10)}...` : item.nickname}</div>
             })}
           </div>
         </div>
@@ -141,7 +141,7 @@ const StudentAction = ({ question, setAction, student }) => {
           {student.sort(compareDesc("score")).map((item, index) => {
             if (!item.pass) { return }
             return <div key={index} className="studentItem">
-              <div>{item.order}번 {item.nickname.length > 5 ? `${item.nickname.substring(0, 5)}...` : item.nickname}</div>
+              <div>{item.order}번 {item.nickname.length > 10 ? `${item.nickname.substring(0, 10)}...` : item.nickname}</div>
               <div className="studentScore">{item.score}점</div>
             </div>
           })}
