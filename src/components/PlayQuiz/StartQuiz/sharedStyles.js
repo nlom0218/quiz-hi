@@ -5,8 +5,7 @@ export const ActionBox = styled.div`
   animation: ${fadeIn} 0.6s ease;
   position: absolute;
   background-color: rgb(42, 140, 0);
-  top: -80px;
-  right: 50px;
+  top: 40px;
   width: 1000px;
   height: 510px;
   border-radius: 5px;

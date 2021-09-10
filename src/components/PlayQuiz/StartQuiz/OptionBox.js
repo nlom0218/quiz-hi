@@ -12,12 +12,10 @@ import ResultAction from './ResultAction';
 import StudentAction from './StudentAction';
 
 const Container = styled.div`
-  grid-column: 2 / 3;
-  grid-row: 2 / -1;
   display: grid;
-  grid-template-rows: repeat(6, 1fr);
-  row-gap: 40px;
-  justify-self: flex-end;
+  grid-template-columns: repeat(7, auto) 1fr;
+  column-gap: 40px;
+  align-items: flex-end;
   font-size: 24px;
   position: relative;
 `
@@ -34,8 +32,16 @@ const ActionBtn = styled.div`
   }
 `
 
+const Score = styled.div`
+  /* color: rgb(255, 165, 0, 0.8); */
+  color: rgb(42, 140, 0);
+  font-size: 32px;
+  justify-self: flex-end;
+`
+
 const OptionBox = ({ questionNum, setQuestionNum, action, setAction, question, totalNum, student, setStduent }) => {
   const history = useHistory()
+  const quizMode = localStorage.getItem("selectMode")
   const darkMode = useReactiveVar(darkModeVar)
   const onClickHomeBtn = () => {
     history.push("/")
@@ -74,6 +80,12 @@ const OptionBox = ({ questionNum, setQuestionNum, action, setAction, question, t
       enableDarkMode()
     }
   }
+  const processScore = () => {
+    if (quizMode === "score" || quizMode === "cooperation") {
+      return true
+    }
+    return false
+  }
   return (<Container>
     <ActionBtn><FontAwesomeIcon icon={faHome} onClick={onClickHomeBtn} /></ActionBtn>
     <ActionBtn><FontAwesomeIcon icon={faRedoAlt} onClick={onClickResetBtn} /></ActionBtn>
@@ -96,6 +108,7 @@ const OptionBox = ({ questionNum, setQuestionNum, action, setAction, question, t
         style={{ color: `${darkMode ? "#ff765e" : "#212121"}` }}
       />
     </ActionBtn>
+    {processScore() && <Score>{question.score}점</Score>}
     {action === "answer" &&
       <AnswerAction
         question={question}

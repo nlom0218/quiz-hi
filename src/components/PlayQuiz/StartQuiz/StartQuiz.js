@@ -11,10 +11,11 @@ const Container = styled.div`
   grid-column: 1 / -1;
   display: grid;
   grid-template-columns: 1fr;
-  row-gap: 20px;
+  row-gap: 10px;
 `
 
 const QuizTitle = styled.div`
+  margin-bottom: 10px;
   font-size: 28px;
   svg {
     margin-right: 20px;
