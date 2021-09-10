@@ -78,16 +78,6 @@ const QuestionBox = ({ setQuestionNum, questionNum, quizList, totalNum, student,
   const [action, setAction] = useState(null)
   const quizMode = localStorage.getItem("selectMode")
   const question = quizList.filter((item, index) => index + 1 === questionNum)[0]
-  const goldenBellConsolation = () => {
-    if (quizMode !== "goldenBell") {
-      return false
-    }
-    if (question.consolation) {
-      return true
-    } else {
-      return false
-    }
-  }
   return (
     <React.Fragment>
       <OptionBox
@@ -103,12 +93,6 @@ const QuestionBox = ({ setQuestionNum, questionNum, quizList, totalNum, student,
       <Container>
         <StatusBar questionNum={questionNum} totalNum={totalNum} action={action} />
         <SQuestionBox opacity={action === null ? 1 : 0.1}>
-          {goldenBellConsolation() && <ConsolationQuestion>
-            <Wrapper style={{ color: "tomato" }}>
-              <FontAwesomeIcon icon={faHandRock} />
-              <Question>패자부활전 문제</Question>
-            </Wrapper>
-          </ConsolationQuestion>}
           <Wrapper>
             <FontAwesomeIcon icon={faFile} />
             <Question>{question.question}</Question>

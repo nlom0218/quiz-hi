@@ -1,5 +1,6 @@
 import { useReactiveVar } from '@apollo/client';
-import { faHome, faImage, faMagic, faBell, faUserFriends, faStepBackward, faSun, faMoon, faPlay, faRedoAlt } from '@fortawesome/free-solid-svg-icons';
+import { faHandRock } from '@fortawesome/free-regular-svg-icons';
+import { faHome, faImage, faMagic, faBell, faUserFriends, faSun, faMoon, faRedoAlt } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useState } from 'react';
 import { useHistory } from 'react-router';
@@ -38,6 +39,21 @@ const Score = styled.div`
   font-size: 32px;
   justify-self: flex-end;
 `
+
+const ConsolationQuestion = styled.div`
+  justify-self: flex-end;
+`
+
+const Wrapper = styled.div`
+  display: grid;
+  grid-template-columns: auto 1fr;
+  font-size: 26px;
+  font-weight: 600;
+  line-height: 32px;
+  column-gap: 20px;
+`
+
+const Question = styled.div``
 
 const OptionBox = ({ questionNum, setQuestionNum, action, setAction, question, totalNum, student, setStduent }) => {
   const history = useHistory()
@@ -86,6 +102,16 @@ const OptionBox = ({ questionNum, setQuestionNum, action, setAction, question, t
     }
     return false
   }
+  const goldenBellConsolation = () => {
+    if (quizMode !== "goldenBell") {
+      return false
+    }
+    if (question.consolation) {
+      return true
+    } else {
+      return false
+    }
+  }
   return (<Container>
     <ActionBtn><FontAwesomeIcon icon={faHome} onClick={onClickHomeBtn} /></ActionBtn>
     <ActionBtn><FontAwesomeIcon icon={faRedoAlt} onClick={onClickResetBtn} /></ActionBtn>
@@ -108,6 +134,12 @@ const OptionBox = ({ questionNum, setQuestionNum, action, setAction, question, t
         style={{ color: `${darkMode ? "#ff765e" : "#212121"}` }}
       />
     </ActionBtn>
+    {goldenBellConsolation() && <ConsolationQuestion>
+      <Wrapper style={{ color: "tomato" }}>
+        <FontAwesomeIcon icon={faHandRock} />
+        <Question>패자부활전 문제</Question>
+      </Wrapper>
+    </ConsolationQuestion>}
     {processScore() && <Score>{question.score}점</Score>}
     {action === "answer" &&
       <AnswerAction
