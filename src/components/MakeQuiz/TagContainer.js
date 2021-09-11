@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { fadeIn } from '../../animation/fade';
 import { faQuestionCircle } from '@fortawesome/free-regular-svg-icons';
+import useUser from '../../hooks/useUser';
 
 const TagInput = styled.div`
   display: grid;
@@ -70,6 +71,7 @@ const SuggestionTagsList = styled.div`
 
 const TagContainer = ({ getValues, tags, setTags, setValue, register, subMsg1, subMsg2, nextMode, question, color, bgColor, makeQuestion }) => {
   const [questionMark, setQuestionMark] = useState(false)
+  const user = useUser()
   const onClickPlusQuizTag = () => {
     if (getValues("tag") === "" || makeQuestion) {
       return
@@ -100,6 +102,11 @@ const TagContainer = ({ getValues, tags, setTags, setValue, register, subMsg1, s
   const onClickQuestionMark = () => {
     setQuestionMark(prev => !prev)
   }
+  const suggestionTags = [
+    "1학년", "2학년", "3학년", "4학년", "5학년", "6학년",
+    "국어", "도덕", "사회", "수학", "과학", "실과", "체육", "음악", "미술", "영어",
+    "통합", "봄", "여름", "가을", "겨울", "창체", "안전",
+  ]
   return (<React.Fragment>
     <span className="inputTitle">
       태그 <FontAwesomeIcon onClick={onClickQuestionMark} icon={faQuestionCircle} />
@@ -130,29 +137,14 @@ const TagContainer = ({ getValues, tags, setTags, setValue, register, subMsg1, s
     <SuggestionTags>
       <div>추천태그 / 아래의 태그를 클릭하면 태그가 자동으로 추가 됩니다.</div>
       <SuggestionTagsList>
-        <div>1학년</div>
-        <div>2학년</div>
-        <div>3학년</div>
-        <div>4학년</div>
-        <div>5학년</div>
-        <div>6학년</div>
-        <div>국어</div>
-        <div>도덕</div>
-        <div>사회</div>
-        <div>수학</div>
-        <div>과학</div>
-        <div>실과</div>
-        <div>체육</div>
-        <div>음악</div>
-        <div>미술</div>
-        <div>영어</div>
-        <div>통합</div>
-        <div>봄</div>
-        <div>여름</div>
-        <div>가을</div>
-        <div>겨울</div>
-        <div>창체</div>
-        <div>안전</div>
+        {suggestionTags.map((item, index) => {
+          return <div key={index}>{item}</div>
+        })}
+        {user?.tags.map((item) => item.name).filter((item) => !suggestionTags.includes(item))
+          .map((item, index) => {
+            return <div key={index}>{item}</div>
+          })
+        }
       </SuggestionTagsList>
     </SuggestionTags>
   </React.Fragment>);
