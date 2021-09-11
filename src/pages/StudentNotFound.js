@@ -8,6 +8,7 @@ import Header from '../components/Header';
 import Title from '../components/Home/Title';
 import LinkBtn from '../components/LinkBtn';
 import StudentHeader from '../components/StudentHeader';
+import useTitle from '../hooks/useTitle';
 import useUser from '../hooks/useUser';
 
 const Layout = styled.div`
@@ -45,6 +46,7 @@ const Box = styled.div``
 
 
 const StudentNotFound = () => {
+  const titleUpdataer = useTitle("QUIZ HI | Not Found")
   const user = useUser()
   return (<React.Fragment>
     <StudentHeader />

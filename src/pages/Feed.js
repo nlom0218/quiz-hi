@@ -10,8 +10,10 @@ import NavBtn from '../components/NavBtn';
 import { useHistory, useParams } from 'react-router';
 import { faClipboard } from '@fortawesome/free-regular-svg-icons';
 import useUser from '../hooks/useUser';
+import useTitle from '../hooks/useTitle';
 
 const Feed = () => {
+  const titleUpdataer = useTitle("QUIZ HI | 피드")
   const { type } = useParams()
   return (<React.Fragment>
     <Header />

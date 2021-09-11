@@ -8,8 +8,10 @@ import QuestionLibrary from '../components/Library/QuestionLibrary';
 import QuizLibrary from '../components/Library/QuizLibrary';
 import PageTitle from '../components/PageTitle';
 import FeedType from '../components/QuizFeed/FeedType';
+import useTitle from '../hooks/useTitle';
 
 const Library = () => {
+  const titleUpdataer = useTitle("QUIZ HI | 라이브러리")
   const { type } = useParams()
   return (
     <React.Fragment>

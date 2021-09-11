@@ -20,6 +20,7 @@ import PageBarItem from '../components/Account/PageBarItem';
 import { onCLickDarkMode } from '../sharedFn';
 import QusetionContainer from '../components/Question/QuestionContainer';
 import LoginQuestion from '../components/Question/LoginQuestion';
+import useTitle from '../hooks/useTitle';
 
 const SelectType = styled.div`
   .title {
@@ -66,6 +67,7 @@ const SEE_PROFILE_QUERY = gql`
 `
 
 const Login = () => {
+  const titleUpdataer = useTitle("QUIZ HI | 로그인")
   const darkMode = useReactiveVar(darkModeVar)
   const history = useHistory()
   const [type, setType] = useState("teacher")

@@ -10,6 +10,7 @@ import TotalInfo from '../components/Detail/TotalInfo';
 import Header from '../components/Header';
 import NavBtn from '../components/NavBtn';
 import TagContents from '../components/Detail/TagContents';
+import useTitle from '../hooks/useTitle';
 
 const SEE_TAG_QUERY = gql`
   query seeTag($id: Int!) {
@@ -25,6 +26,7 @@ const SEE_TAG_QUERY = gql`
 `
 
 const FeedTag = () => {
+  const titleUpdataer = useTitle("QUIZ HI | 태그")
   const { id } = useParams()
   const { data, loading } = useQuery(SEE_TAG_QUERY, { variables: { id: parseInt(id) } })
   return (

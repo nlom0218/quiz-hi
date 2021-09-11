@@ -11,6 +11,7 @@ import DetailTitle from '../components/Detail/DetailTitle';
 import Header from '../components/Header';
 import NavBtn from '../components/NavBtn';
 import QuizQuestionBasket from '../components/QuizFeed/QuizQuestionBasket';
+import useTitle from '../hooks/useTitle';
 
 const DelQuizMsg = styled.div`
   color: tomato;
@@ -63,6 +64,7 @@ const DETAIL_QUIZ_QUERY = gql`
 `
 
 const FeedQuiz = () => {
+  const titleUpdataer = useTitle("QUIZ HI | 퀴즈")
   const { id } = useParams()
   const [putQuiz, setPutQuiz] = useState(false)
   const { data, loading } = useQuery(DETAIL_QUIZ_QUERY, { variables: { id: parseInt(id) } })

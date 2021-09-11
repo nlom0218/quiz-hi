@@ -14,6 +14,7 @@ import QuizHiSetting from '../components/Profile/QuizHiSetting/QuizHiSetting';
 import TopProfile from '../components/Profile/TopProfile';
 import UserQuizQuestion from '../components/Profile/UserQuizQuestion/UserQuizQuestion';
 import StudentHeader from '../components/StudentHeader';
+import useTitle from '../hooks/useTitle';
 import useUser from '../hooks/useUser';
 
 const SEE_PROFILE_QUERY = gql`
@@ -59,6 +60,7 @@ const SEE_PROFILE_QUERY = gql`
 `
 
 const Profile = () => {
+  const titleUpdataer = useTitle("QUIZ HI | 프로필")
   const { username, mode } = useParams()
   const user = useUser()
   const { data, loading } = useQuery(SEE_PROFILE_QUERY, { variables: { username } })

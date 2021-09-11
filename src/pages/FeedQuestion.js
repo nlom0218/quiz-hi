@@ -9,6 +9,7 @@ import DetailTitle from '../components/Detail/DetailTitle';
 import Header from '../components/Header';
 import NavBtn from '../components/NavBtn';
 import QuizQuestionBasket from '../components/QuizFeed/QuizQuestionBasket';
+import useTitle from '../hooks/useTitle';
 
 const DETAIL_QUESTION_QUERY = gql`
   query detailQuestion($id: Int!) {
@@ -41,6 +42,7 @@ const DETAIL_QUESTION_QUERY = gql`
 `
 
 const FeedQuestion = () => {
+  const titleUpdataer = useTitle("QUIZ HI | 문제")
   const { id } = useParams()
   const [putQuiz, setPutQuiz] = useState(false)
   const { data, loading } = useQuery(DETAIL_QUESTION_QUERY, { variables: { id: parseInt(id) } })

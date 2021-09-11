@@ -7,6 +7,7 @@ import BasicContainer from '../components/BasicContainer';
 import Header from '../components/Header';
 import Title from '../components/Home/Title';
 import LinkBtn from '../components/LinkBtn';
+import useTitle from '../hooks/useTitle';
 import useUser from '../hooks/useUser';
 
 const Layout = styled.div`
@@ -60,6 +61,7 @@ const LogoutBtn = styled.div`
 `
 
 const NotFound = () => {
+  const titleUpdataer = useTitle("QUIZ HI | Not Found")
   const user = useUser()
   return (<React.Fragment>
     <Header />

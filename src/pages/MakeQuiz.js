@@ -12,8 +12,10 @@ import CompletionQuiz from '../components/MakeQuiz/CompletionQuiz';
 import useUser from '../hooks/useUser';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPencilAlt } from '@fortawesome/free-solid-svg-icons';
+import useTitle from '../hooks/useTitle';
 
 const MakeQuiz = () => {
+  const titleUpdataer = useTitle("QUIZ HI | 퀴즈 만들기")
   const user = useUser()
   const [quizTitle, setQuizTitle] = useState("")
   const [quizTags, setQuizTags] = useState([])

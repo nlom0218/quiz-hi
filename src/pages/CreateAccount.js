@@ -20,6 +20,7 @@ import Title from '../components/Account/Title';
 import { onCLickDarkMode } from '../sharedFn';
 import QusetionContainer from '../components/Question/QuestionContainer';
 import CreateAccountQuestion from '../components/Question/CreateAccountQuestion';
+import useTitle from '../hooks/useTitle';
 
 const SelectType = styled.div`
   margin-bottom: 20px;
@@ -52,6 +53,7 @@ const CREATE_ACCOUNT_MUTATION = gql`
 `
 
 const CreateAccount = () => {
+  const titleUpdataer = useTitle("QUIZ HI | 계정 생성")
   const history = useHistory()
   const [doneConfirm, setDoneConfirm] = useState(false)
   const [error, setError] = useState(undefined)

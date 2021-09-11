@@ -13,6 +13,7 @@ import Preview from '../components/PlayQuiz/Preview';
 import SelectMode from '../components/PlayQuiz/SelectMode';
 import SelectQuiz from '../components/PlayQuiz/SelectQuiz';
 import StartQuiz from '../components/PlayQuiz/StartQuiz/StartQuiz';
+import useTitle from '../hooks/useTitle';
 
 const ResetBtn = styled.div`
   grid-column: 7 / 12;
@@ -47,6 +48,7 @@ const OptionContent = styled.div`
 `
 
 const PlayQuiz = () => {
+  const titleUpdataer = useTitle("QUIZ HI | 퀴즈 진행")
   const [change, setChange] = useState(true)
   const [startQuiz, setStartQuiz] = useState(localStorage.getItem("startQuiz") || false)
   const [quizId, setQuizId] = useState(localStorage.getItem("selectQuiz") || null)

@@ -12,6 +12,7 @@ import { gsap } from "gsap"
 import { BasicContainerGsap, HomeContainerGsap } from '../hooks/Gsap';
 import useUser from '../hooks/useUser';
 import { useHistory } from 'react-router';
+import useTitle from '../hooks/useTitle';
 gsap.registerPlugin(ScrollTrigger)
 
 const HomeContainer = styled.div`
@@ -26,6 +27,7 @@ const HomeContainer = styled.div`
 `
 
 const Home = () => {
+  const titleUpdataer = useTitle("QUIZ HI | 홈")
   return (
     <React.Fragment>
       <Header />
