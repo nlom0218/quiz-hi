@@ -35,6 +35,7 @@ const DivisionLine = styled.div`
 `
 
 const ManagemnetStudent = ({ students, id, quizScore: teacherQuizScore, type, username }) => {
+  console.log(id);
   const history = useHistory()
   useEffect(() => {
     if (type === "student") {

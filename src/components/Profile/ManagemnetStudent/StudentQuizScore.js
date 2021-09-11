@@ -73,6 +73,7 @@ const StudentQuizScore = ({ students, id, teacherQuizScore }) => {
             {teacherQuizScoreArr.map((teacher, index) => {
               return <div className="quiz_title" key={index}>
                 {JSON.parse(item.quizScore)
+                  .filter((student) => student.teacherId === id)
                   .filter((student) => student.order === teacher.order)
                   .length === 1
                   ?
