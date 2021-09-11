@@ -56,6 +56,7 @@ const SEE_HOMEWORK_QUERY = gql`
       score
       finish
       targetScore
+      teacherId
       user {
         nickname
         quizScore

@@ -18,8 +18,8 @@ const SHomeworkSubmitBtn = styled.div`
 `
 
 const CREATE_HOMEWORK_RESULT__MUTATION = gql`
-  mutation createHomeworkResult($quizId: Int!, $result: String!, $order: Int!, $score: Int!, $quizTitle: String!) {
-    createHomeworkResult(quizId: $quizId, result: $result, order: $order, score: $score, quizTitle: $quizTitle) {
+  mutation createHomeworkResult($quizId: Int!, $result: String!, $order: Int!, $score: Int!, $quizTitle: String!, $teacherId: Int!) {
+    createHomeworkResult(quizId: $quizId, result: $result, order: $order, score: $score, quizTitle: $quizTitle, teacherId: $teacherId) {
       ok
     }
   }
@@ -36,6 +36,7 @@ const HomeworkSubmitBtn = ({ setSaveMsg, quizTitle }) => {
       localStorage.removeItem("homeworkOrder")
       localStorage.removeItem("homeworkQuizId")
       localStorage.removeItem("homeworkQuiz")
+      localStorage.removeItem("teacherId")
       setHomeworkQuizId(null)
       history.push(`/profile/${user.username}/homework`)
       window.location.reload()
@@ -80,7 +81,8 @@ const HomeworkSubmitBtn = ({ setSaveMsg, quizTitle }) => {
             result: JSON.stringify(resultArr),
             order: parseInt(localStorage.getItem("homeworkOrder")),
             score: totalScore,
-            quizTitle
+            quizTitle,
+            teacherId: parseInt(localStorage.getItem("teacherId"))
           }
         })
       }

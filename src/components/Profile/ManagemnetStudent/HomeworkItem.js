@@ -67,7 +67,7 @@ const SEE_HOMEWORKRESULT_QUERY = gql`
 `
 
 
-const HomeworkItem = ({ createdAt, title, mode, type, quizId, score, order, setComplete, user: student, targetScore, id, finish }) => {
+const HomeworkItem = ({ createdAt, title, mode, type, quizId, score, order, setComplete, user: student, targetScore, id, finish, teacherId }) => {
   const [seeInfo, setSeeInfo] = useState(false)
   const user = useUser()
   const { data, loading } = useQuery(SEE_HOMEWORKRESULT_QUERY, {
@@ -97,6 +97,7 @@ const HomeworkItem = ({ createdAt, title, mode, type, quizId, score, order, setC
     localStorage.setItem("homeworkScore", score)
     localStorage.setItem("homeworkOrder", order)
     localStorage.setItem("homeworkQuizId", quizId)
+    localStorage.setItem("teacherId", teacherId)
     localStorage.removeItem("homeworkResult")
     setHomeworkQuizId(quizId)
     setComplete(false)

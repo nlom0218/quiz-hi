@@ -134,6 +134,7 @@ const TopProfile = ({ data }) => {
       localStorage.removeItem("homeworkScore")
       localStorage.removeItem("homeworkQuizId")
       localStorage.removeItem("homeworkQuiz")
+      localStorage.removeItem("teacherId")
       setHomeworkQuizId(null)
     }
   }
