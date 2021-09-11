@@ -3,6 +3,7 @@ import { useHistory } from 'react-router';
 import styled from 'styled-components';
 import DeleteAllStudentAccount from './DeleteAllStudentAccount';
 import Homework from './Homework';
+import SharedStudent from './SharedStudent';
 import StudentList from './StudentList';
 import StudentQuizScore from './StudentQuizScore';
 
@@ -56,6 +57,11 @@ const ManagemnetStudent = ({ students, id, quizScore: teacherQuizScore, type, us
         <Wrapper>
           <Title>숙제 목록</Title>
           <Homework students={students} id={id} type={type} />
+        </Wrapper>
+        <DivisionLine></DivisionLine>
+        <Wrapper>
+          <Title>학생 공유</Title>
+          <SharedStudent students={students} id={id} type={type} />
         </Wrapper>
         <DivisionLine></DivisionLine>
         <Wrapper>

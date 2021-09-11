@@ -84,6 +84,7 @@ const Profile = () => {
           {mode === "homework" && <BottomProfile>
             {user?.username === username && <StudentHomework {...data?.seeProfile} />}
           </BottomProfile>}
+          {mode === "follow" && <BottomProfile></BottomProfile>}
         </React.Fragment>
       }
     </BasicContainer>
