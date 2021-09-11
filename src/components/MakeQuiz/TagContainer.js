@@ -49,6 +49,25 @@ const RemoveBtn = styled.div`
   cursor: pointer;
 `
 
+const SuggestionTags = styled.div`
+  margin-top: 20px;
+  grid-column: 2 / 3;
+  display: grid;
+  row-gap: 20px;
+`
+
+const SuggestionTagsList = styled.div`
+  line-height: 200%;
+  background-color: rgb(200, 200, 200, 0.2);
+  border-radius: 5px;
+  padding: 10px 20px;
+  display: flex;
+  flex-wrap: wrap;
+  div {
+    margin-right: 20px;
+  }
+`
+
 const TagContainer = ({ getValues, tags, setTags, setValue, register, subMsg1, subMsg2, nextMode, question, color, bgColor, makeQuestion }) => {
   const [questionMark, setQuestionMark] = useState(false)
   const onClickPlusQuizTag = () => {
@@ -108,6 +127,34 @@ const TagContainer = ({ getValues, tags, setTags, setValue, register, subMsg1, s
         })}
       </SeeTag>}
     </TagInput>
+    <SuggestionTags>
+      <div>추천태그 / 아래의 태그를 클릭하면 태그가 자동으로 추가 됩니다.</div>
+      <SuggestionTagsList>
+        <div>1학년</div>
+        <div>2학년</div>
+        <div>3학년</div>
+        <div>4학년</div>
+        <div>5학년</div>
+        <div>6학년</div>
+        <div>국어</div>
+        <div>도덕</div>
+        <div>사회</div>
+        <div>수학</div>
+        <div>과학</div>
+        <div>실과</div>
+        <div>체육</div>
+        <div>음악</div>
+        <div>미술</div>
+        <div>영어</div>
+        <div>통합</div>
+        <div>봄</div>
+        <div>여름</div>
+        <div>가을</div>
+        <div>겨울</div>
+        <div>창체</div>
+        <div>안전</div>
+      </SuggestionTagsList>
+    </SuggestionTags>
   </React.Fragment>);
 }
 
