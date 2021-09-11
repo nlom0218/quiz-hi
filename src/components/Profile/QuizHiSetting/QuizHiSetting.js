@@ -27,7 +27,6 @@ const DivisionLine = styled.div`
 `
 
 const QuizHiSetting = ({ firstPage, fontFamily, goldenbellScore, cooperationScore, username, id, type }) => {
-  console.log(type);
   const [firstPageW, setFirstPage] = useState(firstPage)
   const [fontFamilyW, setFontFamily] = useState(fontFamily)
   const [goldenbellScoreW, setGoldenbellScore] = useState(goldenbellScore)

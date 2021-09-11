@@ -14,8 +14,8 @@ import QuizHiSetting from '../components/Profile/QuizHiSetting/QuizHiSetting';
 import TopProfile from '../components/Profile/TopProfile';
 import UserQuizQuestion from '../components/Profile/UserQuizQuestion/UserQuizQuestion';
 import StudentHeader from '../components/StudentHeader';
-import useTitle from '../hooks/useTitle';
 import useUser from '../hooks/useUser';
+import useTitle from '../hooks/useTitle';
 
 const SEE_PROFILE_QUERY = gql`
   query seeProfile($username: String!) {

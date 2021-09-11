@@ -92,7 +92,7 @@ const UserCaption = styled.textarea`
 const ProfileNav = styled.div`
   grid-column: 1 / -1;
   display: grid;
-  grid-template-columns: repeat(6, 1fr);
+  grid-template-columns: repeat(7, 1fr);
   background-color: rgb(220, 220, 220, 0.2);
 `
 
@@ -102,10 +102,10 @@ const NavBtn = styled.div`
     justify-content: center;
     align-items: center;
     cursor: pointer;
-    background-color: ${props => props.seleted ? "rgb(200, 200, 200, 0.4)" : ""};
+    background-color: ${props => props.seleted ? "rgb(200, 200, 200, 0.6)" : ""};
     transition: background-color linear 0.5s;
     :hover {
-      background-color: rgb(220, 220, 220, 0.6);
+      background-color: rgb(200,200,200, 0.6);
     }
 `
 
@@ -172,7 +172,7 @@ const TopProfile = ({ data }) => {
     <ProfileNav>
       <NavBtn
         onClick={() => onClickNavBtn("info")}
-        seleted={mode === "basic" ? true : false}>프로필</NavBtn>
+        seleted={mode === "info" ? true : false}>프로필</NavBtn>
       {type !== "student" && <NavBtn
         onClick={() => onClickNavBtn("quizQuestion")}
         seleted={mode === "quizQuestion" ? true : false}>퀴즈 & 문제</NavBtn>}
@@ -188,7 +188,12 @@ const TopProfile = ({ data }) => {
       {needLoginMode() === "student" && <NavBtn
         onClick={() => onClickNavBtn("homework")}
         seleted={mode === "homework" ? true : false}>숙제</NavBtn>}
-
+      <NavBtn
+        onClick={() => onClickNavBtn("follow")}
+        seleted={mode === "follow" ? true : false}>팔로잉 & 팔로우</NavBtn>
+      {isMe && <NavBtn
+        onClick={() => onClickNavBtn("notice")}
+        seleted={mode === "notice" ? true : false}>알림</NavBtn>}
     </ProfileNav>
 
   </Container>);
