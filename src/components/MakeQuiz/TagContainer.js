@@ -66,6 +66,7 @@ const SuggestionTagsList = styled.div`
   flex-wrap: wrap;
   div {
     margin-right: 20px;
+    cursor: pointer;
   }
 `
 
@@ -73,6 +74,9 @@ const TagContainer = ({ getValues, tags, setTags, setValue, register, subMsg1, s
   const [questionMark, setQuestionMark] = useState(false)
   const user = useUser()
   const onClickPlusQuizTag = () => {
+    if (tags.includes(getValues("tag"))) {
+      return
+    }
     if (getValues("tag") === "" || makeQuestion) {
       return
     }
@@ -107,6 +111,13 @@ const TagContainer = ({ getValues, tags, setTags, setValue, register, subMsg1, s
     "국어", "도덕", "사회", "수학", "과학", "실과", "체육", "음악", "미술", "영어",
     "통합", "봄", "여름", "가을", "겨울", "창체", "안전",
   ]
+  const onClickSuggestionTag = (tag) => {
+    if (tags.includes(tag)) {
+      return
+    }
+    const newQuizTags = [...tags, tag]
+    setTags(newQuizTags)
+  }
   return (<React.Fragment>
     <span className="inputTitle">
       태그 <FontAwesomeIcon onClick={onClickQuestionMark} icon={faQuestionCircle} />
@@ -138,11 +149,11 @@ const TagContainer = ({ getValues, tags, setTags, setValue, register, subMsg1, s
       <div>추천태그 / 아래의 태그를 클릭하면 태그가 자동으로 추가 됩니다.</div>
       <SuggestionTagsList>
         {suggestionTags.map((item, index) => {
-          return <div key={index}>{item}</div>
+          return <div onClick={() => onClickSuggestionTag(item)} key={index}>{item}</div>
         })}
         {user?.tags.map((item) => item.name).filter((item) => !suggestionTags.includes(item))
           .map((item, index) => {
-            return <div key={index}>{item}</div>
+            return <div onClick={() => onClickSuggestionTag(item)} key={index}>{item}</div>
           })
         }
       </SuggestionTagsList>
