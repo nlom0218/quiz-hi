@@ -82,11 +82,11 @@ const DELETE_HOMEWORK_MUTATION = gql`
   }
 `
 
-const HomeworkInfo = ({ score, student, targetScore, order, homeworkId, finish }) => {
+const HomeworkInfo = ({ score, student, targetScore, order, homeworkId, finish, teacherId }) => {
   const maxScore = JSON.parse(score).map((item) => item.score).reduce((acc, cur) => acc + cur, 0)
   const curScore = () => {
     const scoreArr = student.map((item) => {
-      const quizScore = JSON.parse(item.quizScore).filter((item) => item.order === order)[0]
+      const quizScore = JSON.parse(item.quizScore).filter((quizScoreItem) => quizScoreItem.teacherId === teacherId).filter((item) => item.order === order)[0]
       if (quizScore) {
         return quizScore.score
       } else {
@@ -96,13 +96,13 @@ const HomeworkInfo = ({ score, student, targetScore, order, homeworkId, finish }
     return scoreArr.reduce((acc, cur) => acc + cur, 0)
   }
   const completeStduent = student.filter((item) => {
-    const exist = JSON.parse(item.quizScore).filter((quizScoreItem) => {
+    const exist = JSON.parse(item.quizScore).filter((quizScoreItem) => quizScoreItem.teacherId === teacherId).filter((quizScoreItem) => {
       return quizScoreItem.order === order
     })
     return Boolean(exist.length === 1)
   })
   const disCompleteStudnet = student.filter((item) => {
-    const exist = JSON.parse(item.quizScore).filter((quizScoreItem) => {
+    const exist = JSON.parse(item.quizScore).filter((quizScoreItem) => quizScoreItem.teacherId === teacherId).filter((quizScoreItem) => {
       return quizScoreItem.order === order
     })
     return Boolean(exist.length === 0)

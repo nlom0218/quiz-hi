@@ -78,6 +78,7 @@ const StudentQuizScore = ({ students, id, teacherQuizScore }) => {
                   .length === 1
                   ?
                   `${JSON.parse(item.quizScore)
+                    .filter((quizScoreItem) => quizScoreItem.teacherId === id)
                     .filter((student) => student.order === teacher.order)[0].score} 점`
                   :
                   "x"

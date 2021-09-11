@@ -141,7 +141,7 @@ const HomeworkItem = ({ createdAt, title, mode, type, quizId, score, order, setC
       )
     }
     {seeInfo &&
-      <HomeworkInfo student={student} score={score} targetScore={targetScore} order={order} homeworkId={id} finish={finish} />
+      <HomeworkInfo student={student} score={score} targetScore={targetScore} order={order} homeworkId={id} finish={finish} teacherId={teacherId} />
     }
   </SHomeworkItem>);
 }
