@@ -23,6 +23,9 @@ const ME_QUERY = gql`
         id
         nickname
       }
+      notice {
+        id
+      }
     }
   }
 `

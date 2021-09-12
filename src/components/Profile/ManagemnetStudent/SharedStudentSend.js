@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import EditInput from '../Edit/EditInput';
-import { faSquare } from '@fortawesome/free-regular-svg-icons';
+import { faCheckSquare, faSquare } from '@fortawesome/free-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const EditPageForm = styled.form`
@@ -56,6 +56,23 @@ const SharedStudentNickname = styled.div`
 `
 
 const SharedStudnetSend = ({ userStudents }) => {
+  const [sendStudent, setSendStudent] = useState([])
+  const onClickCheckBox = (studentId) => {
+    let newSendStudent = []
+    if (sendStudent.includes(studentId)) {
+      newSendStudent = sendStudent.filter((item) => item !== studentId)
+    } else {
+      newSendStudent = [...sendStudent, studentId]
+    }
+    setSendStudent(newSendStudent)
+  }
+  const processCheckSendStudent = (studentId) => {
+    if (sendStudent.includes(studentId)) {
+      return true
+    } else {
+      return false
+    }
+  }
   return (<EditPageForm>
     <DeleteMsg>
       <div className="delMsg">∙ 선택한 학생 계정을 다른 선생님과 공유합니다.</div>
@@ -67,7 +84,8 @@ const SharedStudnetSend = ({ userStudents }) => {
         {userStudents.map((item, index) => {
           return <SharedStudentItem key={index}>
             <SharedStudentNickname>{item.nickname}</SharedStudentNickname>
-            <FontAwesomeIcon icon={faSquare} />
+            <FontAwesomeIcon icon={processCheckSendStudent(item.id) ? faCheckSquare : faSquare}
+              onClick={() => onClickCheckBox(item.id)} />
           </SharedStudentItem>
         })}
       </SharedStudentList>
