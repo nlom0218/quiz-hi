@@ -1,3 +1,5 @@
+import { faSquare } from '@fortawesome/free-regular-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
 import styled from 'styled-components';
 import EditInput from '../Edit/EditInput';
@@ -16,15 +18,14 @@ const DeleteMsg = styled.div`
 
 const EditPageItem = styled.div`
   display: grid;
-  grid-template-columns: 1fr 2.5fr;
+  grid-template-columns: 1fr 2fr;
   column-gap: 20px;
-  align-items: center;
 `
 
-const DelBtn = styled.input`
+const SharedBtn = styled.input`
   text-align: center;
-  background-color: tomato;
-  color: #F4F4F4;
+  background-color: rgb(255, 165, 0, 0.6);
+  color: ${props => props.theme.fontColor};
   padding: 10px 20px;
   border-radius: 5px;
   opacity: ${props => props.disabled ? 0.6 : 1};
@@ -32,24 +33,58 @@ const DelBtn = styled.input`
   cursor: pointer;
 `
 
-const SharedStudent = () => {
+const SharedStudentList = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  background-color: rgb(200, 200, 200, 0.2);
+  column-gap: 1px;
+  row-gap: 1px;
+  border: 1px solid rgb(200, 200, 200, 0.2);
+`
+
+const SharedStudentItem = styled.div`
+  padding: 10px 20px;
+  background-color: ${props => props.theme.boxColor}; 
+  display: grid;
+  grid-template-columns: 1fr auto;
+  svg {
+    cursor: pointer;
+  }
+`
+
+const SharedStudentNickname = styled.div`
+
+`
+
+
+const SharedStudent = ({ students, username }) => {
+  const userStudents = students.filter((item) => item.username.split("_")[0] === username)
   return (<EditProfileBox>
-    {/* <EditPageForm>
+    <EditPageForm>
       <DeleteMsg>
-        <div className="delMsg">∙ 생성된 학생 계정을 모두 일괄 삭제합니다.</div>
-        <div className="delMsg">∙ 삭제한 학생 계정은 다시 복구되지 않습니다.</div>
-        <div className="delMsg">∙ 학생 계정의 퀴즈 점수가 모두 삭제됩니다.</div>
-        <div className="delMsg">∙ 생성된 숙제는 모두 삭제되며 복구되지 않습니다.</div>
+        <div className="delMsg">∙ 선택한 학생 계정을 다른 선생님과 공유합니다.</div>
+        <div className="delMsg">∙ 공유받은 선생님은 선택한 학생 계정으로 퀴즈 진행, 내보내기가 가능해 집니다.</div>
       </DeleteMsg>
-      <EditPageItem>
-        <div>선생님 계정 비밀번호</div>
+      <EditPageItem style={{ alignItems: "flex-start" }}>
+        <div>학생 계정 선택</div>
+        <SharedStudentList>
+          {userStudents.map((item, index) => {
+            return <SharedStudentItem key={index}>
+              <SharedStudentNickname>{item.nickname}</SharedStudentNickname>
+              <FontAwesomeIcon icon={faSquare} />
+            </SharedStudentItem>
+          })}
+        </SharedStudentList>
+      </EditPageItem>
+      <EditPageItem style={{ alignItems: "center" }}>
+        <div>공유 받을 선생님 이메일</div>
         <EditInput
           type="password"
           autoComplete="off"
         />
       </EditPageItem>
-      <DelBtn type="submit" value="탈퇴하기" />
-    </EditPageForm> */}
+      <SharedBtn type="submit" value="공유하기" />
+    </EditPageForm>
   </EditProfileBox>);
 }
 
