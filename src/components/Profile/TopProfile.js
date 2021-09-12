@@ -109,8 +109,7 @@ const NavBtn = styled.div`
     }
 `
 
-const TopProfile = ({ data }) => {
-  const { seeProfile: { id, username, nickname, email, avatarURL, type, score, isMe, isFollow, caption } } = data
+const TopProfile = ({ id, username, nickname, email, avatarURL, type, score, isMe, isFollow, caption }) => {
   const { mode } = useParams()
   const history = useHistory()
   const userType = () => {

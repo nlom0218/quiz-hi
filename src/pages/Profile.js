@@ -69,8 +69,8 @@ const Profile = () => {
     <BasicContainer>
       {loading ? <div>loading...</div> :
         <React.Fragment>
-          <TopProfile data={{ ...data }} />
-          {mode === "info" && <BottomProfile><BasicProfile data={{ ...data }} /></BottomProfile>}
+          <TopProfile {...data?.seeProfile} />
+          {mode === "info" && <BottomProfile><BasicProfile {...data?.seeProfile} /></BottomProfile>}
           {mode === "quizQuestion" && <BottomProfile><UserQuizQuestion data={{ ...data }} /></BottomProfile>}
           {mode === "edit" && <BottomProfile>
             {user?.username === username && <EditProfile {...data?.seeProfile} />}

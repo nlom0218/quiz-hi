@@ -62,7 +62,6 @@ const DistractorContent = styled.div`
 `
 
 const PreviewList = ({ quizList, quizMode, setQuizList, setChange }) => {
-  console.log((quizList[0].answer).split(",").map((item) => parseInt(item)));
   const processAnswer = (answer) => {
     if (answer === "true") {
       return "○"

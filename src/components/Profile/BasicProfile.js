@@ -161,7 +161,7 @@ const UserCaption = styled.textarea`
   }
 `
 
-const BasicProfile = ({ data }) => {
+const BasicProfile = ({ id, nickname, email, totalFollow, totalFollowing, type, totalPublicQuiz, totalPublicQuestion, score, createdAt, tags, personalPage, caption, quizScore }) => {
   const textarea = useRef()
   const [txtHeight, setTxtHeight] = useState(null)
   useEffect(() => {
@@ -169,22 +169,6 @@ const BasicProfile = ({ data }) => {
       setTxtHeight(textarea.current.scrollHeight)
     }
   }, [])
-  const { seeProfile: {
-    id,
-    nickname,
-    email,
-    totalFollow,
-    totalFollowing,
-    type,
-    totalPublicQuiz,
-    totalPublicQuestion,
-    score,
-    createdAt,
-    tags,
-    personalPage,
-    caption,
-    quizScore
-  } } = data
   const personalPageArr = personalPage ?
     personalPage
       .split("!@#")

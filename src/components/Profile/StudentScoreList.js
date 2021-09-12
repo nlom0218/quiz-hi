@@ -39,6 +39,7 @@ const QuizScore = styled.div`
 
 const StudentScoreList = ({ quizScore }) => {
   const quizScoreArr = JSON.parse(quizScore).sort(compareDesc("num"))
+  console.log(quizScoreArr);
   return (<DetailInfoLayout>
     <Title>
       <div><FontAwesomeIcon icon={faBook} /> 퀴즈 점수</div>
@@ -47,7 +48,7 @@ const StudentScoreList = ({ quizScore }) => {
     <ScoreContainer>
       {quizScoreArr.length !== 0 ?
         <ScoreList>
-          {quizScoreArr.sort(compareDesc("order")).map((item, index) => {
+          {quizScoreArr.sort(compareDesc("num")).map((item, index) => {
             return <ScoreItem key={index}>
               <QuizTitle>{item.quizTitle}</QuizTitle>
               <QuizScore>{item.score}점</QuizScore>
