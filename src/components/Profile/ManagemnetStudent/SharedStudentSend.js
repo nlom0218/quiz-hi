@@ -3,6 +3,9 @@ import styled from 'styled-components';
 import EditInput from '../Edit/EditInput';
 import { faCheckSquare, faSquare } from '@fortawesome/free-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import gql from 'graphql-tag';
+import { useForm } from 'react-hook-form';
+import { useMutation } from '@apollo/client';
 
 const EditPageForm = styled.form`
   display: grid;
@@ -55,8 +58,40 @@ const SharedStudentNickname = styled.div`
 
 `
 
+const ErrMsg = styled.div`
+  text-align: center;
+  color: tomato;
+`
+
+const SEND_NOTICE_MUTATION = gql`
+  mutation sendNotice($info: String!, $type: String!, $receiverEmail: String) {
+    sendNotice(info: $info, type: $type, receiverEmail: $receiverEmail) {
+      ok
+      error
+    }
+  }
+`
+
 const SharedStudnetSend = ({ userStudents }) => {
   const [sendStudent, setSendStudent] = useState([])
+  const [errMsg, setErrMsg] = useState(null)
+  const { register, formState: { isValid }, handleSubmit, setValue } = useForm({
+    mode: "onChange"
+  })
+  const onCompleted = (result) => {
+    const { sendNotice: { ok, error } } = result
+    if (!ok) {
+      setErrMsg(error)
+    }
+    if (ok) {
+      window.alert("학생 목록이 공유되었습니다.")
+      setValue("receiverEmail", "")
+      setErrMsg(null)
+    }
+  }
+  const [sendNotice, { loading }] = useMutation(SEND_NOTICE_MUTATION, {
+    onCompleted
+  })
   const onClickCheckBox = (studentId) => {
     let newSendStudent = []
     if (sendStudent.includes(studentId)) {
@@ -73,7 +108,20 @@ const SharedStudnetSend = ({ userStudents }) => {
       return false
     }
   }
-  return (<EditPageForm>
+  const onSubmit = (data) => {
+    const { receiverEmail } = data
+    if (loading) {
+      return
+    }
+    sendNotice({
+      variables: {
+        info: JSON.stringify(sendStudent),
+        type: "sharedStudent",
+        receiverEmail
+      }
+    })
+  }
+  return (<EditPageForm onSubmit={handleSubmit(onSubmit)}>
     <DeleteMsg>
       <div className="delMsg">∙ 선택한 학생 계정을 다른 선생님과 공유합니다.</div>
       <div className="delMsg">∙ 공유받은 선생님은 선택한 학생 계정으로 퀴즈 진행, 내보내기가 가능해 집니다.</div>
@@ -93,11 +141,13 @@ const SharedStudnetSend = ({ userStudents }) => {
     <EditPageItem style={{ alignItems: "center" }}>
       <div>공유 받을 선생님 이메일</div>
       <EditInput
-        type="password"
+        {...register("receiverEmail", { required: true })}
+        type="email"
         autoComplete="off"
       />
     </EditPageItem>
-    <SharedBtn type="submit" value="공유하기" />
+    {errMsg && <ErrMsg>{errMsg}</ErrMsg>}
+    <SharedBtn type="submit" value="공유하기" disabled={!isValid || sendStudent.length === 0} />
   </EditPageForm>);
 }
 

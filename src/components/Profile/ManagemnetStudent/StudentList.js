@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import { compare } from '../../../sharedFn';
 import EditProfileBox from '../Edit/EditProfileBox';
 import CreateStudents from './CreateStudents';
 import StudentItem from './StudentItem';
@@ -55,6 +56,7 @@ const TotalStudentNum = styled.div`
 `
 
 const StudentList = ({ students, id }) => {
+  console.log(students);
   const [createStudents, setCreateStudents] = useState(false)
   const onClickCreateStudents = () => {
     setCreateStudents(prev => !prev)
