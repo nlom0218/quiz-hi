@@ -86,7 +86,8 @@ const DeleteAllStudentAccount = () => {
   return (<EditProfileBox>
     <EditPageForm onSubmit={handleSubmit(onSubmit)}>
       <DeleteMsg>
-        <div className="delMsg">∙ 생성된 학생 계정을 모두 일괄 삭제합니다.</div>
+        <div className="delMsg">∙ 자신이 생성한 학생 계정을 모두 일괄 삭제합니다.</div>
+        <div className="delMsg">∙ 학생을 다른 선생님과 공유했을 경우 해당 선생님의 계정에서도 학생 삭제됩니다.</div>
         <div className="delMsg">∙ 삭제한 학생 계정은 다시 복구되지 않습니다.</div>
         <div className="delMsg">∙ 학생 계정의 퀴즈 점수가 모두 삭제됩니다.</div>
         <div className="delMsg">∙ 생성된 숙제는 모두 삭제되며 복구되지 않습니다.</div>
