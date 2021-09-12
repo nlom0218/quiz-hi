@@ -35,6 +35,21 @@ const SharedBtn = styled.input`
   cursor: pointer;
 `
 
+const SharedStudnetBox = styled.div`
+  display: grid;
+  grid-template-columns: 1fr;
+  row-gap: 10px;
+`
+
+const SeleteAll = styled.div`
+  justify-self: flex-end;
+  margin-right: 20px;
+  svg {
+    cursor: pointer;
+    margin-left: 10px;
+  }
+`
+
 const SharedStudentList = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -53,6 +68,7 @@ const SharedStudentItem = styled.div`
     cursor: pointer;
   }
 `
+
 
 const SharedStudentNickname = styled.div`
 
@@ -121,6 +137,10 @@ const SharedStudnetSend = ({ userStudents }) => {
       }
     })
   }
+  const onClickSeleteAllBtn = () => {
+    const userStudentsIdArr = userStudents.map((item) => item.id)
+    setSendStudent(userStudentsIdArr)
+  }
   return (<EditPageForm onSubmit={handleSubmit(onSubmit)}>
     <DeleteMsg>
       <div className="delMsg">∙ 선택한 학생 계정을 다른 선생님과 공유합니다.</div>
@@ -128,15 +148,21 @@ const SharedStudnetSend = ({ userStudents }) => {
     </DeleteMsg>
     <EditPageItem style={{ alignItems: "flex-start" }}>
       <div>학생 계정 선택</div>
-      <SharedStudentList>
-        {userStudents.map((item, index) => {
-          return <SharedStudentItem key={index}>
-            <SharedStudentNickname>{item.nickname}</SharedStudentNickname>
-            <FontAwesomeIcon icon={processCheckSendStudent(item.id) ? faCheckSquare : faSquare}
-              onClick={() => onClickCheckBox(item.id)} />
-          </SharedStudentItem>
-        })}
-      </SharedStudentList>
+      <SharedStudnetBox>
+        <SeleteAll>모두 선택하기
+          <FontAwesomeIcon icon={faSquare}
+            onClick={onClickSeleteAllBtn} />
+        </SeleteAll>
+        <SharedStudentList>
+          {userStudents.map((item, index) => {
+            return <SharedStudentItem key={index}>
+              <SharedStudentNickname>{item.nickname.length > 8 ? `${item.nickname.substring(0, 8)}...` : item.nickname}</SharedStudentNickname>
+              <FontAwesomeIcon icon={processCheckSendStudent(item.id) ? faCheckSquare : faSquare}
+                onClick={() => onClickCheckBox(item.id)} />
+            </SharedStudentItem>
+          })}
+        </SharedStudentList>
+      </SharedStudnetBox>
     </EditPageItem>
     <EditPageItem style={{ alignItems: "center" }}>
       <div>공유 받을 선생님 이메일</div>

@@ -33,16 +33,16 @@ const Notice = ({ notice, id }) => {
   const [sharedStudentNotice, setSharedStudentNotice] = useState(notice.filter((item) => item.type === "sharedStudent"))
   return (<Container>
     <Wrapper>
-      <Title>학생 공유 알림</Title>
-      <NoticeSharedStudent sharedStudentNotice={sharedStudentNotice} userId={id} />
-    </Wrapper>
-    <DivisionLine></DivisionLine>
-    <Wrapper>
       <Title>퀴즈 수정 알림</Title>
     </Wrapper>
     <DivisionLine></DivisionLine>
     <Wrapper>
       <Title>문제 수정 알림</Title>
+    </Wrapper>
+    <DivisionLine></DivisionLine>
+    <Wrapper>
+      <Title>학생 공유 알림</Title>
+      <NoticeSharedStudent sharedStudentNotice={sharedStudentNotice} userId={id} />
     </Wrapper>
   </Container>);
 }
