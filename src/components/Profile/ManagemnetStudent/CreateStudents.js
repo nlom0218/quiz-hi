@@ -60,8 +60,6 @@ const Btn = styled.div`
     cursor: ${props => props.minNum ? "not-allowd" : "pointer"};
   }
   :nth-child(2) {
-    opacity: ${props => props.maxNum ? "0.4" : "1"};
-    cursor: ${props => props.maxNum ? "not-allowd" : "pointer"};
   }
 `
 
@@ -113,7 +111,8 @@ const ErrMsg = styled.div`
   animation: ${fadeIn} 0.4s linear;
 `
 
-const CreateStudents = ({ id, addAccount }) => {
+const CreateStudents = ({ id, addAccount, students }) => {
+  console.log(students);
   const [studentNum, setStudentNum] = useState(["s"])
   const [visible, setVisible] = useState(true)
   const [errMsg, setErrMsg] = useState(undefined)
@@ -141,9 +140,6 @@ const CreateStudents = ({ id, addAccount }) => {
       }
       newStudentNum = studentNum.splice(0, studentNum.length - 1)
     } else if (type === "plus") {
-      if (studentNum.length === 50) {
-        return
-      }
       newStudentNum = studentNum.concat("s")
     }
     setStudentNum(newStudentNum)
@@ -152,7 +148,7 @@ const CreateStudents = ({ id, addAccount }) => {
     if (loading) {
       return
     }
-    const { password, username } = data
+    const { password } = data
     const nicknameArr = Object.keys(data).map((item) => {
       if (item === "password") {
         return
@@ -168,7 +164,6 @@ const CreateStudents = ({ id, addAccount }) => {
         id,
         nickname,
         password,
-        ...(username && { username })
       }
     })
   }
@@ -184,9 +179,8 @@ const CreateStudents = ({ id, addAccount }) => {
       <StudentNum>학생 수: {studentNum.length}명</StudentNum>
       <SetNumBtn>
         <Btn minNum={studentNum.length === 1} onClick={() => onClickNumBtn("minus")}><FontAwesomeIcon icon={faMinus} /></Btn>
-        <Btn maxNum={studentNum.length === 50} onClick={() => onClickNumBtn("plus")}><FontAwesomeIcon icon={faPlus} /></Btn>
+        <Btn onClick={() => onClickNumBtn("plus")}><FontAwesomeIcon icon={faPlus} /></Btn>
       </SetNumBtn>
-      {studentNum.length === 50 && <div className="setNumMsg">생성가능한 최대 학생 계정수은 50입니다.</div>}
     </SetStudentNum>
     <StudentNameList>
       {studentNum.map((item, index) => {
@@ -202,16 +196,6 @@ const CreateStudents = ({ id, addAccount }) => {
       })}
     </StudentNameList>
     <StudentNameList>
-      {addAccount &&
-        <SetPassword>
-          <div>아이디</div>
-          <EditInput
-            {...register("username", { required: true })}
-            type="text"
-            autoComplete="off"
-          />
-        </SetPassword>
-      }
       <SetPassword>
         <div>비밀번호
       <FontAwesomeIcon icon={visible ? faEye : faEyeSlash} onClick={onClickEye} />
@@ -223,14 +207,10 @@ const CreateStudents = ({ id, addAccount }) => {
         />
       </SetPassword>
     </StudentNameList>
-    {!addAccount && <SetPasswordMsg>
+    <SetPasswordMsg>
       "학생 아이디는 <span>선생님 아이디_s학생번호</span>이며 비밀번호는 <span> 입력한 비밀번호^^학생번호</span>입니다.
       학생들의 비밀번호는 동일한 패턴이기 때문에 계정 생성이후 비밀번호 변경을 권장합니다."
-    </SetPasswordMsg>}
-    {addAccount && <SetPasswordMsg>
-      "아이디의 중복을 방지하고자 추가로 생성하는 학생 아이디는 <span>입력한 아이디_s입력순서</span>이며 비밀번호는 <span>입력한 비밀번호^^입력순서</span>입니다.
-      학생들의 비밀번호는 동일한 패턴이기 때문에 계정 생성이후 비밀번호 변경을 권장합니다."
-    </SetPasswordMsg>}
+    </SetPasswordMsg>
     <SaveBtn type="submit" value="학생 계정 생성하기" disabled={!isValid} />
     <ErrMsg>{errMsg}</ErrMsg>
   </EditForm>);

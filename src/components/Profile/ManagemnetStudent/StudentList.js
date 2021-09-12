@@ -65,7 +65,7 @@ const StudentList = ({ students, id }) => {
         <Wrapper>
           <ListMsg>생성된 학생이 없습니다. 학생 계졍을 생성하려면 아래의 버튼을 눌러 다음 단계를 진행하세요.</ListMsg>
           <ActionStudentsBtn onClick={onClickCreateStudents}>학생 계정 생성하기</ActionStudentsBtn>
-          {createStudents && <CreateStudents id={id} />}
+          {createStudents && <CreateStudents id={id} students={students} />}
         </Wrapper>
         :
         <React.Fragment>
@@ -84,7 +84,7 @@ const StudentList = ({ students, id }) => {
           </SStudentList>
           <Wrapper>
             <ActionStudentsBtn style={{ marginTop: "20px" }} onClick={onClickCreateStudents}>학생 계정 추가하기</ActionStudentsBtn>
-            {createStudents && <CreateStudents id={id} addAccount={true} />}
+            {createStudents && <CreateStudents id={id} students={students} />}
           </Wrapper>
         </React.Fragment>
       }
