@@ -16,6 +16,7 @@ import UserQuizQuestion from '../components/Profile/UserQuizQuestion/UserQuizQue
 import StudentHeader from '../components/StudentHeader';
 import useUser from '../hooks/useUser';
 import useTitle from '../hooks/useTitle';
+import Notice from '../components/Profile/Notice/Notice';
 
 const SEE_PROFILE_QUERY = gql`
   query seeProfile($username: String!) {
@@ -55,6 +56,14 @@ const SEE_PROFILE_QUERY = gql`
         score
         quizScore
       }
+      notice {
+        id
+        info
+        type
+        message
+        sender
+        confirm
+      }
     }
   }
 `
@@ -85,6 +94,9 @@ const Profile = () => {
             {user?.username === username && <StudentHomework {...data?.seeProfile} />}
           </BottomProfile>}
           {mode === "follow" && <BottomProfile></BottomProfile>}
+          {mode === "notice" && <BottomProfile>
+            {user?.username === username && <Notice {...data?.seeProfile} />}
+          </BottomProfile>}
         </React.Fragment>
       }
     </BasicContainer>
