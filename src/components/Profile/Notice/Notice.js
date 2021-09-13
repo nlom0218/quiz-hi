@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import NoticeSharedStudent from './NoticeSharedStudent';
+import NoticeList from './NoticeList';
 
 const Container = styled.div`
   margin-top: 20px;
@@ -11,7 +11,7 @@ const Container = styled.div`
 
 const Wrapper = styled.div`
   display: grid;
-  grid-template-columns: 180px 1fr;
+  grid-template-columns: 240px 1fr;
   .delAccount {
     color: tomato;
   }
@@ -22,27 +22,11 @@ const Title = styled.div`
   font-weight: 600;
 `
 
-const DivisionLine = styled.div`
-  grid-column: 1 / -1;
-  height: 1px;
-  background-color: rgb(200, 200, 200, 0.6);
-  transition: background-color 1s ease;
-`
-
 const Notice = ({ notice, id }) => {
-  const [sharedStudentNotice, setSharedStudentNotice] = useState(notice.filter((item) => item.type === "sharedStudent"))
   return (<Container>
     <Wrapper>
-      <Title>퀴즈 수정 알림</Title>
-    </Wrapper>
-    <DivisionLine></DivisionLine>
-    <Wrapper>
-      <Title>문제 수정 알림</Title>
-    </Wrapper>
-    <DivisionLine></DivisionLine>
-    <Wrapper>
-      <Title>학생 공유 알림</Title>
-      <NoticeSharedStudent sharedStudentNotice={sharedStudentNotice} userId={id} />
+      <Title>알림 목록</Title>
+      <NoticeList notice={notice} userId={id} />
     </Wrapper>
   </Container>);
 }

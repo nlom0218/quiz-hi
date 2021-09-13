@@ -63,6 +63,7 @@ const SEE_PROFILE_QUERY = gql`
         message
         sender
         confirm
+        createdAt
       }
     }
   }
