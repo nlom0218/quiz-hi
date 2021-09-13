@@ -176,7 +176,7 @@ const SharedStudnetSend = ({ userStudents }) => {
     </DeleteMsg>
     <EditPageItem style={{ alignItems: "flex-start" }}>
       <div>학생 계정 선택</div>
-      <SharedStudnetBox>
+      {userStudents.length === 0 ? <div style={{ color: "tomato" }}>학생이 없습니다.</div> : <SharedStudnetBox>
         <SeleteAll>모두 선택하기
           <FontAwesomeIcon icon={processCheckAllStudent() ? faCheckSquare : faSquare}
             onClick={onClickSeleteAllBtn} />
@@ -190,7 +190,7 @@ const SharedStudnetSend = ({ userStudents }) => {
             </SharedStudentItem>
           })}
         </SharedStudentList>
-      </SharedStudnetBox>
+      </SharedStudnetBox>}
     </EditPageItem>
     <EditPageItem style={{ alignItems: "center" }}>
       <div>공유 받을 선생님 이메일</div>

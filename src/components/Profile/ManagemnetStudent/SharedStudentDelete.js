@@ -163,7 +163,7 @@ const SharedStudentDelete = ({ sharedStudents, userId }) => {
     </DeleteMsg>
     <EditPageItem style={{ alignItems: "flex-start" }}>
       <div>학생 계정 선택</div>
-      {sharedStudents.length === 0 ? <div style={{ color: "tomato" }}>학생이 없습니다. </div> : <SharedStudnetBox>
+      {sharedStudents.length === 0 ? <div style={{ color: "tomato" }}>학생이 없습니다.</div> : <SharedStudnetBox>
         <SeleteAll>모두 선택하기
           <FontAwesomeIcon icon={processCheckAllStudent() ? faCheckSquare : faSquare}
             onClick={onClickSeleteAllBtn} />
