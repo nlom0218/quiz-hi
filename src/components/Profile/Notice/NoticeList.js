@@ -15,15 +15,28 @@ const Container = styled.div`
   transition: background-color 1s ease;
 `
 
+const ContentsBox = styled.div`
+  padding: 10px 20px;
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr 1fr;
+  column-gap: 20px;
+  font-weight: 600;
+  border-right: 1px solid rgb(200, 200, 200, 0.6);
+  border-left: 1px solid rgb(200, 200, 200, 0.6);
+  border-top: 1px solid rgb(200, 200, 200, 0.6);
+  background-color: rgb(200, 200, 200, 0.2);
+`
+
 const SNoticeList = styled.div`
-  background-color: rgb(200, 200, 200, 0.4);
   display: grid;
   grid-template-columns: 1fr;
-  row-gap: 1px;
-  border: 1px solid rgb(200, 200, 200, 0.4);
+  border: 1px solid rgb(200, 200, 200, 0.6);
 `
 
 const NoticeItem = styled.div`
+  :not(:last-child) {
+    border-bottom: 1px solid rgb(200, 200, 200, 0.6);
+  }
   background-color: ${props => props.theme.boxColor};
   padding: 20px 20px;
   display: grid;
@@ -31,7 +44,7 @@ const NoticeItem = styled.div`
   column-gap: 20px;
   transition: 0.6s ease background-color;
   :hover {
-    background-color: rgb(200, 200, 200, 0.4);
+    background-color: rgb(200, 200, 200, 0.2);
   }
   svg {
     justify-self: flex-end;
@@ -44,6 +57,10 @@ const CreatedAt = styled.div``
 const Sender = styled.div``
 
 const Type = styled.div``
+
+const DetailNotice = styled.div`
+  grid-column: 1 / -1;
+`
 
 const CONNECT_SHARED_STUDENT_MUTATION = gql`
   mutation connectSharedStudent($userId: Int!, $studentId: String!) {
@@ -81,6 +98,12 @@ const NoticeList = ({ notice, userId }) => {
     }
   }
   return (<Container>
+    <ContentsBox>
+      <div>받은 날짜</div>
+      <div>보낸이(닉네임)</div>
+      <div>알림 주제</div>
+      <div style={{ justifySelf: "flex-end" }}>확인</div>
+    </ContentsBox>
     <SNoticeList>
       {notice?.map((item, index) => {
         return <NoticeItem key={index}>
@@ -88,6 +111,9 @@ const NoticeList = ({ notice, userId }) => {
           <Sender>{item.sender}</Sender>
           <Type>{processType(item.type)}</Type>
           <FontAwesomeIcon icon={faEnvelope} />
+          <DetailNotice>
+
+          </DetailNotice>
           {/* <div onClick={() => onClickAcceptBtn(item.info)}>수락</div> */}
         </NoticeItem>
       })}
