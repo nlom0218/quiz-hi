@@ -140,8 +140,35 @@ const SharedStudnetSend = ({ userStudents }) => {
   }
   const onClickSeleteAllBtn = () => {
     const userStudentsIdArr = userStudents.map((item) => item.id)
-    setSendStudent(userStudentsIdArr)
+    const confirm = userStudentsIdArr.map((item) => {
+      if (sendStudent.includes(item)) {
+        return item
+      } else {
+        return undefined
+      }
+    })
+    if (confirm.includes(undefined)) {
+      return setSendStudent(userStudentsIdArr)
+    } else {
+      return setSendStudent([])
+    }
   }
+  const processCheckAllStudent = () => {
+    const userStudentsIdArr = userStudents.map((item) => item.id)
+    const confirm = userStudentsIdArr.map((item) => {
+      if (sendStudent.includes(item)) {
+        return item
+      } else {
+        return undefined
+      }
+    })
+    if (confirm.includes(undefined)) {
+      return false
+    } else {
+      return true
+    }
+  }
+  processCheckAllStudent()
   return (<EditPageForm onSubmit={handleSubmit(onSubmit)}>
     <DeleteMsg>
       <div className="delMsg">∙ 선택한 학생 계정을 다른 선생님과 공유합니다.</div>
@@ -151,7 +178,7 @@ const SharedStudnetSend = ({ userStudents }) => {
       <div>학생 계정 선택</div>
       <SharedStudnetBox>
         <SeleteAll>모두 선택하기
-          <FontAwesomeIcon icon={faSquare}
+          <FontAwesomeIcon icon={processCheckAllStudent() ? faCheckSquare : faSquare}
             onClick={onClickSeleteAllBtn} />
         </SeleteAll>
         <SharedStudentList>
