@@ -49,9 +49,8 @@ const CONFIRM_NOTICE_MUTATION = gql`
 
 
 
-const NoticeItem = ({ createdAt, sender, type, confirm, userId, id, message }) => {
+const NoticeItem = ({ createdAt, sender, type, confirm, userId, id, message, info }) => {
   const [seeDetail, setSeeDetail] = useState(false)
-  console.log(seeDetail);
   const processType = (type) => {
     if (type === "sharedStudent") {
       return "학생 공유"
@@ -71,12 +70,15 @@ const NoticeItem = ({ createdAt, sender, type, confirm, userId, id, message }) =
       })
     }
   }
-  const [confirmNotice] = useMutation(CONFIRM_NOTICE_MUTATION, {
+  const [confirmNotice, { loading }] = useMutation(CONFIRM_NOTICE_MUTATION, {
     update
   })
   const onClickConfirmBtn = (noticeId, confirm) => {
     if (confirm) {
       setSeeDetail(prev => !prev)
+      return
+    }
+    if (loading) {
       return
     }
     setSeeDetail(true)
@@ -93,7 +95,7 @@ const NoticeItem = ({ createdAt, sender, type, confirm, userId, id, message }) =
     <Type>{processType(type)}</Type>
     <FontAwesomeIcon icon={confirm ? faEnvelopeOpen : faEnvelope} onClick={() => onClickConfirmBtn(id, confirm)} />
     {seeDetail && <DetailNotice>
-      {type === "sharedStudent" && <SharedStudentNotice userId={userId} message={message} />}
+      {type === "sharedStudent" && <SharedStudentNotice userId={userId} message={message} info={info} noticeId={id} />}
     </DetailNotice>}
   </SNoticeItem>);
 }
