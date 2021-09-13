@@ -50,7 +50,7 @@ const SharedStudentNotice = ({ userId, message, info, noticeId }) => {
       if (deleteLoading) {
         return
       }
-      window.alert("학생 공유를 수락하였습니다. 공유된 학생은 프로필 > 학생 관리 > 학생 목록에서 확인 가능합니다. \n 알림은 삭제됩니다.")
+      window.alert("학생 공유를 수락하였습니다.\n공유된 학생은 프로필 > 학생 관리 > 학생 목록에서 확인 가능합니다.\n알림은 삭제됩니다.")
       deleteNotice({
         variables: {
           noticeId

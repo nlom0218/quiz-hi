@@ -58,7 +58,7 @@ const StudentEdit = styled.div`
   }
 `
 
-const StudentItem = ({ nickname, avatarURL, index, username, score, id, teacherId, type }) => {
+const StudentItem = ({ nickname, avatarURL, index, username, score, id, teacherId, type, teacherUsername }) => {
   const history = useHistory()
   const [editMode, setEditMode] = useState(false)
   const level = processUserLevel("student", score)
@@ -81,7 +81,9 @@ const StudentItem = ({ nickname, avatarURL, index, username, score, id, teacherI
       Lv.{level}({score})
     </StudentLevel>
     <StudentEdit>
-      <FontAwesomeIcon icon={faEdit} onClick={() => setEditMode(prev => !prev)} />
+      {username.split("_")[0] === teacherUsername &&
+        <FontAwesomeIcon icon={faEdit} onClick={() => setEditMode(prev => !prev)} />
+      }
     </StudentEdit>
     {editMode && <StudentEditting nickname={nickname} teacherId={teacherId} studentId={id} />}
   </SStudentItem>);

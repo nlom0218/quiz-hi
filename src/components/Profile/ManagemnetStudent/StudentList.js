@@ -55,8 +55,7 @@ const TotalStudentNum = styled.div`
   }
 `
 
-const StudentList = ({ students, id }) => {
-  console.log(students);
+const StudentList = ({ students, id, teacherUsername }) => {
   const [createStudents, setCreateStudents] = useState(false)
   const onClickCreateStudents = () => {
     setCreateStudents(prev => !prev)
@@ -81,7 +80,7 @@ const StudentList = ({ students, id }) => {
               <div className="studentEdit">수정</div>
             </StudentInfo>
             {students.map((item, index) => {
-              return <StudentItem {...item} key={index} index={index} teacherId={id} />
+              return <StudentItem {...item} key={index} index={index} teacherId={id} teacherUsername={teacherUsername} />
             })}
           </SStudentList>
           <Wrapper>

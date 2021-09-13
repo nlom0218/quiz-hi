@@ -44,7 +44,7 @@ const ManagemnetStudent = ({ students, id, quizScore: teacherQuizScore, type, us
   return (<Container>
     <Wrapper>
       <Title>학생 목록</Title>
-      <StudentList students={students} id={id} />
+      <StudentList students={students} id={id} teacherUsername={username} />
     </Wrapper>
     {students.length !== 0 &&
       <React.Fragment>
