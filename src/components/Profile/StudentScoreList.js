@@ -38,7 +38,7 @@ const QuizScore = styled.div`
 
 
 const StudentScoreList = ({ quizScore }) => {
-  const quizScoreArr = JSON.parse(quizScore).sort(compareDesc("num"))
+  const quizScoreArr = JSON.parse(quizScore).sort(compare("num"))
   console.log(quizScoreArr);
   return (<DetailInfoLayout>
     <Title>
