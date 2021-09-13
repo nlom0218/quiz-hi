@@ -171,7 +171,7 @@ const SharedStudnetSend = ({ userStudents }) => {
   processCheckAllStudent()
   return (<EditPageForm onSubmit={handleSubmit(onSubmit)}>
     <DeleteMsg>
-      <div className="delMsg">∙ 선택한 학생 계정을 다른 선생님과 공유합니다.</div>
+      <div className="delMsg">∙ 자신이 생성한 학생 계정을 다른 선생님과 공유합니다.</div>
       <div className="delMsg">∙ 공유받은 선생님은 선택한 학생 계정으로 퀴즈 진행, 내보내기가 가능해 집니다.</div>
     </DeleteMsg>
     <EditPageItem style={{ alignItems: "flex-start" }}>
