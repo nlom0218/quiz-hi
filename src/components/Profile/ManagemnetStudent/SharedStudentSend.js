@@ -103,6 +103,7 @@ const SharedStudnetSend = ({ userStudents }) => {
       window.alert("학생 목록이 공유되었습니다.")
       setValue("receiverEmail", "")
       setErrMsg(null)
+      setSendStudent([])
     }
   }
   const [sendNotice, { loading }] = useMutation(SEND_NOTICE_MUTATION, {
