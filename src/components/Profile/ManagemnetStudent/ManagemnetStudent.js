@@ -61,7 +61,7 @@ const ManagemnetStudent = ({ students, id, quizScore: teacherQuizScore, type, us
         <DivisionLine></DivisionLine>
         <Wrapper>
           <Title>학생 공유</Title>
-          <SharedStudent students={students} id={id} type={type} username={username} />
+          <SharedStudent students={students} userId={id} type={type} username={username} />
         </Wrapper>
         <DivisionLine></DivisionLine>
         <Wrapper>
