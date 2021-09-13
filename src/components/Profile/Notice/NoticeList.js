@@ -29,19 +29,27 @@ const SNoticeList = styled.div`
   border: 1px solid rgb(200, 200, 200, 0.6);
 `
 
+const Msg = styled.div`
+  color: tomato;
+`
+
 const NoticeList = ({ notice, userId }) => {
   return (<Container>
-    <ContentsBox>
-      <div>받은 날짜</div>
-      <div>보낸이(닉네임)</div>
-      <div>알림 주제</div>
-      <div style={{ justifySelf: "flex-end" }}>확인</div>
-    </ContentsBox>
-    <SNoticeList>
-      {notice?.map((item, index) => {
-        return <NoticeItem key={index} {...item} userId={userId} />
-      })}
-    </SNoticeList>
+    {notice.length === 0 ? <Msg>알림이 없습니다.</Msg> :
+      <React.Fragment>
+        <ContentsBox>
+          <div>받은 날짜</div>
+          <div>보낸이(닉네임)</div>
+          <div>알림 주제</div>
+          <div style={{ justifySelf: "flex-end" }}>확인</div>
+        </ContentsBox>
+        <SNoticeList>
+          {notice?.map((item, index) => {
+            return <NoticeItem key={index} {...item} userId={userId} />
+          })}
+        </SNoticeList>
+      </React.Fragment>
+    }
   </Container>
   );
 }

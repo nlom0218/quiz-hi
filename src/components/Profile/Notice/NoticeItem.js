@@ -91,7 +91,7 @@ const NoticeItem = ({ createdAt, sender, type, confirm, userId, id, message, inf
   }
   return (<SNoticeItem>
     <CreatedAt>{getCreatedDay(createdAt)}</CreatedAt>
-    <Sender>{sender}</Sender>
+    <Sender>{sender.length > 10 ? `${sender.substring(0, 10)}...` : sender}</Sender>
     <Type>{processType(type)}</Type>
     <FontAwesomeIcon icon={confirm ? faEnvelopeOpen : faEnvelope} onClick={() => onClickConfirmBtn(id, confirm)} />
     {seeDetail && <DetailNotice>
