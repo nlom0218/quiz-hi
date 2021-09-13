@@ -6,16 +6,17 @@ import { getCreatedDay } from '../../../sharedFn';
 import gql from 'graphql-tag';
 import { useMutation } from '@apollo/client';
 import SharedStudentNotice from './SharedStudentNotice';
+import { fadeIn } from '../../../animation/fade';
 
 const SNoticeItem = styled.div`
   :not(:last-child) {
     border-bottom: 1px solid rgb(200, 200, 200, 0.6);
   }
-  background-color: ${props => props.theme.boxColor};
   padding: 20px 20px;
   display: grid;
   grid-template-columns: 1fr 2fr 1fr 1fr;
   column-gap: 20px;
+  row-gap: 20px;
   transition: 0.6s ease background-color;
   :hover {
     background-color: rgb(200, 200, 200, 0.2);
@@ -34,6 +35,7 @@ const Type = styled.div``
 
 const DetailNotice = styled.div`
   grid-column: 1 / -1;
+  animation: ${fadeIn} 0.6s ease;
 `
 
 const CONFIRM_NOTICE_MUTATION = gql`
@@ -47,14 +49,31 @@ const CONFIRM_NOTICE_MUTATION = gql`
 
 
 
-const NoticeItem = ({ createdAt, sender, type, confirm, userId, id }) => {
+const NoticeItem = ({ createdAt, sender, type, confirm, userId, id, message }) => {
   const [seeDetail, setSeeDetail] = useState(false)
+  console.log(seeDetail);
   const processType = (type) => {
     if (type === "sharedStudent") {
       return "학생 공유"
     }
   }
-  const [confirmNotice] = useMutation(CONFIRM_NOTICE_MUTATION)
+  const update = (cache, result) => {
+    const { data: { confirmNotice: { ok } } } = result
+    if (ok) {
+      const NoticeId = `Notice:${id}`
+      cache.modify({
+        id: NoticeId,
+        fields: {
+          confirm() {
+            return true
+          }
+        }
+      })
+    }
+  }
+  const [confirmNotice] = useMutation(CONFIRM_NOTICE_MUTATION, {
+    update
+  })
   const onClickConfirmBtn = (noticeId, confirm) => {
     if (confirm) {
       setSeeDetail(prev => !prev)
@@ -73,9 +92,9 @@ const NoticeItem = ({ createdAt, sender, type, confirm, userId, id }) => {
     <Sender>{sender}</Sender>
     <Type>{processType(type)}</Type>
     <FontAwesomeIcon icon={confirm ? faEnvelopeOpen : faEnvelope} onClick={() => onClickConfirmBtn(id, confirm)} />
-    <DetailNotice>
-      {type === "sharedStudent" && <SharedStudentNotice userId={userId} />}
-    </DetailNotice>
+    {seeDetail && <DetailNotice>
+      {type === "sharedStudent" && <SharedStudentNotice userId={userId} message={message} />}
+    </DetailNotice>}
   </SNoticeItem>);
 }
 

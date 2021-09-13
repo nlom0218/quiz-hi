@@ -11,7 +11,7 @@ const CONNECT_SHARED_STUDENT_MUTATION = gql`
   }
 `
 
-const SharedStudentNotice = ({ userId }) => {
+const SharedStudentNotice = ({ userId, message }) => {
   const onCompleted = (result) => {
     const { connectSharedStudent: { ok, error } } = result
     if (ok) {
@@ -33,6 +33,7 @@ const SharedStudentNotice = ({ userId }) => {
     })
   }
   return (<div>
+    {message}
     {/* <div onClick={() => onClickAcceptBtn(item.info)}>수락</div> */}
   </div>);
 }
