@@ -1,8 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
-import { faMinusCircle, faPlusCircle } from '@fortawesome/free-solid-svg-icons';
+import { faCaretDown, faMinusCircle, faPlusCircle } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { fadeIn } from '../../animation/fade';
+import useUser from '../../hooks/useUser';
 
 const TagInput = styled.div`
   display: grid;
@@ -48,7 +49,28 @@ const RemoveBtn = styled.div`
   cursor: pointer;
 `
 
+const SuggestionTags = styled.div`
+  margin-top: 20px;
+  grid-column: 1 / -1;
+  display: grid;
+  row-gap: 20px;
+`
+
+const SuggestionTagsList = styled.div`
+  line-height: 200%;
+  background-color: rgb(200, 200, 200, 0.2);
+  border-radius: 5px;
+  padding: 10px 20px;
+  display: flex;
+  flex-wrap: wrap;
+  div {
+    margin-right: 20px;
+    cursor: pointer;
+  }
+`
+
 const EditTagInput = ({ register, tags, getValues, setValue, setTags }) => {
+  const user = useUser()
   const onClickPlusQuizTag = () => {
     if (getValues("tag") === "") {
       return
@@ -59,6 +81,19 @@ const EditTagInput = ({ register, tags, getValues, setValue, setTags }) => {
   }
   const onClickRemoveQuizTag = (tag) => {
     const newQuizTags = tags.filter((item) => item !== tag)
+    setTags(newQuizTags)
+  }
+  const suggestionTags = [
+    "1학년", "2학년", "3학년", "4학년", "5학년", "6학년",
+    "국어", "도덕", "사회", "수학", "과학", "실과", "체육", "음악", "미술", "영어",
+    "통합", "봄", "여름", "가을", "겨울", "창체", "안전", "1학기", "2학기",
+    "1단원", "2단원", "3단원", "4단원", "5단원", "6단원", "7단원", "8단원"
+  ]
+  const onClickSuggestionTag = (tag) => {
+    if (tags.includes(tag)) {
+      return
+    }
+    const newQuizTags = [...tags, tag]
     setTags(newQuizTags)
   }
   return (<TagInput>
@@ -81,6 +116,19 @@ const EditTagInput = ({ register, tags, getValues, setValue, setTags }) => {
         </TagBox>
       })}
     </SeeTag>}
+    <SuggestionTags>
+      <div>추천태그 / 아래의 태그를 클릭하면 태그가 자동으로 추가 됩니다.</div>
+      <SuggestionTagsList>
+        {suggestionTags.map((item, index) => {
+          return <div onClick={() => onClickSuggestionTag(item)} key={index}>{item}</div>
+        })}
+        {user?.tags.map((item) => item.name).filter((item) => !suggestionTags.includes(item))
+          .map((item, index) => {
+            return <div onClick={() => onClickSuggestionTag(item)} key={index}>{item}</div>
+          })
+        }
+      </SuggestionTagsList>
+    </SuggestionTags>
   </TagInput>);
 }
 

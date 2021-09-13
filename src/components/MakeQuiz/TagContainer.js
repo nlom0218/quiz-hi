@@ -109,7 +109,8 @@ const TagContainer = ({ getValues, tags, setTags, setValue, register, subMsg1, s
   const suggestionTags = [
     "1학년", "2학년", "3학년", "4학년", "5학년", "6학년",
     "국어", "도덕", "사회", "수학", "과학", "실과", "체육", "음악", "미술", "영어",
-    "통합", "봄", "여름", "가을", "겨울", "창체", "안전",
+    "통합", "봄", "여름", "가을", "겨울", "창체", "안전", "1학기", "2학기",
+    "1단원", "2단원", "3단원", "4단원", "5단원", "6단원", "7단원", "8단원"
   ]
   const onClickSuggestionTag = (tag) => {
     if (tags.includes(tag)) {
