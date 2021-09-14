@@ -5,7 +5,6 @@ import DeleteAllStudentAccount from './DeleteAllStudentAccount';
 import Homework from './Homework';
 import SharedStudent from './SharedStudent';
 import StudentList from './StudentList';
-import StudentQuizScore from './StudentQuizScore';
 
 const Container = styled.div`
   margin-top: 20px;
@@ -48,11 +47,6 @@ const ManagemnetStudent = ({ students, id, quizScore: teacherQuizScore, type, us
     </Wrapper>
     {students.length !== 0 &&
       <React.Fragment>
-        <DivisionLine></DivisionLine>
-        <Wrapper>
-          <Title>퀴즈 점수</Title>
-          <StudentQuizScore students={students} id={id} teacherQuizScore={teacherQuizScore} />
-        </Wrapper>
         <DivisionLine></DivisionLine>
         <Wrapper>
           <Title>숙제 목록</Title>
