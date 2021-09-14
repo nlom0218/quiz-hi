@@ -2,7 +2,7 @@ import { useMutation } from '@apollo/client';
 import { faTrashAlt } from '@fortawesome/free-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import gql from 'graphql-tag';
-import React from 'react';
+import React, { useState } from 'react';
 import { useHistory } from 'react-router';
 import styled from 'styled-components';
 import { compare } from '../../../sharedFn';
@@ -62,12 +62,12 @@ const EDIT_TEACHER_QUIZ_SCORE_MUTATION = gql`
     editTeacherQuizScore(id: $id, order: $order) {
       ok
       error
+      msg
     }
   }
 `
 
 const StudentQuizScore = ({ students, id, teacherQuizScore }) => {
-  console.log(id);
   const history = useHistory()
   const teacherQuizScoreArr = JSON.parse(teacherQuizScore).sort(compare("order"))
   const onClickQuizTitle = (quizId) => {
@@ -82,7 +82,23 @@ const StudentQuizScore = ({ students, id, teacherQuizScore }) => {
       return `${questionScore[questionScore.length - 1].score}`
     }
   }
-  const [editTeacherQuizScore, { loading }] = useMutation(EDIT_TEACHER_QUIZ_SCORE_MUTATION)
+  const update = (cache, result) => {
+    const { data: { editTeacherQuizScore: { ok, msg } } } = result
+    if (ok) {
+      const UserId = `User:${id}`
+      cache.modify({
+        id: UserId,
+        fields: {
+          quizScore() {
+            return msg
+          }
+        }
+      })
+    }
+  }
+  const [editTeacherQuizScore, { loading }] = useMutation(EDIT_TEACHER_QUIZ_SCORE_MUTATION, {
+    update
+  })
   const onClickDeleteQuizScore = (order) => {
     if (loading) {
       return
