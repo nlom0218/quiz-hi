@@ -7,6 +7,7 @@ import { useHistory } from 'react-router';
 import styled from 'styled-components';
 import { compare } from '../../../sharedFn';
 import EditProfileBox from '../Edit/EditProfileBox';
+import StudentQuizScoreItem from "./StudentQuizScoreItem"
 
 const SStudentList = styled.div`
   display: grid;
@@ -49,14 +50,6 @@ const StudentInfo = styled.div`
   font-weight: 600;
 `
 
-const StudentItem = styled.div`
-  padding: 20px 15px;
-  display: flex;
-  :nth-child(even) {
-    background-color: rgb(200, 200, 200, 0.2);
-  }
-`
-
 const EDIT_TEACHER_QUIZ_SCORE_MUTATION = gql`
   mutation editTeacherQuizScore($id: Int!, $order: Int!) {
     editTeacherQuizScore(id: $id, order: $order) {
@@ -72,15 +65,6 @@ const StudentQuizScore = ({ students, id, teacherQuizScore }) => {
   const teacherQuizScoreArr = JSON.parse(teacherQuizScore).sort(compare("order"))
   const onClickQuizTitle = (quizId) => {
     history.push(`/detail/quiz/${quizId}`)
-  }
-  const processScore = (teacher, student) => {
-    const studentQuizScore = JSON.parse(student.quizScore).filter((student) => student.teacherId === id)
-    const questionScore = studentQuizScore.filter((student) => student.order === teacher.order)
-    if (questionScore.length === 0) {
-      return "✕"
-    } else {
-      return `${questionScore[questionScore.length - 1].score}`
-    }
   }
   const update = (cache, result) => {
     const { data: { editTeacherQuizScore: { ok, msg } } } = result
@@ -126,13 +110,7 @@ const StudentQuizScore = ({ students, id, teacherQuizScore }) => {
           })}
         </StudentInfo>
         {students.map((item, index) => {
-          return <StudentItem key={index}>
-            <div className="student_num">{index + 1}번</div>
-            <div className="student_nickname blue_color">{item.nickname.length > 8 ? `${item.nickname.substring(0, 8)}...` : item.nickname}</div>
-            {teacherQuizScoreArr.map((teacher, index) => {
-              return <div className="quiz_title" key={index}>{processScore(teacher, item)}</div>
-            })}
-          </StudentItem>
+          return <StudentQuizScoreItem key={index} item={item} index={index} teacherQuizScoreArr={teacherQuizScoreArr} id={id} />
         })}
       </SStudentList>
     </EditProfileBox>);
