@@ -154,10 +154,16 @@ const HomeworkInfo = ({ score, student, targetScore, order, homeworkId, finish, 
       <React.Fragment>
         <InfoMsg>퀴즈에서 얻을 수 있는 최대 점수는 <span style={{ color: "tomato", fontSize: "20px" }}>{maxScore}점</span>입니다.</InfoMsg>
         {targetScore &&
-          <InfoMsg>
-            협동 모드의 목표 점수는  <span style={{ color: "tomato", fontSize: "20px" }}>{targetScore}점</span>이며,
+          <React.Fragment>
+            <InfoMsg>
+              협동 모드의 목표 점수는  <span style={{ color: "tomato", fontSize: "20px" }}>{targetScore}점</span>이며,
             학생들이 획득한 점수는 <span style={{ color: "tomato", fontSize: "20px" }}>{curScore()}점</span>입니다.
-          </InfoMsg>}
+          </InfoMsg>
+            <InfoMsg>
+              숙제를 완료하지 못한 학생들은 추가 점수를 획득 할 수 없습니다.
+          </InfoMsg>
+          </React.Fragment>
+        }
         <Wrapper>
           <Title>완료한 학생</Title>
           <List>{completeStduent.map((item, index) => { return <Student key={index}>{item.nickname}</Student> })}</List>

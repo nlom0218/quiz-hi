@@ -1,13 +1,10 @@
 import { useQuery, useReactiveVar } from '@apollo/client';
 import { faInfoCircle } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { logDOM } from '@testing-library/react';
 import gql from 'graphql-tag';
 import React, { useState } from 'react';
-import { useHistory } from 'react-router';
 import styled from 'styled-components';
-import { fadeIn } from '../../../animation/fade';
-import { homeworkQuizIdVar, setHomeworkQuizId } from '../../../apollo';
+import { setHomeworkQuizId } from '../../../apollo';
 import useUser from '../../../hooks/useUser';
 import { getCreatedDay } from "../../../sharedFn"
 import HomeworkInfo from './HomeworkInfo';
