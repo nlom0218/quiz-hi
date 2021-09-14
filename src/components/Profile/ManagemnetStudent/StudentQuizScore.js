@@ -1,3 +1,7 @@
+import { useMutation } from '@apollo/client';
+import { faTrashAlt } from '@fortawesome/free-regular-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import gql from 'graphql-tag';
 import React from 'react';
 import { useHistory } from 'react-router';
 import styled from 'styled-components';
@@ -22,6 +26,12 @@ const SStudentList = styled.div`
     width: 200px;
     min-width: 200px;
     padding-right: 10px;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    column-gap: 10px;
+    svg {
+      cursor: pointer;
+    }
   }
   .blue_color {
     color: ${props => props.theme.blueColor};
@@ -29,7 +39,6 @@ const SStudentList = styled.div`
   }
   .quiz_detail {
     cursor: pointer;
-    position: relative;
   }
 `
 
@@ -48,7 +57,17 @@ const StudentItem = styled.div`
   }
 `
 
+const EDIT_TEACHER_QUIZ_SCORE_MUTATION = gql`
+  mutation editTeacherQuizScore($id: Int!, $order: Int!) {
+    editTeacherQuizScore(id: $id, order: $order) {
+      ok
+      error
+    }
+  }
+`
+
 const StudentQuizScore = ({ students, id, teacherQuizScore }) => {
+  console.log(id);
   const history = useHistory()
   const teacherQuizScoreArr = JSON.parse(teacherQuizScore).sort(compare("order"))
   const onClickQuizTitle = (quizId) => {
@@ -60,8 +79,20 @@ const StudentQuizScore = ({ students, id, teacherQuizScore }) => {
     if (questionScore.length === 0) {
       return "✕"
     } else {
-      return questionScore[questionScore.length - 1].score
+      return `${questionScore[questionScore.length - 1].score}`
     }
+  }
+  const [editTeacherQuizScore, { loading }] = useMutation(EDIT_TEACHER_QUIZ_SCORE_MUTATION)
+  const onClickDeleteQuizScore = (order) => {
+    if (loading) {
+      return
+    }
+    editTeacherQuizScore({
+      variables: {
+        id,
+        order
+      }
+    })
   }
   return (
     <EditProfileBox>
@@ -70,8 +101,11 @@ const StudentQuizScore = ({ students, id, teacherQuizScore }) => {
           <div className="student_num">번호</div>
           <div className="student_nickname">이름(닉네임)</div>
           {teacherQuizScoreArr.map((item, index) => {
-            return <div className="quiz_title quiz_detail" key={index} onClick={() => onClickQuizTitle(item.quizId)}>
-              {item.quizTitle.length > 10 ? `${item.quizTitle.substring(0, 10)}...` : item.quizTitle}
+            return <div className="quiz_title" key={index}>
+              <div onClick={() => onClickQuizTitle(item.quizId)} className="quiz_detail">
+                {item.quizTitle.length > 10 ? `${item.quizTitle.substring(0, 10)}...` : item.quizTitle}
+              </div>
+              <FontAwesomeIcon icon={faTrashAlt} onClick={() => onClickDeleteQuizScore(item.order)} />
             </div>
           })}
         </StudentInfo>
