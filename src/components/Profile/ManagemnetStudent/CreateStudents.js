@@ -112,7 +112,6 @@ const ErrMsg = styled.div`
 `
 
 const CreateStudents = ({ id, addAccount, students }) => {
-  console.log(students);
   const [studentNum, setStudentNum] = useState(["s"])
   const [visible, setVisible] = useState(true)
   const [errMsg, setErrMsg] = useState(undefined)

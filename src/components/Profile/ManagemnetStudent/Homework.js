@@ -1,4 +1,4 @@
-import { useQuery } from '@apollo/client';
+import { useMutation, useQuery } from '@apollo/client';
 import gql from 'graphql-tag';
 import React from 'react';
 import styled from 'styled-components';
@@ -65,6 +65,14 @@ const SEE_HOMEWORK_QUERY = gql`
   }
 `
 
+const DELETE_ALL_HOMEWORK_MUTATION = gql`
+  mutation deleteAllHomework($teacherId: Int!) {
+    deleteAllHomework(teacherId: $teacherId) {
+      ok
+    }
+  }
+`
+
 const Homework = ({ id, type, students, setComplete }) => {
   const { data, loading } = useQuery(SEE_HOMEWORK_QUERY, {
     variables: {
@@ -73,6 +81,25 @@ const Homework = ({ id, type, students, setComplete }) => {
     },
     skip: !type || !id
   })
+  const onCompleted = (result) => {
+    const { deleteAllHomework: { ok } } = result
+    if (ok) {
+      window.location.reload()
+    }
+  }
+  const [deleteAllHomework, { loading: deleteLoading }] = useMutation(DELETE_ALL_HOMEWORK_MUTATION, {
+    onCompleted
+  })
+  const onClickDeleteAll = () => {
+    if (deleteLoading) {
+      return
+    }
+    deleteAllHomework({
+      variables: {
+        teacherId: parseInt(id)
+      }
+    })
+  }
   return (<Container>
     {loading ? "loading..." : (data?.seeHomework.length === 0 ? <Msg>{type === "teacher" ? "내보낸 숙제가 없습니다." : "숙제가 없습니다."}</Msg> :
       <HomeworkLayout>
@@ -90,6 +117,7 @@ const Homework = ({ id, type, students, setComplete }) => {
             return <HomeworkItem {...item} key={index} students={students} type={type} setComplete={setComplete} />
           })}
         </HomeworkList>
+        <div onClick={onClickDeleteAll}>삭제</div>
       </HomeworkLayout>)
     }
   </Container>);
