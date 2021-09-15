@@ -66,8 +66,8 @@ const ErrMsg = styled.div`
 `
 
 const EDIT_STUDENT_PROFILE_MUTATION = gql`
-  mutation editStudentProfile($teacherId: Int!, $studentId: Int!, $password: String, $nickname: String) {
-    editStudentProfile(teacherId: $teacherId, studentId: $studentId, password: $password, nickname: $nickname) {
+  mutation editStudentProfile($teacherId: Int!, $studentId: Int!, $password: String, $nickname: String, $score: Int) {
+    editStudentProfile(teacherId: $teacherId, studentId: $studentId, password: $password, nickname: $nickname, score: $score) {
       ok
       error
     }
@@ -87,7 +87,7 @@ const StudentEditting = ({ nickname, teacherId, studentId }) => {
   const [visible, setVisible] = useState(false)
   const [saveMsg, setSaveMsg] = useState(undefined)
   const [errMsg, setErrMsg] = useState(undefined)
-  const { register, formState: { isValid }, handleSubmit, getValues } = useForm({
+  const { register, formState: { isValid }, handleSubmit, getValues, setValue } = useForm({
     mode: "onChange",
     defaultValues: {
       nickname
@@ -97,6 +97,7 @@ const StudentEditting = ({ nickname, teacherId, studentId }) => {
     const { data: { editStudentProfile: { ok, error } } } = result
     if (ok) {
       setErrMsg(undefined);
+      setValue("score", "")
       const UserId = `User:${studentId}`
       cache.modify({
         id: UserId,
@@ -104,7 +105,7 @@ const StudentEditting = ({ nickname, teacherId, studentId }) => {
           nickname() { return getValues("nickname") },
         }
       })
-      setSaveMsg("학생정보가 수정 되었습니다.")
+      setSaveMsg("학생정보가 수정 되었습니다.\n레벨(점수)는 새로고침하면 바뀝니다.")
     } else if (!ok) {
       setErrMsg(error);
     }
@@ -131,8 +132,12 @@ const StudentEditting = ({ nickname, teacherId, studentId }) => {
     }
   }
   const onSubmit = (data) => {
-    const { nickname, password } = data
+    const { nickname, password, score } = data
     if (loading) {
+      return
+    }
+    if (Math.sign(score) === -1) {
+      setErrMsg("추가 점수를 양수로 설정해 주세요.");
       return
     }
     editStudentProfile({
@@ -140,7 +145,8 @@ const StudentEditting = ({ nickname, teacherId, studentId }) => {
         teacherId,
         studentId,
         nickname,
-        ...(password !== "" && { password })
+        ...(password !== "" && { password }),
+        ...(score && { score: parseInt(score) })
       }
     })
   }
@@ -157,6 +163,14 @@ const StudentEditting = ({ nickname, teacherId, studentId }) => {
       <EditInput
         {...register("nickname", { required: true })}
         type="text"
+        autoComplete="off"
+      />
+    </Wrapper>
+    <Wrapper>
+      <div>추가 점수 부여</div>
+      <EditInput
+        {...register("score")}
+        type="number"
         autoComplete="off"
       />
     </Wrapper>

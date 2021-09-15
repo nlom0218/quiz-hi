@@ -38,7 +38,7 @@ const QuizScore = styled.div`
 
 
 const StudentScoreList = ({ quizScore }) => {
-  const quizScoreArr = JSON.parse(quizScore).sort(compareDesc("num"))
+  const quizScoreArr = JSON.parse(quizScore).sort(compareDesc("num")).filter((item) => item.num !== 0)
   return (<DetailInfoLayout>
     <Title>
       <div><FontAwesomeIcon icon={faBook} /> 퀴즈 점수</div>
