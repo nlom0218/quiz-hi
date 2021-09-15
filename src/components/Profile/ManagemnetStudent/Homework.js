@@ -44,6 +44,16 @@ const DivisionLine = styled.div`
   transition: background-color 1s ease;
 `
 
+const DeleteAllHomeworkBtn = styled.div`
+  margin-top: 20px;
+  justify-self: flex-end;
+  background-color: tomato;
+  padding: 10px 20px;
+  border-radius: 5px;
+  color: #f4f4f4;
+  cursor: pointer;
+`
+
 const SEE_HOMEWORK_QUERY = gql`
   query seeHomework($userId: Int!, $type: String!) {
     seeHomework(userId: $userId, type: $type) {
@@ -94,11 +104,13 @@ const Homework = ({ id, type, students, setComplete }) => {
     if (deleteLoading) {
       return
     }
-    deleteAllHomework({
-      variables: {
-        teacherId: parseInt(id)
-      }
-    })
+    if (window.confirm("생성된 숙제를 모두 삭제하시겠습니까?\n삭제하게 되면 학생들은 제출한 숙제 결과(정답&오답)를 볼 수 없습니다.")) {
+      deleteAllHomework({
+        variables: {
+          teacherId: parseInt(id)
+        }
+      })
+    }
   }
   return (<Container>
     {loading ? "loading..." : (data?.seeHomework.length === 0 ? <Msg>{type === "teacher" ? "내보낸 숙제가 없습니다." : "숙제가 없습니다."}</Msg> :
@@ -117,7 +129,7 @@ const Homework = ({ id, type, students, setComplete }) => {
             return <HomeworkItem {...item} key={index} students={students} type={type} setComplete={setComplete} />
           })}
         </HomeworkList>
-        <div onClick={onClickDeleteAll}>삭제</div>
+        {type === "teacher" && <DeleteAllHomeworkBtn onClick={onClickDeleteAll}>전체 삭제</DeleteAllHomeworkBtn>}
       </HomeworkLayout>)
     }
   </Container>);
