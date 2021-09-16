@@ -77,7 +77,7 @@ const FeedQuiz = () => {
       <Header />
       <BasicContainer>
         {loading ? <div>loading...</div> :
-          <DetailContainer>
+          <DetailContainer {...data?.detailQuiz}>
             <DetailTitle title="퀴즈" />
             {data?.detailQuiz === null ?
               <DelQuizMsg>작성자에 의해 삭제된 퀴즈입니다.</DelQuizMsg>
