@@ -10,10 +10,10 @@ const SDetailContainer = styled.div`
   gap: 30px;
 `
 
-const DetailContainer = ({ children, user }) => {
+const DetailContainer = ({ children, user, id }) => {
   return (<SDetailContainer>
     {children}
-    <SendEditDChargeMsg user={user} />
+    <SendEditDChargeMsg user={user} id={id} />
   </SDetailContainer>);
 }
 

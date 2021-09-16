@@ -4,6 +4,8 @@ import { fadeIn } from '../../animation/fade';
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { useForm } from 'react-hook-form';
+import gql from 'graphql-tag';
+import { useMutation } from '@apollo/client';
 
 const SendMsgLayout = styled.div`
   display: grid;
@@ -83,7 +85,16 @@ const SubmitBtn = styled.input`
   cursor: pointer;
 `
 
-const SendEditDChargeMsg = ({ user: { email } }) => {
+const SEND_NOTICE_MUTATION = gql`
+  mutation sendNotice($info: String!, $type: String!, $receiverEmail: String) {
+    sendNotice(info: $info, type: $type, receiverEmail: $receiverEmail) {
+      ok
+      error
+    }
+  }
+`
+
+const SendEditDChargeMsg = ({ user: { email }, id }) => {
   const [editMsg, setEditMsg] = useState(false)
   const [chargeMsg, setChargeMsg] = useState(false)
   useEffect(() => {
@@ -95,8 +106,19 @@ const SendEditDChargeMsg = ({ user: { email } }) => {
       behavior: "smooth"
     })
   }, [editMsg, chargeMsg])
-  const { register, formState: { isValid }, setValue } = useForm({
+  const { register, formState: { isValid }, setValue, handleSubmit } = useForm({
     mode: "onChange"
+  })
+  const onCompleted = (result) => {
+    const { sendNotice: { ok } } = result
+    if (ok) {
+      window.alert("요청이 성공적으로 수행되었습니다.")
+      setChargeMsg(false)
+      setEditMsg(false)
+    }
+  }
+  const [sendNotice, { loading }] = useMutation(SEND_NOTICE_MUTATION, {
+    onCompleted
   })
   const onClickEditMsg = () => {
     setEditMsg(prev => !prev)
@@ -108,12 +130,42 @@ const SendEditDChargeMsg = ({ user: { email } }) => {
     setEditMsg(false)
     setValue("editInfo", "")
   }
+  const onSubmitEditMsg = (data) => {
+    const { editInfo } = data
+    const info = JSON.stringify([{ id }, { editInfo }])
+    const receiverEmail = email
+    if (loading) {
+      return
+    }
+    sendNotice({
+      variables: {
+        info,
+        receiverEmail,
+        type: "editNotice"
+      }
+    })
+  }
+  const onSubmitChargeMsg = (data) => {
+    const { chargeInfo } = data
+    const info = JSON.stringify([{ id }, { chargeInfo }])
+    const receiverEmail = email
+    if (loading) {
+      return
+    }
+    sendNotice({
+      variables: {
+        info,
+        receiverEmail,
+        type: "chargeNotice"
+      }
+    })
+  }
   return (<SendMsgLayout>
     <SendMsg>
       <EditMsg onClick={onClickEditMsg}><FontAwesomeIcon icon={faEnvelopeOpenText} /> 메세지 보내기</EditMsg>
       <ChargeMsg onClick={onClickChargeMsg}><FontAwesomeIcon icon={faFlag} /> 신고하기</ChargeMsg>
     </SendMsg>
-    {editMsg && <EditMsgForm>
+    {editMsg && <EditMsgForm onSubmit={handleSubmit(onSubmitEditMsg)}>
       <Msg>• 퀴즈 / 문제에 수정이 필요할 부분이 있다면 메세지를 보내주세요.</Msg>
       <Msg>• 메세지는 퀴즈 / 문제를 작성한 선생님께 전달됩니다.</Msg>
       <Wrapper>
@@ -132,7 +184,7 @@ const SendEditDChargeMsg = ({ user: { email } }) => {
         disabled={!isValid}
       />
     </EditMsgForm>}
-    {chargeMsg && <ChargeMsgForm>
+    {chargeMsg && <ChargeMsgForm onSubmit={handleSubmit(onSubmitChargeMsg)}>
       <Msg>• 퀴즈 / 문제에 부적절한 내용이 포함 된다면 신고해주세요.</Msg>
       <Msg>• 신고내용은 퀴즈 / 문제를 작성한 선생님과 관리자에게 전달됩니다.</Msg>
       <Msg>• 다른 선생들에 의해 신고 내용이 10회 누적 되면 퀴즈 / 문제는 삭제됩니다.</Msg>
