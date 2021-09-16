@@ -13,10 +13,9 @@ const SDetailContainer = styled.div`
 
 const DetailContainer = ({ children, user, id, title }) => {
   const loggedInUser = useUser()
-  console.log(id, loggedInUser.id);
   return (<SDetailContainer>
     {children}
-    {id !== loggedInUser.id && <SendEditDChargeMsg user={user} id={id} title={title} />}
+    {user.id !== loggedInUser.id && <SendEditDChargeMsg user={user} id={id} title={title} />}
   </SDetailContainer>);
 }
 

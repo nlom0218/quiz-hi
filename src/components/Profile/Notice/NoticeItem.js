@@ -8,6 +8,7 @@ import { useMutation } from '@apollo/client';
 import SharedStudentNotice from './SharedStudentNotice';
 import { fadeIn } from '../../../animation/fade';
 import EditNotice from './EditNotice';
+import ChargeNotice from './ChargeNotice';
 
 const SNoticeItem = styled.div`
   :not(:last-child) {
@@ -96,13 +97,16 @@ const NoticeItem = ({ createdAt, sender, type, confirm, userId, id, message, inf
   }
   return (<SNoticeItem>
     <CreatedAt>{getCreatedDay(createdAt)}</CreatedAt>
-    <Sender>{sender.length > 10 ? `${sender.substring(0, 10)}...` : sender}</Sender>
+    {type === "chargeNotice" ?
+      <Sender>신고자는 익명입니다.</Sender>
+      :
+      <Sender>{sender.length > 10 ? `${sender.substring(0, 10)}...` : sender}</Sender>}
     <Type>{processType(type)}</Type>
     <FontAwesomeIcon icon={confirm ? faEnvelopeOpen : faEnvelope} onClick={() => onClickConfirmBtn(id, confirm)} />
     {seeDetail && <DetailNotice>
       {type === "sharedStudent" && <SharedStudentNotice userId={userId} message={message} info={info} noticeId={id} />}
       {type === "editNotice" && <EditNotice userId={userId} message={message} info={info} noticeId={id} />}
-      {type === "chargeNotice" && <SharedStudentNotice userId={userId} message={message} info={info} noticeId={id} />}
+      {type === "chargeNotice" && <ChargeNotice userId={userId} message={message} info={info} noticeId={id} />}
     </DetailNotice>}
   </SNoticeItem>);
 }
