@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useForm } from 'react-hook-form';
 import SendEditDChargeMsg from './SendEditChargeMsg';
+import useUser from '../../hooks/useUser';
 
 const SDetailContainer = styled.div`
   grid-column: 2 / -2;
@@ -11,9 +12,11 @@ const SDetailContainer = styled.div`
 `
 
 const DetailContainer = ({ children, user, id, title }) => {
+  const loggedInUser = useUser()
+  console.log(id, loggedInUser.id);
   return (<SDetailContainer>
     {children}
-    <SendEditDChargeMsg user={user} id={id} title={title} />
+    {id !== loggedInUser.id && <SendEditDChargeMsg user={user} id={id} title={title} />}
   </SDetailContainer>);
 }
 
