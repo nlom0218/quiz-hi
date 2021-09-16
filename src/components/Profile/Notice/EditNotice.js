@@ -1,6 +1,7 @@
 import { useMutation } from '@apollo/client';
 import gql from 'graphql-tag';
 import React from 'react';
+import { useHistory } from 'react-router';
 import styled from 'styled-components';
 import { ActionBtn } from './ActionBtn';
 import DetailNoticeContainer from './DetailNoticeContainer';
@@ -20,9 +21,12 @@ const DELETE_NOTICE_MUTATION = gql`
 `
 
 const EditNotice = ({ message, info, noticeId }) => {
+  const history = useHistory()
   const infoArr = JSON.parse(info)
   const editInfo = infoArr.map((item) => item.editInfo).filter((item) => item)[0]
+  const type = infoArr.map((item) => item.type).filter((item) => item)[0]
   const quizQuestionId = infoArr.map((item) => item.id).filter((item) => item)[0]
+  console.log(type);
   const onCompletedDelete = (result) => {
     const { deleteNotice: { ok, error } } = result
     if (ok) {
@@ -36,12 +40,15 @@ const EditNotice = ({ message, info, noticeId }) => {
     if (deleteLoading) {
       return
     }
-    window.alert("학생 공유를 거절하였습니다. 알림은 삭제됩니다.")
+    window.alert("알림이 삭제됩니다.")
     deleteNotice({
       variables: {
         noticeId
       }
     })
+  }
+  const onClickNavBtn = () => {
+    history.push(`/detail/${type}/${quizQuestionId}`)
   }
   return (<DetailNoticeContainer>
     <Contents>
@@ -49,7 +56,7 @@ const EditNotice = ({ message, info, noticeId }) => {
       <div>{editInfo}</div>
     </Contents>
     <ActionBtn>
-      <div>퀴즈 / 문제 바로가기</div>
+      <div onClick={onClickNavBtn}>{type === "quiz" ? "퀴즈" : "문제"} 바로가기</div>
       <div onClick={onClickDeleteBtn}>삭제하기</div>
     </ActionBtn>
   </DetailNoticeContainer>);

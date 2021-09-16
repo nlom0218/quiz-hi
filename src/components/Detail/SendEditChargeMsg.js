@@ -95,7 +95,6 @@ const SEND_NOTICE_MUTATION = gql`
 `
 
 const SendEditDChargeMsg = ({ user: { email }, id, title }) => {
-  console.log(title);
   const [editMsg, setEditMsg] = useState(false)
   const [chargeMsg, setChargeMsg] = useState(false)
   useEffect(() => {
