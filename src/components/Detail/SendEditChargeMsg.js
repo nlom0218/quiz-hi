@@ -94,7 +94,8 @@ const SEND_NOTICE_MUTATION = gql`
   }
 `
 
-const SendEditDChargeMsg = ({ user: { email }, id }) => {
+const SendEditDChargeMsg = ({ user: { email }, id, title }) => {
+  console.log(title);
   const [editMsg, setEditMsg] = useState(false)
   const [chargeMsg, setChargeMsg] = useState(false)
   useEffect(() => {
@@ -132,7 +133,8 @@ const SendEditDChargeMsg = ({ user: { email }, id }) => {
   }
   const onSubmitEditMsg = (data) => {
     const { editInfo } = data
-    const info = JSON.stringify([{ id }, { editInfo }])
+    const type = (title ? "quiz" : "question")
+    const info = JSON.stringify([{ id }, { editInfo }, { type }])
     const receiverEmail = email
     if (loading) {
       return
@@ -147,7 +149,8 @@ const SendEditDChargeMsg = ({ user: { email }, id }) => {
   }
   const onSubmitChargeMsg = (data) => {
     const { chargeInfo } = data
-    const info = JSON.stringify([{ id }, { chargeInfo }])
+    const type = (title ? "quiz" : "question")
+    const info = JSON.stringify([{ id }, { chargeInfo }, { type }])
     const receiverEmail = email
     if (loading) {
       return
