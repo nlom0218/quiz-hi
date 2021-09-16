@@ -29,6 +29,7 @@ const DETAIL_QUESTION_QUERY = gql`
       type
       user {
         id
+        email
         nickname
         avatarURL
         username
@@ -54,7 +55,7 @@ const FeedQuestion = () => {
       <Header />
       <BasicContainer>
         {loading ? <div>loading...</div> :
-          <DetailContainer>
+          <DetailContainer {...data?.detailQuestion}>
             <DetailTitle title="문제" />
             <DetailLayout {...data?.detailQuestion} setPutQuiz={setPutQuiz}>
               <DetailQuestion {...data?.detailQuestion} setPutQuiz={setPutQuiz} />
