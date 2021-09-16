@@ -3,7 +3,6 @@ import gql from 'graphql-tag';
 import React from 'react';
 import { useParams } from 'react-router';
 import BasicContainer from '../components/BasicContainer';
-import DetailContainer from '../components/Detail/DetailContainer';
 import DetailTitle from '../components/Detail/DetailTitle';
 import FollowTag from '../components/Detail/FollowTag';
 import TotalInfo from '../components/Detail/TotalInfo';
@@ -11,6 +10,14 @@ import Header from '../components/Header';
 import NavBtn from '../components/NavBtn';
 import TagContents from '../components/Detail/TagContents';
 import useTitle from '../hooks/useTitle';
+import styled from 'styled-components';
+
+const DetailContainer = styled.div`
+  grid-column: 2 / -2;
+  display: grid;
+  grid-template-columns: 4fr 1fr;
+  gap: 30px;
+`
 
 const SEE_TAG_QUERY = gql`
   query seeTag($id: Int!) {
