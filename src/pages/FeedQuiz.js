@@ -35,6 +35,7 @@ const DETAIL_QUIZ_QUERY = gql`
         nickname
         avatarURL
         username
+        email
       }
       tags {
         id

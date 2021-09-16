@@ -14,7 +14,7 @@ import reset from "styled-reset";
 
 const color = {
   black: "#3f3f3f",
-  white: "#efefef"
+  white: "#e8e8e8"
 }
 
 export const lightTheme = {
