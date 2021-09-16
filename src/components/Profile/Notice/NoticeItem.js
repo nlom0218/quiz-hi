@@ -7,6 +7,7 @@ import gql from 'graphql-tag';
 import { useMutation } from '@apollo/client';
 import SharedStudentNotice from './SharedStudentNotice';
 import { fadeIn } from '../../../animation/fade';
+import EditNotice from './EditNotice';
 
 const SNoticeItem = styled.div`
   :not(:last-child) {
@@ -54,6 +55,10 @@ const NoticeItem = ({ createdAt, sender, type, confirm, userId, id, message, inf
   const processType = (type) => {
     if (type === "sharedStudent") {
       return "학생 공유"
+    } else if (type === "editNotice") {
+      return "수정 알림"
+    } else if (type === "chargeNotice") {
+      return "신고 접수 알림"
     }
   }
   const update = (cache, result) => {
@@ -96,6 +101,8 @@ const NoticeItem = ({ createdAt, sender, type, confirm, userId, id, message, inf
     <FontAwesomeIcon icon={confirm ? faEnvelopeOpen : faEnvelope} onClick={() => onClickConfirmBtn(id, confirm)} />
     {seeDetail && <DetailNotice>
       {type === "sharedStudent" && <SharedStudentNotice userId={userId} message={message} info={info} noticeId={id} />}
+      {type === "editNotice" && <EditNotice userId={userId} message={message} info={info} noticeId={id} />}
+      {type === "chargeNotice" && <SharedStudentNotice userId={userId} message={message} info={info} noticeId={id} />}
     </DetailNotice>}
   </SNoticeItem>);
 }
