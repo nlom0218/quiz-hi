@@ -90,7 +90,8 @@ const FeedQuiz = () => {
     <React.Fragment>
       <Header />
       <BasicContainer>
-        {loading ? <div>loading...</div> :
+        {loading && <div>loading...</div>}
+        {data?.detailQuiz &&
           <DetailContainer {...data?.detailQuiz}>
             <DetailTitle title="퀴즈" />
             {data?.detailQuiz === null ?

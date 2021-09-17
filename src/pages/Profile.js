@@ -91,7 +91,8 @@ const Profile = () => {
   return (<React.Fragment>
     {user?.type !== "student" ? <Header /> : <StudentHeader />}
     <BasicContainer>
-      {loading ? <div>loading...</div> :
+      {loading && <div>loading...</div>}
+      {data?.seeProfile &&
         <React.Fragment>
           <TopProfile {...data?.seeProfile} />
           {mode === "info" && <BottomProfile><BasicProfile {...data?.seeProfile} /></BottomProfile>}

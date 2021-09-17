@@ -68,7 +68,8 @@ const FeedQuestion = () => {
     <React.Fragment>
       <Header />
       <BasicContainer>
-        {loading ? <div>loading...</div> :
+        {loading && <div>loading...</div>}
+        {data?.detailQuestion &&
           <DetailContainer {...data?.detailQuestion}>
             <DetailTitle title="문제" />
             <DetailLayout {...data?.detailQuestion} setPutQuiz={setPutQuiz}>

@@ -54,7 +54,8 @@ const FeedTag = () => {
     <React.Fragment>
       <Header />
       <BasicContainer>
-        {loading ? <div>loading...</div> : <DetailContainer>
+        {loading && <div>loading...</div>}
+        {data?.seeTag && <DetailContainer>
           <DetailTitle title={data?.seeTag?.name} />
           <FollowTag isFollow={data?.seeTag?.isFollow} id={parseInt(id)} />
           <TotalInfo {...data?.seeTag} />
