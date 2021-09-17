@@ -25,12 +25,13 @@ const TFAnswerInput = styled.div`
 `
 
 const TFAnswerList = styled.div`
-  background-color: ${props => props.check ? "rgb(200, 200, 200, 0.6)" : "rgb(200, 200, 200, 0.2)"};
+  background-color: ${props => props.check ? props.theme.blueColor : "rgb(200, 200, 200, 0.2)"};
+  color: ${props => props.check ? props.theme.bgColor : props.theme.fontColor};
   padding: 10px 0px;
   border-radius: 5px;
   text-align: center;
   cursor: pointer;
-  transition: background-color 0.6s ease;
+  transition: background-color 0.6s ease, color 0.6s ease;
 `
 
 const Wrapper = styled.div`
