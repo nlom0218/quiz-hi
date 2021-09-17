@@ -134,6 +134,7 @@ const TopProfile = ({ id, username, nickname, email, avatarURL, type, score, isM
       localStorage.removeItem("homeworkQuizId")
       localStorage.removeItem("homeworkQuiz")
       localStorage.removeItem("teacherId")
+      localStorage.removeItem("homeworkId")
       setHomeworkQuizId(null)
     }
   }
