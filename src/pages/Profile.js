@@ -1,7 +1,7 @@
 import { useQuery } from '@apollo/client';
 import gql from 'graphql-tag';
 import React, { useState } from 'react';
-import { useParams } from 'react-router';
+import { useHistory, useParams } from 'react-router';
 import BasicContainer from '../components/BasicContainer';
 import Header from '../components/Header';
 import NavBtn from '../components/NavBtn';
@@ -70,10 +70,24 @@ const SEE_PROFILE_QUERY = gql`
 `
 
 const Profile = () => {
+  const history = useHistory()
   const titleUpdataer = useTitle("QUIZ HI | 프로필")
   const { username, mode } = useParams()
   const user = useUser()
-  const { data, loading } = useQuery(SEE_PROFILE_QUERY, { variables: { username } })
+  const [loading, setLoading] = useState(true)
+  const onCompleted = (result) => {
+    const { seeProfile } = result
+    if (!seeProfile) {
+      window.alert("요청하신 페이지가 없습니다.")
+      history.push("/")
+    } else {
+      setLoading(false)
+    }
+  }
+  const { data } = useQuery(SEE_PROFILE_QUERY, {
+    variables: { username },
+    onCompleted
+  })
   return (<React.Fragment>
     {user?.type !== "student" ? <Header /> : <StudentHeader />}
     <BasicContainer>
