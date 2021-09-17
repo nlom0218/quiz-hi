@@ -65,7 +65,6 @@ const SEE_HOMEWORKRESULT_QUERY = gql`
 
 
 const HomeworkItem = ({ createdAt, title, mode, type, quizId, score, order, setComplete, user: student, targetScore, id, finish, teacherId }) => {
-  console.log(id);
   const [seeInfo, setSeeInfo] = useState(false)
   const user = useUser()
   const { data, loading } = useQuery(SEE_HOMEWORKRESULT_QUERY, {
