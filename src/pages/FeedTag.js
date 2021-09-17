@@ -1,7 +1,7 @@
 import { useQuery } from '@apollo/client';
 import gql from 'graphql-tag';
-import React from 'react';
-import { useParams } from 'react-router';
+import React, { useState } from 'react';
+import { useHistory, useParams } from 'react-router';
 import BasicContainer from '../components/BasicContainer';
 import DetailTitle from '../components/Detail/DetailTitle';
 import FollowTag from '../components/Detail/FollowTag';
@@ -33,9 +33,23 @@ const SEE_TAG_QUERY = gql`
 `
 
 const FeedTag = () => {
+  const history = useHistory()
   const titleUpdataer = useTitle("QUIZ HI | 태그")
   const { id } = useParams()
-  const { data, loading } = useQuery(SEE_TAG_QUERY, { variables: { id: parseInt(id) } })
+  const [loading, setLoading] = useState(true)
+  const onCompleted = (result) => {
+    const { seeTag } = result
+    if (!seeTag) {
+      window.alert("요청하신 페이지가 없습니다.")
+      history.push("/")
+    } else {
+      setLoading(false)
+    }
+  }
+  const { data } = useQuery(SEE_TAG_QUERY, {
+    variables: { id: parseInt(id) },
+    onCompleted
+  })
   return (
     <React.Fragment>
       <Header />

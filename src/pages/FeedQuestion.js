@@ -1,6 +1,6 @@
 import { gql, useQuery } from '@apollo/client';
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router';
+import { useHistory, useParams } from 'react-router';
 import BasicContainer from '../components/BasicContainer';
 import DetailContainer from '../components/Detail/DetailContainer';
 import DetailLayout from '../components/Detail/DetailLayout';
@@ -43,10 +43,24 @@ const DETAIL_QUESTION_QUERY = gql`
 `
 
 const FeedQuestion = () => {
+  const history = useHistory()
   const titleUpdataer = useTitle("QUIZ HI | 문제")
   const { id } = useParams()
   const [putQuiz, setPutQuiz] = useState(false)
-  const { data, loading } = useQuery(DETAIL_QUESTION_QUERY, { variables: { id: parseInt(id) } })
+  const [loading, setLoading] = useState(true)
+  const onCompleted = (result) => {
+    const { detailQuestion } = result
+    if (!detailQuestion) {
+      window.alert("요청하신 페이지가 없습니다.")
+      history.push("/")
+    } else {
+      setLoading(false)
+    }
+  }
+  const { data } = useQuery(DETAIL_QUESTION_QUERY, {
+    variables: { id: parseInt(id) },
+    onCompleted
+  })
   useEffect(() => {
     return () => setPutQuiz(false)
   }, [])
