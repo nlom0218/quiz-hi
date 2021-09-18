@@ -1,6 +1,7 @@
 import { useQuery, useReactiveVar } from '@apollo/client';
 import { faInfoCircle } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { LoneSchemaDefinitionRule } from 'graphql';
 import gql from 'graphql-tag';
 import React, { useState } from 'react';
 import styled from 'styled-components';
@@ -64,12 +65,12 @@ const SEE_HOMEWORKRESULT_QUERY = gql`
 `
 
 
-const HomeworkItem = ({ createdAt, title, mode, type, quizId, score, order, setComplete, user: student, targetScore, id, finish, teacherId, userId }) => {
+const HomeworkItem = ({ createdAt, title, mode, type, quizId, score, order, setComplete, user: student, targetScore, id, finish, teacherId, profileUserId, userType }) => {
   const [seeInfo, setSeeInfo] = useState(false)
   const user = useUser()
   const { data, loading } = useQuery(SEE_HOMEWORKRESULT_QUERY, {
     variables: {
-      userId,
+      userId: profileUserId,
       quizId
     }
   })
@@ -81,6 +82,9 @@ const HomeworkItem = ({ createdAt, title, mode, type, quizId, score, order, setC
     }
   }
   const onClickSolveBtn = (quizId) => {
+    if (processSolveBtn() === "미제출") {
+      return
+    }
     if (finish) {
       window.alert("종료된 퀴즈 입니다.")
       return
@@ -123,6 +127,13 @@ const HomeworkItem = ({ createdAt, title, mode, type, quizId, score, order, setC
   const onClickInfoBtn = () => {
     setSeeInfo(prev => !prev)
   }
+  const processSolveBtn = () => {
+    if (profileUserId === user.id) {
+      return "풀기"
+    } else {
+      return "미제출"
+    }
+  }
   return (<SHomeworkItem>
     <Date>{getCreatedDay(createdAt)}</Date>
     <Title>{title}</Title>
@@ -131,7 +142,11 @@ const HomeworkItem = ({ createdAt, title, mode, type, quizId, score, order, setC
       <InfoBtn onClick={onClickInfoBtn}><FontAwesomeIcon icon={faInfoCircle} /></InfoBtn>
       :
       (!data?.seeHomeworkResult ?
-        <FinishBtn finish={finish} onClick={() => onClickSolveBtn(quizId)} >{finish ? "종료됨" : "풀기"}</FinishBtn>
+        <FinishBtn
+          finish={finish}
+          onClick={() => onClickSolveBtn(quizId)} >
+          {finish ? "종료됨" : processSolveBtn()}
+        </FinishBtn>
         :
         <ResultBtn type={type} onClick={() => onClickResultBtn(quizId)} >
           {data?.seeHomeworkResult?.score}점/{totalScore()}점

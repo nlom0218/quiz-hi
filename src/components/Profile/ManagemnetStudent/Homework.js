@@ -126,7 +126,7 @@ const Homework = ({ id, type, students, setComplete }) => {
         <DivisionLine></DivisionLine>
         <HomeworkList>
           {data?.seeHomework.map((item, index) => {
-            return <HomeworkItem {...item} key={index} students={students} type={type} setComplete={setComplete} userId={id} />
+            return <HomeworkItem {...item} key={index} students={students} userType={type} setComplete={setComplete} profileUserId={id} />
           })}
         </HomeworkList>
         {type === "teacher" && <DeleteAllHomeworkBtn onClick={onClickDeleteAll}>전체 삭제</DeleteAllHomeworkBtn>}

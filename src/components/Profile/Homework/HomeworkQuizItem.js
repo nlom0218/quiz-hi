@@ -66,7 +66,6 @@ const Wrapper = styled.div`
   grid-column: 1 / 2;
   display: grid;
   grid-template-columns: 100px 1fr;
-  line-height: 160%;
   .imgBox {
     width: 100%;
   }
