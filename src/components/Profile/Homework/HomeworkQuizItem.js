@@ -22,7 +22,6 @@ const QuestionNum = styled.div`
 `
 
 const QuestionText = styled.textarea`
-  line-height: 25px;
   width: 100%;
   height: ${props => props.txtHeight}px;
   resize: none;
@@ -95,10 +94,21 @@ const DisTractorItem = styled.li`
   }
 `
 
-const Distractor = styled.div`
+const DistractorTextarea = styled.textarea`
   align-self: flex-start;
   justify-self: flex-start;
+  width: 100%;
+  height: ${props => props.txtHeight}px;
+  resize: none;
+  border: none;
+  font-size: 16px;
+  padding: 0px;
   color: ${props => props.checkAnswer ? "tomato" : props.theme.fontColor};
+  background-color: ${props => props.theme.boxColor};
+  transition: background-color 1s ease, color 1s ease;
+  :focus {
+    outline: none;
+  }
 `
 
 const StudentAnswer = styled.div`
@@ -108,16 +118,46 @@ const StudentAnswer = styled.div`
 
 const HomeworkQuizItem = ({ question, index, setChange, resultArr }) => {
   const textarea = useRef()
+  const distractor1 = useRef()
+  const distractor2 = useRef()
+  const distractor3 = useRef()
+  const distractor4 = useRef()
+  const processDistractor = (index) => {
+    if (index === 0) {
+      return distractor1
+    } else if (index === 1) {
+      return distractor2
+    } else if (index === 2) {
+      return distractor3
+    } else if (index === 3) {
+      return distractor4
+    }
+  }
   const [txtHeight, setTxtHeight] = useState(null)
+  const [distractor1Height, setDistractor1Height] = useState(null)
+  const [distractor2Height, setDistractor2Height] = useState(null)
+  const [distractor3Height, setDistractor3Height] = useState(null)
+  const [distractor4Height, setDistractor4Height] = useState(null)
   useEffect(() => {
     setTxtHeight(textarea.current.scrollHeight)
-    // if (type === "obj") {
-    //   setDistractor1Height(distractor1.current.scrollHeight)
-    //   setDistractor2Height(distractor2.current.scrollHeight)
-    //   setDistractor3Height(distractor3.current.scrollHeight)
-    //   setDistractor4Height(distractor4.current.scrollHeight)
-    // }
+    if (question.type === "obj") {
+      setDistractor1Height(distractor1.current.scrollHeight)
+      setDistractor2Height(distractor2.current.scrollHeight)
+      setDistractor3Height(distractor3.current.scrollHeight)
+      setDistractor4Height(distractor4.current.scrollHeight)
+    }
   }, [])
+  const processDistractorHeight = (index) => {
+    if (index === 0) {
+      return distractor1Height
+    } else if (index === 1) {
+      return distractor2Height
+    } else if (index === 2) {
+      return distractor3Height
+    } else if (index === 3) {
+      return distractor4Height
+    }
+  }
   const { register, formState: { isValid }, handleSubmit } = useForm({
     mode: "onChange",
     ...(!resultArr && {
@@ -201,7 +241,15 @@ const HomeworkQuizItem = ({ question, index, setChange, resultArr }) => {
             {question.distractor.split("//!@#").map((item, index) => {
               return <DisTractorItem key={index}>
                 <div className="num">{`${index + 1}번`}</div>
-                <Distractor checkAnswer={checkAnswer(index + 1)}>{item}</Distractor>
+                <DistractorTextarea
+                  checkAnswer={checkAnswer(index + 1)}
+                  value={item}
+                  cols={20}
+                  rows={1}
+                  ref={processDistractor(index)}
+                  txtHeight={processDistractorHeight(index)}
+                  readOnly="readOnly"
+                ></DistractorTextarea>
               </DisTractorItem>
             })}
           </DisTractorList>
