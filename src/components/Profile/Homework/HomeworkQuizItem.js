@@ -1,7 +1,7 @@
 import { faBell, faFile, faImage } from '@fortawesome/free-regular-svg-icons';
 import { faListOl, faMagic } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import styled from 'styled-components';
 import HomeworkAnswer from './HomeworkAnswer';
@@ -18,6 +18,22 @@ const QuestionNum = styled.div`
   row-gap: 20px;
   svg {
     margin-right: 10px;
+  }
+`
+
+const QuestionText = styled.textarea`
+  line-height: 25px;
+  width: 100%;
+  height: ${props => props.txtHeight}px;
+  resize: none;
+  border: none;
+  font-size: 16px;
+  padding: 0px;
+  color: ${props => props.theme.fontColor};
+  background-color: ${props => props.theme.boxColor};
+  transition: background-color 1s ease, color 1s ease;
+  :focus {
+    outline: none;
   }
 `
 
@@ -51,7 +67,7 @@ const Wrapper = styled.div`
   grid-column: 1 / 2;
   display: grid;
   grid-template-columns: 100px 1fr;
-  line-height: 20px;
+  line-height: 160%;
   .imgBox {
     width: 100%;
   }
@@ -91,6 +107,17 @@ const StudentAnswer = styled.div`
 `
 
 const HomeworkQuizItem = ({ question, index, setChange, resultArr }) => {
+  const textarea = useRef()
+  const [txtHeight, setTxtHeight] = useState(null)
+  useEffect(() => {
+    setTxtHeight(textarea.current.scrollHeight)
+    // if (type === "obj") {
+    //   setDistractor1Height(distractor1.current.scrollHeight)
+    //   setDistractor2Height(distractor2.current.scrollHeight)
+    //   setDistractor3Height(distractor3.current.scrollHeight)
+    //   setDistractor4Height(distractor4.current.scrollHeight)
+    // }
+  }, [])
   const { register, formState: { isValid }, handleSubmit } = useForm({
     mode: "onChange",
     ...(!resultArr && {
@@ -154,7 +181,14 @@ const HomeworkQuizItem = ({ question, index, setChange, resultArr }) => {
     <QeustionBox>
       <Wrapper>
         <div><FontAwesomeIcon icon={faFile} /> 문제</div>
-        <div>{question.question}</div>
+        <QuestionText
+          value={question.question}
+          cols={20}
+          rows={1}
+          txtHeight={txtHeight}
+          readOnly="readOnly"
+          ref={textarea}
+        ></QuestionText>
       </Wrapper>
       {question.image && <Wrapper>
         <div><FontAwesomeIcon icon={faImage} /> 이미지</div>

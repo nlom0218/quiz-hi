@@ -56,7 +56,11 @@ const HomeworkSubmitBtn = ({ setSaveMsg, quizTitle }) => {
       setSaveMsg("정답을 입력하지 않은 문제가 있습니다.")
     } else {
       const resultArr = homeworkQuiz.map((item) => {
-        const studentAnswer = homeworkScore[homeworkScore.findIndex(homeworkScoreItem => homeworkScoreItem.id === item.id)].answer
+        const homeworkScoreObj = homeworkScore[homeworkScore.findIndex(homeworkScoreItem => homeworkScoreItem.id === item.id)]
+        if (!homeworkScoreObj) {
+          return
+        }
+        const studentAnswer = homeworkScore[homeworkScore.findIndex(homeworkScoreItem => homeworkScoreItem.id === item.id)].answer || null
         let result = undefined
         let studentAnswerStr = undefined
         if (item.type === "obj") {
@@ -73,7 +77,11 @@ const HomeworkSubmitBtn = ({ setSaveMsg, quizTitle }) => {
         }
         return { id: item.id, score: item.score, result, studentAnswer: studentAnswerStr }
       })
-      const totalScore = resultArr.filter((item) => item.result === true).map((item) => item.score).reduce((acc, cur) => acc + cur, 0)
+      const totalScore = resultArr
+        .filter((item) => item !== undefined)
+        .filter((item) => item.result === true)
+        .map((item) => item.score)
+        .reduce((acc, cur) => acc + cur, 0)
       if (window.confirm("숙제를 제출 하겠습니끼? \n제출한 숙제는 이후에 정답을 수정 할 수 없습니다.")) {
         createHomeworkResult({
           variables: {
