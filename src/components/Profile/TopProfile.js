@@ -4,6 +4,7 @@ import React from 'react';
 import { useHistory, useParams } from 'react-router';
 import styled from 'styled-components';
 import { setHomeworkQuizId } from '../../apollo';
+import useUser from '../../hooks/useUser';
 import { processUserLevel } from '../../sharedFn';
 import LevelStep from '../LevelStep';
 import FollowBtn from './FollowBtn';
@@ -109,7 +110,8 @@ const NavBtn = styled.div`
     }
 `
 
-const TopProfile = ({ id, username, nickname, email, avatarURL, type, score, isMe, isFollow, caption }) => {
+const TopProfile = ({ id, username, nickname, email, avatarURL, type, score, isMe, isFollow, caption, teacher }) => {
+  const user = useUser()
   const { mode } = useParams()
   const history = useHistory()
   const userType = () => {
@@ -151,6 +153,20 @@ const TopProfile = ({ id, username, nickname, email, avatarURL, type, score, isM
       return "nomal"
     }
   }
+  const seeHomework = () => {
+    if (user.type === "nomal") {
+      return false
+    }
+    if (user.type === "student") {
+      return true
+    }
+    const studentUsernameArr = user.students.map((item) => item.username)
+    if (studentUsernameArr.includes(username)) {
+      return true
+    } else {
+      return false
+    }
+  }
   return (<Container>
     <UserAvatar>
       {avatarURL ?
@@ -187,7 +203,7 @@ const TopProfile = ({ id, username, nickname, email, avatarURL, type, score, isM
       {needLoginMode() === "teacher" && <NavBtn
         onClick={() => onClickNavBtn("student")}
         seleted={mode === "student" ? true : false}>학생 관리</NavBtn>}
-      {needLoginMode() === "student" && <NavBtn
+      {seeHomework() && <NavBtn
         onClick={() => onClickNavBtn("homework")}
         seleted={mode === "homework" ? true : false}>숙제</NavBtn>}
       <NavBtn

@@ -22,6 +22,7 @@ const ME_QUERY = gql`
       students {
         id
         nickname
+        username
       }
       notice {
         id

@@ -106,9 +106,7 @@ const Profile = () => {
           {mode === "student" && <BottomProfile>
             {user?.username === username && <ManagemnetStudent {...data?.seeProfile} />}
           </BottomProfile>}
-          {mode === "homework" && <BottomProfile>
-            {user?.username === username && <StudentHomework {...data?.seeProfile} />}
-          </BottomProfile>}
+          {mode === "homework" && <BottomProfile><StudentHomework {...data?.seeProfile} /></BottomProfile>}
           {mode === "follow" && <BottomProfile></BottomProfile>}
           {mode === "notice" && <BottomProfile>
             {user?.username === username && <Notice {...data?.seeProfile} />}
