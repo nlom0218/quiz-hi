@@ -65,6 +65,12 @@ const SolveHomework = ({ quizId, complete, setComplete, setNoQuiz }) => {
       refetch()
     }
   }, [])
+  useEffect(() => {
+    window.scrollBy({
+      top: 400,
+      behavior: "smooth"
+    })
+  }, [complete])
   const [change, setChange] = useState(false)
   const [saveMsg, setSaveMsg] = useState(undefined)
   const [homeworkQuiz, setHomeworkQuiz] = useState(JSON.parse(localStorage.getItem("homeworkQuiz")) || [])

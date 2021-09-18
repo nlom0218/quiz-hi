@@ -61,6 +61,12 @@ const DETATIL_QUIZ_QUERY = gql`
 
 const ResultHomework = ({ quizId, complete, setComplete, resultArr, setNoQuiz }) => {
   const [change, setChange] = useState(false)
+  useEffect(() => {
+    window.scrollBy({
+      top: 400,
+      behavior: "smooth"
+    })
+  }, [complete])
   const [saveMsg, setSaveMsg] = useState(undefined)
   const [homeworkQuiz, setHomeworkQuiz] = useState(JSON.parse(localStorage.getItem("homeworkQuiz")) || [])
   const onCompleted = () => {
