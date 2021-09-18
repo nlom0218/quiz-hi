@@ -70,7 +70,6 @@ const ResultHomework = ({ quizId, complete, setComplete, resultArr, setNoQuiz })
     }
     setNoQuiz(false)
     const orderArr = JSON.parse(data.detailQuiz.order)
-    console.log(data.detailQuiz.question);
     const quizList = data.detailQuiz.questions.map((item, index) => {
       const questionResult = resultArr.filter((scoreArrItem) => scoreArrItem.id === item.id)[0] || null
       return {
