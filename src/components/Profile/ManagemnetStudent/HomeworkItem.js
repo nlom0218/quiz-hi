@@ -65,7 +65,7 @@ const SEE_HOMEWORKRESULT_QUERY = gql`
 `
 
 
-const HomeworkItem = ({ createdAt, title, mode, type, quizId, score, order, setComplete, user: student, targetScore, id, finish, teacherId, profileUserId, userType }) => {
+const HomeworkItem = ({ createdAt, title, mode, quizId, score, order, setComplete, user: student, targetScore, id, finish, teacherId, profileUserId, userType }) => {
   const [seeInfo, setSeeInfo] = useState(false)
   const user = useUser()
   const { data, loading } = useQuery(SEE_HOMEWORKRESULT_QUERY, {
@@ -85,14 +85,14 @@ const HomeworkItem = ({ createdAt, title, mode, type, quizId, score, order, setC
     if (processSolveBtn() === "미제출") {
       return
     }
+    if (userType === "teacher") {
+      return
+    }
     if (finish) {
       window.alert("종료된 퀴즈 입니다.")
       return
     }
     if (quizId === parseInt(localStorage.getItem("homeworkQuizId"))) {
-      return
-    }
-    if (type === "teacher") {
       return
     }
     localStorage.setItem("homeworkScore", score)
@@ -111,7 +111,7 @@ const HomeworkItem = ({ createdAt, title, mode, type, quizId, score, order, setC
     if (loading) {
       return
     }
-    if (type === "teacher") {
+    if (userType === "teacher") {
       return
     }
     const { seeHomeworkResult: { result, score } } = data
@@ -138,7 +138,7 @@ const HomeworkItem = ({ createdAt, title, mode, type, quizId, score, order, setC
     <Date>{getCreatedDay(createdAt)}</Date>
     <Title>{title}</Title>
     <Mode>{processMode(mode)}</Mode>
-    {type === "teacher" ?
+    {userType === "teacher" ?
       <InfoBtn onClick={onClickInfoBtn}><FontAwesomeIcon icon={faInfoCircle} /></InfoBtn>
       :
       (!data?.seeHomeworkResult ?
@@ -148,7 +148,7 @@ const HomeworkItem = ({ createdAt, title, mode, type, quizId, score, order, setC
           {finish ? "종료됨" : processSolveBtn()}
         </FinishBtn>
         :
-        <ResultBtn type={type} onClick={() => onClickResultBtn(quizId)} >
+        <ResultBtn onClick={() => onClickResultBtn(quizId)} >
           {data?.seeHomeworkResult?.score}점/{totalScore()}점
         </ResultBtn>
       )
