@@ -49,7 +49,12 @@ const StudentHomework = ({ students, id, type, username }) => {
   // 숙제를 선택하게 될 때 에러를 방지하기 위해 complete(false)로 바꾸기
   // 에러가 나는 이유는 homeworkScore 와 homeworkQuiz가 충돌하게 된다.
   // homeworkscore는 바로 업데이트 되는데 비해 homeworkQuiz는 데이터를 불러오기 때문에 약간의 시간이 필요하다.
-  const resultArr = JSON.parse(localStorage.getItem("homeworkResult")).filter((item) => item !== null)
+  const resultArr = (JSON.parse(localStorage.getItem("homeworkResult"))
+    ?
+    JSON.parse(localStorage.getItem("homeworkResult")).filter((item) => item !== null)
+    :
+    []
+  )
   useEffect(() => {
     if (type !== "student") {
       history.push(`/profile/${username}/info`)
