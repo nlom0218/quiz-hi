@@ -164,12 +164,12 @@ const SendEditDChargeMsg = ({ user: { email }, id, title }) => {
   }
   return (<SendMsgLayout>
     <SendMsg>
-      <EditMsg onClick={onClickEditMsg}><FontAwesomeIcon icon={faEnvelopeOpenText} /> 메세지 보내기</EditMsg>
+      <EditMsg onClick={onClickEditMsg}><FontAwesomeIcon icon={faEnvelopeOpenText} /> 메시지 보내기</EditMsg>
       <ChargeMsg onClick={onClickChargeMsg}><FontAwesomeIcon icon={faFlag} /> 신고하기</ChargeMsg>
     </SendMsg>
     {editMsg && <EditMsgForm onSubmit={handleSubmit(onSubmitEditMsg)}>
-      <Msg>• 퀴즈 / 문제에 수정이 필요할 부분이 있다면 메세지를 보내주세요.</Msg>
-      <Msg>• 메세지는 퀴즈 / 문제를 작성한 선생님께 전달됩니다.</Msg>
+      <Msg>• 퀴즈 / 문제에 수정이 필요할 부분이 있다면 메시지를 보내주세요.</Msg>
+      <Msg>• 메시지는 퀴즈 / 문제를 작성한 선생님께 전달됩니다.</Msg>
       <Wrapper>
         <div>내용</div>
         <Textarea
