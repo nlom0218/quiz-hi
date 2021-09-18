@@ -51,7 +51,10 @@ const HomeworkSubmitBtn = ({ setSaveMsg, quizTitle }) => {
     }
     const homeworkQuiz = JSON.parse(localStorage.getItem("homeworkQuiz"))
     const homeworkScore = JSON.parse(localStorage.getItem("homeworkScore"))
-    const answerArr = homeworkScore.map((item) => item.answer)
+    const homeworkQuizIdArr = homeworkQuiz.map((item) => item.id)
+    const answerArr = homeworkScore
+      .filter((item) => homeworkQuizIdArr.includes(item.id))
+      .map((item) => item.answer)
     if (answerArr.includes(undefined)) {
       setSaveMsg("정답을 입력하지 않은 문제가 있습니다.")
     } else {
