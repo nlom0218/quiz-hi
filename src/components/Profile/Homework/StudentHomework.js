@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { useHistory, useParams } from 'react-router';
 import styled from 'styled-components';
 import { homeworkQuizIdVar } from '../../../apollo';
+import useUser from '../../../hooks/useUser';
 import Homework from '../ManagemnetStudent/Homework';
 import ResultHomework from './ResultHomework';
 import SolveHomework from './SolveHomework';
@@ -40,6 +41,7 @@ const DivisionLine = styled.div`
 `
 
 const StudentHomework = ({ students, id, type, username }) => {
+  const user = useUser()
   const history = useHistory()
   const homeworkQuizId = useReactiveVar(homeworkQuizIdVar)
   const [noQuiz, setNoQuiz] = useState(false)
@@ -58,6 +60,12 @@ const StudentHomework = ({ students, id, type, username }) => {
   useEffect(() => {
     if (type !== "student") {
       history.push(`/profile/${username}/info`)
+      return
+    }
+    const studentUsernameArr = user.students.map((item) => item.username)
+    if (!studentUsernameArr.includes(username)) {
+      history.push(`/profile/${username}/info`)
+      return
     }
   }, [])
   return (<Container>

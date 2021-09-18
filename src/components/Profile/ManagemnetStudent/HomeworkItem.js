@@ -64,12 +64,12 @@ const SEE_HOMEWORKRESULT_QUERY = gql`
 `
 
 
-const HomeworkItem = ({ createdAt, title, mode, type, quizId, score, order, setComplete, user: student, targetScore, id, finish, teacherId }) => {
+const HomeworkItem = ({ createdAt, title, mode, type, quizId, score, order, setComplete, user: student, targetScore, id, finish, teacherId, userId }) => {
   const [seeInfo, setSeeInfo] = useState(false)
   const user = useUser()
   const { data, loading } = useQuery(SEE_HOMEWORKRESULT_QUERY, {
     variables: {
-      userId: user.id,
+      userId,
       quizId
     }
   })
