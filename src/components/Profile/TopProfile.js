@@ -154,13 +154,13 @@ const TopProfile = ({ id, username, nickname, email, avatarURL, type, score, isM
     }
   }
   const seeHomework = () => {
-    if (user.type === "nomal") {
+    if (user?.type === "nomal") {
       return false
     }
-    if (user.type === "student") {
+    if (user?.type === "student") {
       return true
     }
-    const studentUsernameArr = user.students.map((item) => item.username)
+    const studentUsernameArr = user?.students.map((item) => item.username)
     if (studentUsernameArr.includes(username)) {
       return true
     } else {

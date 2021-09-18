@@ -58,14 +58,19 @@ const StudentHomework = ({ students, id, type, username }) => {
     null
   )
   useEffect(() => {
-    if (type !== "student") {
+    if (user?.type === "student") {
+    }
+    if (user?.type === "nomal") {
       history.push(`/profile/${username}/info`)
       return
     }
-    const studentUsernameArr = user.students.map((item) => item.username)
-    if (!studentUsernameArr.includes(username)) {
-      history.push(`/profile/${username}/info`)
-      return
+    if (user?.type === "teacher") {
+      const studentUsernameArr = user?.students.map((item) => item.username)
+      if (studentUsernameArr.includes(username)) {
+        return
+      } else {
+        history.push(`/profile/${username}/info`)
+      }
     }
   }, [])
   return (<Container>
