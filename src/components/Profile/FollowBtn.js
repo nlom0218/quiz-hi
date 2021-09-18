@@ -64,7 +64,6 @@ const FollowBtn = ({ isMe, isFollow, username, id }) => {
     })
   }
   const [followUser] = useMutation(FOLLOW_USER_MUTATION, {
-    variables: { username },
     update: updataFollowUser
   })
   const updataUnfollowUser = (cache, result) => {
@@ -87,14 +86,27 @@ const FollowBtn = ({ isMe, isFollow, username, id }) => {
     })
   }
   const [unfollowUser] = useMutation(UNFOLLOW_USER_MUTATION, {
-    variables: { username },
     update: updataUnfollowUser
   })
+  const onClickUnfollow = () => {
+    if (window.confirm(`${username}을/를 팔로우 취소하시겠습니까?`)) {
+      unfollowUser({
+        variables: { username }
+      })
+    }
+  }
+  const onClickFollowUser = () => {
+    if (window.confirm(`${username}을/를 팔로우 하시겠습니까?`)) {
+      followUser({
+        variables: { username }
+      })
+    }
+  }
   const sortFollow = () => {
     if (isFollow) {
-      return <div onClick={unfollowUser}>팔로잉</div>
+      return <div onClick={onClickUnfollow}>팔로잉</div>
     } else {
-      return <div onClick={followUser}>팔로우</div>
+      return <div onClick={onClickFollowUser}>팔로우</div>
     }
   }
   const onClickEdit = () => {
