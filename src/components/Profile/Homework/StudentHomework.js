@@ -53,7 +53,7 @@ const StudentHomework = ({ students, id, type, username }) => {
     ?
     JSON.parse(localStorage.getItem("homeworkResult")).filter((item) => item !== null)
     :
-    []
+    null
   )
   useEffect(() => {
     if (type !== "student") {
