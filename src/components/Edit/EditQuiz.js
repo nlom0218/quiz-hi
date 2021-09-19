@@ -109,7 +109,6 @@ const EditQuiz = () => {
   const { data, loading } = useQuery(DETAIL_QUIZ_QUERY, { variables: { id: parseInt(id) } })
   const onClickPreBtn = () => {
     history.push(`/detail/quiz/${id}`)
-    window.location.reload()
   }
   return (<Container>
     {loading ? <div>Loading...</div> :

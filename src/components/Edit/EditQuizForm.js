@@ -74,13 +74,6 @@ const EditQuizForm = ({ title, caption, tags, updateInfo, user: { id: ownerId } 
       updateInfo
     }
   })
-  const onCompleted = (result) => {
-    // const { editQuiz: { ok } } = result
-    // if (ok) {
-    //   history.push(`/detail/quiz/${id}`)
-    //   window.location.reload()
-    // }
-  }
   const update = (cache, result) => {
     const { data: { editQuiz: { ok } } } = result
     if (ok) {
@@ -98,7 +91,6 @@ const EditQuizForm = ({ title, caption, tags, updateInfo, user: { id: ownerId } 
     setEditMsg("퀴즈 정보가 수정 되었습니다.")
   }
   const [editQuiz, { loading }] = useMutation(EDIT_QUIZ_MUTATION, {
-    onCompleted,
     update
   })
   const onSubmit = (data) => {
