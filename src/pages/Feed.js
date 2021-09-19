@@ -18,7 +18,7 @@ const Feed = () => {
   return (<React.Fragment>
     <Header />
     <BasicContainer>
-      <PageTitle><FontAwesomeIcon icon={faClipboard} /> 퀴즈 피드</PageTitle>
+      <PageTitle><FontAwesomeIcon icon={faClipboard} /> 피드</PageTitle>
       <FeedType feedType={type} feed={true} />
       {type === "quiz" && <SeeQuiz feedType={type} />}
       {type === "question" && <SeeQuestion feedType={type} />}
