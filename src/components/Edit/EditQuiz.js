@@ -11,6 +11,7 @@ import AddOrDisConnectQuestions from './AddOrDisConnectQuestions';
 import AddQuestions from './AddQuestions';
 import DisconnectQuestions from './DisconnectQuestions';
 import EditQuizForm from './EditQuizForm';
+import { PageTitle, PrePage } from './sharedCss';
 
 const Container = styled.div`
   grid-column: 2 / -2;
@@ -19,44 +20,6 @@ const Container = styled.div`
   grid-template-rows: auto 1fr;
   row-gap: 30px;
  `
-
-const PageTitle = styled.div`
-  font-size: 18px;
-  font-weight: 600;
-  svg {
-    margin-right: 10px;
-  }
-  .navBtn {
-    display: flex;
-  }
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-end;
-  .delBtn {
-    font-size: 16px;
-    color: tomato;
-    border: 1px solid tomato;
-    padding: 5px 10px;
-    margin-left: 20px;
-    :hover {
-      color: #f4f4f4;
-      background-color: tomato;
-    }
-  }
-`
-
-const PrePage = styled.div`
-  font-size: 16px;
-  border: 1px solid ${props => props.theme.fontColor};
-  padding: 5px 10px;
-  cursor: pointer;
-  font-weight: 400;
-  transition: background-color 0.3s linear, color 0.6s linear;
-  :hover {
-    color: ${props => props.theme.bgColor};
-    background-color: ${props => props.theme.fontColor};
-  }
-`
 
 const DivisionLine = styled.div`
   grid-column: 1 / -1;
