@@ -79,7 +79,7 @@ const EditQuiz = () => {
         <PageTitle>
           <div><FontAwesomeIcon icon={faEdit} />퀴즈 수정</div>
           <div className="navBtn">
-            <PrePage onClick={onClickPreBtn}>이전페이지</PrePage>
+            {/* <PrePage onClick={onClickPreBtn}>이전페이지</PrePage> */}
             <Link
               className="delBtn"
               to={{
@@ -91,7 +91,7 @@ const EditQuiz = () => {
         <EditQuizForm {...data.detailQuiz} />
         <PageTitle style={{ marginTop: "40px" }}>
           <div><FontAwesomeIcon icon={faBookOpen} />문제 추가 & 삭제</div>
-          <PrePage onClick={onClickPreBtn}>이전페이지</PrePage>
+          {/* <PrePage onClick={onClickPreBtn}>이전페이지</PrePage> */}
         </PageTitle>
         <AddOrDisConnectQuestions>
           <AddQuestions {...data.detailQuiz} />

@@ -54,7 +54,7 @@ const EditQuestion = () => {
         <PageTitle>
           <div><FontAwesomeIcon icon={faEdit} />문제 수정</div>
           <div className="navBtn">
-            <PrePage onClick={onClickPreBtn}>이전페이지</PrePage>
+            {/* <PrePage onClick={onClickPreBtn}>이전페이지</PrePage> */}
             <Link
               className="delBtn"
               to={{
