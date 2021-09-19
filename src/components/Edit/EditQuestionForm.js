@@ -10,6 +10,7 @@ import EditInputLayout from './EditInputLayout';
 import EditTagInput from './EditTagInput';
 import EditObjQuestionAnswer from './EditObjQuestionAnswer';
 import EidtTfQuestionAnswer from './EditTfQuestionAnswer';
+import { EidtMsg } from './sharedCss';
 
 const SEditForm = styled.form`
   /* border: 1px solid ${props => props.theme.fontColor};
@@ -67,6 +68,7 @@ const EditQuestionForm = ({ tags, user: { id: ownerId }, type, image, question, 
   const { id } = useParams()
   const user = useUser()
   const history = useHistory()
+  const [editMsg, setEditMsg] = useState(undefined)
   const distractorArr = () => {
     if (distractor) {
       return distractor.split("//!@#")
@@ -101,48 +103,67 @@ const EditQuestionForm = ({ tags, user: { id: ownerId }, type, image, question, 
       })
     }
   })
-  const onCompleted = (result) => {
-    const { editQuestion: { ok } } = result
+  const update = (cache, result) => {
+    const { data: { editQuestion: { ok, error } } } = result
     if (ok) {
-      history.push(`/detail/question/${id}`)
-      window.location.reload()
+      const QuestionId = `Question:${parseInt(id)}`
+      cache.modify({
+        id: QuestionId,
+        fields: {
+          question() { return getValues("question") },
+          hint() { return getValues("hint") },
+          answer() { return getValues("answer") },
+          updateInfo() { return getValues("updateInfo") },
+          ...(type === "obj" && {
+            distractor() {
+              return processDistracor(getValues("distractor1"), getValues("distractor2"), getValues("distractor3"), getValues("distractor4"))
+            }
+          }),
+          ...(newImage && { image() { return error } }),
+          // title() { return getValues("title") },
+          // caption() { return getValues("caption") },
+          // updateInfo() { return getValues("updateInfo") },
+          // tags() { return quizTags.map((item) => { return { name: item } }) }
+        }
+      })
     }
+    setEditMsg("퀴즈 정보가 수정 되었습니다.")
   }
   const [editQuestion, { loading }] = useMutation(EDIT_QUESTION_MUTATION, {
-    onCompleted
+    update
   })
+  const processDistracor = (distractor1, distractor2, distractor3, distractor4) => {
+    if (type === "obj") {
+      // const { distractor1, distractor2, distractor3, distractor4 } = data
+      return distractor = `${distractor1}//!@#${distractor2}//!@#${distractor3}//!@#${distractor4}`
+    } else {
+      return
+    }
+  }
+  const processAnswer = (answer) => {
+    if (type === "sub") {
+      return answer
+    } else if (type === "obj") {
+      return objAnswer.join(",")
+    } else if (type === "tf") {
+      return tfAnswer
+    }
+  }
   const onSubmit = (data) => {
     if (loading) {
       return
     }
     const { question, updateInfo, hint } = data
     const tags = [...questionTags].join(",")
-    const processAnswer = () => {
-      if (type === "sub") {
-        return data.answer
-      } else if (type === "obj") {
-        return objAnswer.join(",")
-      } else if (type === "tf") {
-        return tfAnswer
-      }
-    }
-    const processDistracor = () => {
-      if (type === "obj") {
-        const { distractor1, distractor2, distractor3, distractor4 } = data
-        return distractor = `${distractor1}//!@#${distractor2}//!@#${distractor3}//!@#${distractor4}`
-      } else {
-        return
-      }
-    }
     editQuestion({
       variables: {
         id: parseInt(id),
         question,
         updateInfo,
         tags,
-        answer: processAnswer(),
+        answer: processAnswer(data.answer),
         hint,
-        ...(type === "obj" && { distractor: processDistracor() }),
+        ...(type === "obj" && { distractor: processDistracor(data.distractor1, data.distractor2, data.distractor3, data.distractor4) }),
         ...(newImage && { image: newImage }),
         delImg
       }
@@ -223,6 +244,7 @@ const EditQuestionForm = ({ tags, user: { id: ownerId }, type, image, question, 
         })}
       ></textarea>
     </EditInputLayout>
+    {editMsg && <EidtMsg>{editMsg}</EidtMsg>}
     <InputBtn disabled={!isValid} value={loading ? "수정중..." : "수정하기"} />
   </SEditForm >);
 }

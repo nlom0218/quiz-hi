@@ -47,7 +47,6 @@ const EditQuestion = () => {
   const { data, loading } = useQuery(DETAIL_QUESTION_QUERY, { variables: { id: parseInt(id) } })
   const onClickPreBtn = () => {
     history.push(`/detail/question/${id}`)
-    window.location.reload()
   }
   return (<Container>
     {loading ? <div>Loading...</div> :

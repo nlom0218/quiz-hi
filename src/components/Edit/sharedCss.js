@@ -1,4 +1,5 @@
 import styled from "styled-components"
+import { fadeIn } from "../../animation/fade"
 
 export const PageTitle = styled.div`
 font-size: 18px;
@@ -24,6 +25,7 @@ align-items: flex-end;
 }
 `
 export const PrePage = styled.div`
+margin-right: 20px;
 font-size: 16px;
 border: 1px solid ${props => props.theme.fontColor};
 padding: 5px 10px;
@@ -34,4 +36,10 @@ transition: background-color 0.3s linear, color 0.6s linear;
   color: ${props => props.theme.bgColor};
   background-color: ${props => props.theme.fontColor};
 }
+`
+
+export const EidtMsg = styled.div`
+  justify-self: center;
+  color: tomato;
+  animation: ${fadeIn} 0.4s linear;
 `
