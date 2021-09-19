@@ -120,14 +120,10 @@ const EditQuestionForm = ({ tags, user: { id: ownerId }, type, image, question, 
             }
           }),
           ...(newImage && { image() { return error } }),
-          // title() { return getValues("title") },
-          // caption() { return getValues("caption") },
-          // updateInfo() { return getValues("updateInfo") },
-          // tags() { return quizTags.map((item) => { return { name: item } }) }
         }
       })
     }
-    setEditMsg("퀴즈 정보가 수정 되었습니다.")
+    setEditMsg("문제 정보가 수정 되었습니다.")
   }
   const [editQuestion, { loading }] = useMutation(EDIT_QUESTION_MUTATION, {
     update
