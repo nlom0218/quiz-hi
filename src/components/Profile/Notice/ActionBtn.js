@@ -12,8 +12,10 @@ export const ActionBtn = styled.div`
     padding: 3px;
     border-radius: 5px;
     cursor: pointer;
+    transition: background-color 1s ease, color 1s ease;
     :nth-child(1) {
       background-color: ${props => props.theme.blueColor};
+      color: ${props => props.theme.boxColor};
     }
     :nth-child(2) {
       background-color: tomato;
