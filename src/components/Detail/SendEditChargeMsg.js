@@ -115,6 +115,8 @@ const SendEditDChargeMsg = ({ user: { email }, id, title }) => {
       window.alert("요청이 성공적으로 수행되었습니다.")
       setChargeMsg(false)
       setEditMsg(false)
+      setValue("chargeInfo", "")
+      setValue("editInfo", "")
     }
   }
   const [sendNotice, { loading }] = useMutation(SEND_NOTICE_MUTATION, {
