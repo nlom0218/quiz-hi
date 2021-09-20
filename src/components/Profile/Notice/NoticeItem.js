@@ -49,8 +49,6 @@ const CONFIRM_NOTICE_MUTATION = gql`
   }
 `
 
-
-
 const NoticeItem = ({ createdAt, sender, type, confirm, userId, id, message, info }) => {
   const [seeDetail, setSeeDetail] = useState(false)
   const processType = (type) => {

@@ -1,6 +1,6 @@
 import { faUser } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import React from 'react';
+import React, { useState } from 'react';
 import { useHistory, useParams } from 'react-router';
 import styled from 'styled-components';
 import { setHomeworkQuizId } from '../../apollo';
@@ -108,9 +108,24 @@ const NavBtn = styled.div`
     :hover {
       background-color: rgb(200,200,200, 0.6);
     }
+    position: relative;
 `
 
-const TopProfile = ({ id, username, nickname, email, avatarURL, type, score, isMe, isFollow, caption, teacher }) => {
+const NoticeNum = styled.div`
+  padding: 8px 10px;
+  text-align: center;
+  background-color: tomato;
+  border-radius: 50%;
+  color: #ffffff;
+  font-size: 12px;
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  font-weight: 600;
+`
+
+const TopProfile = ({ id, username, nickname, email, avatarURL, type, score, isMe, isFollow, notice }) => {
+  const [noticeNum, setNoticeNum] = useState(notice.filter((item) => item.confirm === false).length || 0)
   const user = useUser()
   const { mode } = useParams()
   const history = useHistory()
@@ -211,7 +226,10 @@ const TopProfile = ({ id, username, nickname, email, avatarURL, type, score, isM
         seleted={mode === "follow" ? true : false}>팔로잉 & 팔로우</NavBtn>
       {isMe && <NavBtn
         onClick={() => onClickNavBtn("notice")}
-        seleted={mode === "notice" ? true : false}>알림</NavBtn>}
+        seleted={mode === "notice" ? true : false}>
+        <div>알림</div>
+        {noticeNum !== 0 && <NoticeNum>{noticeNum}</NoticeNum>}
+      </NavBtn>}
     </ProfileNav>
 
   </Container>);
