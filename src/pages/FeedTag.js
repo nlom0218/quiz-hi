@@ -57,7 +57,7 @@ const FeedTag = () => {
         {loading && <div>loading...</div>}
         {data?.seeTag && <DetailContainer>
           <DetailTitle title={data?.seeTag?.name} />
-          <FollowTag isFollow={data?.seeTag?.isFollow} id={parseInt(id)} />
+          <FollowTag isFollow={data?.seeTag?.isFollow} id={parseInt(id)} name={data?.seeTag?.name} />
           <TotalInfo {...data?.seeTag} />
           <TagContents {...data?.seeTag} />
         </DetailContainer>}

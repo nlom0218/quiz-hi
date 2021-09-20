@@ -34,7 +34,7 @@ const TOGGLE_FOLLOW_TAG_MUTATION = gql`
   }
 `
 
-const FollowTag = ({ isFollow, id }) => {
+const FollowTag = ({ isFollow, id, name }) => {
   const user = useUser()
   const update = (cache, result) => {
     const { data: { toggleFollowTag: { ok, msg } } } = result
@@ -73,12 +73,30 @@ const FollowTag = ({ isFollow, id }) => {
     }
   }
   const [toggleFollowTag, { loading }] = useMutation(TOGGLE_FOLLOW_TAG_MUTATION, {
-    variables: { id },
     update
   })
+  const onClickFollowBtn = () => {
+    console.log(name);
+    if (loading) {
+      return
+    }
+    if (isFollow) {
+      if (window.confirm(`${name} 태그를 팔로우 취소하시겠습니까?`)) {
+        toggleFollowTag({
+          variables: { id }
+        })
+      }
+    } else {
+      if (window.confirm(`${name} 태그를 팔로우 하시겠습니까?`)) {
+        toggleFollowTag({
+          variables: { id }
+        })
+      }
+    }
+  }
   return (
     <SFollowTag>
-      <FollowBtn onClick={toggleFollowTag}>
+      <FollowBtn onClick={onClickFollowBtn}>
         {isFollow ? "팔로잉" : "팔로우"}
       </FollowBtn>
     </SFollowTag>
