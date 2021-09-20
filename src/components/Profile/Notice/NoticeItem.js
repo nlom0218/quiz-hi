@@ -19,8 +19,12 @@ const SNoticeItem = styled.div`
   grid-template-columns: 1fr 2fr 1fr 1fr;
   column-gap: 20px;
   row-gap: 20px;
-  transition: 0.6s ease background-color;
+  background-color: ${props => props.theme.boxColor};
+  transition: 1s ease background-color;
   :hover {
+    background-color: rgb(200, 200, 200, 0.2);
+  }
+  :hover textarea {
     background-color: rgb(200, 200, 200, 0.2);
   }
   svg {
