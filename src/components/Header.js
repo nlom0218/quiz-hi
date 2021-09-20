@@ -110,7 +110,7 @@ const Header = () => {
       </Nav>
       <Nav>
         <a
-          href="https://khd0218.tistory.com/pages/%ED%80%B4%EC%A6%88-%ED%95%98%EC%9D%B4-%EC%84%A4%EB%AA%85%EC%84%9C"
+          href="https://quiz-hi.co.kr/pages/%ED%80%B4%EC%A6%88-%ED%95%98%EC%9D%B4-%EC%84%A4%EB%AA%85%EC%84%9C"
           target="_blank">
           <FontAwesomeIcon icon={faNewspaper} />
         </a>
