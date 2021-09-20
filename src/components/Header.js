@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import { faSearch, faMoon, faPencilAlt, faPlay, faUser, faSignOutAlt, faSun, faSignInAlt, faBookReader } from '@fortawesome/free-solid-svg-icons';
-import { faClipboard, faListAlt } from "@fortawesome/free-regular-svg-icons"
+import { faMoon, faPencilAlt, faPlay, faUser, faSignOutAlt, faSun, faSignInAlt, faBookReader } from '@fortawesome/free-solid-svg-icons';
+import { faClipboard, faNewspaper } from "@fortawesome/free-regular-svg-icons"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import headerNav from "../animation/headerNav"
 import { Link, useHistory } from 'react-router-dom';
@@ -108,7 +108,13 @@ const Header = () => {
           style={{ color: `${darkMode ? "#ff765e" : "#212121"}` }}
         />
       </Nav>
-      <Nav><FontAwesomeIcon icon={faSearch} /></Nav>
+      <Nav>
+        <a
+          href="https://khd0218.tistory.com/pages/%ED%80%B4%EC%A6%88-%ED%95%98%EC%9D%B4-%EC%84%A4%EB%AA%85%EC%84%9C"
+          target="_blank">
+          <FontAwesomeIcon icon={faNewspaper} />
+        </a>
+      </Nav>
       <Nav><Link to="/feed/quiz/all/recent/1"><FontAwesomeIcon icon={faClipboard} /></Link></Nav>
       <Nav><Link to="/library/quiz/1"><FontAwesomeIcon icon={faBookReader} /></Link></Nav>
       <SiteName type={user?.type}>
