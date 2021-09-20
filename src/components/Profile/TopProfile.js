@@ -125,7 +125,6 @@ const NoticeNum = styled.div`
 `
 
 const TopProfile = ({ id, username, nickname, email, avatarURL, type, score, isMe, isFollow, notice }) => {
-  const [noticeNum, setNoticeNum] = useState(notice.filter((item) => item.confirm === false).length || 0)
   const user = useUser()
   const { mode } = useParams()
   const history = useHistory()
@@ -218,9 +217,6 @@ const TopProfile = ({ id, username, nickname, email, avatarURL, type, score, isM
       {needLoginMode() === "teacher" && <NavBtn
         onClick={() => onClickNavBtn("student")}
         seleted={mode === "student" ? true : false}>학생 관리</NavBtn>}
-      {seeHomework() && <NavBtn
-        onClick={() => onClickNavBtn("homework")}
-        seleted={mode === "homework" ? true : false}>숙제</NavBtn>}
       <NavBtn
         onClick={() => onClickNavBtn("follow")}
         seleted={mode === "follow" ? true : false}>팔로잉 & 팔로우</NavBtn>
@@ -228,8 +224,12 @@ const TopProfile = ({ id, username, nickname, email, avatarURL, type, score, isM
         onClick={() => onClickNavBtn("notice")}
         seleted={mode === "notice" ? true : false}>
         <div>알림</div>
-        {noticeNum !== 0 && <NoticeNum>{noticeNum}</NoticeNum>}
+        {notice.filter((item) => item.confirm === false).length !== 0 &&
+          <NoticeNum>{notice.filter((item) => item.confirm === false).length}</NoticeNum>}
       </NavBtn>}
+      {seeHomework() && <NavBtn
+        onClick={() => onClickNavBtn("homework")}
+        seleted={mode === "homework" ? true : false}>숙제</NavBtn>}
     </ProfileNav>
 
   </Container>);
