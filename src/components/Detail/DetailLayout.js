@@ -233,7 +233,9 @@ const DetailLayout = ({
     update
   })
   const onClickToggleLike = () => {
+    console.log(loading);
     if (loading) {
+      window.alert("요청을 처리 중 입니다.")
       return
     }
     toggleLike({
