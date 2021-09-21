@@ -220,7 +220,7 @@ const TopProfile = ({ id, username, nickname, email, avatarURL, type, score, isM
       <NavBtn
         onClick={() => onClickNavBtn("follow")}
         seleted={mode === "follow" ? true : false}>팔로잉 & 팔로우</NavBtn>
-      {isMe && <NavBtn
+      {needLoginMode() === "teacher" && <NavBtn
         onClick={() => onClickNavBtn("notice")}
         seleted={mode === "notice" ? true : false}>
         <div>알림</div>
