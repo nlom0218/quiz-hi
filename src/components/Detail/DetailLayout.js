@@ -191,47 +191,58 @@ const DetailLayout = ({
   const update = (cache, result) => {
     if (processType() === "quiz") {
       const { data: { toggleLike: { ok } } } = result
-      const quizId = `Quiz:${id}`
-      cache.modify({
-        id: quizId,
-        fields: {
-          isLiked(prev) {
-            return !prev
-          },
-          likes(prev) {
-            if (isLiked) {
-              return prev - 1
+      if (ok) {
+        const quizId = `Quiz:${id}`
+        cache.modify({
+          id: quizId,
+          fields: {
+            isLiked(prev) {
+              return !prev
+            },
+            likes(prev) {
+              if (isLiked) {
+                return prev - 1
+              }
+              return prev + 1
             }
-            return prev + 1
           }
-        }
-      })
+        })
+      }
     } else if (processType() === "question") {
       const { data: { toggleLike: { ok } } } = result
-      const QuestionId = `Question:${id}`
-      cache.modify({
-        id: QuestionId,
-        fields: {
-          isLiked(prev) {
-            return !prev
-          },
-          likes(prev) {
-            if (isLiked) {
-              return prev - 1
+      if (ok) {
+        const QuestionId = `Question:${id}`
+        cache.modify({
+          id: QuestionId,
+          fields: {
+            isLiked(prev) {
+              return !prev
+            },
+            likes(prev) {
+              if (isLiked) {
+                return prev - 1
+              }
+              return prev + 1
             }
-            return prev + 1
           }
-        }
-      })
+        })
+      }
     }
   }
-  const [toggleLike] = useMutation(TOGGLE_LIKE_MUTATION, {
-    variables: {
-      type: processType(),
-      id
-    },
+  const [toggleLike, { loading }] = useMutation(TOGGLE_LIKE_MUTATION, {
     update
   })
+  const onClickToggleLike = () => {
+    if (loading) {
+      return
+    }
+    toggleLike({
+      variables: {
+        type: processType(),
+        id
+      }
+    })
+  }
   const processTitle = () => {
     if (title) {
       return title
@@ -281,7 +292,7 @@ const DetailLayout = ({
     </Basket>
     <Info>
       <Likes isLiked={isLiked}>
-        <FontAwesomeIcon icon={isLiked ? faHeart : faHeartRegular} onClick={toggleLike} />
+        <FontAwesomeIcon icon={isLiked ? faHeart : faHeartRegular} onClick={onClickToggleLike} />
         {likes}
       </Likes>
       <Hits>
