@@ -48,6 +48,7 @@ function App() {
           <Route exact path="/delete/:type/:id">{isLoggedIn ? <Delete /> : <NotFound />}</Route>
           <Route exact path="/login">{!isLoggedIn ? <Login /> : <NotFound />}</Route>
           <Route exact path="/create-account">{!isLoggedIn ? <CreateAccount /> : <NotFound />}</Route>
+          <Route exact path="/password-reset">{!isLoggedIn ? <CreateAccount /> : <NotFound />}</Route>
           <Route><NotFound /></Route>
         </Switch>
           :

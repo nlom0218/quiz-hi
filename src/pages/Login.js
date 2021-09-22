@@ -45,6 +45,11 @@ const AccountLink = styled.div`
   }
 `
 
+const FindPasswordLink = styled.div`
+  justify-self: center;
+  font-size: 14px;
+`
+
 const LOGIN_MUTATION = gql`
   mutation login($username: String!, $password: String!, $type: String!) {
     login(username: $username, password: $password, type: $type) {
@@ -174,6 +179,9 @@ const Login = () => {
           <AccountLink>
             계정이 없으신가요? <Link to="/create-account"><span>계정 만들기</span></Link>
           </AccountLink>
+          <FindPasswordLink>
+            <Link to="/password-reset">비밀번호를 잊으셨나요?</Link>
+          </FindPasswordLink>
         </form>
         {error ? <ErrMsg error={error} /> : null}
       </FormLayout>
