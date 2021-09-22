@@ -13,6 +13,7 @@ import InputBtn from '../components/InputBtn';
 import gql from 'graphql-tag';
 import { useMutation } from '@apollo/client';
 import { useHistory } from 'react-router';
+import ConfirmUsername from '../components/Account/ConfirmUsername';
 
 const RESET_PASSWORD_MUTATION = gql`
 mutation resetPassword($email: String!, $newPassword: String!, $newPasswordConfirm: String!) {
@@ -65,9 +66,10 @@ const PasswordReset = () => {
     })
   }
   return (<AccountContainer>
-    <Title page="비밀번호 찾기" />
+    <Title page="아이디/비밀번호 찾기" />
     <FormLayout>
       <PasswordEmailForm setError={setError} setDoneConfirm={setDoneConfirm} setEmail={setEmail} />
+      {doneConfirm && <ConfirmUsername email={email} />}
       <form className="loginCreateAccountForm" onSubmit={handleSubmit(onSubmit)}>
         <InputLayout>
           <span>
