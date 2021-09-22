@@ -22,6 +22,7 @@ import Delete from './pages/Delete';
 import Library from './pages/Library';
 import LibraryMakeQuiz from './pages/LibraryMakeQuiz';
 import StudentNotFound from './pages/StudentNotFound';
+import PasswordReset from './pages/PasswordReset';
 
 function App() {
   const darkMode = useReactiveVar(darkModeVar)
@@ -48,7 +49,7 @@ function App() {
           <Route exact path="/delete/:type/:id">{isLoggedIn ? <Delete /> : <NotFound />}</Route>
           <Route exact path="/login">{!isLoggedIn ? <Login /> : <NotFound />}</Route>
           <Route exact path="/create-account">{!isLoggedIn ? <CreateAccount /> : <NotFound />}</Route>
-          <Route exact path="/password-reset">{!isLoggedIn ? <CreateAccount /> : <NotFound />}</Route>
+          <Route exact path="/password-reset">{!isLoggedIn ? <PasswordReset /> : <NotFound />}</Route>
           <Route><NotFound /></Route>
         </Switch>
           :
