@@ -74,17 +74,18 @@ const ErrMsg = styled.div`
   }
 `
 
-const CONFIRM_EMAIL_MUTATION = gql`
-  mutation confirmEmail($email: String!) {
-    confirmEmail(email: $email) {
+const CONFIRM_EXIST_EMAIL_MUTATION = gql`
+  mutation confirmExistEmail($email: String!) {
+    confirmExistEmail(email: $email) {
       ok
       error
     }
   }
 `
 
-const PasswordEmailForm = ({ setDoneConfirm, setError, setEmail }) => {
+const PasswordEmailForm = ({ setDoneConfirm, setError }) => {
   const [confirmNum, setConfirmNum] = useState("")
+  console.log(confirmNum);
   const [sendEmail, setSendEmail] = useState(false)
   const [platform, setPlatForm] = useState("")
   const [sending, setSending] = useState(false)
@@ -94,7 +95,7 @@ const PasswordEmailForm = ({ setDoneConfirm, setError, setEmail }) => {
   })
   const onCompleted = (result) => {
     const email = getValues("email")
-    const { confirmEmail: { ok, error } } = result
+    const { confirmExistEmail: { ok, error } } = result
     if (ok) {
       const randomNum = Math.floor(Math.random() * 1000000)
       setConfirmNum(randomNum)
@@ -113,13 +114,12 @@ const PasswordEmailForm = ({ setDoneConfirm, setError, setEmail }) => {
       //   })
       setSendEmail(true)
       setSending(false)
-      setEmail(email)
       setPlatForm(email.split("@").reverse()[0])
     } else {
       setErrMsg(error)
     }
   }
-  const [confirmEmail, { loading }] = useMutation(CONFIRM_EMAIL_MUTATION, {
+  const [confirmExistEmail, { loading }] = useMutation(CONFIRM_EXIST_EMAIL_MUTATION, {
     onCompleted
   })
   const onSubmit = (data) => {
@@ -128,7 +128,7 @@ const PasswordEmailForm = ({ setDoneConfirm, setError, setEmail }) => {
     if (loading) {
       return
     }
-    confirmEmail({
+    confirmExistEmail({
       variables: {
         email
       }
