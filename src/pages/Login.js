@@ -181,7 +181,7 @@ const Login = () => {
             계정이 없으신가요? <Link to="/create-account"><span>계정 만들기</span></Link>
           </AccountLink>
           <FindPasswordLink>
-            <Link to="/password-reset">비밀번호를 잊으셨나요?</Link>
+            <Link to="/password-reset">아이디/비밀번호를 잊으셨나요?</Link>
           </FindPasswordLink>
         </form>
         {error ? <ErrMsg error={error} /> : null}

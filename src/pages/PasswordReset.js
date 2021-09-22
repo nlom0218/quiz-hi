@@ -8,15 +8,41 @@ import { useForm } from 'react-hook-form';
 import PasswordEmailForm from '../components/Account/PasswordEmailForm';
 import InputLayout from '../components/Account/InputLayout';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCircle, faEye, faEyeSlash, faQuestionCircle, faSun } from '@fortawesome/free-regular-svg-icons';
-import { faCheckCircle, faHome, faMoon, faSignInAlt } from '@fortawesome/free-solid-svg-icons';
+import { faEye, faEyeSlash } from '@fortawesome/free-regular-svg-icons';
+import InputBtn from '../components/InputBtn';
+import gql from 'graphql-tag';
+import { useMutation } from '@apollo/client';
+import { useHistory } from 'react-router';
 
-const Msg = styled.div``
+const RESET_PASSWORD_MUTATION = gql`
+mutation resetPassword($email: String!, $newPassword: String!, $newPasswordConfirm: String!) {
+  resetPassword(email: $email, newPassword: $newPassword, newPasswordConfirm: $newPasswordConfirm) {
+      ok
+      error
+    }
+  }
+`
 
 const PasswordReset = () => {
-  const { register, handleSubmit } = useForm()
+  const history = useHistory()
+  const { register, handleSubmit, formState: { isValid } } = useForm({
+    mode: "onChange"
+  })
   const [error, setError] = useState(undefined)
+  const [email, setEmail] = useState(undefined)
   const [doneConfirm, setDoneConfirm] = useState(false)
+  const onCompleted = (result) => {
+    const { resetPassword: { ok, error } } = result
+    if (error) {
+      setError(error)
+    }
+    if (ok) {
+      history.push("/login")
+    }
+  }
+  const [resetPassword, { loading }] = useMutation(RESET_PASSWORD_MUTATION, {
+    onCompleted
+  })
   const [visible, setVisible] = useState(false)
   const onClickEye = () => {
     if (visible) {
@@ -25,11 +51,23 @@ const PasswordReset = () => {
       setVisible(true)
     }
   }
-  const onSubmit = () => { }
+  const onSubmit = (data) => {
+    const { password, passwordConfirm } = data
+    if (loading) {
+      return
+    }
+    resetPassword({
+      variables: {
+        email,
+        newPassword: password,
+        newPasswordConfirm: passwordConfirm
+      }
+    })
+  }
   return (<AccountContainer>
     <Title page="비밀번호 찾기" />
     <FormLayout>
-      <PasswordEmailForm setError={setError} setDoneConfirm={setDoneConfirm} />
+      <PasswordEmailForm setError={setError} setDoneConfirm={setDoneConfirm} setEmail={setEmail} />
       <form className="loginCreateAccountForm" onSubmit={handleSubmit(onSubmit)}>
         <InputLayout>
           <span>
@@ -44,6 +82,7 @@ const PasswordReset = () => {
             </span>
           <input type={visible ? "text" : "password"} {...register("passwordConfirm", { required: true })} autoComplete="off" />
         </InputLayout>
+        <InputBtn value="비밀번호 변경하기" disabled={!isValid || !doneConfirm} bgColor="rgb(67, 216, 122)" />
       </form>
       {error ? <ErrMsg error={error} /> : null}
     </FormLayout>

@@ -83,7 +83,7 @@ const CONFIRM_EXIST_EMAIL_MUTATION = gql`
   }
 `
 
-const PasswordEmailForm = ({ setDoneConfirm, setError }) => {
+const PasswordEmailForm = ({ setDoneConfirm, setError, setEmail }) => {
   const [confirmNum, setConfirmNum] = useState("")
   console.log(confirmNum);
   const [sendEmail, setSendEmail] = useState(false)
@@ -114,6 +114,7 @@ const PasswordEmailForm = ({ setDoneConfirm, setError }) => {
       //   })
       setSendEmail(true)
       setSending(false)
+      setEmail(email)
       setPlatForm(email.split("@").reverse()[0])
     } else {
       setErrMsg(error)
