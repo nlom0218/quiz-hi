@@ -11,9 +11,21 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-regular-svg-icons';
 import InputBtn from '../components/InputBtn';
 import gql from 'graphql-tag';
-import { useMutation } from '@apollo/client';
+import { useMutation, useReactiveVar } from '@apollo/client';
 import { useHistory } from 'react-router';
 import ConfirmUsername from '../components/Account/ConfirmUsername';
+import PageBar from '../components/Account/PageBar';
+import PageBarItem from '../components/Account/PageBarItem';
+import { faHome, faMoon, faQuestionCircle, faSun } from '@fortawesome/free-solid-svg-icons';
+import { Link } from 'react-router-dom';
+import { darkModeVar } from '../apollo';
+import { onCLickDarkMode } from '../sharedFn';
+
+const AccountLink = styled.div`
+  justify-self: center;
+  font-size: 14px;
+  text-decoration: underline;
+`
 
 const RESET_PASSWORD_MUTATION = gql`
 mutation resetPassword($email: String!, $newPassword: String!, $newPasswordConfirm: String!) {
@@ -25,6 +37,7 @@ mutation resetPassword($email: String!, $newPassword: String!, $newPasswordConfi
 `
 
 const PasswordReset = () => {
+  const darkMode = useReactiveVar(darkModeVar)
   const history = useHistory()
   const { register, handleSubmit, formState: { isValid } } = useForm({
     mode: "onChange"
@@ -38,7 +51,7 @@ const PasswordReset = () => {
       setError(error)
     }
     if (ok) {
-      history.push("/login")
+      setError("비밀번호가 변경되었습니다.")
     }
   }
   const [resetPassword, { loading }] = useMutation(RESET_PASSWORD_MUTATION, {
@@ -84,10 +97,28 @@ const PasswordReset = () => {
             </span>
           <input type={visible ? "text" : "password"} {...register("passwordConfirm", { required: true })} autoComplete="off" />
         </InputLayout>
+        {error ? <ErrMsg error={error} /> : null}
         <InputBtn value="비밀번호 변경하기" disabled={!isValid || !doneConfirm} bgColor="rgb(67, 216, 122)" />
+        <AccountLink>
+          <Link to="/login">로그인하러 가기</Link>
+        </AccountLink>
       </form>
-      {error ? <ErrMsg error={error} /> : null}
     </FormLayout>
+    <PageBar>
+      <PageBarItem>
+        <Link to="/"><FontAwesomeIcon icon={faHome} /></Link>
+      </PageBarItem>
+      <PageBarItem>
+        <FontAwesomeIcon
+          icon={darkMode ? faSun : faMoon}
+          onClick={() => onCLickDarkMode(darkMode)}
+          style={{ color: `${darkMode ? "#ff765e" : "#212121"}` }}
+        />
+      </PageBarItem>
+      <PageBarItem>
+        <FontAwesomeIcon icon={faQuestionCircle} />
+      </PageBarItem>
+    </PageBar>
   </AccountContainer>);
 }
 
