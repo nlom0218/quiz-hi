@@ -1,17 +1,16 @@
 import React from 'react';
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faArrowUp, faBars, faInfoCircle, faMoon, faSun } from '@fortawesome/free-solid-svg-icons';
+import { faArrowUp, faBars, faMoon, faSun } from '@fortawesome/free-solid-svg-icons';
 import { useReactiveVar } from '@apollo/client';
 import { darkModeVar, disableDarkMode, enableDarkMode } from '../apollo';
-import { faQuestionCircle } from '@fortawesome/free-regular-svg-icons';
 
 const Wrapper = styled.div`
   position: fixed;
   bottom: 20px;
   right: 20px;
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
   align-items: center;
   width: 100px;
   height: 50px;
@@ -37,6 +36,7 @@ const Nav = styled.li`
     font-size: 16px;
     cursor: pointer;
   }
+  margin-right: 20px;
 `
 
 const SToTopBtn = styled.div`
@@ -67,11 +67,10 @@ const NavBtn = () => {
           onClick={onCLickDarkMode}
         />
       </Nav>
-      <FontAwesomeIcon icon={faQuestionCircle} />
       <SToTopBtn onClick={onClinkToTopBtn}>
         <FontAwesomeIcon icon={faArrowUp} />
       </SToTopBtn>
-    </Wrapper >
+    </Wrapper>
   )
 }
 
