@@ -83,7 +83,7 @@ const CONFIRM_EMAIL_MUTATION = gql`
   }
 `
 
-const EmailForm = ({ setDoneConfirm, setError, setEmail }) => {
+const PasswordEmailForm = ({ setDoneConfirm, setError, setEmail }) => {
   const [confirmNum, setConfirmNum] = useState("")
   const [sendEmail, setSendEmail] = useState(false)
   const [platform, setPlatForm] = useState("")
@@ -107,7 +107,7 @@ const EmailForm = ({ setDoneConfirm, setError, setEmail }) => {
       //   },
       //   "user_sJAAszXnKTFqusb3xguHm")
       //   .then((result) => {
-      // 요기에다 아래의 4줄 넣기!
+
       //   }, (error) => {
       //     console.log(error.text);
       //   })
@@ -176,4 +176,4 @@ const EmailForm = ({ setDoneConfirm, setError, setEmail }) => {
   );
 }
 
-export default EmailForm;
+export default PasswordEmailForm;

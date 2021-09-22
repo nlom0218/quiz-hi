@@ -48,6 +48,7 @@ const AccountLink = styled.div`
 const FindPasswordLink = styled.div`
   justify-self: center;
   font-size: 14px;
+  text-decoration: underline;
 `
 
 const LOGIN_MUTATION = gql`
