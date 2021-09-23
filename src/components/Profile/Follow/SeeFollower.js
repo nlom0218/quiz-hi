@@ -93,7 +93,7 @@ const SeeFollower = ({ userId, totalFollower }) => {
       <Container>
         <FollowTitle>
           <FontAwesomeIcon icon={faUserFriends} />
-          <div>팔로우</div>
+          <div>팔로워 {totalFollower}명</div>
           <SPageBar>
             <PageBarBtn firstPage={page === 1 ? true : false} onClick={() => onClickPageBtn("pre")}>이전</PageBarBtn>
             <PageBarBtn lastPage={lastPage === page} onClick={() => onClickPageBtn("next")}>다음</PageBarBtn>

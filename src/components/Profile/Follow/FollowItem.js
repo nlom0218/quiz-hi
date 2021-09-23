@@ -1,12 +1,13 @@
-import { faUser } from '@fortawesome/free-solid-svg-icons';
+import { faLockOpen, faUser } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
+import { useHistory } from 'react-router';
 import styled from 'styled-components';
 
 const Container = styled.div`
   padding: 20px 10px;
   display: grid;
-  grid-template-columns: 40px 1fr 1fr;
+  grid-template-columns: 40px 1fr auto;
   column-gap: 10px;
   background-color: ${props => props.theme.boxColor};
   transition: background-color 1s ease;
@@ -18,6 +19,7 @@ const Avatar = styled.div`
   svg {
     font-size: 24px;
   }
+  cursor: pointer;
 `
 
 const AvatarImage = styled.img`
@@ -26,7 +28,10 @@ const AvatarImage = styled.img`
   border-radius: 50%;
 `
 
-const Nickname = styled.div``
+const Nickname = styled.div`
+  cursor: pointer;
+  justify-self: flex-start;
+`
 
 const UserType = styled.span`
   margin-left: 10px;
@@ -34,8 +39,17 @@ const UserType = styled.span`
   opacity: 0.8;
 `
 
+const QuizQuestionNum = styled.div`
+  justify-self: flex-end;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  column-gap: 5px;
+  font-size: 14px;
+`
+
 const FollowItem = ({ username, avatarURL, nickname, type, totalPublicQuiz, totalPublicQuestion }) => {
-  console.log(totalPublicQuiz, totalPublicQuestion);
+  const history = useHistory()
   const processType = () => {
     if (type === "teacher") {
       return "선생님"
@@ -45,8 +59,18 @@ const FollowItem = ({ username, avatarURL, nickname, type, totalPublicQuiz, tota
       return "일반인"
     }
   }
+  const processNum = (num) => {
+    if (num < 1000) {
+      return num
+    } else {
+      return `${Math.floor(num / 1000)}k`
+    }
+  }
+  const onClickNickname = () => {
+    history.push(`/profile/${username}/info`)
+  }
   return (<Container>
-    <Avatar>
+    <Avatar onClick={onClickNickname}>
       {avatarURL ?
         <AvatarImage src={avatarURL} /> :
         <div>
@@ -54,12 +78,17 @@ const FollowItem = ({ username, avatarURL, nickname, type, totalPublicQuiz, tota
         </div>
       }
     </Avatar>
-    <Nickname>
+    <Nickname onClick={onClickNickname}>
       {nickname.length > 8 ? `${nickname.substring(0, 8)}...` : nickname}
       <UserType>
         ({processType()})
       </UserType>
     </Nickname>
+    {type === "teacher" && <QuizQuestionNum>
+      <FontAwesomeIcon icon={faLockOpen} />
+      <div>퀴즈{processNum(totalPublicQuiz)}</div>
+      <div>문제{processNum(totalPublicQuestion)}</div>
+    </QuizQuestionNum>}
   </Container>);
 }
 
