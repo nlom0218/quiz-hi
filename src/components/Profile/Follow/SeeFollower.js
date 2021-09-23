@@ -43,6 +43,11 @@ const SEE_FOLLOWER_QUERY = gql`
   query Query($userId: Int!, $page: Int!) {
     seeFollower(userId: $userId, page: $page) {
       username
+      avatarURL
+      nickname
+      type
+      totalPublicQuiz
+      totalPublicQuestion
     }
   }
 `
