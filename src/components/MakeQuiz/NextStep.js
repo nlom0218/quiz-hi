@@ -12,15 +12,12 @@ const Warpper = styled.div`
 
 const NextBtn = styled.div`
   text-align: center;
-  background-color: rgb(200, 200, 200, 0.6);
-  /* opacity: 0.8; */
+  background-color: ${props => props.theme.blueColor};
+  color: ${props => props.theme.bgColor};
   padding: 10px 0px;
   border-radius: 5px;
   cursor: pointer;
-  /* transition: opacity 0.4s linear;
-  :hover {
-    opacity: 1;
-  } */
+  transition: background-color 1s ease, color 1s ease;
 `
 
 const Msg = styled.div`
