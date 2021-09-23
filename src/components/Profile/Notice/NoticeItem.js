@@ -22,10 +22,10 @@ const SNoticeItem = styled.div`
   background-color: ${props => props.theme.boxColor};
   transition: 1s ease background-color;
   :hover {
-    background-color: rgb(200, 200, 200, 0.2);
+    background-color: ${props => props.theme.grayColor};
   }
   :hover textarea {
-    background-color: rgb(200, 200, 200, 0.2);
+    background-color: ${props => props.theme.grayColor};;
   }
   svg {
     justify-self: flex-end;
