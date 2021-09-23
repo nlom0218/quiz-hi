@@ -17,6 +17,7 @@ import StudentHeader from '../components/StudentHeader';
 import useUser from '../hooks/useUser';
 import useTitle from '../hooks/useTitle';
 import Notice from '../components/Profile/Notice/Notice';
+import ProfileFollow from '../components/Profile/Follow/ProfileFollow';
 
 const SEE_PROFILE_QUERY = gql`
   query seeProfile($username: String!) {
@@ -107,7 +108,7 @@ const Profile = () => {
             {user?.username === username && <ManagemnetStudent {...data?.seeProfile} />}
           </BottomProfile>}
           {mode === "homework" && <BottomProfile><StudentHomework {...data?.seeProfile} /></BottomProfile>}
-          {mode === "follow" && <BottomProfile></BottomProfile>}
+          {mode === "follow" && <BottomProfile><ProfileFollow userId={data?.seeProfile?.id} /></BottomProfile>}
           {mode === "notice" && <BottomProfile>
             {user?.username === username && <Notice {...data?.seeProfile} />}
           </BottomProfile>}
