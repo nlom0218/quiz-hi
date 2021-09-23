@@ -8,7 +8,7 @@ import { useForm } from 'react-hook-form';
 import PasswordEmailForm from '../components/Account/PasswordEmailForm';
 import InputLayout from '../components/Account/InputLayout';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEye, faEyeSlash } from '@fortawesome/free-regular-svg-icons';
+import { faEye, faEyeSlash, faQuestionCircle } from '@fortawesome/free-regular-svg-icons';
 import InputBtn from '../components/InputBtn';
 import gql from 'graphql-tag';
 import { useMutation, useReactiveVar } from '@apollo/client';
@@ -16,7 +16,7 @@ import { useHistory } from 'react-router';
 import ConfirmUsername from '../components/Account/ConfirmUsername';
 import PageBar from '../components/Account/PageBar';
 import PageBarItem from '../components/Account/PageBarItem';
-import { faHome, faMoon, faQuestionCircle, faSun } from '@fortawesome/free-solid-svg-icons';
+import { faHome, faMoon, faSun } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
 import { darkModeVar } from '../apollo';
 import { onCLickDarkMode } from '../sharedFn';
@@ -98,7 +98,7 @@ const PasswordReset = () => {
           <input type={visible ? "text" : "password"} {...register("passwordConfirm", { required: true })} autoComplete="off" />
         </InputLayout>
         {error ? <ErrMsg error={error} /> : null}
-        <InputBtn value="비밀번호 변경하기" disabled={!isValid || !doneConfirm} bgColor="rgb(67, 216, 122)" />
+        <InputBtn value="비밀번호 변경하기" disabled={!isValid || !doneConfirm} bgColor="rgb(255, 165, 0, 0.8)" />
         <AccountLink>
           <Link to="/login">로그인하러 가기</Link>
         </AccountLink>

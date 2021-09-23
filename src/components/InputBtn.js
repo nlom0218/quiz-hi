@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 const SInputBtn = styled.input`
   /* width: 100%; */
-  background-color: rgb(200, 200, 200, 0.6);
+  background-color: ${props => props.bgColor ? props.bgColor : "rgb(200, 200, 200, 0.6)"};
   opacity: ${props => props.disabled ? 0.4 : 1};
   text-align: center;
   font-weight: 600;
@@ -14,9 +14,9 @@ const SInputBtn = styled.input`
   cursor: pointer;
 `
 
-const InputBtn = ({ disabled, value }) => {
+const InputBtn = ({ disabled, value, bgColor }) => {
   return (
-    <SInputBtn type="submit" value={value} disabled={disabled} />
+    <SInputBtn type="submit" value={value} disabled={disabled} bgColor={bgColor} />
   );
 }
 

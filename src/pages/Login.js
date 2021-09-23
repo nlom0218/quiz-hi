@@ -177,7 +177,7 @@ const Login = () => {
             />
           </InputLayout>
           {error ? <ErrMsg error={error} /> : null}
-          <InputBtn value="로그인" disabled={!isValid} bgColor="rgb(67, 216, 122)" />
+          <InputBtn value="로그인" disabled={!isValid} bgColor="rgb(255, 165, 0, 0.8)" />
           <AccountLink>
             계정이 없으신가요? <Link to="/create-account"><span>계정 만들기</span></Link>
           </AccountLink>
