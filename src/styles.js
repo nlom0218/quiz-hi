@@ -2,7 +2,7 @@ import { createGlobalStyle } from "styled-components";
 import reset from "styled-reset";
 
 // / color: rgb(255, 165, 0, 0.8); orange /
-//   / color: rgb(42, 140, 0) green; /
+//   / color: rgb(42, 140, 0, 0.6) green; /
 
 // const processFont = () => {
 //   if () {

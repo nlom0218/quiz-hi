@@ -98,7 +98,7 @@ const PasswordReset = () => {
           <input type={visible ? "text" : "password"} {...register("passwordConfirm", { required: true })} autoComplete="off" />
         </InputLayout>
         {error ? <ErrMsg error={error} /> : null}
-        <InputBtn value="비밀번호 변경하기" disabled={!isValid || !doneConfirm} bgColor="rgb(255, 165, 0, 0.8)" />
+        <InputBtn value="비밀번호 변경하기" disabled={!isValid || !doneConfirm} bgColor="rgb(42, 140, 0, 0.6)" />
         <AccountLink>
           <Link to="/login">로그인하러 가기</Link>
         </AccountLink>
