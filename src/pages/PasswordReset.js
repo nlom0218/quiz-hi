@@ -25,6 +25,9 @@ const AccountLink = styled.div`
   justify-self: center;
   font-size: 14px;
   text-decoration: underline;
+  a {
+    opacity: 0.8;
+  }
 `
 
 const RESET_PASSWORD_MUTATION = gql`
