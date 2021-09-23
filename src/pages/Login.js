@@ -42,6 +42,7 @@ const AccountLink = styled.div`
   justify-self: center;
   a {
     font-weight: 600;
+    color: ${props => props.theme.blueColor};
   }
 `
 
