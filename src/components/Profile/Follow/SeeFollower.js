@@ -2,9 +2,10 @@ import React, { useEffect, useState } from 'react';
 import { useQuery } from '@apollo/client';
 import gql from 'graphql-tag';
 import styled from 'styled-components';
-import { FollowTitle } from "./sharedCss"
+import { FollowTitle, FollowList } from "./sharedCss"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUserFriends } from '@fortawesome/free-solid-svg-icons';
+import FollowItem from './FollowItem';
 
 const Container = styled.div`
   display: grid;
@@ -60,12 +61,11 @@ const SeeFollower = ({ userId, totalFollower }) => {
     const lastPage = Math.floor(totalFollower / 10) + 1
     setLastPage(lastPage)
   }
-  console.log(lastPage);
   const [page, setPage] = useState(1)
   const { data, loading } = useQuery(SEE_FOLLOWER_QUERY, {
     variables: {
       userId,
-      page: 1
+      page
     },
     skip: !userId,
     onCompleted
@@ -94,6 +94,11 @@ const SeeFollower = ({ userId, totalFollower }) => {
             <PageBarBtn lastPage={lastPage === page} onClick={() => onClickPageBtn("next")}>다음</PageBarBtn>
           </SPageBar>
         </FollowTitle>
+        <FollowList>
+          {data?.seeFollower.map((item, index) => {
+            return <FollowItem key={index} {...item} />
+          })}
+        </FollowList>
       </Container>
   );
 }

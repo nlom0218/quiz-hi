@@ -6,3 +6,7 @@ export const FollowTitle = styled.div`
   column-gap: 10px;
   align-items: center;
 `
+
+export const FollowList = styled.div`
+  background-color: ${props => props.theme.boxColor};
+`
