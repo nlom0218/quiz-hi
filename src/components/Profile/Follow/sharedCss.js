@@ -8,5 +8,9 @@ export const FollowTitle = styled.div`
 `
 
 export const FollowList = styled.div`
-  background-color: ${props => props.theme.boxColor};
+  background-color: rgb(200, 200, 200, 0.8);
+  display: grid;
+  grid-template-columns: 1fr;
+  row-gap: 1px;
+  border: 1px solid rgb(200, 200, 200, 0.8);
 `
