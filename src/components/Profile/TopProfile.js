@@ -208,6 +208,9 @@ const TopProfile = ({ id, username, nickname, email, avatarURL, type, score, isM
       {type !== "student" && <NavBtn
         onClick={() => onClickNavBtn("quizQuestion")}
         seleted={mode === "quizQuestion" ? true : false}>퀴즈 & 문제</NavBtn>}
+      <NavBtn
+        onClick={() => onClickNavBtn("follow")}
+        seleted={mode === "follow" ? true : false}>팔로잉 & 팔로우</NavBtn>
       {isMe &&
         <NavBtn onClick={() => onClickNavBtn("edit")}
           seleted={mode === "edit" ? true : false}>프로필 수정</NavBtn>}
@@ -217,9 +220,6 @@ const TopProfile = ({ id, username, nickname, email, avatarURL, type, score, isM
       {needLoginMode() === "teacher" && <NavBtn
         onClick={() => onClickNavBtn("student")}
         seleted={mode === "student" ? true : false}>학생 관리</NavBtn>}
-      <NavBtn
-        onClick={() => onClickNavBtn("follow")}
-        seleted={mode === "follow" ? true : false}>팔로잉 & 팔로우</NavBtn>
       {needLoginMode() === "teacher" && <NavBtn
         onClick={() => onClickNavBtn("notice")}
         seleted={mode === "notice" ? true : false}>
