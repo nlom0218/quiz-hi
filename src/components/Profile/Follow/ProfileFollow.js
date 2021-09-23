@@ -10,9 +10,9 @@ const Container = styled.div`
   align-items: flex-start;
 `
 
-const ProfileFollow = ({ userId }) => {
+const ProfileFollow = ({ id, totalFollow, totalFollowing }) => {
   return (<Container>
-    <SeeFollower userId={userId} />
+    <SeeFollower userId={id} totalFollower={totalFollow} />
     <div>dfsf</div>
   </Container>);
 }

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useQuery } from '@apollo/client';
 import gql from 'graphql-tag';
 import styled from 'styled-components';
@@ -16,14 +16,29 @@ const SEE_FOLLOWER_QUERY = gql`
   }
 `
 
-const SeeFollower = ({ userId }) => {
+const SeeFollower = ({ userId, totalFollower }) => {
+  const [lastPage, setLastPage] = useState(1)
+  const onCompleted = () => {
+    if (totalFollower === 0) {
+      setLastPage(1)
+      return
+    }
+    if (Number.isInteger(totalFollower / 10)) {
+      setLastPage(totalFollower / 10)
+      return
+    }
+    const lastPage = Math.floor(totalFollower / 10) + 1
+    setLastPage(lastPage)
+  }
+  console.log(lastPage);
   const [page, setPage] = useState(1)
   const { data, loading } = useQuery(SEE_FOLLOWER_QUERY, {
     variables: {
       userId,
       page: 1
     },
-    skip: !userId
+    skip: !userId,
+    onCompleted
   })
   console.log(data);
   return (
