@@ -14,3 +14,7 @@ export const FollowList = styled.div`
   row-gap: 1px;
   border: 1px solid rgb(200, 200, 200, 0.8);
 `
+
+export const NoUserMsg = styled.div`
+  color: tomato;
+`

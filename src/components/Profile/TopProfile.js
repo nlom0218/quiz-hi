@@ -210,7 +210,7 @@ const TopProfile = ({ id, username, nickname, email, avatarURL, type, score, isM
         seleted={mode === "quizQuestion" ? true : false}>퀴즈 & 문제</NavBtn>}
       <NavBtn
         onClick={() => onClickNavBtn("follow")}
-        seleted={mode === "follow" ? true : false}>팔로우 & 팔로링</NavBtn>
+        seleted={mode === "follow" ? true : false}>팔로우</NavBtn>
       {isMe &&
         <NavBtn onClick={() => onClickNavBtn("edit")}
           seleted={mode === "edit" ? true : false}>프로필 수정</NavBtn>}

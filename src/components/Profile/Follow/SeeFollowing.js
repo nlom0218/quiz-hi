@@ -39,9 +39,9 @@ const PageBarBtn = styled.div`
   }
 `
 
-const SEE_FOLLOWER_QUERY = gql`
+const SEE_FOLLOWING_QUERY = gql`
   query Query($userId: Int!, $page: Int!) {
-    seeFollower(userId: $userId, page: $page) {
+    seeFollowing(userId: $userId, page: $page) {
       username
       avatarURL
       nickname
@@ -52,22 +52,22 @@ const SEE_FOLLOWER_QUERY = gql`
   }
 `
 
-const SeeFollower = ({ userId, totalFollower }) => {
+const SeeFollowing = ({ userId, totalFollowing }) => {
   const [lastPage, setLastPage] = useState(1)
   const onCompleted = () => {
-    if (totalFollower === 0) {
+    if (totalFollowing === 0) {
       setLastPage(1)
       return
     }
-    if (Number.isInteger(totalFollower / 10)) {
-      setLastPage(totalFollower / 10)
+    if (Number.isInteger(totalFollowing / 10)) {
+      setLastPage(totalFollowing / 10)
       return
     }
-    const lastPage = Math.floor(totalFollower / 10) + 1
+    const lastPage = Math.floor(totalFollowing / 10) + 1
     setLastPage(lastPage)
   }
   const [page, setPage] = useState(1)
-  const { data, loading } = useQuery(SEE_FOLLOWER_QUERY, {
+  const { data, loading } = useQuery(SEE_FOLLOWING_QUERY, {
     variables: {
       userId,
       page
@@ -93,15 +93,15 @@ const SeeFollower = ({ userId, totalFollower }) => {
       <Container>
         <FollowTitle>
           <FontAwesomeIcon icon={faUserFriends} />
-          <div>팔로워 {totalFollower}명</div>
+          <div>팔로잉 {totalFollowing}명</div>
           <SPageBar>
             <PageBarBtn firstPage={page === 1 ? true : false} onClick={() => onClickPageBtn("pre")}>이전</PageBarBtn>
             <PageBarBtn lastPage={lastPage === page} onClick={() => onClickPageBtn("next")}>다음</PageBarBtn>
           </SPageBar>
         </FollowTitle>
-        {totalFollower === 0 ? <NoUserMsg>팔로워가 없습니다.</NoUserMsg> :
+        {totalFollowing === 0 ? <NoUserMsg>팔로잉이 없습니다.</NoUserMsg> :
           <FollowList>
-            {data?.seeFollower.map((item, index) => {
+            {data?.seeFollowing.map((item, index) => {
               return <FollowItem key={index} {...item} />
             })}
           </FollowList>
@@ -110,4 +110,4 @@ const SeeFollower = ({ userId, totalFollower }) => {
   );
 }
 
-export default SeeFollower;
+export default SeeFollowing;

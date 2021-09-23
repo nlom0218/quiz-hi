@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import SeeFollower from './SeeFollower';
+import SeeFollowing from './SeeFollowing';
 
 const Container = styled.div`
   margin-top: 20px;
@@ -13,7 +14,7 @@ const Container = styled.div`
 const ProfileFollow = ({ id, totalFollow, totalFollowing }) => {
   return (<Container>
     <SeeFollower userId={id} totalFollower={totalFollow} />
-    <div>dfsf</div>
+    <SeeFollowing userId={id} totalFollowing={totalFollowing} />
   </Container>);
 }
 
