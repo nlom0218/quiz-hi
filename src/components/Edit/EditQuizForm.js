@@ -9,7 +9,7 @@ import useUser from '../../hooks/useUser';
 import InputBtn from '../InputBtn';
 import EditInputLayout from './EditInputLayout';
 import EditTagInput from './EditTagInput';
-import { EidtMsg } from './sharedCss';
+import { EidtMsg, InputTitle } from './sharedCss';
 
 const SEditForm = styled.form`
   /* border: 1px solid ${props => props.theme.fontColor};
@@ -29,10 +29,6 @@ const SEditForm = styled.form`
   transition: border 1s ease;
   background-color: ${props => props.theme.boxColor};
   transition: background-color 1s ease;
-`
-
-const InputTitle = styled.div`
-  
 `
 
 const EDIT_QUIZ_MUTATION = gql`

@@ -7,10 +7,9 @@ import ObjQuestion from '../MakeQuiz/ObjQuestion';
 import SubQuestion from '../MakeQuiz/SubQuestion';
 import TFQuestion from '../MakeQuiz/TFQuestion';
 import EditInputLayout from './EditInputLayout';
+import { InputTitle } from './sharedCss';
 
 const Container = styled.div``
-
-const InputTitle = styled.div``
 
 const SMakeQuestionContainer = styled.div`
   display: grid;

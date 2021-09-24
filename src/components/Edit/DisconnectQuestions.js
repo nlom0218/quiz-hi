@@ -8,12 +8,9 @@ import { useForm } from 'react-hook-form';
 import { useParams } from 'react-router';
 import styled from 'styled-components';
 import EditInputLayout from './EditInputLayout';
+import { InputTitle } from './sharedCss';
 
 const SEditForm = styled.form`
-`
-
-const InputTitle = styled.div`
-  
 `
 
 const Wrapper = styled.div`

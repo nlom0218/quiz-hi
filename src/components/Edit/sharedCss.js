@@ -43,3 +43,7 @@ export const EidtMsg = styled.div`
   color: tomato;
   animation: ${fadeIn} 0.4s linear;
 `
+
+export const InputTitle = styled.div`
+  font-weight: 600;
+`
