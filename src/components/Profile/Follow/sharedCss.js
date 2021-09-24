@@ -13,6 +13,7 @@ export const FollowList = styled.div`
   grid-template-columns: 1fr;
   row-gap: 1px;
   border: 1px solid rgb(200, 200, 200, 0.8);
+  box-shadow: ${props => props.theme.boxShadow};
 `
 
 export const NoUserMsg = styled.div`

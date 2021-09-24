@@ -46,6 +46,7 @@ const QuizQuestionNum = styled.div`
   align-items: center;
   column-gap: 5px;
   font-size: 14px;
+  margin-right: 10px;
 `
 
 const FollowItem = ({ username, avatarURL, nickname, type, totalPublicQuiz, totalPublicQuestion }) => {
