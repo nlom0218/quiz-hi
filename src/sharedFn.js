@@ -124,3 +124,7 @@ export const compare = (key) => {
 export const compareDesc = (key) => {
   return (a, b) => (a[key] < b[key] ? 1 : (a[key] > b[key] ? -1 : 0))
 }
+
+export const compareNickname = () => {
+  return (a, b) => (a["nickname"] < b["nickname"] ? -1 : (a["nickname"] > b["nickname"] ? 1 : 0))
+}

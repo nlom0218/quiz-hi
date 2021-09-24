@@ -6,6 +6,7 @@ import { FollowTitle, FollowList, NoUserMsg } from "./sharedCss"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUserFriends } from '@fortawesome/free-solid-svg-icons';
 import FollowItem from './FollowItem';
+import { compareNickname } from '../../../sharedFn';
 
 const Container = styled.div`
   display: grid;
@@ -101,7 +102,7 @@ const SeeFollower = ({ userId, totalFollower }) => {
         </FollowTitle>
         {totalFollower === 0 ? <NoUserMsg>팔로워가 없습니다.</NoUserMsg> :
           <FollowList>
-            {data?.seeFollower.map((item, index) => {
+            {data?.seeFollower.slice().sort(compareNickname()).map((item, index) => {
               return <FollowItem key={index} {...item} />
             })}
           </FollowList>

@@ -69,7 +69,7 @@ const SortBtn = styled.div`
 
 const SortList = styled.ul`
   position: absolute;
-  top: 40px;
+  top: 34px;
   right: 0px;
   background-color: ${props => props.theme.grayColor};
   display: grid;
