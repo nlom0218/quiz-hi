@@ -27,6 +27,7 @@ const QuestionListTitle = styled.div`
   margin-top: 40px;
   grid-column: 1 / 2;
   grid-row: 6 / 7;
+  font-weight: 600;
 `
 
 const Basket = styled.div`

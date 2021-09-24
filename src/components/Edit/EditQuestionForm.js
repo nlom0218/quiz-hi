@@ -182,6 +182,7 @@ const EditQuestionForm = ({ tags, user: { id: ownerId }, type, image, question, 
           })}
           type="text"
           autoComplete="off"
+          className="firstInput"
         />
       </EditInputLayout>}
     {type === "obj" &&
@@ -211,6 +212,7 @@ const EditQuestionForm = ({ tags, user: { id: ownerId }, type, image, question, 
         {...register("hint")}
         type="text"
         autoComplete="off"
+        className="firstInput"
       />
     </EditInputLayout>
     <EditInputLayout>

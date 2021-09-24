@@ -129,7 +129,7 @@ const UpdateInfo = styled.div`
 `
 
 const UpdateTitle = styled.div`
-
+  font-weight: 600;
 `
 
 const UpdateDay = styled.div`
