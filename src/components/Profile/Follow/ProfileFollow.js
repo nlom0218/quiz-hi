@@ -25,7 +25,7 @@ const ProfileFollow = ({ id, totalFollow, totalFollowing }) => {
     <SeeFollower userId={id} totalFollower={totalFollow} />
     <SeeFollowing userId={id} totalFollowing={totalFollowing} />
     <DivisionLine></DivisionLine>
-    <FollowSearch />
+    <FollowSearch userId={id} />
   </Container>);
 }
 
