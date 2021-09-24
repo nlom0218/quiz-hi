@@ -102,7 +102,7 @@ const SeeFollower = ({ userId, totalFollower }) => {
         </FollowTitle>
         {totalFollower === 0 ? <NoUserMsg>팔로워가 없습니다.</NoUserMsg> :
           <FollowList>
-            {data?.seeFollower.slice().sort(compareNickname()).map((item, index) => {
+            {data?.seeFollower.map((item, index) => {
               return <FollowItem key={index} {...item} />
             })}
           </FollowList>
