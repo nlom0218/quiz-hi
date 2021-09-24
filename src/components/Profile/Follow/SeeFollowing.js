@@ -89,7 +89,7 @@ const SeeFollowing = ({ userId, totalFollowing }) => {
     }
   }
   return (
-    loading ? "" :
+    loading ? "loading..." :
       <Container>
         <FollowTitle>
           <FontAwesomeIcon icon={faUserFriends} />
