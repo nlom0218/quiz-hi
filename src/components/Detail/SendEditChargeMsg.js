@@ -191,7 +191,7 @@ const SendEditDChargeMsg = ({ user: { email }, id, title }) => {
     {chargeMsg && <ChargeMsgForm onSubmit={handleSubmit(onSubmitChargeMsg)}>
       <Msg>• 퀴즈 / 문제에 부적절한 내용이 포함 된다면 신고해주세요.</Msg>
       <Msg>• 신고내용은 퀴즈 / 문제를 작성한 선생님과 관리자에게 전달됩니다.</Msg>
-      <Msg>• 다른 선생들에 의해 신고 내용이 10회 누적 되면 퀴즈 / 문제는 삭제됩니다.</Msg>
+      <Msg>• 다른 사용자들에 의해 신고 내용이 10회 누적 되면 퀴즈 / 문제는 삭제됩니다.</Msg>
       <Msg>• 정상적인 게시물을 신고하게 될 경우 본인이 제재를 받을 수 있습니다.</Msg>
       <Wrapper>
         <div>신고 내용</div>
