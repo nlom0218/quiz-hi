@@ -10,7 +10,7 @@ import EditInputLayout from './EditInputLayout';
 import EditTagInput from './EditTagInput';
 import EditObjQuestionAnswer from './EditObjQuestionAnswer';
 import EidtTfQuestionAnswer from './EditTfQuestionAnswer';
-import { EidtMsg } from './sharedCss';
+import { EidtMsg, InputTitle } from './sharedCss';
 
 const SEditForm = styled.form`
   /* border: 1px solid ${props => props.theme.fontColor};
@@ -30,9 +30,6 @@ const SEditForm = styled.form`
   background-color: ${props => props.theme.boxColor};
   transition: background-color 1s ease;
   margin-bottom: 40px;
-`
-
-const InputTitle = styled.div`
 `
 
 const EDIT_QUESTION_MUTATION = gql`
