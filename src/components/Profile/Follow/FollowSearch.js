@@ -5,7 +5,10 @@ import gql from 'graphql-tag';
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import styled from 'styled-components';
+import { fadeIn } from '../../../animation/fade';
+import FollowItem from './FollowItem';
 import SetSearchType from './SetSearchType';
+import { FollowList } from './sharedCss';
 
 const Container = styled.div`
   grid-column: 1 / -1;
@@ -44,7 +47,6 @@ const SearchBar = styled.div`
       color: ${props => props.theme.fontColor};
       opacity: 0.8;
     }
-    
   }
 `
 
@@ -55,9 +57,15 @@ const SearchInput = styled.input`
 const SubmitBtn = styled.input`
   background-color: ${props => props.theme.blueColor};
   color: ${props => props.theme.bgColor};
-  opacity: ${props => props.disabled ? "0.6" : 1};
-  transition: opacity 0.6s ease;
+  opacity: ${props => props.disabled ? "0.6" : "1"};
   cursor: pointer;
+  transition: opacity 0.6s ease;
+`
+
+const NoMsg = styled.div`
+  color: tomato;
+  animation: ${fadeIn} 0.6s ease;
+  text-align: center;
 `
 
 const SEARCH_USER_MUTATION = gql`
@@ -78,11 +86,13 @@ const SEARCH_USER_MUTATION = gql`
 const FollowSearch = ({ userId }) => {
   const [type, setType] = useState("follower")
   const [page, setPage] = useState(1)
+  const [user, setUser] = useState([])
   const { register, handleSubmit, getValues, setValue, formState: { isValid } } = useForm({
     mode: "onChange"
   })
   const onCompleted = (result) => {
-    console.log(result);
+    const { searchUser: { user, totalNum } } = result
+    setUser(user)
   }
   const [searchUser, { loading }] = useMutation(SEARCH_USER_MUTATION, {
     onCompleted
@@ -116,6 +126,13 @@ const FollowSearch = ({ userId }) => {
           <SubmitBtn type="submit" value="검색" disabled={!isValid || getValues("nickname") === ""} />
         </form>
       </SearchBar>
+      {user.length === 0 ? <NoMsg>검색된 유저가 없습니다.</NoMsg> :
+        <FollowList style={{ boxShadow: "none" }}>
+          {user.map((item, index) => {
+            return <FollowItem key={index} {...item} />
+          })}
+        </FollowList>
+      }
     </Layout>
   </Container>);
 }

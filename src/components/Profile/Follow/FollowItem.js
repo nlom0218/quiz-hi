@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
 import { useHistory } from 'react-router';
 import styled from 'styled-components';
+import { fadeIn } from '../../../animation/fade';
 
 const Container = styled.div`
   padding: 20px 10px;
@@ -12,6 +13,10 @@ const Container = styled.div`
   background-color: ${props => props.theme.boxColor};
   transition: background-color 1s ease;
   align-items: center;
+  animation: ${fadeIn} 0.6 ease;
+  :hover {
+    background-color: ${props => props.theme.bgColor};
+  }
 `
 
 const Avatar = styled.div`
