@@ -13,10 +13,18 @@ const Container = styled.div`
   align-items: flex-start;
 `
 
+const DivisionLine = styled.div`
+  grid-column: 1 / -1;
+  height: 1px;
+  background-color: rgb(200, 200, 200, 0.6);
+  transition: background-color 1s ease;
+`
+
 const ProfileFollow = ({ id, totalFollow, totalFollowing }) => {
   return (<Container>
     <SeeFollower userId={id} totalFollower={totalFollow} />
     <SeeFollowing userId={id} totalFollowing={totalFollowing} />
+    <DivisionLine></DivisionLine>
     <FollowSearch />
   </Container>);
 }
