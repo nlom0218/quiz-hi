@@ -174,9 +174,6 @@ const FollowSearch = ({ userId }) => {
     }
   }
   useEffect(() => {
-    if (user.length === 0) {
-      return
-    }
     if (getValues("nickname") === "") {
       return
     }
