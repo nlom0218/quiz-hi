@@ -111,6 +111,7 @@ const SEARCH_USER_MUTATION = gql`
         totalPublicQuiz
         totalPublicQuestion
       }
+      totalNum
     }
   }
 `
@@ -120,12 +121,24 @@ const FollowSearch = ({ userId }) => {
   const [page, setPage] = useState(1)
   const [user, setUser] = useState([])
   const [lastPage, setLastPage] = useState(1)
+  console.log(lastPage);
   const { register, handleSubmit, getValues, setValue, formState: { isValid } } = useForm({
     mode: "onChange"
   })
   const onCompleted = (result) => {
     const { searchUser: { user, totalNum } } = result
     setUser(user)
+    console.log(totalNum);
+    if (totalNum === 0) {
+      setLastPage(1)
+      return
+    }
+    if (Number.isInteger(totalNum / 10)) {
+      setLastPage(totalNum / 10)
+      return
+    }
+    const lastPage = Math.floor(totalNum / 10) + 1
+    setLastPage(lastPage)
   }
   const [searchUser, { loading }] = useMutation(SEARCH_USER_MUTATION, {
     onCompleted
