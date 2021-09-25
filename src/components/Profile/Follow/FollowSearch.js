@@ -171,6 +171,9 @@ const FollowSearch = ({ userId }) => {
     }
   }
   useEffect(() => {
+    if (user.length === 0) {
+      return
+    }
     searchUser({
       variables: {
         userId,
