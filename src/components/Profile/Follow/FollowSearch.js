@@ -68,6 +68,38 @@ const NoMsg = styled.div`
   text-align: center;
 `
 
+const ListContainer = styled.div`
+  display: grid;
+  grid-template-columns: 1fr;
+  row-gap: 20px;
+`
+
+const PageBar = styled.div`
+  justify-self: flex-end;
+  align-self: flex-end;
+  border: 1px solid rgb(200, 200, 200, 0.6);
+  border-radius: 5px;
+  display: flex;
+  position: relative;
+`
+
+const PageBarBtn = styled.div`
+  padding: 8px 20px;
+  transition: background-color 0.2s linear;
+  :hover {
+    background-color: rgb(200, 200, 200, 0.2);
+  }
+  :first-child {
+    border-right: 1px solid rgb(200, 200, 200, 0.6);
+    opacity: ${props => props.firstPage ? "0.4" : "1"};
+    cursor: ${props => props.firstPage ? "not-allowd" : "pointer"};
+  }
+  :nth-child(2) {
+    opacity: ${props => props.lastPage ? "0.4" : "1"};
+    cursor: ${props => props.lastPage ? "not-allowd" : "pointer"};
+  }
+`
+
 const SEARCH_USER_MUTATION = gql`
   mutation searchUser($nickname: String!, $type: String!, $page: Int!, $userId: Int!) {
     searchUser(nickname: $nickname, type: $type, page: $page, userId: $userId) {
@@ -87,6 +119,7 @@ const FollowSearch = ({ userId }) => {
   const [type, setType] = useState("follower")
   const [page, setPage] = useState(1)
   const [user, setUser] = useState([])
+  const [lastPage, setLastPage] = useState(1)
   const { register, handleSubmit, getValues, setValue, formState: { isValid } } = useForm({
     mode: "onChange"
   })
@@ -111,6 +144,7 @@ const FollowSearch = ({ userId }) => {
       }
     })
   }
+  const onClickPageBtn = () => { }
   return (<Container>
     <div><FontAwesomeIcon icon={faSearch} /> 팔로워 / 팔로잉 검색</div>
     <Layout>
@@ -127,11 +161,17 @@ const FollowSearch = ({ userId }) => {
         </form>
       </SearchBar>
       {user.length === 0 ? <NoMsg>검색된 유저가 없습니다.</NoMsg> :
-        <FollowList style={{ boxShadow: "none" }}>
-          {user.map((item, index) => {
-            return <FollowItem key={index} {...item} />
-          })}
-        </FollowList>
+        <ListContainer>
+          <FollowList style={{ boxShadow: "none" }}>
+            {user.map((item, index) => {
+              return <FollowItem key={index} {...item} />
+            })}
+          </FollowList>
+          <PageBar>
+            <PageBarBtn firstPage={page === 1 ? true : false} onClick={() => onClickPageBtn("pre")}>이전</PageBarBtn>
+            <PageBarBtn lastPage={lastPage === page} onClick={() => onClickPageBtn("next")}>다음</PageBarBtn>
+          </PageBar>
+        </ListContainer>
       }
     </Layout>
   </Container>);
