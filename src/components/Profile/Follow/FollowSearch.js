@@ -41,7 +41,6 @@ const SearchBar = styled.div`
   input {
     padding: 8px 20px;
     border-radius: 5px;
-    transition: color 1s ease, background-color 1s ease;
     ::placeholder {
       transition: color 1s ease, background-color 1s ease;
       color: ${props => props.theme.fontColor};
@@ -57,9 +56,9 @@ const SearchInput = styled.input`
 const SubmitBtn = styled.input`
   background-color: ${props => props.theme.blueColor};
   color: ${props => props.theme.bgColor};
-  opacity: ${props => props.disabled ? "0.6" : "1"};
+  opacity: ${props => props.disabled ? 0.6 : 1};
   cursor: pointer;
-  transition: opacity 0.6s ease;
+  transition: color 1s ease, background-color 1s ease, opacity 0.6s ease;
 `
 
 const NoMsg = styled.div`
@@ -72,6 +71,7 @@ const ListContainer = styled.div`
   display: grid;
   grid-template-columns: 1fr;
   row-gap: 20px;
+  animation: ${fadeIn} 0.6s ease;
 `
 
 const PageBar = styled.div`
@@ -146,6 +146,9 @@ const FollowSearch = ({ userId }) => {
     if (loading) {
       return
     }
+    if (nickname === "") {
+      return
+    }
     searchUser({
       variables: {
         userId,
@@ -171,6 +174,12 @@ const FollowSearch = ({ userId }) => {
     }
   }
   useEffect(() => {
+    if (user.length === 0) {
+      return
+    }
+    if (getValues("nickname") === "") {
+      return
+    }
     searchUser({
       variables: {
         userId,
@@ -179,11 +188,11 @@ const FollowSearch = ({ userId }) => {
         page
       }
     })
-  }, [page])
+  }, [page, type])
   return (<Container>
     <div><FontAwesomeIcon icon={faSearch} /> 팔로워 / 팔로잉 검색</div>
     <Layout>
-      <SetSearchType setType={setType} type={type} setValue={setValue} />
+      <SetSearchType setType={setType} type={type} setValue={setValue} setPage={setPage} />
       <SearchBar>
         <form onSubmit={handleSubmit(onSubmit)}>
           <SearchInput

@@ -19,9 +19,10 @@ const TypeItem = styled.li`
   }
 `
 
-const SetSearchType = ({ setType, type, setValue }) => {
+const SetSearchType = ({ setType, type, setPage }) => {
   const onClickType = (type) => {
     setType(type)
+    setPage(1)
   }
   return (<Container>
     <div style={{ fontWeight: "600" }}>검색 유형</div>
