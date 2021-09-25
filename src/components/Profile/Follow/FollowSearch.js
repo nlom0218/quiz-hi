@@ -2,7 +2,7 @@ import { useMutation, useQuery } from '@apollo/client';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import gql from 'graphql-tag';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import styled from 'styled-components';
 import { fadeIn } from '../../../animation/fade';
@@ -121,14 +121,12 @@ const FollowSearch = ({ userId }) => {
   const [page, setPage] = useState(1)
   const [user, setUser] = useState([])
   const [lastPage, setLastPage] = useState(1)
-  console.log(lastPage);
   const { register, handleSubmit, getValues, setValue, formState: { isValid } } = useForm({
     mode: "onChange"
   })
   const onCompleted = (result) => {
     const { searchUser: { user, totalNum } } = result
     setUser(user)
-    console.log(totalNum);
     if (totalNum === 0) {
       setLastPage(1)
       return
@@ -157,7 +155,31 @@ const FollowSearch = ({ userId }) => {
       }
     })
   }
-  const onClickPageBtn = () => { }
+  const onClickPageBtn = (btn) => {
+    if (btn === "pre") {
+      if (page === 1) {
+        return
+      } else {
+        setPage(prev => prev - 1)
+      }
+    } else if (btn === "next") {
+      if (lastPage === page) {
+        return
+      } else {
+        setPage(prev => prev + 1)
+      }
+    }
+  }
+  useEffect(() => {
+    searchUser({
+      variables: {
+        userId,
+        nickname: getValues("nickname"),
+        type,
+        page
+      }
+    })
+  }, [page])
   return (<Container>
     <div><FontAwesomeIcon icon={faSearch} /> 팔로워 / 팔로잉 검색</div>
     <Layout>
