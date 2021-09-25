@@ -109,6 +109,7 @@ const EditQuizForm = ({ title, caption, tags, updateInfo, user: { id: ownerId } 
         })}
         type="text"
         autoComplete="off"
+        className="firstInput"
       />
     </EditInputLayout>
     <EditInputLayout>
